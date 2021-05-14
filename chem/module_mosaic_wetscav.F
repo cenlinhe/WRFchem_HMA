@@ -357,7 +357,7 @@ CONTAINS
 290   continue
   end if
 
-! 20180723 cenlin_BC_CLM start
+! 20180723 cenlin_BC_CLM start  qsrflx is negative
    qflx_incld(:,:,:) = qsrflx(:,:,:) * 1.0e-9 / dtstepc !ug/m2 ->kg/m2/s
 ! 20180723 cenlin_BC_CLM end
 
@@ -508,7 +508,7 @@ CONTAINS
                       dqdt,       dotend,     qsrflx      )
   end if
 
-! 20180723 cenlin_BC_CLM start kg/m2/s
+! 20180723 cenlin_BC_CLM start kg/m2/s, qsrflx accumulated negative
    qflx_blcld(:,:,:) = qsrflx(:,:,:) * 1.0e-9 / dtstepc - qflx_incld(:,:,:)
 ! 20180723 cenlin_BC_CLM end
 

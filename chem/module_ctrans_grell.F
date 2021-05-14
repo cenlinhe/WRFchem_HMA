@@ -72,6 +72,7 @@ USE module_state_description, ONLY: p_wetdep_bcphi,p_wetdep_bcpho,&
                               p_wetdep_bcphi_ar8,p_wetdep_bcpho_ar8,&
                               p_wetdep_bcphi_ar9,p_wetdep_bcpho_ar9,&
                               p_wetdep_bcphi_ar10,p_wetdep_bcpho_ar10,&
+                              p_wetdep_dust, & ! cenlin_dust_CLM
                               p_bc_cw01,p_bc_cw02,p_bc_cw03,p_bc_cw04,&
                               p_bc_cw01_ant,p_bc_cw02_ant,p_bc_cw03_ant,p_bc_cw04_ant,&
                               p_bc_a01_ant,p_bc_a02_ant,p_bc_a03_ant,p_bc_a04_ant,&
@@ -99,6 +100,7 @@ USE module_state_description, ONLY: p_wetdep_bcphi,p_wetdep_bcpho,&
                               p_bc_a01_ar9,p_bc_a02_ar9,p_bc_a03_ar9,p_bc_a04_ar9,&
                               p_bc_cw01_ar10,p_bc_cw02_ar10,p_bc_cw03_ar10,p_bc_cw04_ar10,&
                               p_bc_a01_ar10,p_bc_a02_ar10,p_bc_a03_ar10,p_bc_a04_ar10,&
+                              p_oin_cw01,p_oin_cw02,p_oin_cw03,p_oin_cw04,& ! cenlin_dust_CLM 
                               num_drydep_flux,num_wetdep_flux
 ! cenlin_BC_CLM end
 
@@ -738,6 +740,25 @@ CONTAINS
      wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcpho_ar10) = &
                  wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcpho_ar10) + &
                  max(0.0,wetdep_2d(its:ite,jts:jte,p_bc_a04_ar10)) * 1.0e-9
+
+! cenlin_dust_CLM
+     wetdep_flux(its:ite,jts:jte,1,p_wetdep_dust) = &
+                 wetdep_flux(its:ite,jts:jte,1,p_wetdep_dust) + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_oin_cw01)) * 1.0e-9 + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_oin_a01)) * 1.0e-9
+     wetdep_flux(its:ite,jts:jte,2,p_wetdep_dust) = &
+                 wetdep_flux(its:ite,jts:jte,2,p_wetdep_dust) + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_oin_cw02)) * 1.0e-9 + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_oin_a02)) * 1.0e-9
+     wetdep_flux(its:ite,jts:jte,3,p_wetdep_dust) = &
+                 wetdep_flux(its:ite,jts:jte,3,p_wetdep_dust) + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_oin_cw03)) * 1.0e-9 + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_oin_a03)) * 1.0e-9
+     wetdep_flux(its:ite,jts:jte,4,p_wetdep_dust) = &
+                 wetdep_flux(its:ite,jts:jte,4,p_wetdep_dust) + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_oin_cw04)) * 1.0e-9 + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_oin_a04)) * 1.0e-9
+
    endif
 ! cenlin_BC_CLM end
 

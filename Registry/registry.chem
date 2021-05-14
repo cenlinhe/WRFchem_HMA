@@ -696,10 +696,10 @@ state   real  drydep_bcpho_ant     ij{sizebin}f     drydep_flux      1      -   
 state   real  wetdep_bcphi_ant     ij{sizebin}f     wetdep_flux      1      -      rh       "wetdep_bcphi_ant"          "BCphi_ant wet deposition for 4 bins"          "kg/m2/s"
 state   real  wetdep_bcpho_ant     ij{sizebin}f     wetdep_flux      1      -      rh       "wetdep_bcpho_ant"          "BCpho_ant wet deposition for 4 bins"          "kg/m2/s"
 # biomass burning
-state   real  drydep_bcphi_bb     ij{sizebin}f     drydep_flux      1      -      rh       "drydep_bcphi_bb"          "BCphi_bb dry deposition for 4 bins"          "kg/m2/s"
-state   real  drydep_bcpho_bb     ij{sizebin}f     drydep_flux      1      -      rh       "drydep_bcpho_bb"          "BCpho_bb dry deposition for 4 bins"          "kg/m2/s"
-state   real  wetdep_bcphi_bb     ij{sizebin}f     wetdep_flux      1      -      rh       "wetdep_bcphi_bb"          "BCphi_bb wet deposition for 4 bins"          "kg/m2/s"
-state   real  wetdep_bcpho_bb     ij{sizebin}f     wetdep_flux      1      -      rh       "wetdep_bcpho_bb"          "BCpho_bb wet deposition for 4 bins"          "kg/m2/s"
+state   real  drydep_bcphi_bb      ij{sizebin}f     drydep_flux      1      -      rh       "drydep_bcphi_bb"          "BCphi_bb dry deposition for 4 bins"          "kg/m2/s"
+state   real  drydep_bcpho_bb      ij{sizebin}f     drydep_flux      1      -      rh       "drydep_bcpho_bb"          "BCpho_bb dry deposition for 4 bins"          "kg/m2/s"
+state   real  wetdep_bcphi_bb      ij{sizebin}f     wetdep_flux      1      -      rh       "wetdep_bcphi_bb"          "BCphi_bb wet deposition for 4 bins"          "kg/m2/s"
+state   real  wetdep_bcpho_bb      ij{sizebin}f     wetdep_flux      1      -      rh       "wetdep_bcpho_bb"          "BCpho_bb wet deposition for 4 bins"          "kg/m2/s"
 # boundary outside
 state   real  drydep_bcphi_bdy     ij{sizebin}f     drydep_flux      1      -      rh       "drydep_bcphi_bdy"          "BCphi_bdy dry deposition for 4 bins"          "kg/m2/s"
 state   real  drydep_bcpho_bdy     ij{sizebin}f     drydep_flux      1      -      rh       "drydep_bcpho_bdy"          "BCpho_bdy dry deposition for 4 bins"          "kg/m2/s"
@@ -742,17 +742,21 @@ state   real  drydep_bcphi_ar9     ij{sizebin}f     drydep_flux      1      -   
 state   real  drydep_bcpho_ar9     ij{sizebin}f     drydep_flux      1      -      rh       "drydep_bcpho_ar9"          "BCpho_ar9 dry deposition for 4 bins"          "kg/m2/s"
 state   real  wetdep_bcphi_ar9     ij{sizebin}f     wetdep_flux      1      -      rh       "wetdep_bcphi_ar9"          "BCphi_ar9 wet deposition for 4 bins"          "kg/m2/s"
 state   real  wetdep_bcpho_ar9     ij{sizebin}f     wetdep_flux      1      -      rh       "wetdep_bcpho_ar9"          "BCpho_ar9 wet deposition for 4 bins"          "kg/m2/s"
-state   real  drydep_bcphi_ar10     ij{sizebin}f     drydep_flux      1      -      rh       "drydep_bcphi_ar10"          "BCphi_ar10 dry deposition for 4 bins"          "kg/m2/s"
-state   real  drydep_bcpho_ar10     ij{sizebin}f     drydep_flux      1      -      rh       "drydep_bcpho_ar10"          "BCpho_ar10 dry deposition for 4 bins"          "kg/m2/s"
-state   real  wetdep_bcphi_ar10     ij{sizebin}f     wetdep_flux      1      -      rh       "wetdep_bcphi_ar10"          "BCphi_ar10 wet deposition for 4 bins"          "kg/m2/s"
-state   real  wetdep_bcpho_ar10     ij{sizebin}f     wetdep_flux      1      -      rh       "wetdep_bcpho_ar10"          "BCpho_ar10 wet deposition for 4 bins"          "kg/m2/s"
-# add hourly output var
-state   real  drydep_bc    ij       misc      1      -      h3     "drydep_bc"    "total drydep BC"    "kg/m2/s"
-state   real  wetdep_bc    ij       misc      1      -      h3     "wetdep_bc"    "total wetdep BC"    "kg/m2/s"
+state   real  drydep_bcphi_ar10    ij{sizebin}f     drydep_flux      1      -      rh       "drydep_bcphi_ar10"         "BCphi_ar10 dry deposition for 4 bins"          "kg/m2/s"
+state   real  drydep_bcpho_ar10    ij{sizebin}f     drydep_flux      1      -      rh       "drydep_bcpho_ar10"         "BCpho_ar10 dry deposition for 4 bins"          "kg/m2/s"
+state   real  wetdep_bcphi_ar10    ij{sizebin}f     wetdep_flux      1      -      rh       "wetdep_bcphi_ar10"         "BCphi_ar10 wet deposition for 4 bins"          "kg/m2/s"
+state   real  wetdep_bcpho_ar10    ij{sizebin}f     wetdep_flux      1      -      rh       "wetdep_bcpho_ar10"         "BCpho_ar10 wet deposition for 4 bins"          "kg/m2/s"
+# dust depo cenlin_dust
+state   real  drydep_dust          ij{sizebin}f     drydep_flux      1      -      rh       "drydep_dust"               "DUST from dry deposition for 4-bin in snow"      "kg/m2/s"
+state   real  wetdep_dust          ij{sizebin}f     wetdep_flux      1      -      rh       "wetdep_dust"               "DUST from wet deposition for 4-bin in snow"      "kg/m2/s"
+
+# add hourly output var cenlin
+state   real  drydep_bc        ij       misc      1      -      h3     "drydep_bc"    "total drydep BC"    "kg/m2/s"
+state   real  wetdep_bc        ij       misc      1      -      h3     "wetdep_bc"    "total wetdep BC"    "kg/m2/s"
 state   real  drydep_bc_ant    ij       misc      1      -      h3     "drydep_bc_ant"    "total drydep BC-Ant"    "kg/m2/s"
 state   real  wetdep_bc_ant    ij       misc      1      -      h3     "wetdep_bc_ant"    "total wetdep BC-Ant"    "kg/m2/s"
-state   real  drydep_bc_bb    ij       misc      1      -      h3     "drydep_bc_bb"    "total drydep BC-BB"    "kg/m2/s"
-state   real  wetdep_bc_bb    ij       misc      1      -      h3     "wetdep_bc_bb"    "total wetdep BC-BB"    "kg/m2/s"
+state   real  drydep_bc_bb     ij       misc      1      -      h3     "drydep_bc_bb"    "total drydep BC-BB"    "kg/m2/s"
+state   real  wetdep_bc_bb     ij       misc      1      -      h3     "wetdep_bc_bb"    "total wetdep BC-BB"    "kg/m2/s"
 state   real  drydep_bc_bdy    ij       misc      1      -      h3     "drydep_bc_bdy"    "total drydep BC-Bdy"    "kg/m2/s"
 state   real  wetdep_bc_bdy    ij       misc      1      -      h3     "wetdep_bc_bdy"    "total wetdep BC-Bdy"    "kg/m2/s"
 state   real  drydep_bc_ar1    ij       misc      1      -      h3     "drydep_bc_ar1"    "total drydep BC-AR1"    "kg/m2/s"
@@ -773,8 +777,8 @@ state   real  drydep_bc_ar8    ij       misc      1      -      h3     "drydep_b
 state   real  wetdep_bc_ar8    ij       misc      1      -      h3     "wetdep_bc_ar8"    "total wetdep BC-AR8"    "kg/m2/s"
 state   real  drydep_bc_ar9    ij       misc      1      -      h3     "drydep_bc_ar9"    "total drydep BC-AR9"    "kg/m2/s"
 state   real  wetdep_bc_ar9    ij       misc      1      -      h3     "wetdep_bc_ar9"    "total wetdep BC-AR9"    "kg/m2/s"
-state   real  drydep_bc_ar10    ij       misc      1      -      h3     "drydep_bc_ar10"    "total drydep BC-AR10"    "kg/m2/s"
-state   real  wetdep_bc_ar10    ij       misc      1      -      h3     "wetdep_bc_ar10"    "total wetdep BC-AR10"    "kg/m2/s"
+state   real  drydep_bc_ar10   ij       misc      1      -      h3     "drydep_bc_ar10"    "total drydep BC-AR10"    "kg/m2/s"
+state   real  wetdep_bc_ar10   ij       misc      1      -      h3     "wetdep_bc_ar10"    "total wetdep BC-AR10"    "kg/m2/s"
 state   real  aod_550          ij       misc      1      -      h3     "aod_550"         "column AOD at 550 nm"    ""
 state   real  bc_sfc_tot       ij       misc      1      -      h3     "bc_sfc_tot"      "BC total surface conc."   "ug/m3"
 state   real  bc_sfc_ant       ij       misc      1      -      h3     "bc_sfc_ant"      "BC-Ant surface conc."   "ug/m3"
@@ -793,8 +797,14 @@ state   real  bc_sfc_ar10      ij       misc      1      -      h3     "bc_sfc_a
 state   real  oc_sfc_tot       ij       misc      1      -      h3     "oc_sfc_tot"      "OC total surface conc."   "ug/m3"
 state   real  pm25_sfc         ij       misc      1      -      h3     "pm25_sfc"        "PM2.5 surface conc."   "ug/m3"
 state   real  pm10_sfc         ij       misc      1      -      h3     "pm10_sfc"        "PM10 surface conc."   "ug/m3"
-state   real  dust_sfc         ij       misc      1      -      -     "dust_sfc"        "Dust total surface conc."   "ug/m3"
+state   real  dust_sfc_tot     ij       misc      1      -      h3     "dust_sfc_tot"        "Dust total surface conc."   "ug/m3"
 # 20180719 cenlin_BC_CLM end
+# cenlin_dust_CLM
+state   real  drydep_dust_tot        ij       misc      1      -      h3     "drydep_dust_tot"    "total drydep dust for all bins"    "kg/m2/s"
+state   real  wetdep_dust_tot        ij       misc      1      -      h3     "wetdep_dust_tot"    "total wetdep dust for all bins"    "kg/m2/s"
+# cenlin_dust_CLM end
+#
+
 
 # Tendency diagnostics for chemistry (chemdiag)
 #
@@ -3007,21 +3017,25 @@ state   real   bc_a02_ar10  ikjftb   chem       1         -   i0{12}rusdf=(bdy_i
 state   real   bc_a03_ar10  ikjftb   chem       1         -   i0{12}rusdf=(bdy_interp:dt)  "bc_a03_ar10"    "BC-Ant-R10, aerosol bin 03"      "ug/kg-dryair"
 state   real   bc_a04_ar10  ikjftb   chem       1         -   i0{12}rusdf=(bdy_interp:dt)  "bc_a04_ar10"    "BC-Ant-R10, aerosol bin 04"      "ug/kg-dryair"
 # add aggregated  output var
-state   real   bc_a_tot    ikj      misc        1         -   h        "bc_a_tot"     "BC-tot, aerosol all bins"    "ug/m3 dryair"
-state   real   bc_a_ant    ikj      misc        1         -   h        "bc_a_ant"     "BC-ant, aerosol all bins"    "ug/m3 dryair"
-state   real   bc_a_bb     ikj      misc        1         -   h        "bc_a_bb"     "BC-bb, aerosol all bins"    "ug/m3 dryair"
-state   real   bc_a_bdy    ikj      misc        1         -   h        "bc_a_bdy"     "BC-bdy, aerosol all bins"    "ug/m3 dryair"
-state   real   bc_a_ar1    ikj      misc        1         -   h        "bc_a_ar1"     "BC-ar1, aerosol all bins"    "ug/m3 dryair"
-state   real   bc_a_ar2    ikj      misc        1         -   h        "bc_a_ar2"     "BC-ar2, aerosol all bins"    "ug/m3 dryair"
-state   real   bc_a_ar3    ikj      misc        1         -   h        "bc_a_ar3"     "BC-ar3, aerosol all bins"    "ug/m3 dryair"
-state   real   bc_a_ar4    ikj      misc        1         -   h        "bc_a_ar4"     "BC-ar4, aerosol all bins"    "ug/m3 dryair"
-state   real   bc_a_ar5    ikj      misc        1         -   h        "bc_a_ar5"     "BC-ar5, aerosol all bins"    "ug/m3 dryair"
-state   real   bc_a_ar6    ikj      misc        1         -   h        "bc_a_ar6"     "BC-ar6, aerosol all bins"    "ug/m3 dryair"
-state   real   bc_a_ar7    ikj      misc        1         -   h        "bc_a_ar7"     "BC-ar7, aerosol all bins"    "ug/m3 dryair"
-state   real   bc_a_ar8    ikj      misc        1         -   h        "bc_a_ar8"     "BC-ar8, aerosol all bins"    "ug/m3 dryair"
-state   real   bc_a_ar9    ikj      misc        1         -   h        "bc_a_ar9"     "BC-ar9, aerosol all bins"    "ug/m3 dryair"
-state   real   bc_a_ar10   ikj      misc        1         -   h        "bc_a_ar10"     "BC-ar10, aerosol all bins"    "ug/m3 dryair"
+state   real   bc_a_tot    ikj      misc        1         -   h        "bc_a_tot"     "BC-tot, aerosol all bins in aerosol"    "ug/m3 dryair"
+state   real   bc_a_ant    ikj      misc        1         -   h        "bc_a_ant"     "BC-ant, aerosol all bins in aerosol"    "ug/m3 dryair"
+state   real   bc_a_bb     ikj      misc        1         -   h        "bc_a_bb"      "BC-bb, aerosol all bins in aerosol"    "ug/m3 dryair"
+state   real   bc_a_bdy    ikj      misc        1         -   h        "bc_a_bdy"     "BC-bdy, aerosol all bins in aerosol"    "ug/m3 dryair"
+state   real   bc_a_ar1    ikj      misc        1         -   h        "bc_a_ar1"     "BC-ar1, aerosol all bins in aerosol"    "ug/m3 dryair"
+state   real   bc_a_ar2    ikj      misc        1         -   h        "bc_a_ar2"     "BC-ar2, aerosol all bins in aerosol"    "ug/m3 dryair"
+state   real   bc_a_ar3    ikj      misc        1         -   h        "bc_a_ar3"     "BC-ar3, aerosol all bins in aerosol"    "ug/m3 dryair"
+state   real   bc_a_ar4    ikj      misc        1         -   h        "bc_a_ar4"     "BC-ar4, aerosol all bins in aerosol"    "ug/m3 dryair"
+state   real   bc_a_ar5    ikj      misc        1         -   h        "bc_a_ar5"     "BC-ar5, aerosol all bins in aerosol"    "ug/m3 dryair"
+state   real   bc_a_ar6    ikj      misc        1         -   h        "bc_a_ar6"     "BC-ar6, aerosol all bins in aerosol"    "ug/m3 dryair"
+state   real   bc_a_ar7    ikj      misc        1         -   h        "bc_a_ar7"     "BC-ar7, aerosol all bins in aerosol"    "ug/m3 dryair"
+state   real   bc_a_ar8    ikj      misc        1         -   h        "bc_a_ar8"     "BC-ar8, aerosol all bins in aerosol"    "ug/m3 dryair"
+state   real   bc_a_ar9    ikj      misc        1         -   h        "bc_a_ar9"     "BC-ar9, aerosol all bins in aerosol"    "ug/m3 dryair"
+state   real   bc_a_ar10   ikj      misc        1         -   h        "bc_a_ar10"    "BC-ar10, aerosol all bins in aerosol"    "ug/m3 dryair"
+state   real   oc_a_tot    ikj      misc        1         -   h        "oc_a_tot"     "OC-tot, aerosol all bins in aerosol"    "ug/m3 dryair"
 # cenlin_BC_trac end
+# cenlin_dust_CLM start
+state   real   dust_a_tot    ikj      misc        1         -   h        "dust_a_tot"     "dust-tot, aerosol all bins in aerosol"    "ug/m3 dryair"
+# cenlin_dust_CLM end
 state   real   so4_a05     ikjftb   chem        1         -   i0{12}rhusdf=(bdy_interp:dt)  "so4_a05"       "Sulfate, aerosol bin 05"     "ug/kg-dryair"
 state   real   no3_a05     ikjftb   chem        1         -   i0{12}rhusdf=(bdy_interp:dt)  "no3_a05"       "Nitrate, aerosol bin 05"     "ug/kg-dryair"
 state   real   aro1_a05    ikjftb   chem        1         -   i0{12}rhusdf=(bdy_interp:dt)  "aro1_a05"       "ARO1, aerosol bin 01"     "ug/kg-dryair"
@@ -3601,9 +3615,12 @@ state   real   bc_cw_ar7    ikj      misc        1         -   h        "bc_cw_a
 state   real   bc_cw_ar8    ikj      misc        1         -   h        "bc_cw_ar8"     "BC-ar8, aerosol all bins in cloud"    "ug/m3 dryair"
 state   real   bc_cw_ar9    ikj      misc        1         -   h        "bc_cw_ar9"     "BC-ar9, aerosol all bins in cloud"    "ug/m3 dryair"
 state   real   bc_cw_ar10   ikj      misc        1         -   h        "bc_cw_ar10"     "BC-ar10, aerosol all bins in cloud"    "ug/m3 dryair"
-state   real   oc_a_tot    ikj      misc        1         -   h        "oc_a_tot"       "OC-tot, aerosol all bins"    "ug/m3 dryair"
-state   real   oc_cw_tot   ikj      misc        1         -   h        "oc_cw_tot"      "OC-tot, aerosol all bins in cloud"    "ug/m3 dryair"
+state   real   oc_cw_tot    ikj      misc        1         -   h        "oc_cw_tot"      "OC-tot, aerosol all bins in cloud"    "ug/m3 dryair"
 # cenlin_BC_trac end----------
+# cenlin_dust_CLM start
+state   real   dust_cw_tot    ikj      misc        1         -   h        "dust_cw_tot"     "dust-tot, aerosol all bins in cloud"    "ug/m3 dryair"
+# cenlin_dust_CLM end
+
 state   real   so4_cw05     ikjftb   chem       1         -   i0{12}rhusdf=(bdy_interp:dt)  "so4_cw05"       "Sulfate, aerosol in cloud bin 05"     "ug/kg-dryair"
 state   real   no3_cw05     ikjftb   chem       1         -   i0{12}rhusdf=(bdy_interp:dt)  "no3_cw05"       "Nitrate, aerosol in cloud bin 05"     "ug/kg-dryair"
 state   real   cl_cw05      ikjftb   chem       1         -   i0{12}rhusdf=(bdy_interp:dt)  "cl_cw05"        "Chloride, aerosol in cloud bin 05"      "ug/kg-dryair"
@@ -4344,7 +4361,7 @@ package   tracer_test3  tracer_opt==4       -             tracer:tr17_1,tr17_2,t
 # the following arrays only needed for aircraft emissions options
 package   aircraft1      aircraft_emiss_opt==1             -       emis_aircraft:eac_no,eac_co,eac_so2,eac_ch4
 # 20180723 cenlin_BC_CLM start --------------
-package   useaerosoldep    aerosoldep==1     -         drydep_flux:drydep_bcphi,drydep_bcpho,drydep_bcphi_ant,drydep_bcpho_ant,drydep_bcphi_bb,drydep_bcpho_bb,drydep_bcphi_bdy,drydep_bcpho_bdy,drydep_bcphi_ar1,drydep_bcpho_ar1,drydep_bcphi_ar2,drydep_bcpho_ar2,drydep_bcphi_ar3,drydep_bcpho_ar3,drydep_bcphi_ar4,drydep_bcpho_ar4,drydep_bcphi_ar5,drydep_bcpho_ar5,drydep_bcphi_ar6,drydep_bcpho_ar6,drydep_bcphi_ar7,drydep_bcpho_ar7,drydep_bcphi_ar8,drydep_bcpho_ar8,drydep_bcphi_ar9,drydep_bcpho_ar9,drydep_bcphi_ar10,drydep_bcpho_ar10;wetdep_flux:wetdep_bcphi,wetdep_bcpho,wetdep_bcphi_ant,wetdep_bcpho_ant,wetdep_bcphi_bb,wetdep_bcpho_bb,wetdep_bcphi_bdy,wetdep_bcpho_bdy,wetdep_bcphi_ar1,wetdep_bcpho_ar1,wetdep_bcphi_ar2,wetdep_bcpho_ar2,wetdep_bcphi_ar3,wetdep_bcpho_ar3,wetdep_bcphi_ar4,wetdep_bcpho_ar4,wetdep_bcphi_ar5,wetdep_bcpho_ar5,wetdep_bcphi_ar6,wetdep_bcpho_ar6,wetdep_bcphi_ar7,wetdep_bcpho_ar7,wetdep_bcphi_ar8,wetdep_bcpho_ar8,wetdep_bcphi_ar9,wetdep_bcpho_ar9,wetdep_bcphi_ar10,wetdep_bcpho_ar10
+package   useaerosoldep    aerosoldep==1     -         drydep_flux:drydep_dust,drydep_bcphi,drydep_bcpho,drydep_bcphi_ant,drydep_bcpho_ant,drydep_bcphi_bb,drydep_bcpho_bb,drydep_bcphi_bdy,drydep_bcpho_bdy,drydep_bcphi_ar1,drydep_bcpho_ar1,drydep_bcphi_ar2,drydep_bcpho_ar2,drydep_bcphi_ar3,drydep_bcpho_ar3,drydep_bcphi_ar4,drydep_bcpho_ar4,drydep_bcphi_ar5,drydep_bcpho_ar5,drydep_bcphi_ar6,drydep_bcpho_ar6,drydep_bcphi_ar7,drydep_bcpho_ar7,drydep_bcphi_ar8,drydep_bcpho_ar8,drydep_bcphi_ar9,drydep_bcpho_ar9,drydep_bcphi_ar10,drydep_bcpho_ar10;wetdep_flux:wetdep_dust,wetdep_bcphi,wetdep_bcpho,wetdep_bcphi_ant,wetdep_bcpho_ant,wetdep_bcphi_bb,wetdep_bcpho_bb,wetdep_bcphi_bdy,wetdep_bcpho_bdy,wetdep_bcphi_ar1,wetdep_bcpho_ar1,wetdep_bcphi_ar2,wetdep_bcpho_ar2,wetdep_bcphi_ar3,wetdep_bcpho_ar3,wetdep_bcphi_ar4,wetdep_bcpho_ar4,wetdep_bcphi_ar5,wetdep_bcpho_ar5,wetdep_bcphi_ar6,wetdep_bcpho_ar6,wetdep_bcphi_ar7,wetdep_bcpho_ar7,wetdep_bcphi_ar8,wetdep_bcpho_ar8,wetdep_bcphi_ar9,wetdep_bcpho_ar9,wetdep_bcphi_ar10,wetdep_bcpho_ar10
 # 20180723 cenlin_BC_CLM end --------------
 package   nochemdiag     chemdiag==0         -                -
 package   usechemdiag    chemdiag==1         -                conv_ct:conv_co,conv_o3,conv_no,conv_no2,conv_hno3,conv_iso,conv_ho,conv_ho2;chem_ct:chem_co,chem_o3,chem_no,chem_no2,chem_hno3,chem_iso,chem_ho,chem_ho2;vmix_ct:vmix_co,vmix_o3,vmix_no,vmix_no2,vmix_hno3,vmix_iso,vmix_ho,vmix_ho2;advh_ct:advh_co,advh_o3,advh_no,advh_no2,advh_hno3,advh_iso,advh_ho,advh_ho2;advz_ct:advz_co,advz_o3,advz_no,advz_no2,advz_hno3,advz_iso,advz_ho,advz_ho2

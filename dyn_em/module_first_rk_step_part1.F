@@ -608,6 +608,48 @@ BENCH_START(surf_driver_tim)
      &        ,mss_cnc_bcpho_2d3=grid%mss_cnc_bcpho_2d3  &
      &        ,mss_cnc_bcpho_2d4=grid%mss_cnc_bcpho_2d4  &
      &        ,mss_cnc_bcpho_2d5=grid%mss_cnc_bcpho_2d5  &
+! cenlin_dust_CLM
+     &        ,snowdust_col2d=grid%snowdust_col2d,snowdust_top2d=grid%snowdust_top2d   &
+     &        ,sfc_frc_dust=grid%sfc_frc_dust,sfc_frc_dust_snow=grid%sfc_frc_dust_snow &
+     &        ,sfc_frc_aer=grid%sfc_frc_aer,sfc_frc_aer_snow=grid%sfc_frc_aer_snow &
+     &        ,albedo_dust=grid%albedo_dust,albedo_aer=grid%albedo_aer    &
+     &        ,mss_dust1_s1=grid%mss_dust1_s1,mss_dust1_s2=grid%mss_dust1_s2  &
+     &        ,mss_dust1_s3=grid%mss_dust1_s3,mss_dust1_s4=grid%mss_dust1_s4  &
+     &        ,mss_dust1_s5=grid%mss_dust1_s5   &
+     &        ,mss_cnc_dust1_s1=grid%mss_cnc_dust1_s1  &
+     &        ,mss_cnc_dust1_s2=grid%mss_cnc_dust1_s2  &
+     &        ,mss_cnc_dust1_s3=grid%mss_cnc_dust1_s3  &
+     &        ,mss_cnc_dust1_s4=grid%mss_cnc_dust1_s4  &
+     &        ,mss_cnc_dust1_s5=grid%mss_cnc_dust1_s5  &
+     &        ,mss_dust2_s1=grid%mss_dust2_s1,mss_dust2_s2=grid%mss_dust2_s2  &
+     &        ,mss_dust2_s3=grid%mss_dust2_s3,mss_dust2_s4=grid%mss_dust2_s4  &
+     &        ,mss_dust2_s5=grid%mss_dust2_s5   &
+     &        ,mss_cnc_dust2_s1=grid%mss_cnc_dust2_s1  &
+     &        ,mss_cnc_dust2_s2=grid%mss_cnc_dust2_s2  &
+     &        ,mss_cnc_dust2_s3=grid%mss_cnc_dust2_s3  &
+     &        ,mss_cnc_dust2_s4=grid%mss_cnc_dust2_s4  &
+     &        ,mss_cnc_dust2_s5=grid%mss_cnc_dust2_s5  &
+     &        ,mss_dust3_s1=grid%mss_dust3_s1,mss_dust3_s2=grid%mss_dust3_s2  &
+     &        ,mss_dust3_s3=grid%mss_dust3_s3,mss_dust3_s4=grid%mss_dust3_s4  &
+     &        ,mss_dust3_s5=grid%mss_dust3_s5   &
+     &        ,mss_cnc_dust3_s1=grid%mss_cnc_dust3_s1  &
+     &        ,mss_cnc_dust3_s2=grid%mss_cnc_dust3_s2  &
+     &        ,mss_cnc_dust3_s3=grid%mss_cnc_dust3_s3  &
+     &        ,mss_cnc_dust3_s4=grid%mss_cnc_dust3_s4  &
+     &        ,mss_cnc_dust3_s5=grid%mss_cnc_dust3_s5  &
+     &        ,mss_dust4_s1=grid%mss_dust4_s1,mss_dust4_s2=grid%mss_dust4_s2  &
+     &        ,mss_dust4_s3=grid%mss_dust4_s3,mss_dust4_s4=grid%mss_dust4_s4  &
+     &        ,mss_dust4_s5=grid%mss_dust4_s5   &
+     &        ,mss_cnc_dust4_s1=grid%mss_cnc_dust4_s1  &
+     &        ,mss_cnc_dust4_s2=grid%mss_cnc_dust4_s2  &
+     &        ,mss_cnc_dust4_s3=grid%mss_cnc_dust4_s3  &
+     &        ,mss_cnc_dust4_s4=grid%mss_cnc_dust4_s4  &
+     &        ,mss_cnc_dust4_s5=grid%mss_cnc_dust4_s5  &
+     &        ,mss_cnc_dust_2d1=grid%mss_cnc_dust_2d1  &
+     &        ,mss_cnc_dust_2d2=grid%mss_cnc_dust_2d2  &
+     &        ,mss_cnc_dust_2d3=grid%mss_cnc_dust_2d3  &
+     &        ,mss_cnc_dust_2d4=grid%mss_cnc_dust_2d4  &
+     &        ,mss_cnc_dust_2d5=grid%mss_cnc_dust_2d5  &
 #if (WRF_CHEM == 1)
      &        ,drydep_flux=grid%drydep_flux,wetdep_flux=grid%wetdep_flux  & 
 #endif

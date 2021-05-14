@@ -546,242 +546,312 @@ CASE (CBMZ_CAM_MAM3_NOAQ,CBMZ_CAM_MAM3_AQ,CBMZ_CAM_MAM7_NOAQ,CBMZ_CAM_MAM7_AQ)
 
 ! 20180718 cenlin_BC_CLM start kg/m2/s
           wetdep_flux(ii,jj,1,p_wetdep_bcphi)=wetdep_flux(ii,jj,1,p_wetdep_bcphi)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01)+qflx_blcld(ii,jj,p_bc_cw01)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01)+qflx_blcld(ii,jj,p_bc_cw01)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a01))
           wetdep_flux(ii,jj,1,p_wetdep_bcpho)=wetdep_flux(ii,jj,1,p_wetdep_bcpho)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a01))
           wetdep_flux(ii,jj,2,p_wetdep_bcphi)=wetdep_flux(ii,jj,2,p_wetdep_bcphi)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02)+qflx_blcld(ii,jj,p_bc_cw02)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02)+qflx_blcld(ii,jj,p_bc_cw02)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a02))
           wetdep_flux(ii,jj,2,p_wetdep_bcpho)=wetdep_flux(ii,jj,2,p_wetdep_bcpho)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a02))
           wetdep_flux(ii,jj,3,p_wetdep_bcphi)=wetdep_flux(ii,jj,3,p_wetdep_bcphi)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03)+qflx_blcld(ii,jj,p_bc_cw03)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03)+qflx_blcld(ii,jj,p_bc_cw03)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a03))
           wetdep_flux(ii,jj,3,p_wetdep_bcpho)=wetdep_flux(ii,jj,3,p_wetdep_bcpho)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a03))
           wetdep_flux(ii,jj,4,p_wetdep_bcphi)=wetdep_flux(ii,jj,4,p_wetdep_bcphi)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04)+qflx_blcld(ii,jj,p_bc_cw04)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04)+qflx_blcld(ii,jj,p_bc_cw04)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a04))
           wetdep_flux(ii,jj,4,p_wetdep_bcpho)=wetdep_flux(ii,jj,4,p_wetdep_bcpho)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a04))
 
           wetdep_flux(ii,jj,1,p_wetdep_bcphi_ant)=wetdep_flux(ii,jj,1,p_wetdep_bcphi_ant)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ant)+qflx_blcld(ii,jj,p_bc_cw01_ant)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ant)+qflx_blcld(ii,jj,p_bc_cw01_ant)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a01_ant))
           wetdep_flux(ii,jj,1,p_wetdep_bcpho_ant)=wetdep_flux(ii,jj,1,p_wetdep_bcpho_ant)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a01_ant))
           wetdep_flux(ii,jj,2,p_wetdep_bcphi_ant)=wetdep_flux(ii,jj,2,p_wetdep_bcphi_ant)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ant)+qflx_blcld(ii,jj,p_bc_cw02_ant)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ant)+qflx_blcld(ii,jj,p_bc_cw02_ant)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a02_ant))
           wetdep_flux(ii,jj,2,p_wetdep_bcpho_ant)=wetdep_flux(ii,jj,2,p_wetdep_bcpho_ant)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a02_ant))
           wetdep_flux(ii,jj,3,p_wetdep_bcphi_ant)=wetdep_flux(ii,jj,3,p_wetdep_bcphi_ant)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ant)+qflx_blcld(ii,jj,p_bc_cw03_ant)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ant)+qflx_blcld(ii,jj,p_bc_cw03_ant)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a03_ant))
           wetdep_flux(ii,jj,3,p_wetdep_bcpho_ant)=wetdep_flux(ii,jj,3,p_wetdep_bcpho_ant)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a03_ant))
           wetdep_flux(ii,jj,4,p_wetdep_bcphi_ant)=wetdep_flux(ii,jj,4,p_wetdep_bcphi_ant)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ant)+qflx_blcld(ii,jj,p_bc_cw04_ant)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ant)+qflx_blcld(ii,jj,p_bc_cw04_ant)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a04_ant))
           wetdep_flux(ii,jj,4,p_wetdep_bcpho_ant)=wetdep_flux(ii,jj,4,p_wetdep_bcpho_ant)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a04_ant))
 
           wetdep_flux(ii,jj,1,p_wetdep_bcphi_bb)=wetdep_flux(ii,jj,1,p_wetdep_bcphi_bb)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_bb)+qflx_blcld(ii,jj,p_bc_cw01_bb)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_bb)+qflx_blcld(ii,jj,p_bc_cw01_bb)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a01_bb))
           wetdep_flux(ii,jj,1,p_wetdep_bcpho_bb)=wetdep_flux(ii,jj,1,p_wetdep_bcpho_bb)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a01_bb))
           wetdep_flux(ii,jj,2,p_wetdep_bcphi_bb)=wetdep_flux(ii,jj,2,p_wetdep_bcphi_bb)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_bb)+qflx_blcld(ii,jj,p_bc_cw02_bb)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_bb)+qflx_blcld(ii,jj,p_bc_cw02_bb)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a02_bb))
           wetdep_flux(ii,jj,2,p_wetdep_bcpho_bb)=wetdep_flux(ii,jj,2,p_wetdep_bcpho_bb)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a02_bb))
           wetdep_flux(ii,jj,3,p_wetdep_bcphi_bb)=wetdep_flux(ii,jj,3,p_wetdep_bcphi_bb)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_bb)+qflx_blcld(ii,jj,p_bc_cw03_bb)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_bb)+qflx_blcld(ii,jj,p_bc_cw03_bb)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a03_bb))
           wetdep_flux(ii,jj,3,p_wetdep_bcpho_bb)=wetdep_flux(ii,jj,3,p_wetdep_bcpho_bb)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a03_bb))
           wetdep_flux(ii,jj,4,p_wetdep_bcphi_bb)=wetdep_flux(ii,jj,4,p_wetdep_bcphi_bb)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_bb)+qflx_blcld(ii,jj,p_bc_cw04_bb)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_bb)+qflx_blcld(ii,jj,p_bc_cw04_bb)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a04_bb))
           wetdep_flux(ii,jj,4,p_wetdep_bcpho_bb)=wetdep_flux(ii,jj,4,p_wetdep_bcpho_bb)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a04_bb))
 
           wetdep_flux(ii,jj,1,p_wetdep_bcphi_bdy)=wetdep_flux(ii,jj,1,p_wetdep_bcphi_bdy)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_bdy)+qflx_blcld(ii,jj,p_bc_cw01_bdy)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_bdy)+qflx_blcld(ii,jj,p_bc_cw01_bdy)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a01_bdy))
           wetdep_flux(ii,jj,1,p_wetdep_bcpho_bdy)=wetdep_flux(ii,jj,1,p_wetdep_bcpho_bdy)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a01_bdy))
           wetdep_flux(ii,jj,2,p_wetdep_bcphi_bdy)=wetdep_flux(ii,jj,2,p_wetdep_bcphi_bdy)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_bdy)+qflx_blcld(ii,jj,p_bc_cw02_bdy)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_bdy)+qflx_blcld(ii,jj,p_bc_cw02_bdy)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a02_bdy))
           wetdep_flux(ii,jj,2,p_wetdep_bcpho_bdy)=wetdep_flux(ii,jj,2,p_wetdep_bcpho_bdy)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a02_bdy))
           wetdep_flux(ii,jj,3,p_wetdep_bcphi_bdy)=wetdep_flux(ii,jj,3,p_wetdep_bcphi_bdy)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_bdy)+qflx_blcld(ii,jj,p_bc_cw03_bdy)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_bdy)+qflx_blcld(ii,jj,p_bc_cw03_bdy)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a03_bdy))
           wetdep_flux(ii,jj,3,p_wetdep_bcpho_bdy)=wetdep_flux(ii,jj,3,p_wetdep_bcpho_bdy)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a03_bdy))
           wetdep_flux(ii,jj,4,p_wetdep_bcphi_bdy)=wetdep_flux(ii,jj,4,p_wetdep_bcphi_bdy)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_bdy)+qflx_blcld(ii,jj,p_bc_cw04_bdy)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_bdy)+qflx_blcld(ii,jj,p_bc_cw04_bdy)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a04_bdy))
           wetdep_flux(ii,jj,4,p_wetdep_bcpho_bdy)=wetdep_flux(ii,jj,4,p_wetdep_bcpho_bdy)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a04_bdy))
 
           wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar1)=wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar1)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar1)+qflx_blcld(ii,jj,p_bc_cw01_ar1)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar1)+qflx_blcld(ii,jj,p_bc_cw01_ar1)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a01_ar1))
           wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar1)=wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar1)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a01_ar1))
           wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar1)=wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar1)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar1)+qflx_blcld(ii,jj,p_bc_cw02_ar1)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar1)+qflx_blcld(ii,jj,p_bc_cw02_ar1)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a02_ar1))
           wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar1)=wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar1)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a02_ar1))
           wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar1)=wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar1)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar1)+qflx_blcld(ii,jj,p_bc_cw03_ar1)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar1)+qflx_blcld(ii,jj,p_bc_cw03_ar1)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a03_ar1))
           wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar1)=wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar1)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a03_ar1))
           wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar1)=wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar1)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar1)+qflx_blcld(ii,jj,p_bc_cw04_ar1)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar1)+qflx_blcld(ii,jj,p_bc_cw04_ar1)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a04_ar1))
           wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar1)=wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar1)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a04_ar1))
 
           wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar2)=wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar2)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar2)+qflx_blcld(ii,jj,p_bc_cw01_ar2)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar2)+qflx_blcld(ii,jj,p_bc_cw01_ar2)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a01_ar2))
           wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar2)=wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar2)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a01_ar2))
           wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar2)=wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar2)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar2)+qflx_blcld(ii,jj,p_bc_cw02_ar2)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar2)+qflx_blcld(ii,jj,p_bc_cw02_ar2)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a02_ar2))
           wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar2)=wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar2)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a02_ar2))
           wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar2)=wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar2)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar2)+qflx_blcld(ii,jj,p_bc_cw03_ar2)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar2)+qflx_blcld(ii,jj,p_bc_cw03_ar2)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a03_ar2))
           wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar2)=wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar2)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a03_ar2))
           wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar2)=wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar2)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar2)+qflx_blcld(ii,jj,p_bc_cw04_ar2)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar2)+qflx_blcld(ii,jj,p_bc_cw04_ar2)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a04_ar2))
           wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar2)=wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar2)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a04_ar2))
 
           wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar3)=wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar3)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar3)+qflx_blcld(ii,jj,p_bc_cw01_ar3)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar3)+qflx_blcld(ii,jj,p_bc_cw01_ar3)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a01_ar3))
           wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar3)=wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar3)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a01_ar3))
           wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar3)=wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar3)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar3)+qflx_blcld(ii,jj,p_bc_cw02_ar3)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar3)+qflx_blcld(ii,jj,p_bc_cw02_ar3)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a02_ar3))
           wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar3)=wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar3)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a02_ar3))
           wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar3)=wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar3)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar3)+qflx_blcld(ii,jj,p_bc_cw03_ar3)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar3)+qflx_blcld(ii,jj,p_bc_cw03_ar3)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a03_ar3))
           wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar3)=wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar3)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a03_ar3))
           wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar3)=wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar3)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar3)+qflx_blcld(ii,jj,p_bc_cw04_ar3)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar3)+qflx_blcld(ii,jj,p_bc_cw04_ar3)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a04_ar3))
           wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar3)=wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar3)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a04_ar3))
 
           wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar4)=wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar4)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar4)+qflx_blcld(ii,jj,p_bc_cw01_ar4)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar4)+qflx_blcld(ii,jj,p_bc_cw01_ar4)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a01_ar4))
           wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar4)=wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar4)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a01_ar4))
           wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar4)=wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar4)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar4)+qflx_blcld(ii,jj,p_bc_cw02_ar4)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar4)+qflx_blcld(ii,jj,p_bc_cw02_ar4)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a02_ar4))
           wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar4)=wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar4)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a02_ar4))
           wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar4)=wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar4)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar4)+qflx_blcld(ii,jj,p_bc_cw03_ar4)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar4)+qflx_blcld(ii,jj,p_bc_cw03_ar4)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a03_ar4))
           wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar4)=wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar4)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a03_ar4))
           wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar4)=wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar4)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar4)+qflx_blcld(ii,jj,p_bc_cw04_ar4)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar4)+qflx_blcld(ii,jj,p_bc_cw04_ar4)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a04_ar4))
           wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar4)=wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar4)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a04_ar4))
 
           wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar5)=wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar5)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar5)+qflx_blcld(ii,jj,p_bc_cw01_ar5)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar5)+qflx_blcld(ii,jj,p_bc_cw01_ar5)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a01_ar5))
           wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar5)=wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar5)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a01_ar5))
           wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar5)=wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar5)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar5)+qflx_blcld(ii,jj,p_bc_cw02_ar5)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar5)+qflx_blcld(ii,jj,p_bc_cw02_ar5)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a02_ar5))
           wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar5)=wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar5)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a02_ar5))
           wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar5)=wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar5)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar5)+qflx_blcld(ii,jj,p_bc_cw03_ar5)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar5)+qflx_blcld(ii,jj,p_bc_cw03_ar5)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a03_ar5))
           wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar5)=wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar5)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a03_ar5))
           wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar5)=wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar5)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar5)+qflx_blcld(ii,jj,p_bc_cw04_ar5)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar5)+qflx_blcld(ii,jj,p_bc_cw04_ar5)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a04_ar5))
           wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar5)=wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar5)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a04_ar5))
 
           wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar6)=wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar6)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar6)+qflx_blcld(ii,jj,p_bc_cw01_ar6)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar6)+qflx_blcld(ii,jj,p_bc_cw01_ar6)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a01_ar6))
           wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar6)=wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar6)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a01_ar6))
           wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar6)=wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar6)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar6)+qflx_blcld(ii,jj,p_bc_cw02_ar6)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar6)+qflx_blcld(ii,jj,p_bc_cw02_ar6)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a02_ar6))
           wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar6)=wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar6)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a02_ar6))
           wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar6)=wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar6)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar6)+qflx_blcld(ii,jj,p_bc_cw03_ar6)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar6)+qflx_blcld(ii,jj,p_bc_cw03_ar6)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a03_ar6))
           wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar6)=wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar6)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a03_ar6))
           wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar6)=wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar6)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar6)+qflx_blcld(ii,jj,p_bc_cw04_ar6)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar6)+qflx_blcld(ii,jj,p_bc_cw04_ar6)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a04_ar6))
           wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar6)=wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar6)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a04_ar6))
 
           wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar7)=wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar7)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar7)+qflx_blcld(ii,jj,p_bc_cw01_ar7)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar7)+qflx_blcld(ii,jj,p_bc_cw01_ar7)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a01_ar7))
           wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar7)=wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar7)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a01_ar7))
           wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar7)=wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar7)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar7)+qflx_blcld(ii,jj,p_bc_cw02_ar7)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar7)+qflx_blcld(ii,jj,p_bc_cw02_ar7)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a02_ar7))
           wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar7)=wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar7)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a02_ar7))
           wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar7)=wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar7)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar7)+qflx_blcld(ii,jj,p_bc_cw03_ar7)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar7)+qflx_blcld(ii,jj,p_bc_cw03_ar7)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a03_ar7))
           wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar7)=wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar7)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a03_ar7))
           wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar7)=wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar7)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar7)+qflx_blcld(ii,jj,p_bc_cw04_ar7)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar7)+qflx_blcld(ii,jj,p_bc_cw04_ar7)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a04_ar7))
           wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar7)=wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar7)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a04_ar7))
 
           wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar8)=wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar8)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar8)+qflx_blcld(ii,jj,p_bc_cw01_ar8)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar8)+qflx_blcld(ii,jj,p_bc_cw01_ar8)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a01_ar8))
           wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar8)=wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar8)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a01_ar8))
           wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar8)=wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar8)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar8)+qflx_blcld(ii,jj,p_bc_cw02_ar8)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar8)+qflx_blcld(ii,jj,p_bc_cw02_ar8)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a02_ar8))
           wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar8)=wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar8)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a02_ar8))
           wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar8)=wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar8)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar8)+qflx_blcld(ii,jj,p_bc_cw03_ar8)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar8)+qflx_blcld(ii,jj,p_bc_cw03_ar8)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a03_ar8))
           wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar8)=wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar8)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a03_ar8))
           wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar8)=wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar8)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar8)+qflx_blcld(ii,jj,p_bc_cw04_ar8)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar8)+qflx_blcld(ii,jj,p_bc_cw04_ar8)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a04_ar8))
           wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar8)=wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar8)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a04_ar8))
 
           wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar9)=wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar9)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar9)+qflx_blcld(ii,jj,p_bc_cw01_ar9)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar9)+qflx_blcld(ii,jj,p_bc_cw01_ar9)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a01_ar9))
           wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar9)=wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar9)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a01_ar9))
           wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar9)=wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar9)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar9)+qflx_blcld(ii,jj,p_bc_cw02_ar9)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar9)+qflx_blcld(ii,jj,p_bc_cw02_ar9)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a02_ar9))
           wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar9)=wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar9)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a02_ar9))
           wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar9)=wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar9)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar9)+qflx_blcld(ii,jj,p_bc_cw03_ar9)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar9)+qflx_blcld(ii,jj,p_bc_cw03_ar9)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a03_ar9))
           wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar9)=wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar9)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a03_ar9))
           wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar9)=wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar9)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar9)+qflx_blcld(ii,jj,p_bc_cw04_ar9)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar9)+qflx_blcld(ii,jj,p_bc_cw04_ar9)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a04_ar9))
           wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar9)=wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar9)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a04_ar9))
 
           wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar10)=wetdep_flux(ii,jj,1,p_wetdep_bcphi_ar10)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar10)+qflx_blcld(ii,jj,p_bc_cw01_ar10)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw01_ar10)+qflx_blcld(ii,jj,p_bc_cw01_ar10)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a01_ar10))
           wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar10)=wetdep_flux(ii,jj,1,p_wetdep_bcpho_ar10)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a01_ar10))
           wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar10)=wetdep_flux(ii,jj,2,p_wetdep_bcphi_ar10)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar10)+qflx_blcld(ii,jj,p_bc_cw02_ar10)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw02_ar10)+qflx_blcld(ii,jj,p_bc_cw02_ar10)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a02_ar10))
           wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar10)=wetdep_flux(ii,jj,2,p_wetdep_bcpho_ar10)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a02_ar10))
           wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar10)=wetdep_flux(ii,jj,3,p_wetdep_bcphi_ar10)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar10)+qflx_blcld(ii,jj,p_bc_cw03_ar10)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw03_ar10)+qflx_blcld(ii,jj,p_bc_cw03_ar10)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a03_ar10))
           wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar10)=wetdep_flux(ii,jj,3,p_wetdep_bcpho_ar10)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a03_ar10))
           wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar10)=wetdep_flux(ii,jj,4,p_wetdep_bcphi_ar10)+ &
-                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar10)+qflx_blcld(ii,jj,p_bc_cw04_ar10)))
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_bc_cw04_ar10)+qflx_blcld(ii,jj,p_bc_cw04_ar10)))+&
+                 max(0.0,-1.0*qflx_incld(ii,jj,p_bc_a04_ar10))
           wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar10)=wetdep_flux(ii,jj,4,p_wetdep_bcpho_ar10)+ &
                            max(0.0,-1.0*qflx_blcld(ii,jj,p_bc_a04_ar10))
+
+! cenlin_dust_CLM
+          wetdep_flux(ii,jj,1,p_wetdep_dust)=wetdep_flux(ii,jj,1,p_wetdep_dust)+ &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_oin_cw01)+qflx_blcld(ii,jj,p_oin_cw01))) + &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_oin_a01)+qflx_blcld(ii,jj,p_oin_a01)))
+          wetdep_flux(ii,jj,2,p_wetdep_dust)=wetdep_flux(ii,jj,2,p_wetdep_dust)+ &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_oin_cw02)+qflx_blcld(ii,jj,p_oin_cw02))) + &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_oin_a02)+qflx_blcld(ii,jj,p_oin_a02)))
+          wetdep_flux(ii,jj,3,p_wetdep_dust)=wetdep_flux(ii,jj,3,p_wetdep_dust)+ &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_oin_cw03)+qflx_blcld(ii,jj,p_oin_cw03))) + &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_oin_a03)+qflx_blcld(ii,jj,p_oin_a03)))
+          wetdep_flux(ii,jj,4,p_wetdep_dust)=wetdep_flux(ii,jj,4,p_wetdep_dust)+ &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_oin_cw04)+qflx_blcld(ii,jj,p_oin_cw04))) + &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_oin_a04)+qflx_blcld(ii,jj,p_oin_a04)))
 
 ! 20180718 cenlin_BC_CLM end 
 

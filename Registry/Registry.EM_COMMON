@@ -743,31 +743,47 @@ state  integer  IFNDALBSI        -      misc        1         -     ir        "F
 state  integer  IFNDSNOWSI       -      misc        1         -     ir        "FNDSNOWSI" "SNOWSI_LOGICAL"
 state  integer  IFNDICEDEPTH     -      misc        1         -     ir        "FNDICEDEPTH" "ICEDEPTH_LOGICAL"
 # cenlin_BC_CLM start
-state    real   snowbc_col2d        ij     misc        1         -     rh3    "snowbc_col"     "bc mass in column snow from CLM"      "kg m-2"
-state    real   snowbc_top2d        ij     misc        1         -     rh3    "snowbc_top"     "bc mass in top snow from CLM"         "kg m-2"
-state    real   snow_top2d          ij     misc        1         -     rh3    "snow_top"       "snow mass in top snow from CLM"       "kg m-2"
-state    real   snow_frac2d         ij     misc        1         -     rh3    "snow_frac"      "snow fraction from CLM"               "0~1"
-state    real   snowlayer2d       ij     misc        1         -     rh3    "snowlayer2d"    "number of snow layer from CLM"         ""
-state    real   snowrds2d1        ij     misc        1         -     rh3    "snowrds2d1"     "1st snow effective radius from CLM"    "um"
-state    real   snowrds2d2        ij     misc        1         -     rh3    "snowrds2d2"     "2nd snow effective radius from CLM"    "um"
-state    real   snowrds2d3        ij     misc        1         -     rh3    "snowrds2d3"     "3rd snow effective radius from CLM"    "um"
-state    real   snowrds2d4        ij     misc        1         -     rh3    "snowrds2d4"     "4th snow effective radius from CLM"    "um"
-state    real   snowrds2d5        ij     misc        1         -     rh3    "snowrds2d5"     "5th snow effective radius from CLM"    "um"
-state    real   sfc_frc_bc        ij     misc        1         -     rh3    "sfc_frc_bc"     "bc forcing in snow from CLM"      "W m-2"
-state    real   sfc_frc_bc_snow   ij     misc        1         -     rh3    "sfc_frc_bc_snow"   "bc forcing in snow from CLM (snow only)"  "W m-2"
-state    real   albedog           ij     misc        1         -     rh3    "albedog"         "ground albedo"                       ""
-state    real   albedo_bc         ij     misc        1         -     rh3    "albedo_bc"       "ground albedo without BC"            ""
-state    real   mss_cnc_bcphi_2d1  ij    misc        1         -     rh3    "mss_cnc_bcphi_2d1"    "5th snowlayer BCPHI CNC"  "kg kg-1"
-state    real   mss_cnc_bcphi_2d2  ij    misc        1         -     rh3    "mss_cnc_bcphi_2d2"    "4th snowlayer BCPHI CNC"  "kg kg-1"
-state    real   mss_cnc_bcphi_2d3  ij    misc        1         -     rh3    "mss_cnc_bcphi_2d3"    "3rd snowlayer BCPHI CNC"  "kg kg-1"
-state    real   mss_cnc_bcphi_2d4  ij    misc        1         -     rh3    "mss_cnc_bcphi_2d4"    "2nd snowlayer BCPHI CNC"  "kg kg-1"
-state    real   mss_cnc_bcphi_2d5  ij    misc        1         -     rh3    "mss_cnc_bcphi_2d5"    "1st snowlayer BCPHI CNC"  "kg kg-1"
-state    real   mss_cnc_bcpho_2d1  ij    misc        1         -     rh3    "mss_cnc_bcpho_2d1"    "5th snowlayer BCPHO CNC"  "kg kg-1"
-state    real   mss_cnc_bcpho_2d2  ij    misc        1         -     rh3    "mss_cnc_bcpho_2d2"    "4th snowlayer BCPHO CNC"  "kg kg-1"
-state    real   mss_cnc_bcpho_2d3  ij    misc        1         -     rh3    "mss_cnc_bcpho_2d3"    "3rd snowlayer BCPHO CNC"  "kg kg-1"
-state    real   mss_cnc_bcpho_2d4  ij    misc        1         -     rh3    "mss_cnc_bcpho_2d4"    "2nd snowlayer BCPHO CNC"  "kg kg-1"
-state    real   mss_cnc_bcpho_2d5  ij    misc        1         -     rh3    "mss_cnc_bcpho_2d5"    "1st snowlayer BCPHO CNC"  "kg kg-1"
+state    real   snowbc_col2d       ij     misc        1         -     rh3    "snowbc_col"     "bc mass in column snow from CLM"      "kg m-2"
+state    real   snowbc_top2d       ij     misc        1         -     rh3    "snowbc_top"     "bc mass in top snow from CLM"         "kg m-2"
+state    real   snow_top2d         ij     misc        1         -     rh3    "snow_top"       "snow mass in top snow from CLM"       "kg m-2"
+state    real   snow_frac2d        ij     misc        1         -     rh3    "snow_frac"      "snow fraction from CLM"               "0~1"
+state    real   snowlayer2d        ij     misc        1         -     rh3    "snowlayer2d"    "number of snow layer from CLM"         ""
+state    real   snowrds2d1         ij     misc        1         -     rh3    "snowrds2d1"     "1st snow effective radius from CLM"    "um"
+state    real   snowrds2d2         ij     misc        1         -     rh3    "snowrds2d2"     "2nd snow effective radius from CLM"    "um"
+state    real   snowrds2d3         ij     misc        1         -     rh3    "snowrds2d3"     "3rd snow effective radius from CLM"    "um"
+state    real   snowrds2d4         ij     misc        1         -     rh3    "snowrds2d4"     "4th snow effective radius from CLM"    "um"
+state    real   snowrds2d5         ij     misc        1         -     rh3    "snowrds2d5"     "5th snow effective radius from CLM"    "um"
+state    real   sfc_frc_bc         ij     misc        1         -     rh3    "sfc_frc_bc"     "bc forcing in snow from CLM"      "W m-2"
+state    real   sfc_frc_bc_snow    ij     misc        1         -     rh3    "sfc_frc_bc_snow"   "bc forcing in snow from CLM (snow only)"  "W m-2"
+state    real   albedog            ij     misc        1         -     rh3    "albedog"         "ground albedo"                       ""
+state    real   albedo_bc          ij     misc        1         -     rh3    "albedo_bc"       "ground albedo without BC"            ""
+state    real   mss_cnc_bcphi_2d1  ij     misc        1         -     rh3    "mss_cnc_bcphi_2d1"    "1st snowlayer BCPHI CNC"  "kg kg-1"
+state    real   mss_cnc_bcphi_2d2  ij     misc        1         -     rh3    "mss_cnc_bcphi_2d2"    "2nd snowlayer BCPHI CNC"  "kg kg-1"
+state    real   mss_cnc_bcphi_2d3  ij     misc        1         -     rh3    "mss_cnc_bcphi_2d3"    "3rd snowlayer BCPHI CNC"  "kg kg-1"
+state    real   mss_cnc_bcphi_2d4  ij     misc        1         -     rh3    "mss_cnc_bcphi_2d4"    "4th snowlayer BCPHI CNC"  "kg kg-1"
+state    real   mss_cnc_bcphi_2d5  ij     misc        1         -     rh3    "mss_cnc_bcphi_2d5"    "5th snowlayer BCPHI CNC"  "kg kg-1"
+state    real   mss_cnc_bcpho_2d1  ij     misc        1         -     rh3    "mss_cnc_bcpho_2d1"    "1st snowlayer BCPHO CNC"  "kg kg-1"
+state    real   mss_cnc_bcpho_2d2  ij     misc        1         -     rh3    "mss_cnc_bcpho_2d2"    "2nd snowlayer BCPHO CNC"  "kg kg-1"
+state    real   mss_cnc_bcpho_2d3  ij     misc        1         -     rh3    "mss_cnc_bcpho_2d3"    "3rd snowlayer BCPHO CNC"  "kg kg-1"
+state    real   mss_cnc_bcpho_2d4  ij     misc        1         -     rh3    "mss_cnc_bcpho_2d4"    "4th snowlayer BCPHO CNC"  "kg kg-1"
+state    real   mss_cnc_bcpho_2d5  ij     misc        1         -     rh3    "mss_cnc_bcpho_2d5"    "5th snowlayer BCPHO CNC"  "kg kg-1"
 # cenlin_BC_CLM end
+# cenlin_dust_CLM
+state    real   snowdust_col2d     ij     misc        1         -     rh3    "snowdust_col"     "dust mass in column snow from CLM"      "kg m-2"
+state    real   snowdust_top2d     ij     misc        1         -     rh3    "snowdust_top"     "dust mass in top snow from CLM"         "kg m-2"
+state    real   sfc_frc_dust       ij     misc        1         -     rh3    "sfc_frc_dust"     "dust forcing in snow from CLM"      "W m-2"
+state    real   sfc_frc_dust_snow  ij     misc        1         -     rh3    "sfc_frc_dust_snow"   "dust forcing in snow from CLM (snow only)"  "W m-2"
+state    real   sfc_frc_aer        ij     misc        1         -     rh3    "sfc_frc_aer"     "aerosol forcing in snow from CLM"      "W m-2"
+state    real   sfc_frc_aer_snow   ij     misc        1         -     rh3    "sfc_frc_aer_snow"   "aerosol forcing in snow from CLM (snow only)"  "W m-2"
+state    real   albedo_dust        ij     misc        1         -     rh3    "albedo_dust"       "ground albedo without dust"            ""
+state    real   albedo_aer         ij     misc        1         -     rh3    "albedo_aer"       "ground albedo without aerosol"            ""
+state    real   mss_cnc_dust_2d1   ij     misc        1         -     rh3    "mss_cnc_dust_2d1"    "1st snowlayer dust CNC"  "kg kg-1"
+state    real   mss_cnc_dust_2d2   ij     misc        1         -     rh3    "mss_cnc_dust_2d2"    "2nd snowlayer dust CNC"  "kg kg-1"
+state    real   mss_cnc_dust_2d3   ij     misc        1         -     rh3    "mss_cnc_dust_2d3"    "3rd snowlayer dust CNC"  "kg kg-1"
+state    real   mss_cnc_dust_2d4   ij     misc        1         -     rh3    "mss_cnc_dust_2d4"    "4th snowlayer dust CNC"  "kg kg-1"
+state    real   mss_cnc_dust_2d5   ij     misc        1         -     rh3    "mss_cnc_dust_2d5"    "5th snowlayer dust CNC"  "kg kg-1"
+# cenlin_dust end
+
 # SKIN SST
 state    real   SSTSK            ij     misc        1         -     rd=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)   "SSTSK"              "SKIN SEA SURFACE TEMPERATURE" "K"
 state    real   lake_depth            ij     misc        1    -     i012rd=(interp_mask_water_field:lu_index,islake)   "lake_depth"              "lake depth" "m"
@@ -2730,8 +2746,8 @@ package   slabscheme     sf_surface_physics==1       -             -
 package   lsmscheme      sf_surface_physics==2       -             state:flx4,fvb,fbur,fgsn,smcrel
 package   ruclsmscheme   sf_surface_physics==3       -             state:smfr3d,keepfr3dflag,soilt1,rhosnf,snowfallac,precipfr,acrunoff
 package   noahmpscheme   sf_surface_physics==4       -             state:isnowxy,tvxy,tgxy,canliqxy,canicexy,eahxy,tahxy,cmxy,chxy,fwetxy,sneqvoxy,alboldxy,qsnowxy,wslakexy,zwtxy,waxy,wtxy,tsnoxy,zsnsoxy,snicexy,snliqxy,lfmassxy,rtmassxy,stmassxy,woodxy,stblcpxy,fastcpxy,xsaixy,taussxy,t2mvxy,t2mbxy,q2mvxy,q2mbxy,tradxy,neexy,gppxy,nppxy,fvegxy,qinxy,runsfxy,runsbxy,ecanxy,edirxy,etranxy,fsaxy,firaxy,aparxy,psnxy,savxy,sagxy,rssunxy,rsshaxy,bgapxy,wgapxy,tgvxy,tgbxy,chvxy,chbxy,shgxy,shcxy,shbxy,evgxy,evbxy,ghvxy,ghbxy,irgxy,ircxy,irbxy,trxy,evcxy,chleafxy,chucxy,chv2xy,chb2xy,chstarxy,smoiseq,smcwtdxy,rechxy,deeprechxy,fdepthxy,areaxy,rivercondxy,riverbedxy,eqzwt,pexpxy,qrfxy,qrfsxy,qspringxy,qspringsxy,qslatxy,stepwtd,rechclim,gddxy,grainxy,croptype,planting,harvest,season_gdd,cropcat,pgsxy
-# cenlin_BC_CLM
-package   clmscheme      sf_surface_physics==5       -             state:numc,nump,sabv,sabg,lwup,lhsoi,lhveg,lhtran,snl,snowdp,wtc,wtp,h2osno,t_grnd,t_veg,h2ocan,h2ocan_col,t2m_max,t2m_min,t2clm,t_ref2m,h2osoi_liq_s1,h2osoi_liq_s2,h2osoi_liq_s3,h2osoi_liq_s4,h2osoi_liq_s5,h2osoi_liq1,h2osoi_liq2,h2osoi_liq3,h2osoi_liq4,h2osoi_liq5,h2osoi_liq6,h2osoi_liq7,h2osoi_liq8,h2osoi_liq9,h2osoi_liq10,h2osoi_ice_s1,h2osoi_ice_s2,h2osoi_ice_s3,h2osoi_ice_s4,h2osoi_ice_s5,h2osoi_ice1,h2osoi_ice2,h2osoi_ice3,h2osoi_ice4,h2osoi_ice5,h2osoi_ice6,h2osoi_ice7,h2osoi_ice8,h2osoi_ice9,h2osoi_ice10,t_soisno_s1,t_soisno_s2,t_soisno_s3,t_soisno_s4,t_soisno_s5,t_soisno1,t_soisno2,t_soisno3,t_soisno4,t_soisno5,t_soisno6,t_soisno7,t_soisno8,t_soisno9,t_soisno10,dzsnow1,dzsnow2,dzsnow3,dzsnow4,dzsnow5,snowrds1,snowrds2,snowrds3,snowrds4,snowrds5,t_lake1,t_lake2,t_lake3,t_lake4,t_lake5,t_lake6,t_lake7,t_lake8,t_lake9,t_lake10,h2osoi_vol1,h2osoi_vol2,h2osoi_vol3,h2osoi_vol4,h2osoi_vol5,h2osoi_vol6,h2osoi_vol7,h2osoi_vol8,h2osoi_vol9,h2osoi_vol10,albedosubgrid,lhsubgrid,hfxsubgrid,lwupsubgrid,q2subgrid,sabvsubgrid,sabgsubgrid,nrasubgrid,swupsubgrid,mss_bcphi_s1,mss_bcphi_s2,mss_bcphi_s3,mss_bcphi_s4,mss_bcphi_s5,mss_bcpho_s1,mss_bcpho_s2,mss_bcpho_s3,mss_bcpho_s4,mss_bcpho_s5,mss_cnc_bcphi_s1,mss_cnc_bcphi_s2,mss_cnc_bcphi_s3,mss_cnc_bcphi_s4,mss_cnc_bcphi_s5,mss_cnc_bcpho_s1,mss_cnc_bcpho_s2,mss_cnc_bcpho_s3,mss_cnc_bcpho_s4,mss_cnc_bcpho_s5
+# cenlin_BC_CLM cenlin_dust_CLM
+package   clmscheme      sf_surface_physics==5       -             state:numc,nump,sabv,sabg,lwup,lhsoi,lhveg,lhtran,snl,snowdp,wtc,wtp,h2osno,t_grnd,t_veg,h2ocan,h2ocan_col,t2m_max,t2m_min,t2clm,t_ref2m,h2osoi_liq_s1,h2osoi_liq_s2,h2osoi_liq_s3,h2osoi_liq_s4,h2osoi_liq_s5,h2osoi_liq1,h2osoi_liq2,h2osoi_liq3,h2osoi_liq4,h2osoi_liq5,h2osoi_liq6,h2osoi_liq7,h2osoi_liq8,h2osoi_liq9,h2osoi_liq10,h2osoi_ice_s1,h2osoi_ice_s2,h2osoi_ice_s3,h2osoi_ice_s4,h2osoi_ice_s5,h2osoi_ice1,h2osoi_ice2,h2osoi_ice3,h2osoi_ice4,h2osoi_ice5,h2osoi_ice6,h2osoi_ice7,h2osoi_ice8,h2osoi_ice9,h2osoi_ice10,t_soisno_s1,t_soisno_s2,t_soisno_s3,t_soisno_s4,t_soisno_s5,t_soisno1,t_soisno2,t_soisno3,t_soisno4,t_soisno5,t_soisno6,t_soisno7,t_soisno8,t_soisno9,t_soisno10,dzsnow1,dzsnow2,dzsnow3,dzsnow4,dzsnow5,snowrds1,snowrds2,snowrds3,snowrds4,snowrds5,t_lake1,t_lake2,t_lake3,t_lake4,t_lake5,t_lake6,t_lake7,t_lake8,t_lake9,t_lake10,h2osoi_vol1,h2osoi_vol2,h2osoi_vol3,h2osoi_vol4,h2osoi_vol5,h2osoi_vol6,h2osoi_vol7,h2osoi_vol8,h2osoi_vol9,h2osoi_vol10,albedosubgrid,lhsubgrid,hfxsubgrid,lwupsubgrid,q2subgrid,sabvsubgrid,sabgsubgrid,nrasubgrid,swupsubgrid,mss_bcphi_s1,mss_bcphi_s2,mss_bcphi_s3,mss_bcphi_s4,mss_bcphi_s5,mss_bcpho_s1,mss_bcpho_s2,mss_bcpho_s3,mss_bcpho_s4,mss_bcpho_s5,mss_cnc_bcphi_s1,mss_cnc_bcphi_s2,mss_cnc_bcphi_s3,mss_cnc_bcphi_s4,mss_cnc_bcphi_s5,mss_cnc_bcpho_s1,mss_cnc_bcpho_s2,mss_cnc_bcpho_s3,mss_cnc_bcpho_s4,mss_cnc_bcpho_s5,mss_dust1_s1,mss_dust1_s2,mss_dust1_s3,mss_dust1_s4,mss_dust1_s5,mss_cnc_dust1_s1,mss_cnc_dust1_s2,mss_cnc_dust1_s3,mss_cnc_dust1_s4,mss_cnc_dust1_s5,mss_dust2_s1,mss_dust2_s2,mss_dust2_s3,mss_dust2_s4,mss_dust2_s5,mss_cnc_dust2_s1,mss_cnc_dust2_s2,mss_cnc_dust2_s3,mss_cnc_dust2_s4,mss_cnc_dust2_s5,mss_dust3_s1,mss_dust3_s2,mss_dust3_s3,mss_dust3_s4,mss_dust3_s5,mss_cnc_dust3_s1,mss_cnc_dust3_s2,mss_cnc_dust3_s3,mss_cnc_dust3_s4,mss_cnc_dust3_s5,mss_dust4_s1,mss_dust4_s2,mss_dust4_s3,mss_dust4_s4,mss_dust4_s5,mss_cnc_dust4_s1,mss_cnc_dust4_s2,mss_cnc_dust4_s3,mss_cnc_dust4_s4,mss_cnc_dust4_s5
 
 package   pxlsmscheme    sf_surface_physics==7       -             state:t2_ndg_new,q2_ndg_new,t2_ndg_old,q2_ndg_old,vegf_px,imperv,canfra
 package   ssibscheme     sf_surface_physics==8       -             state:ssib_fm,ssib_fh,ssib_cm,ssibxdd,ssib_br,ssib_lhf,ssib_shf,ssib_ghf,ssib_egs,ssib_eci,ssib_ect,ssib_egi,ssib_egt,ssib_sdn,ssib_sup,ssib_ldn,ssib_lup,ssib_wat,ssib_shc,ssib_shg,ssib_lai,ssib_vcf,ssib_z00,ssib_veg,isnow,swe,snowden,snowdepth,tkair,dzo1,wo1,tssn1,tssno1,bwo1,bto1,cto1,fio1,flo1,bio1,blo1,ho1,dzo2,wo2,tssn2,tssno2,bwo2,bto2,cto2,fio2,flo2,bio2,blo2,ho2,dzo3,wo3,tssn3,tssno3,bwo3,bto3,cto3,fio3,flo3,bio3,blo3,ho3,dzo4,wo4,tssn4,tssno4,bwo4,bto4,cto4,fio4,flo4,bio4,blo4,ho4

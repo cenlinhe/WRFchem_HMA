@@ -1735,6 +1735,9 @@ end if !Chemistry time step check
 
        grid%oc_a_tot(its:ite, kts:kte, jts:jte) = 0.0
        grid%oc_cw_tot(its:ite, kts:kte, jts:jte) = 0.0
+! cenlin_dust
+       grid%dust_a_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%dust_cw_tot(its:ite, kts:kte, jts:jte) = 0.0
 
        grid%drydep_bc(its:ite,jts:jte) = 0.0
        grid%wetdep_bc(its:ite,jts:jte) = 0.0       
@@ -1765,6 +1768,10 @@ end if !Chemistry time step check
        grid%drydep_bc_ar10(its:ite,jts:jte) = 0.0
        grid%wetdep_bc_ar10(its:ite,jts:jte) = 0.0
 
+! cenlin_dust
+       grid%drydep_dust_tot(its:ite,jts:jte) = 0.0
+       grid%wetdep_dust_tot(its:ite,jts:jte) = 0.0
+
        grid%bc_sfc_tot(its:ite,jts:jte) = 0.0
        grid%bc_sfc_ant(its:ite,jts:jte) = 0.0
        grid%bc_sfc_bb(its:ite,jts:jte) = 0.0
@@ -1783,16 +1790,25 @@ end if !Chemistry time step check
        grid%oc_sfc_tot(its:ite,jts:jte) = 0.0
        grid%pm25_sfc(its:ite,jts:jte) = 0.0
        grid%pm10_sfc(its:ite,jts:jte) = 0.0
-       grid%dust_sfc(its:ite,jts:jte) = 0.0
+       grid%dust_sfc_tot(its:ite,jts:jte) = 0.0
        grid%aod_550(its:ite,jts:jte) = 0.0
 
-       ! assign values: ug/kg -> ug/m3
+
+!!!!!!! ! assign values: ug/kg -> ug/m3
+! atmospheric 3D concentration aggregated over size bins
        grid%oc_a_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_oc_a01) + &
            chem(its:ite,kts:kte,jts:jte,p_oc_a02) + chem(its:ite,kts:kte,jts:jte,p_oc_a03) + &
            chem(its:ite,kts:kte,jts:jte,p_oc_a04) ) / grid%alt(its:ite,kts:kte,jts:jte)
        grid%oc_cw_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_oc_cw01) + &
            chem(its:ite,kts:kte,jts:jte,p_oc_cw02) + chem(its:ite,kts:kte,jts:jte,p_oc_cw03) + &
            chem(its:ite,kts:kte,jts:jte,p_oc_cw04) ) / grid%alt(its:ite,kts:kte,jts:jte)
+! cenlin_dust
+       grid%dust_a_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_oin_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_oin_a02) + chem(its:ite,kts:kte,jts:jte,p_oin_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_oin_a04) ) / grid%alt(its:ite,kts:kte,jts:jte)
+       grid%dust_cw_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_oin_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_oin_cw02) + chem(its:ite,kts:kte,jts:jte,p_oin_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_oin_cw04) ) / grid%alt(its:ite,kts:kte,jts:jte)
 
        grid%bc_a_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_bc_a01) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a02) + chem(its:ite,kts:kte,jts:jte,p_bc_a03) + &
@@ -1892,7 +1908,7 @@ end if !Chemistry time step check
            chem(its:ite,kts:kte,jts:jte,p_bc_cw02_ar10) + chem(its:ite,kts:kte,jts:jte,p_bc_cw03_ar10) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw04_ar10)) / grid%alt(its:ite,kts:kte,jts:jte)
 
-       ! deposition flux kg/m2/s
+       ! deposition flux kg/m2/s aggregate over size bins
        grid%drydep_bc(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcpho) + &
                                          grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcpho) + &
                                          grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcpho) + &
@@ -2130,8 +2146,17 @@ end if !Chemistry time step check
                                              grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_bcpho_ar10) + &
                                              grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_bcpho_ar10) + &
                                              grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcpho_ar10)
+! cenlin_dust
+       grid%drydep_dust_tot(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_dust) + &
+                                               grid%drydep_flux(its:ite,jts:jte,2,p_drydep_dust) + &
+                                               grid%drydep_flux(its:ite,jts:jte,3,p_drydep_dust) + &
+                                               grid%drydep_flux(its:ite,jts:jte,4,p_drydep_dust)
+       grid%wetdep_dust_tot(its:ite,jts:jte) = grid%wetdep_flux(its:ite,jts:jte,1,p_wetdep_dust) + &
+                                               grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_dust) + &
+                                               grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_dust) + &
+                                               grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_dust)
 
-     ! surface concentration
+     ! total surface concentration
      grid%bc_sfc_tot(its:ite,jts:jte) = grid%bc_a_tot(its:ite,kts,jts:jte)+grid%bc_cw_tot(its:ite,kts,jts:jte)
      grid%bc_sfc_ant(its:ite,jts:jte) = grid%bc_a_ant(its:ite,kts,jts:jte)+grid%bc_cw_ant(its:ite,kts,jts:jte)
      grid%bc_sfc_bb(its:ite,jts:jte) = grid%bc_a_bb(its:ite,kts,jts:jte)+grid%bc_cw_bb(its:ite,kts,jts:jte)
@@ -2150,7 +2175,8 @@ end if !Chemistry time step check
      grid%oc_sfc_tot(its:ite,jts:jte) = grid%oc_a_tot(its:ite,kts,jts:jte)+grid%oc_cw_tot(its:ite,kts,jts:jte)
      grid%pm25_sfc(its:ite,jts:jte) = grid%pm2_5_dry(its:ite,kts,jts:jte)
      grid%pm10_sfc(its:ite,jts:jte) = grid%pm10(its:ite,kts,jts:jte)
-     grid%dust_sfc(its:ite,jts:jte) = grid%tot_dust(its:ite,kts,jts:jte)
+! cenlin_dust
+     grid%dust_sfc_tot(its:ite,jts:jte)=grid%dust_a_tot(its:ite,kts,jts:jte)+grid%dust_cw_tot(its:ite,kts,jts:jte)
 
      ! AOD 550 nm
      do k = kts, kte

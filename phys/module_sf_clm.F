@@ -26205,12 +26205,12 @@ subroutine mkarbinit(snlx   ,snowdpx ,   dzclmx  ,zclmx      ,&
                   h2osoi_volx,t_ref2mx,snw_rdsx, &
 ! cenlin_BC_CLM start
                   mss_bcphi_buf,mss_bcpho_buf,  &
-                  mss_cnc_bcphi_buf,mss_cnc_bcpho_buf  &
+                  mss_cnc_bcphi_buf,mss_cnc_bcpho_buf,  &
 ! cenlin_BC_CLM end
-                  mss_dust1_buf,mss_cnc_dust1_buf  &  ! cenlin_dust_CLM
-                  mss_dust2_buf,mss_cnc_dust2_buf  &  ! cenlin_dust_CLM
-                  mss_dust3_buf,mss_cnc_dust3_buf  &  ! cenlin_dust_CLM
-                  mss_dust4_buf,mss_cnc_dust4_buf  &  ! cenlin_dust_CLM
+                  mss_dust1_buf,mss_cnc_dust1_buf,  &  ! cenlin_dust_CLM
+                  mss_dust2_buf,mss_cnc_dust2_buf,  &  ! cenlin_dust_CLM
+                  mss_dust3_buf,mss_cnc_dust3_buf,  &  ! cenlin_dust_CLM
+                  mss_dust4_buf,mss_cnc_dust4_buf   &  ! cenlin_dust_CLM
 #ifdef CN
                    ,tlaix,tsaix,htopx,hbotx &
 #endif
@@ -58630,11 +58630,11 @@ contains
                   h2osoi_vol,t_ref2m ,snw_rdsx, &
 ! cenlin_BC_CLM start
                   mss_bcphi_buf,mss_bcpho_buf,  &
-                  mss_cnc_bcphi_buf,mss_cnc_bcpho_buf  &
+                  mss_cnc_bcphi_buf,mss_cnc_bcpho_buf,  &
 ! cenlin_BC_CLM end
-                  mss_dust1_buf,mss_cnc_dust1_buf  &  ! cenlin_dust_CLM
-                  mss_dust2_buf,mss_cnc_dust2_buf  &  ! cenlin_dust_CLM
-                  mss_dust3_buf,mss_cnc_dust3_buf  &  ! cenlin_dust_CLM
+                  mss_dust1_buf,mss_cnc_dust1_buf,  &  ! cenlin_dust_CLM
+                  mss_dust2_buf,mss_cnc_dust2_buf,  &  ! cenlin_dust_CLM
+                  mss_dust3_buf,mss_cnc_dust3_buf,  &  ! cenlin_dust_CLM
                   mss_dust4_buf,mss_cnc_dust4_buf  &  ! cenlin_dust_CLM
 #ifdef CN
                  ,tlai,tsai,htop,hbot &

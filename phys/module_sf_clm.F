@@ -33857,31 +33857,40 @@ contains
        g = cgridcell(c)
        
 ! cenlin_BC_CLM start  
-       flx_bc_dep_dry(c)   = forc_aer(g,2) ! drydep bcpho
-       flx_bc_dep_wet(c)   = forc_aer(g,1) + forc_aer(g,3) + forc_aer(g,4) ! drydep_bcphi,wetdep_bcpho,wetdep_bcphi
-       flx_bc_dep_phi(c)   = forc_aer(g,3)                                 ! BC-snow int mixing  wetdep_bcphi
-       flx_bc_dep_pho(c)   = forc_aer(g,4) + forc_aer(g,2) + forc_aer(g,1) ! BC-snow ext mixing  wetdep_bcpho,drydep_bcpho,drydep_bcphi
-       flx_bc_dep(c)       = forc_aer(g,1) + forc_aer(g,2) + forc_aer(g,3) + forc_aer(g,4)
+       flx_bc_dep_dry(c)   = max(0._r8,forc_aer(g,2))                                ! drydep bcpho
+       flx_bc_dep_wet(c)   = max(0._r8,forc_aer(g,1)) + max(0._r8,forc_aer(g,3)) + &
+                             max(0._r8,forc_aer(g,4))                                ! drydep_bcphi,wetdep_bcpho,wetdep_bcphi
+       flx_bc_dep_phi(c)   = max(0._r8,forc_aer(g,3))                                ! BC-snow int mixing  wetdep_bcphi
+       flx_bc_dep_pho(c)   = max(0._r8,forc_aer(g,4)) + max(0._r8,forc_aer(g,2)) + &
+                             max(0._r8,forc_aer(g,1))                                ! BC-snow ext mixing  wetdep_bcpho,drydep_bcpho,drydep_bcphi
+       flx_bc_dep(c)       = flx_bc_dep_phi(c) + flx_bc_dep_pho(c)
+!       flx_bc_dep(c)       = forc_aer(g,1) + forc_aer(g,2) + forc_aer(g,3) + forc_aer(g,4)
 ! cenlin_BC_CLM end
 
-       flx_oc_dep_dry(c)   = forc_aer(g,5) 
-       flx_oc_dep_wet(c)   = forc_aer(g,6)
-       flx_oc_dep_phi(c)   = forc_aer(g,6)  
-       flx_oc_dep_pho(c)   = forc_aer(g,5)
-       flx_oc_dep(c)       = forc_aer(g,5) + forc_aer(g,6)
+       flx_oc_dep_dry(c)   = max(0._r8,forc_aer(g,5))
+       flx_oc_dep_wet(c)   = max(0._r8,forc_aer(g,6))
+       flx_oc_dep_phi(c)   = max(0._r8,forc_aer(g,6))  
+       flx_oc_dep_pho(c)   = max(0._r8,forc_aer(g,5))
+       flx_oc_dep(c)       = flx_oc_dep_phi(c) + flx_oc_dep_pho(c)
+!       flx_oc_dep(c)       = forc_aer(g,5)+forc_aer(g,6)
 
 ! cenlin_dust_CLM start       
-       flx_dst_dep_wet1(c) = forc_aer(g,7) ! wetdep_dust size 1
-       flx_dst_dep_dry1(c) = forc_aer(g,8) ! drydep_dust size 1
-       flx_dst_dep_wet2(c) = forc_aer(g,9)
-       flx_dst_dep_dry2(c) = forc_aer(g,10)
-       flx_dst_dep_wet3(c) = forc_aer(g,11)
-       flx_dst_dep_dry3(c) = forc_aer(g,12)
-       flx_dst_dep_wet4(c) = forc_aer(g,13)
-       flx_dst_dep_dry4(c) = forc_aer(g,14)
-       flx_dst_dep(c)      = forc_aer(g,7) + forc_aer(g,8) + forc_aer(g,9) + &
-                             forc_aer(g,10) + forc_aer(g,11) + forc_aer(g,12) + &
-                             forc_aer(g,13) + forc_aer(g,14)
+       flx_dst_dep_wet1(c) = max(0._r8,forc_aer(g,7)) ! wetdep_dust size 1
+       flx_dst_dep_dry1(c) = max(0._r8,forc_aer(g,8)) ! drydep_dust size 1
+       flx_dst_dep_wet2(c) = max(0._r8,forc_aer(g,9))
+       flx_dst_dep_dry2(c) = max(0._r8,forc_aer(g,10))
+       flx_dst_dep_wet3(c) = max(0._r8,forc_aer(g,11))
+       flx_dst_dep_dry3(c) = max(0._r8,forc_aer(g,12))
+       flx_dst_dep_wet4(c) = max(0._r8,forc_aer(g,13))
+       flx_dst_dep_dry4(c) = max(0._r8,forc_aer(g,14))
+       flx_dst_dep(c)      = flx_dst_dep_wet1(c) + flx_dst_dep_dry1(c) + &
+                             flx_dst_dep_wet2(c) + flx_dst_dep_dry2(c) + &
+                             flx_dst_dep_wet3(c) + flx_dst_dep_dry3(c) + &
+                             flx_dst_dep_wet4(c) + flx_dst_dep_dry4(c)
+!       flx_dst_dep(c)      = forc_aer(g,7) + forc_aer(g,8) + forc_aer(g,9) + &
+!                             forc_aer(g,10) + forc_aer(g,11) + forc_aer(g,12) + &
+!                             forc_aer(g,13) + forc_aer(g,14)
+
 ! cenlin_dust_CLM end
 
     end do

@@ -56,6 +56,25 @@ MODULE module_data_rrtmgaeropt
       1.419,1.426,1.446,1.457,1.458,1.455,1.443/ 
       data refilw_oc /0.5,0.268,0.185,0.198,0.059,0.0488,0.11,0.3345,0.065, &
       0.058,0.0261,0.0142,0.013,0.01,0.005,0.0057/
+
+! cenlin_brc start separate primary and secondary brc based on Wang X. et al. (2014 ACP) parameterization from compilation of previous obs
+      real,dimension(1:nswbands),save ::  refrsw_brc1,refisw_brc1,refrsw_brc2,refisw_brc2
+      real,dimension(1:nlwbands),save ::  refrlw_brc1,refilw_brc1,refrlw_brc2,refilw_brc2
+!      data refrsw_brc /1.445,1.471,1.487,1.501/ ! MShrivastava added default values for Brown Carbon in shortwave, to be changed in different regions
+!      data refisw_brc /0.075,0.063,0.054,0.052/ ! MShrivastava added default values for Brown Carbon in shortwave, to be changed in different regions
+      data refrsw_brc1 /1.7,1.7,1.7,1.7/  !cenlin: literature review value, wavenlength-independent, 300nm,400nm,600nm,999nm
+      data refrsw_brc2 /1.5,1.5,1.5,1.5/  !cenlin: literature review value, wavenlength-independent, 300nm,400nm,600nm,999nm
+      data refisw_brc1 /0.3368,0.0955,0.0161,0.0017/  !cenlin: use Wang et al 2014 parameterization values,300nm,400nm,600nm,999nm
+      data refisw_brc2 /0.1189,0.0227,0.0022,0.0001/  !cenlin: use Wang et al 2014 parameterization values,300nm,400nm,600nm,999nm
+      data refrlw_brc1 /1.86,1.91,1.988,1.439,1.606,1.7,1.888,2.489,1.219, &
+      1.419,1.426,1.446,1.457,1.458,1.455,1.443/  !MShrivastava assume brc refrlw same as OC in longwave 
+      data refrlw_brc2 /1.86,1.91,1.988,1.439,1.606,1.7,1.888,2.489,1.219, &
+      1.419,1.426,1.446,1.457,1.458,1.455,1.443/  !MShrivastava assume brc refrlw same as OC in longwave 
+      data refilw_brc1 /0.5,0.268,0.185,0.198,0.059,0.0488,0.11,0.3345,0.065, &
+      0.058,0.0261,0.0142,0.013,0.01,0.005,0.0057/ !MShrivastava assume brc refilw same as OC in longwave
+      data refilw_brc2 /0.5,0.268,0.185,0.198,0.059,0.0488,0.11,0.3345,0.065, &
+      0.058,0.0261,0.0142,0.013,0.01,0.005,0.0057/ !MShrivastava assume brc refilw same as OC in longwave
+! cenlin_brc end
    
       !Sea-salt
       real,dimension(1:nswbands),save ::  refrsw_seas,refisw_seas

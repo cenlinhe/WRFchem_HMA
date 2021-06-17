@@ -596,21 +596,25 @@
     swref_index_nh4so4,swref_index_nacl,swref_index_oc,swref_index_dust,swref_index_h2o
    COMPLEX, DIMENSION(nlwbands) ::     & ! now only 5 aerosols have wave-dependent refr 
     lwref_index_nh4so4,lwref_index_nacl,lwref_index_oc,lwref_index_dust,lwref_index_h2o
+! cenlin_brc add brc
+   COMPLEX, DIMENSION(nswbands) :: swref_index_brc1,swref_index_brc2
+   COMPLEX, DIMENSION(nlwbands) :: lwref_index_brc1,lwref_index_brc2
+! cenlin_brc end
    real  dens_so4  , dens_no3  , dens_cl   , dens_msa  , dens_co3 ,  &
          dens_nh4  , dens_na   , dens_ca   , dens_oin  , dens_oc  ,  &
          dens_bc   , dens_aro1 , dens_aro2 , dens_alk1 , dens_ole1,  &
          dens_api1 , dens_api2 , dens_lim1 , dens_lim2 , dens_h2o,   & 
-         dens_dust
+         dens_dust , dens_brc1 , dens_brc2 ! cenlin_brc
    real  mass_so4  , mass_no3  , mass_cl   , mass_msa  , mass_co3 ,  &
          mass_nh4  , mass_na   , mass_ca   , mass_oin  , mass_oc  ,  &
          mass_bc   , mass_aro1 , mass_aro2 , mass_alk1 , mass_ole1,  &
          mass_api1 , mass_api2 , mass_lim1 , mass_lim2 , mass_h2o,   & 
-         mass_dust
+         mass_dust , mass_brc1, mass_brc2 ! cenlin_brc
    real  vol_so4   , vol_no3   , vol_cl    , vol_msa   , vol_co3  ,  &
          vol_nh4   , vol_na    , vol_ca    , vol_oin   , vol_oc   ,  &
          vol_bc    , vol_aro1  , vol_aro2  , vol_alk1  , vol_ole1 ,  &
          vol_api1  , vol_api2  , vol_lim1  , vol_lim2  , vol_h2o,    & 
-         vol_dust
+         vol_dust  , vol_brc1, vol_brc2  ! cenlin_brc
    real  conv1a, conv1b
    real  mass_dry_a, mass_wet_a, vol_dry_a , vol_wet_a , vol_shell,  &
          dp_dry_a  , dp_wet_a  , num_a     , dp_bc_a
@@ -631,6 +635,10 @@
       do ns = 1, nswbands
       swref_index_nh4so4(ns) = cmplx(refrsw_sulf(ns),refisw_sulf(ns))
       swref_index_oc(ns) = cmplx(refrsw_oc(ns),refisw_oc(ns))
+!---------MShrivastava brc------------  ! cenlin_brc separate to primary & secondary
+      swref_index_brc1(ns) = cmplx(refrsw_brc1(ns),refisw_brc1(ns))
+      swref_index_brc2(ns) = cmplx(refrsw_brc2(ns),refisw_brc2(ns))
+!-----------------------------
       swref_index_dust(ns) = cmplx(refrsw_dust(ns),refisw_dust(ns))
       swref_index_nacl(ns) = cmplx(refrsw_seas(ns),refisw_seas(ns))
       swref_index_h2o(ns) = cmplx(refrwsw(ns),refiwsw(ns))
@@ -638,6 +646,10 @@
       do ns = 1, nlwbands
       lwref_index_nh4so4(ns) = cmplx(refrlw_sulf(ns),refilw_sulf(ns))
       lwref_index_oc(ns) = cmplx(refrlw_oc(ns),refilw_oc(ns))
+!-------MShrivastava brc--------  ! cenlin_brc separate to primary & secondary
+      lwref_index_brc1(ns) = cmplx(refrlw_brc1(ns),refilw_brc1(ns))
+      lwref_index_brc1(ns) = cmplx(refrlw_brc1(ns),refilw_brc1(ns))
+!--------------------------------
       lwref_index_dust(ns) = cmplx(refrlw_dust(ns),refilw_dust(ns))
       lwref_index_nacl(ns) = cmplx(refrlw_seas(ns),refilw_seas(ns))
       lwref_index_h2o(ns) = cmplx(refrwlw(ns),refiwlw(ns))
@@ -693,8 +705,10 @@
       dens_na    = 2.2        ! used
       dens_ca    = 2.6        ! used
       dens_oin   = 2.6        ! used
-      dens_dust   = 2.6        ! used
+      dens_dust  = 2.6        ! used
       dens_oc    = 1.0        ! used
+      dens_brc1  = 1.4        ! cenlin_brc
+      dens_brc2  = 1.4        ! cenlin_brc
 ! JCB, Feb. 20, 2008:  the density of BC is updated to reflect values
 ! published by Bond and Bergstrom, Light absorption by carboneceous
 ! particles: an investigative review 2006, Aerosol Sci. and Tech., 40:27-67.
@@ -720,6 +734,8 @@
       vol_ca     = 0.
       vol_oin    = 0.
       vol_oc     = 0.
+      vol_brc1   = 0. ! cenlin_brc
+      vol_brc2   = 0. ! cenlin_brc
       vol_bc     = 0.
       vol_aro1   = 0.
       vol_aro2   = 0.
@@ -776,6 +792,8 @@
           mass_oin = 0.0
           mass_dust = 0.0
           mass_oc = 0.0
+          mass_brc1 = 0.0 ! cenlin_brc
+          mass_brc2 = 0.0 ! cenlin_brc
           mass_bc = 0.0
           mass_na = 0.0
           mass_cl = 0.0
@@ -818,7 +836,15 @@
           if (totoa_a06(i,k,j) .gt. 1.0e-12 .and. isize .eq. 6) mass_oc=totoa_a06(i,k,j)*conv1a
           if (totoa_a07(i,k,j) .gt. 1.0e-12 .and. isize .eq. 7) mass_oc=totoa_a07(i,k,j)*conv1a
           if (totoa_a08(i,k,j) .gt. 1.0e-12 .and. isize .eq. 8) mass_oc=totoa_a08(i,k,j)*conv1a
-!
+
+! cenlin_brc separate to primary & secondary brc
+!-------------MShrivastava brc-------------
+          l=lptr_brc1_aer(isize,itype,iphase)
+          if (l .ge. p1st)  mass_brc1 = chem(i,k,j,l)*conv1a
+          l=lptr_brc2_aer(isize,itype,iphase)
+          if (l .ge. p1st)  mass_brc2 = chem(i,k,j,l)*conv1a
+!----------------------------------------------
+! cenlin_brc end
           l=lptr_bc_aer(isize,itype,iphase)
           if (l .ge. p1st)  mass_bc= chem(i,k,j,l)*conv1a
           l=lptr_na_aer(isize,itype,iphase)
@@ -850,6 +876,12 @@
           vol_oin = mass_oin / dens_oin
 !jdfcz    vol_dust = mass_dust / dens_dust
           vol_oc  = mass_oc  / dens_oc
+! cenlin_brc separate into primary & sencondary
+!-------------MShrivastava brc-------------
+          vol_brc1 = mass_brc1 / dens_brc1
+          vol_brc2 = mass_brc2 / dens_brc2
+!-----------------------------------------
+! cenlin_brc end
           vol_bc  = mass_bc  / dens_bc
           vol_na  = mass_na  / dens_na
           vol_cl  = mass_cl  / dens_cl
@@ -863,14 +895,15 @@
                        mass_msa + mass_co3 + mass_ca + mass_aro1 + &
                        mass_aro2 + mass_alk1 + mass_ole1 +mass_api1 + &
 !jdfcz                 mass_api2 + mass_lim1 + mass_lim2 + mass_dust
-                       mass_api2 + mass_lim1 + mass_lim2
+                       mass_api2 + mass_lim1 + mass_lim2 + mass_brc1 + mass_brc2 ! cenlin_brc
+
           mass_wet_a = mass_dry_a + mass_h2o 
           vol_dry_a  = vol_so4  + vol_no3  + vol_nh4  + vol_oin  + &
                        vol_oc   + vol_bc   + vol_na   + vol_cl   + &
                        vol_msa  + vol_co3  + vol_ca   + vol_aro1 + &
                        vol_aro2 + vol_alk1 + vol_ole1 + vol_api1 + &
 !jdfcz                 vol_api2 + vol_lim1 + vol_lim2 + vol_dust
-                       vol_api2 + vol_lim1 + vol_lim2
+                       vol_api2 + vol_lim1 + vol_lim2 + vol_brc1 + vol_brc2 ! cenlin_brc
 
           vol_wet_a  = vol_dry_a + vol_h2o
           vol_shell  = vol_wet_a - vol_bc
@@ -914,6 +947,8 @@
 !jdfcz                 (swref_index_dust(ns) * mass_dust / dens_dust) +  &
                        (swref_index_dust(ns) * mass_oin / dens_dust)  +  &
                        (swref_index_oc(ns)     * mass_oc  / dens_oc) +   &
+                       (swref_index_brc1(ns) * mass_brc1  / dens_brc1) +   & !MShrivastava brc !cenlin_brc separate to primary & secondary
+                       (swref_index_brc2(ns) * mass_brc2  / dens_brc2) +   & !MShrivastava brc !cenlin_brc separate to primary & secondary
                        (ref_index_bc     * mass_bc  / dens_bc) +   &
                        (swref_index_nacl(ns)   * mass_na  / dens_na) +   &
                        (swref_index_nacl(ns)   * mass_cl  / dens_cl) +   &
@@ -929,6 +964,8 @@
 !jdfcz                 (swref_index_dust(ns)    * mass_dust / dens_dust) +  &
                        (swref_index_dust(ns) * mass_oin / dens_dust)  +  &
                        (swref_index_oc(ns)     * mass_oc  / dens_oc) +   &
+                       (swref_index_brc1(ns) * mass_brc1  / dens_brc1) +   & !MShrivastava brc !cenlin_brc separate to primary & secondary
+                       (swref_index_brc2(ns) * mass_brc2  / dens_brc2) +   & !MShrivastava brc !cenlin_brc separate to primary & secondary
                        (swref_index_nacl(ns)   * mass_na  / dens_na) +   &
                        (swref_index_nacl(ns)   * mass_cl  / dens_cl) +   &
                        (ref_index_msa    * mass_msa / dens_msa) +  &
@@ -977,6 +1014,8 @@
 !jdfcz                 (lwref_index_dust(ns)    * mass_dust / dens_dust) +  &
                        (lwref_index_dust(ns) * mass_oin / dens_dust)  +  &
                        (lwref_index_oc(ns)     * mass_oc  / dens_oc) +   &
+                       (lwref_index_brc1(ns) * mass_brc1  / dens_brc1) +   & !MShrivastava brc !cenlin_brc separate to primary & secondary
+                       (lwref_index_brc2(ns) * mass_brc2  / dens_brc2) +   & !MShrivastava brc !cenlin_brc separate to primary & secondary
                        (ref_index_bc     * mass_bc  / dens_bc) +   &
                        (lwref_index_nacl(ns)   * mass_na  / dens_na) +   &
                        (lwref_index_nacl(ns)   * mass_cl  / dens_cl) +   &
@@ -992,6 +1031,8 @@
 !jdfcz                 (lwref_index_dust(ns)    * mass_dust / dens_dust) +  &
                        (lwref_index_dust(ns) * mass_oin / dens_dust)  +  &
                        (lwref_index_oc(ns)     * mass_oc  / dens_oc) +   &
+                       (lwref_index_brc1(ns) * mass_brc1  / dens_brc1) +   & !MShrivastava brc !cenlin_brc separate to primary & secondary
+                       (lwref_index_brc2(ns) * mass_brc2  / dens_brc2) +   & !MShrivastava brc !cenlin_brc separate to primary & secondary
                        (lwref_index_nacl(ns)   * mass_na  / dens_na) +   &
                        (lwref_index_nacl(ns)   * mass_cl  / dens_cl) +   &
                        (ref_index_msa    * mass_msa / dens_msa) +  &
@@ -4281,7 +4322,7 @@ END subroutine optical_prep_modal_soa_vbs
         real drefr ! increment in real part of refractive index
         real drefi ! increment in imag part of refractive index
         complex specrefndx(ltype) ! refractivr indices
-        integer, parameter ::  naerosols=5
+        integer, parameter ::  naerosols=7 ! 5->7 cenlin_brc: add for additional brc1 and brc2
 
         !parameterization variables
 	real weighte, weights,weighta
@@ -4415,6 +4456,14 @@ END subroutine optical_prep_modal_soa_vbs
           if (l==4) refi=-refisw_seas(ns)
           if (l==5) refr=refrsw_sulf(ns)
           if (l==5) refi=-refisw_sulf(ns)
+! cenlin_brc separate into primary & secondary
+!-------MShrivastava brc-------------------
+          if (l==6) refr=refrsw_brc1(ns)
+          if (l==6) refi=-refisw_brc1(ns)
+          if (l==7) refr=refrsw_brc2(ns)
+          if (l==7) refi=-refisw_brc2(ns)
+!-------------------------------------------
+! cenlin_brc end
           refrmin=min(refrmin,refr)
           refrmax=max(refrmax,refr)
           refimin=min(refimin,refi)
@@ -4531,6 +4580,14 @@ END subroutine optical_prep_modal_soa_vbs
           if (l==4) refi=-refilw_seas(ns)
           if (l==5) refr=refrlw_sulf(ns)
           if (l==5) refi=-refilw_sulf(ns)
+! cenlin_brc separate into primary & secondary
+!-------MShrivastava brc-------------------
+          if (l==6) refr=refrlw_brc1(ns)
+          if (l==6) refi=-refilw_brc1(ns)
+          if (l==7) refr=refrlw_brc2(ns)
+          if (l==7) refi=-refilw_brc2(ns)
+!-------------------------------------------
+! cenlin_brc end
           refrmin=min(refrmin,refr)
           refrmax=max(refrmax,refr)
           refimin=min(refimin,refi)

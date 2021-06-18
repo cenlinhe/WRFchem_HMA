@@ -156,6 +156,19 @@ CONTAINS
      &        ,mss_cnc_dust_2d1,mss_cnc_dust_2d2,mss_cnc_dust_2d3               &
      &        ,mss_cnc_dust_2d4,mss_cnc_dust_2d5                                &
 ! cenlin_dust_CLM end
+! cenlin_brc_CLM start
+     &        ,snowbrc_col2d,snowbrc_top2d,sfc_frc_brc,sfc_frc_brc_snow,albedo_dust  &
+     &        ,mss_brc1_s1,mss_brc1_s2,mss_brc1_s3,mss_brc1_s4,mss_brc1_s5           &
+     &        ,mss_cnc_brc1_s1,mss_cnc_brc1_s2,mss_cnc_brc1_s3                       &
+     &        ,mss_cnc_brc1_s4,mss_cnc_brc1_s5                                       &
+     &        ,mss_brc2_s1,mss_brc2_s2,mss_brc2_s3,mss_brc2_s4,mss_brc2_s5           &
+     &        ,mss_cnc_brc2_s1,mss_cnc_brc2_s2,mss_cnc_brc2_s3                       &
+     &        ,mss_cnc_brc2_s4,mss_cnc_brc2_s5                                       &
+     &        ,mss_cnc_brc1_2d1,mss_cnc_brc1_2d2,mss_cnc_brc1_2d3                    &
+     &        ,mss_cnc_brc1_2d4,mss_cnc_brc1_2d5                                     &
+     &        ,mss_cnc_brc2_2d1,mss_cnc_brc2_2d2,mss_cnc_brc2_2d3                    &
+     &        ,mss_cnc_brc2_2d4,mss_cnc_brc2_2d5                                     &
+! cenlin_brc_CLM end
 #if (WRF_CHEM == 1)
      &          ,drydep_flux,wetdep_flux  &  ! cenlin_BC_CLM aerosol depo
 #endif
@@ -692,6 +705,7 @@ CONTAINS
 ! cenlin_dust_CLM start
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   albedo_dust,albedo_aer
 ! cenlin_dust_CLM end
+   REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   albedo_brc ! cenlin_brc
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   GRDFLX
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   HFX
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   RMOL
@@ -1093,25 +1107,38 @@ CONTAINS
            mss_dust1_s1,mss_dust1_s2,mss_dust1_s3,mss_dust1_s4,mss_dust1_s5, &  ! cenlin_dust_CLM
            mss_dust2_s1,mss_dust2_s2,mss_dust2_s3,mss_dust2_s4,mss_dust2_s5, &  ! cenlin_dust_CLM
            mss_dust3_s1,mss_dust3_s2,mss_dust3_s3,mss_dust3_s4,mss_dust3_s5, &  ! cenlin_dust_CLM
-           mss_dust4_s1,mss_dust4_s2,mss_dust4_s3,mss_dust4_s4,mss_dust4_s5     ! cenlin_dust_CLM
+           mss_dust4_s1,mss_dust4_s2,mss_dust4_s3,mss_dust4_s4,mss_dust4_s5, &  ! cenlin_dust_CLM
+           mss_brc1_s1,mss_brc1_s2,mss_brc1_s3,mss_brc1_s4,mss_brc1_s5,      &  ! cenlin_brc_CLM
+           mss_brc2_s1,mss_brc2_s2,mss_brc2_s3,mss_brc2_s4,mss_brc2_s5          ! cenlin_brc_CLM
+
   real,    optional,  dimension(ims:ime,1:maxpatch,jms:jme),intent(inout) ::  &
            mss_cnc_bcphi_s1,mss_cnc_bcphi_s2,mss_cnc_bcphi_s3,mss_cnc_bcphi_s4,mss_cnc_bcphi_s5, &
            mss_cnc_bcpho_s1,mss_cnc_bcpho_s2,mss_cnc_bcpho_s3,mss_cnc_bcpho_s4,mss_cnc_bcpho_s5, &
            mss_cnc_dust1_s1,mss_cnc_dust1_s2,mss_cnc_dust1_s3,mss_cnc_dust1_s4,mss_cnc_dust1_s5, &  ! cenlin_dust_CLM
            mss_cnc_dust2_s1,mss_cnc_dust2_s2,mss_cnc_dust2_s3,mss_cnc_dust2_s4,mss_cnc_dust2_s5, &  ! cenlin_dust_CLM
            mss_cnc_dust3_s1,mss_cnc_dust3_s2,mss_cnc_dust3_s3,mss_cnc_dust3_s4,mss_cnc_dust3_s5, &  ! cenlin_dust_CLM
-           mss_cnc_dust4_s1,mss_cnc_dust4_s2,mss_cnc_dust4_s3,mss_cnc_dust4_s4,mss_cnc_dust4_s5     ! cenlin_dust_CLM
+           mss_cnc_dust4_s1,mss_cnc_dust4_s2,mss_cnc_dust4_s3,mss_cnc_dust4_s4,mss_cnc_dust4_s5, &  ! cenlin_dust_CLM
+           mss_cnc_brc1_s1,mss_cnc_brc1_s2,mss_cnc_brc1_s3,mss_cnc_brc1_s4,mss_cnc_brc1_s5,      &  ! cenlin_brc_CLM
+           mss_cnc_brc2_s1,mss_cnc_brc2_s2,mss_cnc_brc2_s3,mss_cnc_brc2_s4,mss_cnc_brc2_s5          ! cenlin_brc_CLM
+
   real,    optional,  dimension(ims:ime,jms:jme),intent(inout) ::  &
            mss_cnc_bcphi_2d1,mss_cnc_bcphi_2d2,mss_cnc_bcphi_2d3,mss_cnc_bcphi_2d4,mss_cnc_bcphi_2d5, &
            mss_cnc_bcpho_2d1,mss_cnc_bcpho_2d2,mss_cnc_bcpho_2d3,mss_cnc_bcpho_2d4,mss_cnc_bcpho_2d5, &
-           mss_cnc_dust_2d1,mss_cnc_dust_2d2,mss_cnc_dust_2d3,mss_cnc_dust_2d4,mss_cnc_dust_2d5 ! cenlin_dust_CLM
+           mss_cnc_dust_2d1,mss_cnc_dust_2d2,mss_cnc_dust_2d3,mss_cnc_dust_2d4,mss_cnc_dust_2d5,      & ! cenlin_dust_CLM
+           mss_cnc_brc1_2d1,mss_cnc_brc1_2d2,mss_cnc_brc1_2d3,mss_cnc_brc1_2d4,mss_cnc_brc1_2d5,      & ! cenlin_brc_CLM
+           mss_cnc_brc2_2d1,mss_cnc_brc2_2d2,mss_cnc_brc2_2d3,mss_cnc_brc2_2d4,mss_cnc_brc2_2d5         ! cenlin_brc_CLM
+
   real,    optional,  dimension(ims:ime,jms:jme),intent(inout) :: snowbc_col2d,snowbc_top2d,&
                                 snow_top2d,snow_frac2d,snowlayer2d,snowrds2d1,snowrds2d2,&
                                 snowrds2d3,snowrds2d4,snowrds2d5,&
-                                snowdust_col2d,snowdust_top2d ! cenlin_dust_CLM
+                                snowdust_col2d,snowdust_top2d,   & ! cenlin_dust_CLM
+                                snowbrc_col2d,snowbrc_top2d,   & ! cenlin_brc_CLM
+
   real,    optional,  dimension(ims:ime,jms:jme),intent(inout) :: sfc_frc_bc,sfc_frc_bc_snow
   real,    optional,  dimension(ims:ime,jms:jme),intent(inout) :: sfc_frc_dust,sfc_frc_dust_snow ! cenlin_dust_CLM
   real,    optional,  dimension(ims:ime,jms:jme),intent(inout) :: sfc_frc_aer,sfc_frc_aer_snow ! cenlin_dust_CLM
+  real,    optional,  dimension(ims:ime,jms:jme),intent(inout) :: sfc_frc_brc,sfc_frc_brc_snow ! cenlin_brc_CLM
+
   REAL,DIMENSION(ims:ime,jms:jme,4,num_drydep_flux), OPTIONAL ,       &
          INTENT(IN ) ::  drydep_flux,wetdep_flux
 ! cenlin_BC_CLM end
@@ -3718,6 +3745,19 @@ CONTAINS
                 ,mss_cnc_dust_2d1,mss_cnc_dust_2d2,mss_cnc_dust_2d3                  &
                 ,mss_cnc_dust_2d4,mss_cnc_dust_2d5                                   &
 ! cenlin_dust_CLM end
+! cenlin_brc_CLM start
+                ,snowbrc_col2d,snowbrc_top2d,sfc_frc_brc,sfc_frc_brc_snow,albedo_brc  &
+                ,mss_brc1_s1,mss_brc1_s2,mss_brc1_s3,mss_brc1_s4,mss_brc1_s5          &
+                ,mss_cnc_brc1_s1,mss_cnc_brc1_s2,mss_cnc_brc1_s3                      &
+                ,mss_cnc_brc1_s4,mss_cnc_brc1_s5                                      &
+                ,mss_brc2_s1,mss_brc2_s2,mss_brc2_s3,mss_brc2_s4,mss_brc2_s5          &
+                ,mss_cnc_brc2_s1,mss_cnc_brc2_s2,mss_cnc_brc2_s3                      &
+                ,mss_cnc_brc2_s4,mss_cnc_brc2_s5                                      &
+                ,mss_cnc_brc1_2d1,mss_cnc_brc1_2d2,mss_cnc_brc1_2d3                   &
+                ,mss_cnc_brc1_2d4,mss_cnc_brc1_2d5                                    &
+                ,mss_cnc_brc2_2d1,mss_cnc_brc2_2d2,mss_cnc_brc2_2d3                   &
+                ,mss_cnc_brc2_2d4,mss_cnc_brc2_2d5                                    &
+! cenlin_brc_CLM end
 #if (WRF_CHEM == 1)
                 ,drydep_flux,wetdep_flux   & ! cenlin_BC_CLM
 #endif

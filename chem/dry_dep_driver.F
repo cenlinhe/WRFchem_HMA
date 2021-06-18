@@ -1172,6 +1172,17 @@ CONTAINS
           drydep_flux(i,j,3,p_drydep_dust) = (ddmassn(p_oin_a03)+ddmassn(p_oin_cw03)) * 1.0e-9 / dtstep
           drydep_flux(i,j,4,p_drydep_dust) = (ddmassn(p_oin_a04)+ddmassn(p_oin_cw04)) * 1.0e-9 / dtstep
 
+! cenlin_brc_CLM
+          drydep_flux(i,j,1,p_drydep_brc1) = (ddmassn(p_brc1_a01)+ddmassn(p_brc1_cw01)) * 1.0e-9 / dtstep !ug/m2 -> kg/m2/s
+          drydep_flux(i,j,2,p_drydep_brc1) = (ddmassn(p_brc1_a02)+ddmassn(p_brc1_cw02)) * 1.0e-9 / dtstep
+          drydep_flux(i,j,3,p_drydep_brc1) = (ddmassn(p_brc1_a03)+ddmassn(p_brc1_cw03)) * 1.0e-9 / dtstep
+          drydep_flux(i,j,4,p_drydep_brc1) = (ddmassn(p_brc1_a04)+ddmassn(p_brc1_cw04)) * 1.0e-9 / dtstep
+
+          drydep_flux(i,j,1,p_drydep_brc2) = (ddmassn(p_brc2_a01)+ddmassn(p_brc2_cw01)) * 1.0e-9 / dtstep !ug/m2 -> kg/m2/s
+          drydep_flux(i,j,2,p_drydep_brc2) = (ddmassn(p_brc2_a02)+ddmassn(p_brc2_cw02)) * 1.0e-9 / dtstep
+          drydep_flux(i,j,3,p_drydep_brc2) = (ddmassn(p_brc2_a03)+ddmassn(p_brc2_cw03)) * 1.0e-9 / dtstep
+          drydep_flux(i,j,4,p_drydep_brc2) = (ddmassn(p_brc2_a04)+ddmassn(p_brc2_cw04)) * 1.0e-9 / dtstep
+
       endif
  ! 20180723 cenlin_BC_CLM end
 
@@ -1523,6 +1534,33 @@ CONTAINS
           drydep_flux(ims:ime,jms:jme,4,p_drydep_dust) = drydep_flux(ims:ime,jms:jme,4,p_drydep_dust) - &
                                                          qsrflx(ims:ime,jms:jme,p_oin_a04) - &
                                                          qsrflx(ims:ime,jms:jme,p_oin_cw04)
+
+! cenlin_brc_CLM
+          drydep_flux(ims:ime,jms:jme,1,p_drydep_brc1) = drydep_flux(ims:ime,jms:jme,1,p_drydep_brc1) - &
+                                                         qsrflx(ims:ime,jms:jme,p_brc1_a01) - &
+                                                         qsrflx(ims:ime,jms:jme,p_brc1_cw01)
+          drydep_flux(ims:ime,jms:jme,2,p_drydep_brc1) = drydep_flux(ims:ime,jms:jme,2,p_drydep_brc1) - &
+                                                         qsrflx(ims:ime,jms:jme,p_brc1_a02) - &
+                                                         qsrflx(ims:ime,jms:jme,p_brc1_cw02)
+          drydep_flux(ims:ime,jms:jme,3,p_drydep_brc1) = drydep_flux(ims:ime,jms:jme,3,p_drydep_brc1) - &
+                                                         qsrflx(ims:ime,jms:jme,p_brc1_a03) - &
+                                                         qsrflx(ims:ime,jms:jme,p_brc1_cw03)
+          drydep_flux(ims:ime,jms:jme,4,p_drydep_brc1) = drydep_flux(ims:ime,jms:jme,4,p_drydep_brc1) - &
+                                                         qsrflx(ims:ime,jms:jme,p_brc1_a04) - &
+                                                         qsrflx(ims:ime,jms:jme,p_brc1_cw04)
+
+          drydep_flux(ims:ime,jms:jme,1,p_drydep_brc2) = drydep_flux(ims:ime,jms:jme,1,p_drydep_brc2) - &
+                                                         qsrflx(ims:ime,jms:jme,p_brc2_a01) - &
+                                                         qsrflx(ims:ime,jms:jme,p_brc2_cw01)
+          drydep_flux(ims:ime,jms:jme,2,p_drydep_brc2) = drydep_flux(ims:ime,jms:jme,2,p_drydep_brc2) - &
+                                                         qsrflx(ims:ime,jms:jme,p_brc2_a02) - &
+                                                         qsrflx(ims:ime,jms:jme,p_brc2_cw02)
+          drydep_flux(ims:ime,jms:jme,3,p_drydep_brc2) = drydep_flux(ims:ime,jms:jme,3,p_drydep_brc2) - &
+                                                         qsrflx(ims:ime,jms:jme,p_brc2_a03) - &
+                                                         qsrflx(ims:ime,jms:jme,p_brc2_cw03)
+          drydep_flux(ims:ime,jms:jme,4,p_drydep_brc2) = drydep_flux(ims:ime,jms:jme,4,p_drydep_brc2) - &
+                                                         qsrflx(ims:ime,jms:jme,p_brc2_a04) - &
+                                                         qsrflx(ims:ime,jms:jme,p_brc2_cw04)
 
       endif
 

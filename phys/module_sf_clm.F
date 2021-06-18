@@ -689,6 +689,8 @@ module clm_varcon
 
 ! cenlin_BC_CLM end
 
+! cenlin_brc : update oc1 and oc2 optics to brc1 & brc2 based on Wang X. et al 2014 ACP parameterization
+! oc1: OCPHI for brc2, oc2: OCPHO for brc1
  data(ss_alb_oc1(1,i),i=1,5) / 0.996738033108225, 0.993951726870337, 0.98995641641622, &
     0.986792757460599, 0.950852907010411/
 
@@ -3997,6 +3999,20 @@ CONTAINS
                 ,mss_cnc_dust_2d1,mss_cnc_dust_2d2,mss_cnc_dust_2d3                  &
                 ,mss_cnc_dust_2d4,mss_cnc_dust_2d5                                   &
 ! cenlin_dust_CLM end
+! cenlin_brc_CLM start
+                ,snowbrc_col2d,snowbrc_top2d,sfc_frc_brc_2d,sfc_frc_brc_snow_2d  &
+                ,albxy_brc                                                       &
+                ,mss_brc1_s1,mss_brc1_s2,mss_brc1_s3,mss_brc1_s4,mss_brc1_s5     &
+                ,mss_cnc_brc1_s1,mss_cnc_brc1_s2,mss_cnc_brc1_s3                 &
+                ,mss_cnc_brc1_s4,mss_cnc_brc1_s5                                 &
+                ,mss_brc2_s1,mss_brc2_s2,mss_brc2_s3,mss_brc2_s4,mss_brc2_s5     &
+                ,mss_cnc_brc2_s1,mss_cnc_brc2_s2,mss_cnc_brc2_s3                 &
+                ,mss_cnc_brc2_s4,mss_cnc_brc2_s5                                 &
+                ,mss_cnc_brc1_2d1,mss_cnc_brc1_2d2,mss_cnc_brc1_2d3              &
+                ,mss_cnc_brc1_2d4,mss_cnc_brc1_2d5                               &
+                ,mss_cnc_brc2_2d1,mss_cnc_brc2_2d2,mss_cnc_brc2_2d3              &
+                ,mss_cnc_brc2_2d4,mss_cnc_brc2_2d5                               &
+! cenlin_brc_CLM end
 #if (WRF_CHEM == 1)
                 , drydep_flux,wetdep_flux &  ! cenlin_BC_CLM
 #endif
@@ -4055,7 +4071,10 @@ CONTAINS
                mss_dust1_s1,mss_dust1_s2,mss_dust1_s3,mss_dust1_s4,mss_dust1_s5, & ! cenlin_dust_CLM
                mss_dust2_s1,mss_dust2_s2,mss_dust2_s3,mss_dust2_s4,mss_dust2_s5, & ! cenlin_dust_CLM
                mss_dust3_s1,mss_dust3_s2,mss_dust3_s3,mss_dust3_s4,mss_dust3_s5, & ! cenlin_dust_CLM
-               mss_dust4_s1,mss_dust4_s2,mss_dust4_s3,mss_dust4_s4,mss_dust4_s5    ! cenlin_dust_CLM
+               mss_dust4_s1,mss_dust4_s2,mss_dust4_s3,mss_dust4_s4,mss_dust4_s5, & ! cenlin_dust_CLM
+               mss_brc1_s1,mss_brc1_s2,mss_brc1_s3,mss_brc1_s4,mss_brc1_s5, & ! cenlin_brc_CLM
+               mss_brc2_s1,mss_brc2_s2,mss_brc2_s3,mss_brc2_s4,mss_brc2_s5    ! cenlin_brc_CLM
+
   real,  dimension(ims:ime,1:maxpatch,jms:jme),intent(inout) ::    &
                mss_cnc_bcphi_s1,mss_cnc_bcphi_s2,mss_cnc_bcphi_s3, &
                mss_cnc_bcphi_s4,mss_cnc_bcphi_s5,mss_cnc_bcpho_s1, &
@@ -4068,14 +4087,23 @@ CONTAINS
                mss_cnc_dust3_s1,mss_cnc_dust3_s2,mss_cnc_dust3_s3, & ! cenlin_dust_CLM
                mss_cnc_dust3_s4,mss_cnc_dust3_s5,                  &
                mss_cnc_dust4_s1,mss_cnc_dust4_s2,mss_cnc_dust4_s3, & ! cenlin_dust_CLM
-               mss_cnc_dust4_s4,mss_cnc_dust4_s5 
+               mss_cnc_dust4_s4,mss_cnc_dust4_s5,                  &
+               mss_cnc_brc1_s1,mss_cnc_brc1_s2,mss_cnc_brc1_s3,    & ! cenlin_brc_CLM
+               mss_cnc_brc1_s4,mss_cnc_brc1_s5,                    &
+               mss_cnc_brc2_s1,mss_cnc_brc2_s2,mss_cnc_brc2_s3,    & ! cenlin_brc_CLM
+               mss_cnc_brc2_s4,mss_cnc_brc2_s5
+ 
 real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
                mss_cnc_bcphi_2d1,mss_cnc_bcphi_2d2,mss_cnc_bcphi_2d3, &
                mss_cnc_bcphi_2d4,mss_cnc_bcphi_2d5,mss_cnc_bcpho_2d1, &
                mss_cnc_bcpho_2d2,mss_cnc_bcpho_2d3,mss_cnc_bcpho_2d4, &
                mss_cnc_bcpho_2d5,&
                mss_cnc_dust_2d1,mss_cnc_dust_2d2,mss_cnc_dust_2d3, & ! cenlin_dust_CLM
-               mss_cnc_dust_2d4,mss_cnc_dust_2d5
+               mss_cnc_dust_2d4,mss_cnc_dust_2d5, &
+               mss_cnc_brc1_2d1,mss_cnc_brc1_2d2,mss_cnc_brc1_2d3, & ! cenlin_brc_CLM
+               mss_cnc_brc1_2d4,mss_cnc_brc1_2d5, &
+               mss_cnc_brc2_2d1,mss_cnc_brc2_2d2,mss_cnc_brc2_2d3, & ! cenlin_brc_CLM
+               mss_cnc_brc2_2d4,mss_cnc_brc2_2d5
 ! cenlin_BC_CLM end
 
   real,  dimension(ims:ime,1:maxpatch,jms:jme ),intent(inout) ::  &
@@ -4156,24 +4184,30 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
 
   real,dimension(ims:ime,jms:jme),intent(inout) :: snowbc_col2d,snowbc_top2d, &
     snow_top2d,snow_frac2d,snowlayer2d,snowrds2d1,snowrds2d2,snowrds2d3,snowrds2d4,snowrds2d5,& !kg/m2
-    snowdust_col2d,snowdust_top2d ! cenlin_dust_CLM
+    snowdust_col2d,snowdust_top2d,& ! cenlin_dust_CLM
+    snowbrc_col2d,snowbrc_top2d  ! cenlin_brc_CLM
   real,dimension(ims:ime,jms:jme),intent(inout) :: sfc_frc_bc_2d,sfc_frc_bc_snow_2d
   real,dimension(ims:ime,jms:jme),intent(inout) :: sfc_frc_dust_2d,sfc_frc_dust_snow_2d ! cenlin_dust_CLM
   real,dimension(ims:ime,jms:jme),intent(inout) :: sfc_frc_aer_2d,sfc_frc_aer_snow_2d ! cenlin_dust_CLM
+  real,dimension(ims:ime,jms:jme),intent(inout) :: sfc_frc_brc_2d,sfc_frc_brc_snow_2d ! cenlin_brc_CLM
   real(r8):: snowbc_col_buf,snowbc_top_buf,snow_top_buf,snow_frac_buf,snowlayer_buf
   real(r8):: snowdust_col_buf,snowdust_top_buf ! cenlin_dust_CLM
+  real(r8):: snowbrc_col_buf,snowbrc_top_buf ! cenlin_brc_CLM
   real(r8),dimension(5):: snowrds_buf
   real(r8):: sfc_frc_bc_buf,sfc_frc_bc_snow_buf
   real(r8):: sfc_frc_dust_buf,sfc_frc_dust_snow_buf ! cenlin_dust_CLM
   real(r8):: sfc_frc_aer_buf,sfc_frc_aer_snow_buf ! cenlin_dust_CLM
-  real,dimension(ims:ime,jms:jme),intent(inout) :: albxy_bc,albxy_dust,albxy_aer ! cenlin_dust_CLM
-  real(r8) :: albxy_bc_buf,albxyg_buf,albxy_dust_buf,albxy_aer_buf ! cenlin_dust_CLM
+  real(r8):: sfc_frc_brc_buf,sfc_frc_brc_snow_buf ! cenlin_brc_CLM
+  real,dimension(ims:ime,jms:jme),intent(inout) :: albxy_bc,albxy_dust,albxy_aer,albxy_brc ! cenlin_dust_CLM  cenlin_brc
+  real(r8) :: albxy_bc_buf,albxyg_buf,albxy_dust_buf,albxy_aer_buf,albxy_brc_buf   ! cenlin_dust_CLM  cenlin_brc
   real,dimension(ims:ime,jms:jme),intent(inout) :: albxyg
   real(r8),dimension(maxpatch,5) :: mss_bcphi_buf,mss_bcpho_buf   !5 snow layers
   real(r8),dimension(maxpatch,5) :: mss_cnc_bcphi_buf,mss_cnc_bcpho_buf   !5 snow layers
   real(r8),dimension(maxpatch,5) :: mss_dust1_buf,mss_dust2_buf,mss_dust3_buf,mss_dust4_buf ! cenlin_dust_CLM
+  real(r8),dimension(maxpatch,5) :: mss_brc1_buf,mss_brc2_buf   ! cenlin_brc_CLM
   real(r8),dimension(maxpatch,5) :: mss_cnc_dust1_buf,mss_cnc_dust2_buf,mss_cnc_dust3_buf,&
                                     mss_cnc_dust4_buf ! cenlin_dust_CLM
+  real(r8),dimension(maxpatch,5) :: mss_cnc_brc1_buf,mss_cnc_brc2_buf  ! cenlin_brc_CLM
   !real(r8),dimension(5)   :: snowrds_1d   !5 snow layers
   !real(r8),dimension(-nlevsno+1:0)   :: snowrds_buf0   !5 snow layers
   !real(r8)  :: snowlayer_1d
@@ -4577,6 +4611,22 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
     mss_cnc_dust_2d4(i,j) = 0.0
     mss_cnc_dust_2d5(i,j) = 0.0
 ! cenlin_dust_CLM end
+! cenlin_brc
+    snowbrc_col2d(i,j) = 0.0
+    snowbrc_top2d(i,j) = 0.0
+    sfc_frc_brc_2d(i,j) = 0.0
+    sfc_frc_brc_snow_2d(i,j) = 0.0
+    mss_cnc_brc1_2d1(i,j) = 0.0
+    mss_cnc_brc1_2d2(i,j) = 0.0
+    mss_cnc_brc1_2d3(i,j) = 0.0
+    mss_cnc_brc1_2d4(i,j) = 0.0
+    mss_cnc_brc1_2d5(i,j) = 0.0
+    mss_cnc_brc2_2d1(i,j) = 0.0
+    mss_cnc_brc2_2d2(i,j) = 0.0
+    mss_cnc_brc2_2d3(i,j) = 0.0
+    mss_cnc_brc2_2d4(i,j) = 0.0
+    mss_cnc_brc2_2d5(i,j) = 0.0
+! cenlin_brc end
 
     if(lndmsk == 1) then
       qsfxy_buf       = qsfxy(i,j)
@@ -4590,6 +4640,7 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
       albxyg_buf     = albxyg(i,j) ! cenlin_BC_CLM
       albxy_dust_buf   = albxy_dust(i,j) ! cenlin_dust_CLM
       albxy_aer_buf   = albxy_aer(i,j) ! cenlin_dust_CLM
+      albxy_brc_buf   = albxy_brc(i,j) ! cenlin_brc_CLM
 
       if(gsw(i,j)>0.0.and.albxy_buf<0.99.and.albxy_buf>0.0)then
          swd_buf     = gsw(i,j)/(1.-albxy_buf)
@@ -4995,6 +5046,29 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
       mss_cnc_dust4_buf(m,4)=mss_cnc_dust4_s4(i,m,j)
       mss_cnc_dust4_buf(m,5)=mss_cnc_dust4_s5(i,m,j)
 ! cenlin_dust_CLM end
+! cenlin_brc start
+      mss_brc1_buf(m,1)=mss_brc1_s1(i,m,j)
+      mss_brc1_buf(m,2)=mss_brc1_s2(i,m,j)
+      mss_brc1_buf(m,3)=mss_brc1_s3(i,m,j)
+      mss_brc1_buf(m,4)=mss_brc1_s4(i,m,j)
+      mss_brc1_buf(m,5)=mss_brc1_s5(i,m,j)
+      mss_brc2_buf(m,1)=mss_brc2_s1(i,m,j)
+      mss_brc2_buf(m,2)=mss_brc2_s2(i,m,j)
+      mss_brc2_buf(m,3)=mss_brc2_s3(i,m,j)
+      mss_brc2_buf(m,4)=mss_brc2_s4(i,m,j)
+      mss_brc2_buf(m,5)=mss_brc2_s5(i,m,j)
+
+      mss_cnc_brc1_buf(m,1)=mss_cnc_brc1_s1(i,m,j)
+      mss_cnc_brc1_buf(m,2)=mss_cnc_brc1_s2(i,m,j)
+      mss_cnc_brc1_buf(m,3)=mss_cnc_brc1_s3(i,m,j)
+      mss_cnc_brc1_buf(m,4)=mss_cnc_brc1_s4(i,m,j)
+      mss_cnc_brc1_buf(m,5)=mss_cnc_brc1_s5(i,m,j)
+      mss_cnc_brc2_buf(m,1)=mss_cnc_brc2_s1(i,m,j)
+      mss_cnc_brc2_buf(m,2)=mss_cnc_brc2_s2(i,m,j)
+      mss_cnc_brc2_buf(m,3)=mss_cnc_brc2_s3(i,m,j)
+      mss_cnc_brc2_buf(m,4)=mss_cnc_brc2_s4(i,m,j)
+      mss_cnc_brc2_buf(m,5)=mss_cnc_brc2_s5(i,m,j)
+! cenlin_brc end
 
     end do !!!!!!!!!!!!!!!!! m=1, maxpatch
       
@@ -5085,6 +5159,11 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
                   ,snowdust_col_buf,snowdust_top_buf,sfc_frc_dust_buf,sfc_frc_dust_snow_buf &
                   ,sfc_frc_aer_buf,sfc_frc_aer_snow_buf,albxy_dust_buf,albxy_aer_buf &
 ! cenlin_dust_CLM end
+! cenlin_brc start
+                  ,mss_brc1_buf,mss_brc2_buf,mss_cnc_brc1_buf,mss_cnc_brc2_buf &
+                  ,snowbrc_col_buf,snowbrc_top_buf,sfc_frc_brc_buf,sfc_frc_brc_snow_buf &
+                  ,albxy_brc_buf &
+! cenlin_brc end
 #if (WRF_CHEM == 1)
                 , drydep_buf,wetdep_buf &   ! cenlin_BC_CLM
 #endif
@@ -5096,11 +5175,13 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
                  if(albxy_bc_buf ==  1) albxy_bc_buf = 0.991
                  if(albxy_dust_buf ==  1) albxy_dust_buf = 0.991 ! cenlin_dust_CLM
                  if(albxy_aer_buf ==  1) albxy_aer_buf = 0.991 ! cenlin_dust_CLM
+                 if(albxy_brc_buf ==  1) albxy_brc_buf = 0.991 ! cenlin_brc_CLM
 
                   albxyg(i,j)         = albxyg_buf
                   albxy_bc(i,j)       = albxy_bc_buf
-                  albxy_dust(i,j)       = albxy_dust_buf ! cenlin_dust_CLM
-                  albxy_aer(i,j)       = albxy_aer_buf ! cenlin_dust_CLM
+                  albxy_dust(i,j)     = albxy_dust_buf ! cenlin_dust_CLM
+                  albxy_aer(i,j)      = albxy_aer_buf ! cenlin_dust_CLM
+                  albxy_brc(i,j)      = albxy_brc_buf ! cenlin_brc_CLM
                  ! cenlin_BC_CLM end
 
                   albxy(i,j)          = albxy_buf
@@ -5484,7 +5565,29 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
               mss_cnc_dust4_s4(i,m,j) = mss_cnc_dust4_buf(m,4)
               mss_cnc_dust4_s5(i,m,j) = mss_cnc_dust4_buf(m,5)
 ! cenlin_dust_CLM end
+! cenlin_brc start
+              mss_brc1_s1(i,m,j) = mss_brc1_buf(m,1)
+              mss_brc1_s2(i,m,j) = mss_brc1_buf(m,2)
+              mss_brc1_s3(i,m,j) = mss_brc1_buf(m,3)
+              mss_brc1_s4(i,m,j) = mss_brc1_buf(m,4)
+              mss_brc1_s5(i,m,j) = mss_brc1_buf(m,5)
+              mss_brc2_s1(i,m,j) = mss_brc2_buf(m,1)
+              mss_brc2_s2(i,m,j) = mss_brc2_buf(m,2)
+              mss_brc2_s3(i,m,j) = mss_brc2_buf(m,3)
+              mss_brc2_s4(i,m,j) = mss_brc2_buf(m,4)
+              mss_brc2_s5(i,m,j) = mss_brc2_buf(m,5)
 
+              mss_cnc_brc1_s1(i,m,j) = mss_cnc_brc1_buf(m,1)
+              mss_cnc_brc1_s2(i,m,j) = mss_cnc_brc1_buf(m,2)
+              mss_cnc_brc1_s3(i,m,j) = mss_cnc_brc1_buf(m,3)
+              mss_cnc_brc1_s4(i,m,j) = mss_cnc_brc1_buf(m,4)
+              mss_cnc_brc1_s5(i,m,j) = mss_cnc_brc1_buf(m,5)
+              mss_cnc_brc2_s1(i,m,j) = mss_cnc_brc2_buf(m,1)
+              mss_cnc_brc2_s2(i,m,j) = mss_cnc_brc2_buf(m,2)
+              mss_cnc_brc2_s3(i,m,j) = mss_cnc_brc2_buf(m,3)
+              mss_cnc_brc2_s4(i,m,j) = mss_cnc_brc2_buf(m,4)
+              mss_cnc_brc2_s5(i,m,j) = mss_cnc_brc2_buf(m,5)
+! cenlin_brc end
               end do !!!!!!!!!!!!! m = 1, maxpatch
 
 ! cenlin_BC_CLM start
@@ -5492,6 +5595,9 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
               snowbc_top2d(i,j)    = snowbc_top_buf
               snowdust_col2d(i,j)  = snowdust_col_buf ! cenlin_dust_CLM
               snowdust_top2d(i,j)  = snowdust_top_buf ! cenlin_dust_CLM
+              snowbrc_col2d(i,j)   = snowbrc_col_buf ! cenlin_brc_CLM
+              snowbrc_top2d(i,j)   = snowbrc_top_buf ! cenlin_brc_CLM
+
               snow_top2d(i,j)      = snow_top_buf
               snow_frac2d(i,j)     = snow_frac_buf
               snowlayer2d(i,j)     = snowlayer_buf
@@ -5502,10 +5608,12 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
               snowrds2d5(i,j)      = snowrds_buf(5)
               sfc_frc_bc_2d(i,j)        = sfc_frc_bc_buf
               sfc_frc_bc_snow_2d(i,j)   = sfc_frc_bc_snow_buf
-              sfc_frc_dust_2d(i,j)      = sfc_frc_dust_buf ! cenlin_dust_CLM
+              sfc_frc_dust_2d(i,j)      = sfc_frc_dust_buf      ! cenlin_dust_CLM
               sfc_frc_dust_snow_2d(i,j) = sfc_frc_dust_snow_buf ! cenlin_dust_CLM
-              sfc_frc_aer_2d(i,j)       = sfc_frc_aer_buf ! cenlin_dust_CLM
-              sfc_frc_aer_snow_2d(i,j)  = sfc_frc_aer_snow_buf ! cenlin_dust_CLM
+              sfc_frc_aer_2d(i,j)       = sfc_frc_aer_buf       ! cenlin_dust_CLM
+              sfc_frc_aer_snow_2d(i,j)  = sfc_frc_aer_snow_buf  ! cenlin_dust_CLM
+              sfc_frc_brc_2d(i,j)       = sfc_frc_brc_buf       ! cenlin_brc_CLM
+              sfc_frc_brc_snow_2d(i,j)  = sfc_frc_brc_snow_buf  ! cenlin_brc_CLM
 
               do m=1,maxpatch
                  mss_cnc_bcphi_2d1(i,j) = mss_cnc_bcphi_2d1(i,j) + &
@@ -5556,6 +5664,29 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
                                        mss_cnc_dust3_s5(i,m,j) + &
                                        mss_cnc_dust4_s5(i,m,j) )* weight_col_buf(m)
 ! cenlin_BC_CLM end
+! cenlin_brc start
+                 mss_cnc_brc1_2d1(i,j) = mss_cnc_brc1_2d1(i,j) + &
+                            mss_cnc_brc1_s1(i,m,j) * weight_col_buf(m)
+                 mss_cnc_brc1_2d2(i,j) = mss_cnc_brc1_2d2(i,j) + &
+                            mss_cnc_brc1_s2(i,m,j) * weight_col_buf(m)
+                 mss_cnc_brc1_2d3(i,j) = mss_cnc_brc1_2d3(i,j) + &
+                            mss_cnc_brc1_s3(i,m,j) * weight_col_buf(m)
+                 mss_cnc_brc1_2d4(i,j) = mss_cnc_brc1_2d4(i,j) + &
+                            mss_cnc_brc1_s4(i,m,j) * weight_col_buf(m)
+                 mss_cnc_brc1_2d5(i,j) = mss_cnc_brc1_2d5(i,j) + &
+                            mss_cnc_brc1_s5(i,m,j) * weight_col_buf(m)
+
+                 mss_cnc_brc2_2d1(i,j) = mss_cnc_brc2_2d1(i,j) + &
+                            mss_cnc_brc2_s1(i,m,j) * weight_col_buf(m)
+                 mss_cnc_brc2_2d2(i,j) = mss_cnc_brc2_2d2(i,j) + &
+                            mss_cnc_brc2_s2(i,m,j) * weight_col_buf(m)
+                 mss_cnc_brc2_2d3(i,j) = mss_cnc_brc2_2d3(i,j) + &
+                            mss_cnc_brc2_s3(i,m,j) * weight_col_buf(m)
+                 mss_cnc_brc2_2d4(i,j) = mss_cnc_brc2_2d4(i,j) + &
+                            mss_cnc_brc2_s4(i,m,j) * weight_col_buf(m)
+                 mss_cnc_brc2_2d5(i,j) = mss_cnc_brc2_2d5(i,j) + &
+                            mss_cnc_brc2_s5(i,m,j) * weight_col_buf(m)
+! cenlin_brc end
 
               end do
  
@@ -5697,7 +5828,8 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
             albxyg(i,j) = FRC_URB2D(I,J)*ALB_URB+(1-FRC_URB2D(I,J))*albxyg_buf   ![-]
             albxy_bc(i,j) = FRC_URB2D(I,J)*ALB_URB+(1-FRC_URB2D(I,J))*albxy_bc_buf   ![-]
             albxy_dust(i,j) = FRC_URB2D(I,J)*ALB_URB+(1-FRC_URB2D(I,J))*albxy_dust_buf ! cenlin_dust_CLM
-            albxy_aer(i,j) = FRC_URB2D(I,J)*ALB_URB+(1-FRC_URB2D(I,J))*albxy_aer_buf ! cenlin_dust_CLM
+            albxy_aer(i,j) = FRC_URB2D(I,J)*ALB_URB+(1-FRC_URB2D(I,J))*albxy_aer_buf   ! cenlin_dust_CLM
+            albxy_brc(i,j) = FRC_URB2D(I,J)*ALB_URB+(1-FRC_URB2D(I,J))*albxy_brc_buf   ! cenlin_brc_CLM
 ! cenlin_BC_CLM end
             shxy(i,j)  = FRC_URB2D(I,J)*SH_URB+(1-FRC_URB2D(I,J))*shxy_buf     ![W/m/m]
             qfx(i,j)   = FRC_URB2D(I,J)*LH_KINEMATIC_URB &
@@ -24808,11 +24940,12 @@ module SNICARMod
 
   real(r8), public, parameter :: snw_rds_min = 54.526_r8  ! minimum allowed snow effective radius (also "fresh snow" value) [microns]
   integer,  public, parameter :: sno_nbr_aer =   8        ! number of aerosol species in snowpack (indices described above) [nbr]
-  logical,  public, parameter :: DO_SNO_OC =    .false.   ! parameter to include organic carbon (OC) in snowpack radiative calculations
+  logical,  public, parameter :: DO_SNO_OC =    .true.    ! parameter to include organic carbon (OC) in snowpack radiative calculations
   logical,  public, parameter :: DO_SNO_AER =   .true.    ! parameter to include aerosols in snowpack radiative calculations
 
   real(r8), public, parameter :: scvng_fct_mlt_bcphi = 0.20_r8   ! scavenging factor for hydrophillic BC inclusion in meltwater [frc]
   real(r8), public, parameter :: scvng_fct_mlt_bcpho = 0.03_r8   ! scavenging factor for hydrophobic BC inclusion in meltwater [frc]
+! cenlin_brc : assume primary brc (brc1) is hydrophobic and secondary brc (brc2) is hydrophilic due to oxidation
   real(r8), public, parameter :: scvng_fct_mlt_ocphi = 0.20_r8   ! scavenging factor for hydrophillic OC inclusion in meltwater [frc]
   real(r8), public, parameter :: scvng_fct_mlt_ocpho = 0.03_r8   ! scavenging factor for hydrophobic OC inclusion in meltwater [frc]
   real(r8), public, parameter :: scvng_fct_mlt_dst1  = 0.02_r8   ! scavenging factor for dust species 1 inclusion in meltwater [frc]
@@ -25400,12 +25533,12 @@ contains
 
                 ! cenlin_BC_CLM end
      
-                ! aerosol species 3 optical properties
+                ! aerosol species 3 optical properties  OCPHI
                 ss_alb_aer_lcl(3)        = ss_alb_oc1(1,bnd_idx)      
                 asm_prm_aer_lcl(3)       = asm_prm_oc1(1,bnd_idx)
                 ext_cff_mss_aer_lcl(3)   = ext_cff_mss_oc1(1,bnd_idx)
                 
-                ! aerosol species 4 optical properties
+                ! aerosol species 4 optical properties  OCPHO
                 ss_alb_aer_lcl(4)        = ss_alb_oc2(1,bnd_idx)      
                 asm_prm_aer_lcl(4)       = asm_prm_oc2(1,bnd_idx)
                 ext_cff_mss_aer_lcl(4)   = ext_cff_mss_oc2(1,bnd_idx)
@@ -26210,7 +26343,9 @@ subroutine mkarbinit(snlx   ,snowdpx ,   dzclmx  ,zclmx      ,&
                   mss_dust1_buf,mss_cnc_dust1_buf,  &  ! cenlin_dust_CLM
                   mss_dust2_buf,mss_cnc_dust2_buf,  &  ! cenlin_dust_CLM
                   mss_dust3_buf,mss_cnc_dust3_buf,  &  ! cenlin_dust_CLM
-                  mss_dust4_buf,mss_cnc_dust4_buf   &  ! cenlin_dust_CLM
+                  mss_dust4_buf,mss_cnc_dust4_buf,  &  ! cenlin_dust_CLM
+                  mss_brc1_buf,mss_cnc_brc1_buf,    &  ! cenlin_brc_CLM
+                  mss_brc2_buf,mss_cnc_brc2_buf     &  ! cenlin_brc_CLM
 #ifdef CN
                    ,tlaix,tsaix,htopx,hbotx &
 #endif
@@ -26311,6 +26446,8 @@ subroutine mkarbinit(snlx   ,snowdpx ,   dzclmx  ,zclmx      ,&
   real(r8),dimension(maxpatch,5):: mss_dust2_buf,mss_cnc_dust2_buf ! cenlin_dust_CLM
   real(r8),dimension(maxpatch,5):: mss_dust3_buf,mss_cnc_dust3_buf ! cenlin_dust_CLM
   real(r8),dimension(maxpatch,5):: mss_dust4_buf,mss_cnc_dust4_buf ! cenlin_dust_CLM
+  real(r8),dimension(maxpatch,5):: mss_brc1_buf,mss_cnc_brc1_buf ! cenlin_brc_CLM
+  real(r8),dimension(maxpatch,5):: mss_brc2_buf,mss_cnc_brc2_buf ! cenlin_brc_CLM
 
     integer   :: snlx(maxpatch)
     real(r8)  :: snowdpx(maxpatch)
@@ -26592,12 +26729,11 @@ subroutine mkarbinit(snlx   ,snowdpx ,   dzclmx  ,zclmx      ,&
        mss_cnc_bcphi(c,:)=mss_cnc_bcphi_buf(c,:) ! cenlin_BC_CLM
        mss_cnc_bcpho(c,:)=mss_cnc_bcpho_buf(c,:) ! cenlin_BC_CLM
  
-   ! cenlin: force the OC to be zero to exclude OC effects on albedo 
        mss_octot(c,:) = 0._r8 
-       mss_ocpho(c,:) = 0._r8   !r
-       mss_ocphi(c,:) = 0._r8   !r
-       mss_cnc_ocphi(c,:)=0._r8
-       mss_cnc_ocpho(c,:)=0._r8
+       mss_ocpho(c,:) = mss_brc1_buf(c,:)  ! cenlin_brc_CLM
+       mss_ocphi(c,:) = mss_brc2_buf(c,:)  ! cenlin_brc_CLM
+       mss_cnc_ocphi(c,:)=mss_cnc_brc2_buf(c,:) ! cenlin_brc_CLM
+       mss_cnc_ocpho(c,:)=mss_cnc_brc1_buf(c,:) ! cenlin_brc_CLM
 
        mss_dst1(c,:) = mss_dust1_buf(c,:)   !r  ! cenlin_dust_CLM
        mss_dst2(c,:) = mss_dust2_buf(c,:)   !r  ! cenlin_dust_CLM
@@ -33867,12 +34003,14 @@ contains
 !       flx_bc_dep(c)       = forc_aer(g,1) + forc_aer(g,2) + forc_aer(g,3) + forc_aer(g,4)
 ! cenlin_BC_CLM end
 
+! cenlin_brc_CLM start
        flx_oc_dep_dry(c)   = max(0._r8,forc_aer(g,5))
        flx_oc_dep_wet(c)   = max(0._r8,forc_aer(g,6))
-       flx_oc_dep_phi(c)   = max(0._r8,forc_aer(g,6))  
-       flx_oc_dep_pho(c)   = max(0._r8,forc_aer(g,5))
+       flx_oc_dep_phi(c)   = max(0._r8,forc_aer(g,6)) ! brc2 
+       flx_oc_dep_pho(c)   = max(0._r8,forc_aer(g,5)) ! brc1
        flx_oc_dep(c)       = flx_oc_dep_phi(c) + flx_oc_dep_pho(c)
 !       flx_oc_dep(c)       = forc_aer(g,5)+forc_aer(g,6)
+! cenlin_brc_CLM end
 
 ! cenlin_dust_CLM start       
        flx_dst_dep_wet1(c) = max(0._r8,forc_aer(g,7)) ! wetdep_dust size 1
@@ -58350,6 +58488,7 @@ contains
 ! cenlin_BC_CLM end
                 ,mss_dust1_buf,mss_dust2_buf,mss_dust3_buf,mss_dust4_buf & ! cenlin_dust_CLM
                 ,mss_cnc_dust1_buf,mss_cnc_dust2_buf,mss_cnc_dust3_buf,mss_cnc_dust4_buf & ! cenlin_dust_CLM
+                ,mss_brc1_buf,mss_brc2_buf,mss_cnc_brc1_buf,mss_cnc_brc2_buf & ! cenlin_brc_CLM
 #ifdef CN
                 ,tlai        ,tsai    ,htop      ,hbot                &
                 ,htmx_buf,croplive_buf,gdd1020_buf,gdd820_buf,gdd020_buf,grainc_buf,grainc_storage_buf  &
@@ -58502,6 +58641,10 @@ contains
     real(r8),dimension(maxpatch,5) :: mss_cnc_dust1_buf,mss_cnc_dust2_buf,mss_cnc_dust3_buf,&
                                       mss_cnc_dust4_buf
 ! cenlin_dust_CLM end
+! cenlin_brc_CLM start
+    real(r8),dimension(maxpatch,5) :: mss_brc1_buf,mss_brc2_buf
+    real(r8),dimension(maxpatch,5) :: mss_cnc_brc1_buf,mss_cnc_brc2_buf
+! cenlin_brc_CLM end
 
 #ifdef CN
     real(r8)  :: tlai(maxpatch)
@@ -58644,7 +58787,9 @@ contains
                   mss_dust1_buf,mss_cnc_dust1_buf,  &  ! cenlin_dust_CLM
                   mss_dust2_buf,mss_cnc_dust2_buf,  &  ! cenlin_dust_CLM
                   mss_dust3_buf,mss_cnc_dust3_buf,  &  ! cenlin_dust_CLM
-                  mss_dust4_buf,mss_cnc_dust4_buf  &  ! cenlin_dust_CLM
+                  mss_dust4_buf,mss_cnc_dust4_buf,  &  ! cenlin_dust_CLM
+                  mss_brc1_buf,mss_cnc_brc1_buf,  &  ! cenlin_brc_CLM
+                  mss_brc2_buf,mss_cnc_brc2_buf   &  ! cenlin_brc_CLM
 #ifdef CN
                  ,tlai,tsai,htop,hbot &
 #endif                 
@@ -58876,6 +59021,11 @@ end module initializeMod
                   ,snowdust_col_buf,snowdust_top_buf,sfc_frc_dust_buf,sfc_frc_dust_snow_buf &
                   ,sfc_frc_aer_buf,sfc_frc_aer_snow_buf,albxy_dust_buf,albxy_aer_buf &
 ! cenlin_dust_CLM end
+! cenlin_brc start
+                  ,mss_brc1_buf,mss_brc2_buf,mss_cnc_brc1_buf,mss_cnc_brc2_buf  &
+                  ,snowbrc_col_buf,snowbrc_top_buf,sfc_frc_brc_buf,sfc_frc_brc_snow_buf &
+                  ,albxy_brc_buf  &
+! cenlin_brc end
 #if (WRF_CHEM == 1)
                 , drydep_buf,wetdep_buf  &  ! cenlin_BC_CLM
 #endif 
@@ -59038,7 +59188,13 @@ end module initializeMod
    real(r8) :: albxy_dust_buf,albxy_aer_buf
    real(r8) :: snowdust_col_buf,snowdust_top_buf
 ! cenlin_dust_CLM end
-
+! cenlin_brc start
+   real(r8),dimension(maxpatch,5) :: mss_brc1_buf,mss_brc2_buf 
+   real(r8),dimension(maxpatch,5) :: mss_cnc_brc1_buf,mss_cnc_brc2_buf 
+   real(r8) :: sfc_frc_brc_buf,sfc_frc_brc_snow_buf
+   real(r8) :: albxy_brc_buf
+   real(r8) :: snowbrc_col_buf,snowbrc_top_buf
+! cenlin_brc end
   integer   :: snl(maxpatch)
   real(r8)  :: snowdp(maxpatch)
 !  real(r8)  :: snowage(maxpatch)
@@ -59248,6 +59404,7 @@ end module initializeMod
 ! cenlin_BC_CLM end
                 ,mss_dust1_buf,mss_dust2_buf,mss_dust3_buf,mss_dust4_buf & ! cenlin_dust_CLM
                 ,mss_cnc_dust1_buf,mss_cnc_dust2_buf,mss_cnc_dust3_buf,mss_cnc_dust4_buf & ! cenlin_dust_CLM
+                ,mss_brc1_buf,mss_brc2_buf,,mss_cnc_brc1_buf,mss_cnc_brc2_buf & ! cenlin_brc
 #ifdef CN
                 ,tlaixy   ,tsaixy  ,htopxy    ,hbotxy                & 
                 ,htmx_buf,croplive_buf,gdd1020_buf,gdd820_buf,gdd020_buf,grainc_buf,grainc_storage_buf  &
@@ -59544,6 +59701,13 @@ end module initializeMod
      mss_cnc_dust3_buf=0._r8
      mss_dust4_buf=0._r8
      mss_cnc_dust4_buf=0._r8
+! cenlin_brc
+     snowbrc_col_buf=0._r8
+     snowbrc_top_buf=0._r8
+     mss_brc1_buf=0._r8
+     mss_cnc_brc1_buf=0._r8
+     mss_brc2_buf=0._r8
+     mss_cnc_brc2_buf=0._r8
 
 ! output aerosol mass in snow
      do c = begc,endc
@@ -59567,6 +59731,14 @@ end module initializeMod
        mss_cnc_dust3_buf(c,:) = clm3%g%l%c%cps%mss_cnc_dst3(c,:)
        mss_dust4_buf(c,:)     = clm3%g%l%c%cps%mss_dst4(c,:)
        mss_cnc_dust4_buf(c,:) = clm3%g%l%c%cps%mss_cnc_dst4(c,:)
+! cenlin_brc
+       snowbrc_col_buf  = snowbrc_col_buf + clm3%g%l%c%cps%mss_oc_col(c)*wtc(c)
+       snowbrc_top_buf  = snowbrc_top_buf + clm3%g%l%c%cps%mss_oc_top(c)*wtc(c)
+       mss_brc1_buf(c,:)     = clm3%g%l%c%cps%mss_ocpho(c,:)
+       mss_cnc_brc1_buf(c,:) = clm3%g%l%c%cps%mss_cnc_ocpho(c,:)
+       mss_brc2_buf(c,:)     = clm3%g%l%c%cps%mss_ocphi(c,:)
+       mss_cnc_brc2_buf(c,:) = clm3%g%l%c%cps%mss_cnc_ocphi(c,:)
+
      enddo
     
  
@@ -59578,6 +59750,9 @@ end module initializeMod
      sfc_frc_dust_snow_buf=0._r8 
      sfc_frc_aer_buf=0._r8       
      sfc_frc_aer_snow_buf=0._r8 
+! cenlin_brc
+     sfc_frc_brc_buf=0._r8
+     sfc_frc_brc_snow_buf=0._r8
 
      do p = begp,endp
        sfc_frc_bc_buf = sfc_frc_bc_buf + clm3%g%l%c%p%pef%sfc_frc_bc(p)*wtp(p)
@@ -59587,6 +59762,10 @@ end module initializeMod
        sfc_frc_dust_snow_buf = sfc_frc_dust_snow_buf + clm3%g%l%c%p%pef%sfc_frc_dst_sno(p)*wtp(p)
        sfc_frc_aer_buf = sfc_frc_aer_buf + clm3%g%l%c%p%pef%sfc_frc_aer(p)*wtp(p)
        sfc_frc_aer_snow_buf = sfc_frc_aer_snow_buf + clm3%g%l%c%p%pef%sfc_frc_aer_sno(p)*wtp(p)
+! cenlin_brc
+       sfc_frc_brc_buf = sfc_frc_brc_buf + clm3%g%l%c%p%pef%sfc_frc_oc(p)*wtp(p)
+       sfc_frc_brc_snow_buf = sfc_frc_brc_snow_buf + clm3%g%l%c%p%pef%sfc_frc_oc_sno(p)*wtp(p)
+
      enddo
 
      if (sfc_frc_bc_buf.ge.1.e30_r8) sfc_frc_bc_buf=0._r8
@@ -59596,13 +59775,16 @@ end module initializeMod
      if (sfc_frc_dust_snow_buf.ge.1.e30_r8) sfc_frc_dust_snow_buf=0._r8
      if (sfc_frc_aer_buf.ge.1.e30_r8) sfc_frc_aer_buf=0._r8
      if (sfc_frc_aer_snow_buf.ge.1.e30_r8) sfc_frc_aer_snow_buf=0._r8
-
+! cenlin_brc
+     if (sfc_frc_brc_buf.ge.1.e30_r8) sfc_frc_brc_buf=0._r8
+     if (sfc_frc_brc_snow_buf.ge.1.e30_r8) sfc_frc_brc_snow_buf=0._r8
 
 ! output albedo and snow property
      albxy_buf=0._r8
      albxy_bc_buf=0._r8
      albxy_dust_buf=0._r8 ! cenlin_dust_CLM
      albxy_aer_buf=0._r8 ! cenlin_dust_CLM
+     albxy_brc_buf=0._r8 ! cenlin_brc_CLM
 
      do j = 1,numrad
      do c = begc,endc
@@ -59615,6 +59797,10 @@ end module initializeMod
          (clm3%g%l%c%cps%albgrd_dst(c,j)*wtc(c)*cof_dir(j) + clm3%g%l%c%cps%albgri_dst(c,j)*wtc(c)*cof_dif(j))
        albxy_aer_buf = albxy_aer_buf + &
          (clm3%g%l%c%cps%albgrd_pur(c,j)*wtc(c)*cof_dir(j) + clm3%g%l%c%cps%albgri_pur(c,j)*wtc(c)*cof_dif(j))
+! cenlin_brc
+       albxy_brc_buf = albxy_brc_buf + &
+         (clm3%g%l%c%cps%albgrd_oc(c,j)*wtc(c)*cof_dir(j) + clm3%g%l%c%cps%albgri_oc(c,j)*wtc(c)*cof_dif(j))
+
      enddo
      enddo
 
@@ -59809,7 +59995,8 @@ subroutine driver (doalb,ilx,jlx,nextsw_cday, declinp1, declin, &
 ! 20180725 cenlin_BC_CLM start
   use module_state_description, only : num_drydep_flux,num_wetdep_flux, &
                       p_drydep_bcphi,p_drydep_bcpho,p_wetdep_bcphi,p_wetdep_bcpho,&
-                      p_drydep_dust,p_wetdep_dust ! cenlin_dust_CLM
+                      p_drydep_dust,p_wetdep_dust, & ! cenlin_dust_CLM
+                      p_drydep_brc1,p_drydep_brc2,p_wetdep_brc1,p_wetdep_brc2 ! cenlin_brc
 ! 20180725 cenlin_BC_CLM end 
 
 
@@ -59941,8 +60128,23 @@ subroutine driver (doalb,ilx,jlx,nextsw_cday, declinp1, declin, &
 
       ! OC & dust deposition forcing
       !clm_a2l%forc_aer(g, 4) = 0.0  !ocphidry2t
-      clm_a2l%forc_aer(g, 5) = 0.0  !ocphodry2t
-      clm_a2l%forc_aer(g, 6) = 0.0  !ocphiwet2t
+      clm_a2l%forc_aer(g, 5) = wetdep_buf(1,p_wetdep_brc1) + & ! brc1
+                               wetdep_buf(2,p_wetdep_brc1) + &
+                               wetdep_buf(3,p_wetdep_brc1) + &
+                               wetdep_buf(4,p_wetdep_brc1) + &
+                               drydep_buf(1,p_drydep_brc1) + & 
+                               drydep_buf(2,p_drydep_brc1) + &
+                               drydep_buf(3,p_drydep_brc1) + &
+                               drydep_buf(4,p_drydep_brc1)
+
+      clm_a2l%forc_aer(g, 6) = wetdep_buf(1,p_wetdep_brc2) + & ! brc2
+                               wetdep_buf(2,p_wetdep_brc2) + &
+                               wetdep_buf(3,p_wetdep_brc2) + &
+                               wetdep_buf(4,p_wetdep_brc2) + &
+                               drydep_buf(1,p_drydep_brc2) + &  
+                               drydep_buf(2,p_drydep_brc2) + &
+                               drydep_buf(3,p_drydep_brc2) + &
+                               drydep_buf(4,p_drydep_brc2)
 
 ! cenlin_dust_CLM
       clm_a2l%forc_aer(g, 7) = wetdep_buf(1,p_wetdep_dust) + &   !wetdep_dust1

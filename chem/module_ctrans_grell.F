@@ -55,7 +55,9 @@ USE module_state_description, ONLY: mozart_mosaic_4bin_kpp, &
                               p_bsoaX_a04,p_bsoa1_a04,p_bsoa2_a04,p_bsoa3_a04,p_bsoa4_a04,&
                               p_biog1_c_a04,p_biog1_o_a04,&
                               p_cl_a04,p_co3_a04,p_nh4_a04,p_na_a04,&
-                              p_ca_a04,p_oin_a04,p_oc_a04,p_bc_a04
+                              p_ca_a04,p_oin_a04,p_oc_a04,p_bc_a04, &
+                              p_brc1_a01,p_brc1_a02,p_brc1_a03,p_brc1_a04, & ! cenlin_brc_CLM
+                              p_brc2_a01,p_brc2_a02,p_brc2_a03,p_brc2_a04    ! cenlin_brc_CLM
 
 ! cenlin_BC_CLM start
 USE module_state_description, ONLY: p_wetdep_bcphi,p_wetdep_bcpho,&
@@ -73,6 +75,7 @@ USE module_state_description, ONLY: p_wetdep_bcphi,p_wetdep_bcpho,&
                               p_wetdep_bcphi_ar9,p_wetdep_bcpho_ar9,&
                               p_wetdep_bcphi_ar10,p_wetdep_bcpho_ar10,&
                               p_wetdep_dust, & ! cenlin_dust_CLM
+                              p_wetdep_brc1,p_wetdep_brc2, & ! cenlin_brc_CLM
                               p_bc_cw01,p_bc_cw02,p_bc_cw03,p_bc_cw04,&
                               p_bc_cw01_ant,p_bc_cw02_ant,p_bc_cw03_ant,p_bc_cw04_ant,&
                               p_bc_a01_ant,p_bc_a02_ant,p_bc_a03_ant,p_bc_a04_ant,&
@@ -101,6 +104,8 @@ USE module_state_description, ONLY: p_wetdep_bcphi,p_wetdep_bcpho,&
                               p_bc_cw01_ar10,p_bc_cw02_ar10,p_bc_cw03_ar10,p_bc_cw04_ar10,&
                               p_bc_a01_ar10,p_bc_a02_ar10,p_bc_a03_ar10,p_bc_a04_ar10,&
                               p_oin_cw01,p_oin_cw02,p_oin_cw03,p_oin_cw04,& ! cenlin_dust_CLM 
+                              p_brc1_cw01,p_brc1_cw02,p_brc1_cw03,p_brc1_cw04, & ! cenlin_brc_CLM
+                              p_brc2_cw01,p_brc2_cw02,p_brc2_cw03,p_brc2_cw04, & ! cenlin_brc_CLM
                               num_drydep_flux,num_wetdep_flux
 ! cenlin_BC_CLM end
 
@@ -759,6 +764,42 @@ CONTAINS
                  max(0.0,wetdep_2d(its:ite,jts:jte,p_oin_cw04)) * 1.0e-9 + &
                  max(0.0,wetdep_2d(its:ite,jts:jte,p_oin_a04)) * 1.0e-9
 
+! cenlin_brc_CLM
+     wetdep_flux(its:ite,jts:jte,1,p_wetdep_brc1) = &
+                 wetdep_flux(its:ite,jts:jte,1,p_wetdep_brc1) + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_brc1_cw01)) * 1.0e-9 + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_brc1_a01)) * 1.0e-9
+     wetdep_flux(its:ite,jts:jte,2,p_wetdep_brc1) = &
+                 wetdep_flux(its:ite,jts:jte,2,p_wetdep_brc1) + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_brc1_cw02)) * 1.0e-9 + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_brc1_a02)) * 1.0e-9
+     wetdep_flux(its:ite,jts:jte,3,p_wetdep_brc1) = &
+                 wetdep_flux(its:ite,jts:jte,3,p_wetdep_brc1) + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_brc1_cw03)) * 1.0e-9 + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_brc1_a03)) * 1.0e-9
+     wetdep_flux(its:ite,jts:jte,4,p_wetdep_brc1) = &
+                 wetdep_flux(its:ite,jts:jte,4,p_wetdep_brc1) + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_brc1_cw04)) * 1.0e-9 + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_brc1_a04)) * 1.0e-9
+
+     wetdep_flux(its:ite,jts:jte,1,p_wetdep_brc2) = &
+                 wetdep_flux(its:ite,jts:jte,1,p_wetdep_brc2) + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_brc2_cw01)) * 1.0e-9 + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_brc2_a01)) * 1.0e-9
+     wetdep_flux(its:ite,jts:jte,2,p_wetdep_brc2) = &
+                 wetdep_flux(its:ite,jts:jte,2,p_wetdep_brc2) + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_brc2_cw02)) * 1.0e-9 + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_brc2_a02)) * 1.0e-9
+     wetdep_flux(its:ite,jts:jte,3,p_wetdep_brc2) = &
+                 wetdep_flux(its:ite,jts:jte,3,p_wetdep_brc2) + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_brc2_cw03)) * 1.0e-9 + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_brc2_a03)) * 1.0e-9
+     wetdep_flux(its:ite,jts:jte,4,p_wetdep_brc2) = &
+                 wetdep_flux(its:ite,jts:jte,4,p_wetdep_brc2) + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_brc2_cw04)) * 1.0e-9 + &
+                 max(0.0,wetdep_2d(its:ite,jts:jte,p_brc2_a04)) * 1.0e-9
+! cenlin_brc end
+
    endif
 ! cenlin_BC_CLM end
 
@@ -953,7 +994,17 @@ CONTAINS
           wetdep_2d(its:ite,jts:jte,p_glysoa_sfc_a01) + &
           wetdep_2d(its:ite,jts:jte,p_glysoa_sfc_a02) + &
           wetdep_2d(its:ite,jts:jte,p_glysoa_sfc_a03) + &
-          wetdep_2d(its:ite,jts:jte,p_glysoa_sfc_a04))*dt*0.001/mwoa ! mmol/m2
+          wetdep_2d(its:ite,jts:jte,p_glysoa_sfc_a04) + &
+! cenlin_brc
+          wetdep_2d(its:ite,jts:jte,p_brc1_a01) + &
+          wetdep_2d(its:ite,jts:jte,p_brc1_a02) + &
+          wetdep_2d(its:ite,jts:jte,p_brc1_a03) + &
+          wetdep_2d(its:ite,jts:jte,p_brc1_a04) + &
+          wetdep_2d(its:ite,jts:jte,p_brc2_a01) + &
+          wetdep_2d(its:ite,jts:jte,p_brc2_a02) + &
+          wetdep_2d(its:ite,jts:jte,p_brc2_a03) + &
+          wetdep_2d(its:ite,jts:jte,p_brc2_a04) )*dt*0.001/mwoa ! mmol/m2
+! cenlin_brc end
      endif
 
    else

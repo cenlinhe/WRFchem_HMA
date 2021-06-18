@@ -1776,6 +1776,11 @@ end if !Chemistry time step check
 ! cenlin_dust
        grid%drydep_dust_tot(its:ite,jts:jte) = 0.0
        grid%wetdep_dust_tot(its:ite,jts:jte) = 0.0
+! cenlin_brc_CLM
+       grid%drydep_brc1_tot(its:ite,jts:jte) = 0.0
+       grid%wetdep_brc1_tot(its:ite,jts:jte) = 0.0
+       grid%drydep_brc2_tot(its:ite,jts:jte) = 0.0
+       grid%wetdep_brc2_tot(its:ite,jts:jte) = 0.0
 
        grid%bc_sfc_tot(its:ite,jts:jte) = 0.0
        grid%bc_sfc_ant(its:ite,jts:jte) = 0.0
@@ -2175,6 +2180,24 @@ end if !Chemistry time step check
                                                grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_dust) + &
                                                grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_dust) + &
                                                grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_dust)
+! cenlin_brc_CLM
+       grid%drydep_brc1_tot(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_brc1) + &
+                                               grid%drydep_flux(its:ite,jts:jte,2,p_drydep_brc1) + &
+                                               grid%drydep_flux(its:ite,jts:jte,3,p_drydep_brc1) + &
+                                               grid%drydep_flux(its:ite,jts:jte,4,p_drydep_brc1)
+       grid%wetdep_brc1_tot(its:ite,jts:jte) = grid%wetdep_flux(its:ite,jts:jte,1,p_wetdep_brc1) + &
+                                               grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_brc1) + &
+                                               grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_brc1) + &
+                                               grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_brc1)
+       grid%drydep_brc2_tot(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_brc2) + &
+                                               grid%drydep_flux(its:ite,jts:jte,2,p_drydep_brc2) + &
+                                               grid%drydep_flux(its:ite,jts:jte,3,p_drydep_brc2) + &
+                                               grid%drydep_flux(its:ite,jts:jte,4,p_drydep_brc2)
+       grid%wetdep_brc2_tot(its:ite,jts:jte) = grid%wetdep_flux(its:ite,jts:jte,1,p_wetdep_brc2) + &
+                                               grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_brc2) + &
+                                               grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_brc2) + &
+                                               grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_brc2)
+
 
      ! total surface concentration
      grid%bc_sfc_tot(its:ite,jts:jte) = grid%bc_a_tot(its:ite,kts,jts:jte)+grid%bc_cw_tot(its:ite,kts,jts:jte)

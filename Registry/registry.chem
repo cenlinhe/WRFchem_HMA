@@ -759,6 +759,11 @@ state   real  wetdep_bcpho_ar10    ij{sizebin}f     wetdep_flux      1      -   
 # dust depo cenlin_dust
 state   real  drydep_dust          ij{sizebin}f     drydep_flux      1      -      rh       "drydep_dust"               "DUST from dry deposition for 4-bin in snow"      "kg/m2/s"
 state   real  wetdep_dust          ij{sizebin}f     wetdep_flux      1      -      rh       "wetdep_dust"               "DUST from wet deposition for 4-bin in snow"      "kg/m2/s"
+# cenlin_brc BrC depo
+state   real  drydep_brc1          ij{sizebin}f     drydep_flux      1      -      rh       "drydep_brc1"               "Primary brown carbon from dry deposition for 4-bin in snow"      "kg/m2/s"
+state   real  wetdep_brc1          ij{sizebin}f     wetdep_flux      1      -      rh       "wetdep_brc1"               "Primary brown carbon from wet deposition for 4-bin in snow"      "kg/m2/s"
+state   real  drydep_brc2          ij{sizebin}f     drydep_flux      1      -      rh       "drydep_brc2"               "Secondary brown carbon from dry deposition for 4-bin in snow"      "kg/m2/s"
+state   real  wetdep_brc2          ij{sizebin}f     wetdep_flux      1      -      rh       "wetdep_brc2"               "Secondary brown carbon from wet deposition for 4-bin in snow"      "kg/m2/s"
 
 # add hourly output var cenlin
 state   real  drydep_bc        ij       misc      1      -      h3     "drydep_bc"    "total drydep BC"    "kg/m2/s"
@@ -816,8 +821,13 @@ state   real  brc2_sfc_tot     ij       misc      1      -      h3     "brc2_sfc
 state   real  drydep_dust_tot        ij       misc      1      -      h3     "drydep_dust_tot"    "total drydep dust for all bins"    "kg/m2/s"
 state   real  wetdep_dust_tot        ij       misc      1      -      h3     "wetdep_dust_tot"    "total wetdep dust for all bins"    "kg/m2/s"
 # cenlin_dust_CLM end
+# cenlin_brc_CLM
+state   real  drydep_brc1_tot        ij       misc      1      -      h3     "drydep_brc1_tot"    "total drydep primary brown carbon for all bins"    "kg/m2/s"
+state   real  wetdep_brc1_tot        ij       misc      1      -      h3     "wetdep_brc1_tot"    "total wetdep primary brown carbon for all bins"    "kg/m2/s"
+state   real  drydep_brc2_tot        ij       misc      1      -      h3     "drydep_brc2_tot"    "total drydep secondary brown carbon for all bins"    "kg/m2/s"
+state   real  wetdep_brc2_tot        ij       misc      1      -      h3     "wetdep_brc2_tot"    "total wetdep secondary brown carbon for all bins"    "kg/m2/s"
+# cenlin_brc_CLM end
 #
-
 
 # Tendency diagnostics for chemistry (chemdiag)
 #
@@ -4399,7 +4409,7 @@ package   tracer_test3  tracer_opt==4       -             tracer:tr17_1,tr17_2,t
 # the following arrays only needed for aircraft emissions options
 package   aircraft1      aircraft_emiss_opt==1             -       emis_aircraft:eac_no,eac_co,eac_so2,eac_ch4
 # 20180723 cenlin_BC_CLM start --------------
-package   useaerosoldep    aerosoldep==1     -         drydep_flux:drydep_dust,drydep_bcphi,drydep_bcpho,drydep_bcphi_ant,drydep_bcpho_ant,drydep_bcphi_bb,drydep_bcpho_bb,drydep_bcphi_bdy,drydep_bcpho_bdy,drydep_bcphi_ar1,drydep_bcpho_ar1,drydep_bcphi_ar2,drydep_bcpho_ar2,drydep_bcphi_ar3,drydep_bcpho_ar3,drydep_bcphi_ar4,drydep_bcpho_ar4,drydep_bcphi_ar5,drydep_bcpho_ar5,drydep_bcphi_ar6,drydep_bcpho_ar6,drydep_bcphi_ar7,drydep_bcpho_ar7,drydep_bcphi_ar8,drydep_bcpho_ar8,drydep_bcphi_ar9,drydep_bcpho_ar9,drydep_bcphi_ar10,drydep_bcpho_ar10;wetdep_flux:wetdep_dust,wetdep_bcphi,wetdep_bcpho,wetdep_bcphi_ant,wetdep_bcpho_ant,wetdep_bcphi_bb,wetdep_bcpho_bb,wetdep_bcphi_bdy,wetdep_bcpho_bdy,wetdep_bcphi_ar1,wetdep_bcpho_ar1,wetdep_bcphi_ar2,wetdep_bcpho_ar2,wetdep_bcphi_ar3,wetdep_bcpho_ar3,wetdep_bcphi_ar4,wetdep_bcpho_ar4,wetdep_bcphi_ar5,wetdep_bcpho_ar5,wetdep_bcphi_ar6,wetdep_bcpho_ar6,wetdep_bcphi_ar7,wetdep_bcpho_ar7,wetdep_bcphi_ar8,wetdep_bcpho_ar8,wetdep_bcphi_ar9,wetdep_bcpho_ar9,wetdep_bcphi_ar10,wetdep_bcpho_ar10
+package   useaerosoldep    aerosoldep==1     -         drydep_flux:drydep_brc1,drydep_brc2,drydep_dust,drydep_bcphi,drydep_bcpho,drydep_bcphi_ant,drydep_bcpho_ant,drydep_bcphi_bb,drydep_bcpho_bb,drydep_bcphi_bdy,drydep_bcpho_bdy,drydep_bcphi_ar1,drydep_bcpho_ar1,drydep_bcphi_ar2,drydep_bcpho_ar2,drydep_bcphi_ar3,drydep_bcpho_ar3,drydep_bcphi_ar4,drydep_bcpho_ar4,drydep_bcphi_ar5,drydep_bcpho_ar5,drydep_bcphi_ar6,drydep_bcpho_ar6,drydep_bcphi_ar7,drydep_bcpho_ar7,drydep_bcphi_ar8,drydep_bcpho_ar8,drydep_bcphi_ar9,drydep_bcpho_ar9,drydep_bcphi_ar10,drydep_bcpho_ar10;wetdep_flux:wetdep_brc1,wetdep_brc2,wetdep_dust,wetdep_bcphi,wetdep_bcpho,wetdep_bcphi_ant,wetdep_bcpho_ant,wetdep_bcphi_bb,wetdep_bcpho_bb,wetdep_bcphi_bdy,wetdep_bcpho_bdy,wetdep_bcphi_ar1,wetdep_bcpho_ar1,wetdep_bcphi_ar2,wetdep_bcpho_ar2,wetdep_bcphi_ar3,wetdep_bcpho_ar3,wetdep_bcphi_ar4,wetdep_bcpho_ar4,wetdep_bcphi_ar5,wetdep_bcpho_ar5,wetdep_bcphi_ar6,wetdep_bcpho_ar6,wetdep_bcphi_ar7,wetdep_bcpho_ar7,wetdep_bcphi_ar8,wetdep_bcpho_ar8,wetdep_bcphi_ar9,wetdep_bcpho_ar9,wetdep_bcphi_ar10,wetdep_bcpho_ar10
 # 20180723 cenlin_BC_CLM end --------------
 package   nochemdiag     chemdiag==0         -                -
 package   usechemdiag    chemdiag==1         -                conv_ct:conv_co,conv_o3,conv_no,conv_no2,conv_hno3,conv_iso,conv_ho,conv_ho2;chem_ct:chem_co,chem_o3,chem_no,chem_no2,chem_hno3,chem_iso,chem_ho,chem_ho2;vmix_ct:vmix_co,vmix_o3,vmix_no,vmix_no2,vmix_hno3,vmix_iso,vmix_ho,vmix_ho2;advh_ct:advh_co,advh_o3,advh_no,advh_no2,advh_hno3,advh_iso,advh_ho,advh_ho2;advz_ct:advz_co,advz_o3,advz_no,advz_no2,advz_hno3,advz_iso,advz_ho,advz_ho2

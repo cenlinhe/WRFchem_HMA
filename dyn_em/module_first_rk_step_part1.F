@@ -650,6 +650,37 @@ BENCH_START(surf_driver_tim)
      &        ,mss_cnc_dust_2d3=grid%mss_cnc_dust_2d3  &
      &        ,mss_cnc_dust_2d4=grid%mss_cnc_dust_2d4  &
      &        ,mss_cnc_dust_2d5=grid%mss_cnc_dust_2d5  &
+! cenlin_brc_CLM
+     &        ,snowbrc_col2d=grid%snowbrc_col2d,snowbrc_top2d=grid%snowbrc_top2d   &
+     &        ,sfc_frc_brc=grid%sfc_frc_brc,sfc_frc_brc_snow=grid%sfc_frc_brc_snow &
+     &        ,albedo_brc=grid%albedo_brc    &
+     &        ,mss_brc1_s1=grid%mss_brc1_s1,mss_brc1_s2=grid%mss_brc1_s2  &
+     &        ,mss_brc1_s3=grid%mss_brc1_s3,mss_brc1_s4=grid%mss_brc1_s4  &
+     &        ,mss_brc1_s5=grid%mss_brc1_s5   &
+     &        ,mss_cnc_brc1_s1=grid%mss_cnc_brc1_s1  &
+     &        ,mss_cnc_brc1_s2=grid%mss_cnc_brc1_s2  &
+     &        ,mss_cnc_brc1_s3=grid%mss_cnc_brc1_s3  &
+     &        ,mss_cnc_brc1_s4=grid%mss_cnc_brc1_s4  &
+     &        ,mss_cnc_brc1_s5=grid%mss_cnc_brc1_s5  &
+     &        ,mss_brc2_s1=grid%mss_brc2_s1,mss_brc2_s2=grid%mss_brc2_s2  &
+     &        ,mss_brc2_s3=grid%mss_brc2_s3,mss_brc2_s4=grid%mss_brc2_s4  &
+     &        ,mss_brc2_s5=grid%mss_brc2_s5   &
+     &        ,mss_cnc_brc2_s1=grid%mss_cnc_brc2_s1  &
+     &        ,mss_cnc_brc2_s2=grid%mss_cnc_brc2_s2  &
+     &        ,mss_cnc_brc2_s3=grid%mss_cnc_brc2_s3  &
+     &        ,mss_cnc_brc2_s4=grid%mss_cnc_brc2_s4  &
+     &        ,mss_cnc_brc2_s5=grid%mss_cnc_brc2_s5  &
+     &        ,mss_cnc_brc1_2d1=grid%mss_cnc_brc1_2d1  &
+     &        ,mss_cnc_brc1_2d2=grid%mss_cnc_brc1_2d2  &
+     &        ,mss_cnc_brc1_2d3=grid%mss_cnc_brc1_2d3  &
+     &        ,mss_cnc_brc1_2d4=grid%mss_cnc_brc1_2d4  &
+     &        ,mss_cnc_brc1_2d5=grid%mss_cnc_brc1_2d5  &
+     &        ,mss_cnc_brc2_2d1=grid%mss_cnc_brc2_2d1  &
+     &        ,mss_cnc_brc2_2d2=grid%mss_cnc_brc2_2d2  &
+     &        ,mss_cnc_brc2_2d3=grid%mss_cnc_brc2_2d3  &
+     &        ,mss_cnc_brc2_2d4=grid%mss_cnc_brc2_2d4  &
+     &        ,mss_cnc_brc2_2d5=grid%mss_cnc_brc2_2d5  &
+! cenlin_brc end
 #if (WRF_CHEM == 1)
      &        ,drydep_flux=grid%drydep_flux,wetdep_flux=grid%wetdep_flux  & 
 #endif

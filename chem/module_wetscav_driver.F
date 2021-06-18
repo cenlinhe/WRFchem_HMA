@@ -83,7 +83,7 @@ CONTAINS
                                        mw_glysoa_oh_aer,&
                          mw_asoaX_aer, mw_asoa1_aer, mw_asoa2_aer, mw_asoa3_aer, mw_asoa4_aer, &
                          mw_bsoaX_aer, mw_bsoa1_aer, mw_bsoa2_aer, mw_bsoa3_aer, mw_bsoa4_aer, &
-                                       mw_biog1_c_aer, mw_biog1_o_aer
+                         mw_biog1_c_aer, mw_biog1_o_aer, mw_brc1_aer, mw_brc2_aer  ! cenlin_brc_CLM
 
    IMPLICIT NONE
 
@@ -853,6 +853,33 @@ CASE (CBMZ_CAM_MAM3_NOAQ,CBMZ_CAM_MAM3_AQ,CBMZ_CAM_MAM7_NOAQ,CBMZ_CAM_MAM7_AQ)
                  max(0.0,-1.0*(qflx_incld(ii,jj,p_oin_cw04)+qflx_blcld(ii,jj,p_oin_cw04))) + &
                  max(0.0,-1.0*(qflx_incld(ii,jj,p_oin_a04)+qflx_blcld(ii,jj,p_oin_a04)))
 
+! cenlin_brc_CLM
+          wetdep_flux(ii,jj,1,p_wetdep_brc1)=wetdep_flux(ii,jj,1,p_wetdep_brc1)+ &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_brc1_cw01)+qflx_blcld(ii,jj,p_brc1_cw01))) + &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_brc1_a01)+qflx_blcld(ii,jj,p_brc1_a01)))
+          wetdep_flux(ii,jj,2,p_wetdep_brc1)=wetdep_flux(ii,jj,2,p_wetdep_brc1)+ &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_brc1_cw02)+qflx_blcld(ii,jj,p_brc1_cw02))) + &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_brc1_a02)+qflx_blcld(ii,jj,p_brc1_a02)))
+          wetdep_flux(ii,jj,3,p_wetdep_brc1)=wetdep_flux(ii,jj,3,p_wetdep_brc1)+ &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_brc1_cw03)+qflx_blcld(ii,jj,p_brc1_cw03))) + &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_brc1_a03)+qflx_blcld(ii,jj,p_brc1_a03)))
+          wetdep_flux(ii,jj,4,p_wetdep_brc1)=wetdep_flux(ii,jj,4,p_wetdep_brc1)+ &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_brc1_cw04)+qflx_blcld(ii,jj,p_brc1_cw04))) + &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_brc1_a04)+qflx_blcld(ii,jj,p_brc1_a04)))
+
+          wetdep_flux(ii,jj,1,p_wetdep_brc2)=wetdep_flux(ii,jj,1,p_wetdep_brc2)+ &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_brc2_cw01)+qflx_blcld(ii,jj,p_brc2_cw01))) + &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_brc2_a01)+qflx_blcld(ii,jj,p_brc2_a01)))
+          wetdep_flux(ii,jj,2,p_wetdep_brc2)=wetdep_flux(ii,jj,2,p_wetdep_brc2)+ &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_brc2_cw02)+qflx_blcld(ii,jj,p_brc2_cw02))) + &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_brc2_a02)+qflx_blcld(ii,jj,p_brc2_a02)))
+          wetdep_flux(ii,jj,3,p_wetdep_brc2)=wetdep_flux(ii,jj,3,p_wetdep_brc2)+ &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_brc2_cw03)+qflx_blcld(ii,jj,p_brc2_cw03))) + &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_brc2_a03)+qflx_blcld(ii,jj,p_brc2_a03)))
+          wetdep_flux(ii,jj,4,p_wetdep_brc2)=wetdep_flux(ii,jj,4,p_wetdep_brc2)+ &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_brc2_cw04)+qflx_blcld(ii,jj,p_brc2_cw04))) + &
+                 max(0.0,-1.0*(qflx_incld(ii,jj,p_brc2_a04)+qflx_blcld(ii,jj,p_brc2_a04)))
+
 ! 20180718 cenlin_BC_CLM end 
 
 
@@ -920,8 +947,17 @@ CASE (CBMZ_CAM_MAM3_NOAQ,CBMZ_CAM_MAM3_AQ,CBMZ_CAM_MAM7_NOAQ,CBMZ_CAM_MAM7_AQ)
                            - 0.001*qsrflx(ii,jj,p_glysoa_oh_cw01)/mw_glysoa_oh_aer &
                            - 0.001*qsrflx(ii,jj,p_glysoa_oh_cw02)/mw_glysoa_oh_aer &
                            - 0.001*qsrflx(ii,jj,p_glysoa_oh_cw03)/mw_glysoa_oh_aer &
-                           - 0.001*qsrflx(ii,jj,p_glysoa_oh_cw04)/mw_glysoa_oh_aer  ! mmol/m2
-
+                           - 0.001*qsrflx(ii,jj,p_glysoa_oh_cw04)/mw_glysoa_oh_aer &
+! cenlin_brc
+                           - 0.001*qsrflx(ii,jj,p_brc1_cw01)/mw_brc1_aer &
+                           - 0.001*qsrflx(ii,jj,p_brc1_cw02)/mw_brc1_aer &
+                           - 0.001*qsrflx(ii,jj,p_brc1_cw03)/mw_brc1_aer &
+                           - 0.001*qsrflx(ii,jj,p_brc1_cw04)/mw_brc1_aer & ! mmol/m2
+                           - 0.001*qsrflx(ii,jj,p_brc2_cw01)/mw_brc2_aer &
+                           - 0.001*qsrflx(ii,jj,p_brc2_cw02)/mw_brc2_aer &
+                           - 0.001*qsrflx(ii,jj,p_brc2_cw03)/mw_brc2_aer &
+                           - 0.001*qsrflx(ii,jj,p_brc2_cw04)/mw_brc2_aer   ! mmol/m2
+! cenlin_brc end
           ! Accumulated total organics wet deposition:
           wd_oa(ii,jj) = wd_oa(ii,jj) + wdi_oa(ii,jj)         ! mmol/m2
 

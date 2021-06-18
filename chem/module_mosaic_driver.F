@@ -1058,11 +1058,12 @@
                        + chem(i,k,j,lptr_bsoa1_aer(n,itype,iphase)) &
                        + chem(i,k,j,lptr_bsoa2_aer(n,itype,iphase)) &
                        + chem(i,k,j,lptr_bsoa3_aer(n,itype,iphase)) &
-                       + chem(i,k,j,lptr_bsoa4_aer(n,itype,iphase)) &
-! cenlin_brc
-                       + chem(i,k,j,lptr_brc1_aer(n,itype,iphase))  &
-                       + chem(i,k,j,lptr_brc2_aer(n,itype,iphase))
-! cenlin_brc_end
+                       + chem(i,k,j,lptr_bsoa4_aer(n,itype,iphase))
+! treat brc as tracer not separate species from oc
+!! cenlin_brc
+!                       + chem(i,k,j,lptr_brc1_aer(n,itype,iphase))  &
+!                       + chem(i,k,j,lptr_brc2_aer(n,itype,iphase))
+!! cenlin_brc_end
 
 ! SMPA and SMPBB do not participate to pm2.5 mass
 
@@ -1105,11 +1106,12 @@
                        + chem(i,k,j,lptr_bsoa1_aer(n,itype,iphase)) &
                        + chem(i,k,j,lptr_bsoa2_aer(n,itype,iphase)) &
                        + chem(i,k,j,lptr_bsoa3_aer(n,itype,iphase)) &
-                       + chem(i,k,j,lptr_bsoa4_aer(n,itype,iphase)) &
-! cenlin_brc
-                       + chem(i,k,j,lptr_brc1_aer(n,itype,iphase))  &
-                       + chem(i,k,j,lptr_brc2_aer(n,itype,iphase))
-! cenlin_brc_end
+                       + chem(i,k,j,lptr_bsoa4_aer(n,itype,iphase)) 
+! treat brc as tracer not separate species from oc
+!! cenlin_brc
+!                       + chem(i,k,j,lptr_brc1_aer(n,itype,iphase))  &
+!                       + chem(i,k,j,lptr_brc2_aer(n,itype,iphase))
+!! cenlin_brc_end
 
 ! SMPA and SMPBB do not participate to pm10 mass
 
@@ -6560,7 +6562,7 @@ n2o5_flag = n2o5_hetchem
 !   set master aerosol chemical types
 !
 !	ntot_mastercomp_aer = 96
-	ntot_mastercomp_aer = 111 + 15  ! cenlin_brc change 13 to 15 to include brc1, brc2  !20180717 cenlin_BC_trac: add 13 BC tracers
+	ntot_mastercomp_aer = 111 + 15  ! cenlin_brc change 13 to 15 to include brc1,brc2 as tracers not species  !20180717 cenlin_BC_trac: add 13 BC tracers
 
 	l = 1
 	mastercompindx_so4_aer = l
@@ -7343,14 +7345,14 @@ n2o5_flag = n2o5_hetchem
 ! cenlin_brc start
         l = 112
         mastercompindx_brc1_aer = l
-        name_mastercomp_aer( l ) = 'brown-c-pri'
+        name_mastercomp_aer( l ) = 'brc1'
         dens_mastercomp_aer( l ) =  dens_brc1_aer
         mw_mastercomp_aer(   l ) =    mw_brc1_aer
         hygro_mastercomp_aer(l ) = hygro_brc1_aer
 
         l = 113
         mastercompindx_brc2_aer = l
-        name_mastercomp_aer( l ) = 'brown-c-sec'
+        name_mastercomp_aer( l ) = 'brc2'
         dens_mastercomp_aer( l ) =  dens_brc2_aer
         mw_mastercomp_aer(   l ) =    mw_brc2_aer
         hygro_mastercomp_aer(l ) = hygro_brc2_aer
@@ -7359,91 +7361,91 @@ n2o5_flag = n2o5_hetchem
 ! 20180717 cenlin_BC_trac start ----------------------------
         l = 114
         mastercompindx_bc_ant_aer = l
-        name_mastercomp_aer( l ) = 'black-c-ant'
+        name_mastercomp_aer( l ) = 'bc_ant'
         dens_mastercomp_aer( l ) =  dens_bc_ant_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ant_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ant_aer
 
         l = 115
         mastercompindx_bc_bb_aer = l
-        name_mastercomp_aer( l ) = 'black-c-bb'
+        name_mastercomp_aer( l ) = 'bc_bb'
         dens_mastercomp_aer( l ) =  dens_bc_bb_aer
         mw_mastercomp_aer(   l ) =    mw_bc_bb_aer
         hygro_mastercomp_aer(l ) = hygro_bc_bb_aer
 
         l = 116
         mastercompindx_bc_bdy_aer = l
-        name_mastercomp_aer( l ) = 'black-c-bdy'
+        name_mastercomp_aer( l ) = 'bc_bdy'
         dens_mastercomp_aer( l ) =  dens_bc_bdy_aer
         mw_mastercomp_aer(   l ) =    mw_bc_bdy_aer
         hygro_mastercomp_aer(l ) = hygro_bc_bdy_aer
 
         l = 117
         mastercompindx_bc_ar1_aer = l
-        name_mastercomp_aer( l ) = 'black-c-ar1'
+        name_mastercomp_aer( l ) = 'bc-ar1'
         dens_mastercomp_aer( l ) =  dens_bc_ar1_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar1_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar1_aer
 
         l = 118
         mastercompindx_bc_ar2_aer = l
-        name_mastercomp_aer( l ) = 'black-c-ar2'
+        name_mastercomp_aer( l ) = 'bc-ar2'
         dens_mastercomp_aer( l ) =  dens_bc_ar2_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar2_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar2_aer
 
         l = 119
         mastercompindx_bc_ar3_aer = l
-        name_mastercomp_aer( l ) = 'black-c-ar3'
+        name_mastercomp_aer( l ) = 'bc-ar3'
         dens_mastercomp_aer( l ) =  dens_bc_ar3_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar3_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar3_aer
 
         l = 120
         mastercompindx_bc_ar4_aer = l
-        name_mastercomp_aer( l ) = 'black-c-ar4'
+        name_mastercomp_aer( l ) = 'bc-ar4'
         dens_mastercomp_aer( l ) =  dens_bc_ar4_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar4_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar4_aer
 
         l = 121
         mastercompindx_bc_ar5_aer = l
-        name_mastercomp_aer( l ) = 'black-c-ar5'
+        name_mastercomp_aer( l ) = 'bc-ar5'
         dens_mastercomp_aer( l ) =  dens_bc_ar5_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar5_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar5_aer
 
         l = 122
         mastercompindx_bc_ar6_aer = l
-        name_mastercomp_aer( l ) = 'black-c-ar6'
+        name_mastercomp_aer( l ) = 'bc-ar6'
         dens_mastercomp_aer( l ) =  dens_bc_ar6_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar6_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar6_aer
 
         l = 123
         mastercompindx_bc_ar7_aer = l
-        name_mastercomp_aer( l ) = 'black-c-ar7'
+        name_mastercomp_aer( l ) = 'bc-ar7'
         dens_mastercomp_aer( l ) =  dens_bc_ar7_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar7_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar7_aer
 
         l = 124
         mastercompindx_bc_ar8_aer = l
-        name_mastercomp_aer( l ) = 'black-c-ar8'
+        name_mastercomp_aer( l ) = 'bc-ar8'
         dens_mastercomp_aer( l ) =  dens_bc_ar8_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar8_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar8_aer
 
         l = 125
         mastercompindx_bc_ar9_aer = l
-        name_mastercomp_aer( l ) = 'black-c-ar9'
+        name_mastercomp_aer( l ) = 'bc-ar9'
         dens_mastercomp_aer( l ) =  dens_bc_ar9_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar9_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar9_aer
 
         l = 126
         mastercompindx_bc_ar10_aer = l
-        name_mastercomp_aer( l ) = 'black-c-ar10'
+        name_mastercomp_aer( l ) = 'bc-ar10'
         dens_mastercomp_aer( l ) =  dens_bc_ar10_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar10_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar10_aer
@@ -9828,14 +9830,18 @@ n2o5_flag = n2o5_hetchem
             spectxt = 'bsoa4_'
             nspectxt = 6
 
-! cenlin_brc start
+! cenlin_brc start include as a tracer not composition species
         else if (l_mastercomp .eq. mastercompindx_brc1_aer) then
+            iaddto_ncomp = 0
+            iaddto_ncomp_plustracer = 1
             lptr_dum = lptr_brc1_aer(n,itype,iphase)
             mcindx_dum = mastercompindx_brc1_aer
             spectxt = 'brc1_'
             nspectxt = 5
 
         else if (l_mastercomp .eq. mastercompindx_brc2_aer) then
+            iaddto_ncomp = 0
+            iaddto_ncomp_plustracer = 1
             lptr_dum = lptr_brc2_aer(n,itype,iphase)
             mcindx_dum = mastercompindx_brc2_aer
             spectxt = 'brc2_'
@@ -11512,7 +11518,6 @@ n2o5_flag = n2o5_hetchem
             call peg_message( lunerr, msg )
             write(msg,9350) 'phase, type=', iphase,itype
             call peg_error_fatal( lunerr, msg )
-
 ! cenlin_brc end
 
 ! 20180717 cenlin_BC_trac start -----------------------------------------------

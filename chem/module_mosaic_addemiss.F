@@ -115,6 +115,9 @@ CONTAINS
            aem_bc_ar4, aem_bc_ar5, aem_bc_ar6, aem_bc_ar7, aem_bc_ar8, &
            aem_bc_ar9, aem_bc_ar10
 ! 20180717 cenlin_BC_trac end ----------------------------------------
+! cenlin_brc
+   real :: aem_brc1, aem_brc2
+! cenlin_brc end
    real dum, fact
 
 
@@ -441,7 +444,10 @@ real, save :: fr8b_bburn_mosaic(8) = &
         aem_bc_ar5 = 0.
         aem_bc_ar6 = 0.
 ! 20180717 cenlin_BC_trac end -------------------------------
-
+! cenlin_brc
+        aem_brc1 = 0.
+        aem_brc2 = 0.
+! cenlin_brc end
 !       
 ! apply emissions at each section and grid point
 !
@@ -560,6 +566,10 @@ real, save :: fr8b_bburn_mosaic(8) = &
         aem_bc_ar6  = fr_aem_sorgam_i(n)*emis_ant(i,k,j,p_e_eci_ar6)   &
                     + fr_aem_sorgam_j(n)*emis_ant(i,k,j,p_e_ecj_ar6)
 ! 20180717 cenlin_BC_trac end ------------------------------------------
+! cenlin_brc only for primary brc (brc1)
+        aem_brc1    = fr_aem_sorgam_i(n)*emis_ant(i,k,j,p_e_brci)   &
+                    + fr_aem_sorgam_j(n)*emis_ant(i,k,j,p_e_brcj)
+! cenlin_brc end
 
    END SELECT chem_select_2
 
@@ -571,7 +581,7 @@ real, save :: fr8b_bburn_mosaic(8) = &
 	(aem_co3/dens_co3_aer) + (aem_nh4/dens_nh4_aer) +   &
 	(aem_na /dens_na_aer ) + (aem_ca /dens_ca_aer ) +   &
 	(aem_oin/dens_oin_aer) + (aem_oc /dens_oc_aer ) +   &
-	(aem_bc /dens_bc_aer )
+	(aem_bc /dens_bc_aer ) + (aem_brc1 /dens_brc1_aer ) ! cenlin_brc
 
 ! then multiply by 1.0e-6 to convert ug to g
 ! and divide by particle volume at center of section (cm3)
@@ -645,6 +655,11 @@ real, save :: fr8b_bburn_mosaic(8) = &
         l = lptr_bc_ar6_aer(n,itype,iphase)
         if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar6*fact
 
+! cenlin_brc only for primary brc (brc1) 
+        l = lptr_brc1_aer(n,itype,iphase)
+        if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_brc1*fact
+! cenlin_brc end
+
       ENDIF
 ! 20180717 cenlin_BC_trac end -----------------------------------------
 
@@ -668,6 +683,7 @@ real, save :: fr8b_bburn_mosaic(8) = &
   aem_bc  = 0.
   aem_oin = 0.
   aem_num = 0.
+  aem_brc1 = 0. ! cenlin_brc
 
  fire_select:  SELECT CASE(config_flags%biomass_burn_opt)
    CASE (BIOMASSB,BIOMASSB_MOZC) 
@@ -689,6 +705,9 @@ size_loop: &
 ! Assume all OC and BC is in FM.
                 aem_oin = bburn_mosaic_f(n)*ebu(i,k,j,p_ebu_pm25)  &
                         + bburn_mosaic_c(n)*ebu(i,k,j,p_ebu_pm10) 
+! cenlin_brc
+                aem_brc1 = bburn_mosaic_f(n)*ebu(i,k,j,p_ebu_brc)
+! cenlin_brc end
 
          chem_select_3 : SELECT CASE( config_flags%chem_opt )
             CASE(SAPRC99_MOSAIC_4BIN_VBS2_KPP) ! Set the oc to zero for VBS
@@ -711,7 +730,7 @@ size_loop: &
 		(aem_co3/dens_co3_aer) + (aem_nh4/dens_nh4_aer) +   &
 		(aem_na /dens_na_aer ) + (aem_ca /dens_ca_aer ) +   &
 		(aem_oin/dens_oin_aer) + (aem_oc /dens_oc_aer ) +   &
-		(aem_bc /dens_bc_aer )
+		(aem_bc /dens_bc_aer ) + (aem_brc1 /dens_brc1_aer)  ! cenlin_brc
 
 	! then multiply by 1.0e-6 to convert ug to g
 	! and divide by particle volume at center of section (cm3)
@@ -755,6 +774,10 @@ size_loop: &
 		l = lptr_bc_aer(n,itype,iphase)
 		if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc*fact
 
+! cenlin_brc
+                l = lptr_brc1_aer(n,itype,iphase)
+                if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_brc1*fact
+! cenlin_brc end
 		l = numptr_aer(n,itype,iphase)
 		if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_num*fact
 

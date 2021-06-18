@@ -356,6 +356,11 @@
         integer, save :: mastercompindx_bc_ar10_aer  = -999888777
 ! 20180717 cenlin_BC_trac end -------------------------------------
 
+! 20210617 cenlin_brc
+        integer, save :: mastercompindx_brc1_aer  = -999888777
+        integer, save :: mastercompindx_brc2_aer  = -999888777
+! cenlin_brc end
+
 	real, save ::   &
           dens_aer( maxd_acomp, maxd_atype ),  &
           dens_mastercomp_aer( maxd_acomp ),   &
@@ -506,10 +511,12 @@
           lptr_bc_ar7_aer(maxd_asize, maxd_atype, maxd_aphase),   &
           lptr_bc_ar8_aer(maxd_asize, maxd_atype, maxd_aphase),   &
           lptr_bc_ar9_aer(maxd_asize, maxd_atype, maxd_aphase),   &
-          lptr_bc_ar10_aer(maxd_asize, maxd_atype, maxd_aphase)
+          lptr_bc_ar10_aer(maxd_asize, maxd_atype, maxd_aphase),  &
 !20180717 cenlin_BC_trac end ------------------------------------
-
-
+! cenlin_brc
+          lptr_brc1_aer(maxd_asize, maxd_atype, maxd_aphase),     &
+          lptr_brc2_aer(maxd_asize, maxd_atype, maxd_aphase)
+! cenlin_brc end
 
 ! rce 11-sep-2004 - eliminated all of the "..._wrfch" pointers
 !    so now there is only one set of pointers ("..._amode")
@@ -649,7 +656,10 @@
         real, parameter :: mw_bc_ar9_aer  = 1.0
         real, parameter :: mw_bc_ar10_aer  = 1.0
 ! 20180717 cenlin_BC_trac end ---------------------
-
+! cenlin_brc
+        real, parameter :: mw_brc1_aer  = 250.0
+        real, parameter :: mw_brc2_aer  = 250.0
+! cenlin_brc end
 	
 !   dry densities (g/cm3)
 	real, parameter :: dens_so4_aer = 1.80
@@ -784,7 +794,10 @@
         real, parameter :: dens_bc_ar9_aer  = 1.70
         real, parameter :: dens_bc_ar10_aer  = 1.70
 ! 20180717 cenlin_BC_trac end --------------------
-
+! cenlin_brc
+        real, parameter :: dens_brc1_aer  = 1.40
+        real, parameter :: dens_brc2_aer  = 1.40
+! cenlin_brc end
 !   water density (g/cm3)
 !	real, parameter :: dens_water_asize  = 1.0
 	real, parameter :: dens_water_aer  = 1.0
@@ -921,7 +934,10 @@
         real, parameter :: hygro_bc_ar9_aer  = 1.e-6
         real, parameter :: hygro_bc_ar10_aer  = 1.e-6
 ! 20180717 cenlin_BC_trac end -----------------------
-
+! cenlin_brc
+        real, parameter :: hygro_brc1_aer  = 0.20
+        real, parameter :: hygro_brc2_aer  = 0.20
+! cenlin_brc end
 
 	integer, save ::   &
       	  msectional, maerosolincw,   &

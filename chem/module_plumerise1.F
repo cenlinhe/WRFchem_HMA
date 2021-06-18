@@ -180,6 +180,9 @@ subroutine plumerise_driver (id,ktau,dtstep,                           &
              ebu(its:ite,kts,j,p_ebu_pm25) = ebu_in(its:ite,1,j,p_ebu_in_pm25)
              ebu(its:ite,kts,j,p_ebu_oc) = ebu_in(its:ite,1,j,p_ebu_in_oc)
              ebu(its:ite,kts,j,p_ebu_bc) = ebu_in(its:ite,1,j,p_ebu_in_bc)
+! cenlin_brc only for primary brc (brc1)
+             ebu(its:ite,kts,j,p_ebu_brc) = ebu_in(its:ite,1,j,p_ebu_in_brc)
+! cenlin_brc_end
            enddo
          endif
        elseif ( config_flags%biomass_burn_opt == BIOMASSB_GHG ) then
@@ -337,6 +340,9 @@ is_mozcart : &
                     ebu(i,k,j,p_ebu_pm25) = ebu(i,k,j,p_ebu_pm25)*ratio
                     ebu(i,k,j,p_ebu_oc)  = ebu(i,k,j,p_ebu_oc)*ratio
                     ebu(i,k,j,p_ebu_bc)  = ebu(i,k,j,p_ebu_bc)*ratio
+! cenlin_brc
+                    ebu(i,k,j,p_ebu_brc)  = ebu(i,k,j,p_ebu_brc)*ratio
+! cenlin_brc_end
                   end do
                 endif
 

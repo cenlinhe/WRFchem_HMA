@@ -576,7 +576,7 @@
              ims,ime, jms,jme, kms,kme,                                &
              its,ite, jts,jte, kts,kte                                  )
 
-   CASE (MOZART_MOSAIC_4BIN_AQ_KPP)
+   CASE (MOZART_MOSAIC_4BIN_AQ_KPP) ! cenlin_brc marker
 
        CALL wrf_debug(15,'sum_pm_driver: calling sum_pm_mosaic_vbs4')
        call sum_pm_mosaic_vbs4 (                                       &

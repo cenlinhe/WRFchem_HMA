@@ -1058,7 +1058,11 @@
                        + chem(i,k,j,lptr_bsoa1_aer(n,itype,iphase)) &
                        + chem(i,k,j,lptr_bsoa2_aer(n,itype,iphase)) &
                        + chem(i,k,j,lptr_bsoa3_aer(n,itype,iphase)) &
-                       + chem(i,k,j,lptr_bsoa4_aer(n,itype,iphase))
+                       + chem(i,k,j,lptr_bsoa4_aer(n,itype,iphase)) &
+! cenlin_brc
+                       + chem(i,k,j,lptr_brc1_aer(n,itype,iphase))  &
+                       + chem(i,k,j,lptr_brc2_aer(n,itype,iphase))
+! cenlin_brc_end
 
 ! SMPA and SMPBB do not participate to pm2.5 mass
 
@@ -1101,7 +1105,11 @@
                        + chem(i,k,j,lptr_bsoa1_aer(n,itype,iphase)) &
                        + chem(i,k,j,lptr_bsoa2_aer(n,itype,iphase)) &
                        + chem(i,k,j,lptr_bsoa3_aer(n,itype,iphase)) &
-                       + chem(i,k,j,lptr_bsoa4_aer(n,itype,iphase))
+                       + chem(i,k,j,lptr_bsoa4_aer(n,itype,iphase)) &
+! cenlin_brc
+                       + chem(i,k,j,lptr_brc1_aer(n,itype,iphase))  &
+                       + chem(i,k,j,lptr_brc2_aer(n,itype,iphase))
+! cenlin_brc_end
 
 ! SMPA and SMPBB do not participate to pm10 mass
 
@@ -4532,13 +4540,15 @@
        factaerasoaX,factaerasoa1,factaerasoa2,factaerasoa3,factaerasoa4, &
        factaerbsoaX,factaerbsoa1,factaerbsoa2,factaerbsoa3,factaerbsoa4, &
 		factaerhysw, factaerwater, factaernum,  &
+! cenlin_brc start -----
+       factaerbrc1, factaerbrc2, &
+! cenlin_brc end
 ! 20180717 cenlin_BC_trac start ----------------------------------------------
        factaerbcant, factaerbcbb ,  factaerbcbdy, &
        factaerbcar1, factaerbcar2, factaerbcar3, factaerbcar4, &
        factaerbcar5, factaerbcar6, factaerbcar7, factaerbcar8, &
        factaerbcar9, factaerbcar10
 ! 20180717 cenlin_BC_trac end ------------------------------------------------
-
 	real, parameter :: eps=0.622
 
 	character*80 msg
@@ -4675,6 +4685,10 @@
         factaerbsoa3=dum*mw_bsoa3_aer
         factaerbsoa4=dum*mw_bsoa4_aer
 
+! cenlin_brc start
+        factaerbrc1  = dum*mw_brc1_aer
+        factaerbrc2  = dum*mw_brc2_aer
+! cenlin_brc end
 ! 20180717 cenlin_BC_trac start ---------------------
         factaerbcant = dum*mw_bc_ant_aer
         factaerbcbb  = dum*mw_bc_bb_aer
@@ -4690,8 +4704,6 @@
         factaerbcar9 = dum*mw_bc_ar9_aer
         factaerbcar10 = dum*mw_bc_ar10_aer
 ! 20180717 cenlin_BC_trac end -----------------------
-
-
 
 !   If aboxtest_units_convert=10, turn off units conversions both here
 !   and in module_mosaic.  This is for testing, to allow exact agreements.
@@ -4816,6 +4828,9 @@
             factaerbsoa3=1.0
             factaerbsoa4=1.0
 
+! cenlin_brc
+        factaerbrc1  = 1.0
+        factaerbrc2  = 1.0
 ! 20180717 cenlin_BC_trac start ---------------------
         factaerbcant = 1.0
         factaerbcbb  = 1.0
@@ -4831,7 +4846,6 @@
         factaerbcar5 = 1.0
         factaerbcar6 = 1.0
 ! 20180717 cenlin_BC_trac end -----------------------
-
 
 	end if
 
@@ -5481,6 +5495,14 @@
                     rsub(lptr_bsoa4_aer(n,itype,iphase),k1:k2,1) =   &
                     chem(it,kt1:kt2,jt,lptr_bsoa4_aer(n,itype,iphase))/factaerbsoa4
 
+! cenlin_brc start
+                if (lptr_brc1_aer(n,itype,iphase) .ge. p1st)   &
+                    rsub(lptr_brc1_aer(n,itype,iphase),k1:k2,1) =   &
+                    chem(it,kt1:kt2,jt,lptr_brc1_aer(n,itype,iphase))/factaerbrc1
+                if (lptr_brc2_aer(n,itype,iphase) .ge. p1st)   &
+                    rsub(lptr_brc2_aer(n,itype,iphase),k1:k2,1) =   &
+                    chem(it,kt1:kt2,jt,lptr_brc2_aer(n,itype,iphase))/factaerbrc2
+! cenlin_brc end
 ! 20180717 cenlin_BC_trac start -------------------------------------------------
                 if (lptr_bc_ant_aer(n,itype,iphase) .ge. p1st)   &
                     rsub(lptr_bc_ant_aer(n,itype,iphase),k1:k2,1) =   &
@@ -6269,6 +6291,14 @@
                     chem(it,kt1:kt2,jt,lptr_bsoa4_aer(n,itype,iphase)) =   &
                     rsub(lptr_bsoa4_aer(n,itype,iphase),k1:k2,1)*factaerbsoa4
 
+! cenlin_brc start
+                if (lptr_brc1_aer(n,itype,iphase) .ge. p1st)   &
+                    chem(it,kt1:kt2,jt,lptr_brc1_aer(n,itype,iphase)) =   &
+                    rsub(lptr_brc1_aer(n,itype,iphase),k1:k2,1)*factaerbrc1
+                if (lptr_brc2_aer(n,itype,iphase) .ge. p1st)   &
+                    chem(it,kt1:kt2,jt,lptr_brc2_aer(n,itype,iphase)) =   &
+                    rsub(lptr_brc2_aer(n,itype,iphase),k1:k2,1)*factaerbrc2
+! cenlin_brc end           
 ! 20180717 cenlin_BC_trac start -------------------------------------------------
                 if (lptr_bc_ant_aer(n,itype,iphase) .ge. p1st)   &
                     chem(it,kt1:kt2,jt,lptr_bc_ant_aer(n,itype,iphase)) =   &
@@ -6310,7 +6340,6 @@
                     chem(it,kt1:kt2,jt,lptr_bc_ar10_aer(n,itype,iphase)) =   &
                     rsub(lptr_bc_ar10_aer(n,itype,iphase),k1:k2,1)*factaerbcar10
 ! 20180717 cenlin_BC_trac end------------------------------------------
-                      
 
 	    end do ! size
 	    end do ! type
@@ -6397,6 +6426,10 @@
            p_pcg1_b_c_cw08,p_pcg1_b_o_cw08,p_opcg1_b_c_cw08,p_opcg1_b_o_cw08, &
            p_pcg1_f_c_cw08,p_pcg1_f_o_cw08,p_opcg1_f_c_cw08,p_opcg1_f_o_cw08, &
            p_ant1_c_cw08,p_biog1_c_cw08,  &
+! cenlin_brc
+     p_brc1_cw01, p_brc1_cw02, p_brc1_cw03, p_brc1_cw04, &
+     p_brc2_cw01, p_brc2_cw02, p_brc2_cw03, p_brc2_cw04, &
+! cenlin_brc end
 ! 20180717 cenlin_BC_trac start ---------------------------------------
      p_bc_cw01_ant, p_bc_cw02_ant, p_bc_cw03_ant, p_bc_cw04_ant, &
      p_bc_cw01_bb , p_bc_cw02_bb , p_bc_cw03_bb , p_bc_cw04_bb , &
@@ -6527,7 +6560,7 @@ n2o5_flag = n2o5_hetchem
 !   set master aerosol chemical types
 !
 !	ntot_mastercomp_aer = 96
-	ntot_mastercomp_aer = 111 + 13  !20180717 cenlin_BC_trac: add 13 BC tracers
+	ntot_mastercomp_aer = 111 + 15  ! cenlin_brc change 13 to 15 to include brc1, brc2  !20180717 cenlin_BC_trac: add 13 BC tracers
 
 	l = 1
 	mastercompindx_so4_aer = l
@@ -7307,98 +7340,113 @@ n2o5_flag = n2o5_hetchem
         mw_mastercomp_aer(   l ) =    mw_bsoa4_aer
         hygro_mastercomp_aer(l ) = hygro_bsoa4_aer
 
-! 20180717 cenlin_BC_trac start ----------------------------
+! cenlin_brc start
         l = 112
+        mastercompindx_brc1_aer = l
+        name_mastercomp_aer( l ) = 'brown-c-pri'
+        dens_mastercomp_aer( l ) =  dens_brc1_aer
+        mw_mastercomp_aer(   l ) =    mw_brc1_aer
+        hygro_mastercomp_aer(l ) = hygro_brc1_aer
+
+        l = 113
+        mastercompindx_brc2_aer = l
+        name_mastercomp_aer( l ) = 'brown-c-sec'
+        dens_mastercomp_aer( l ) =  dens_brc2_aer
+        mw_mastercomp_aer(   l ) =    mw_brc2_aer
+        hygro_mastercomp_aer(l ) = hygro_brc2_aer
+! cenlin_brc end
+
+! 20180717 cenlin_BC_trac start ----------------------------
+        l = 114
         mastercompindx_bc_ant_aer = l
         name_mastercomp_aer( l ) = 'black-c-ant'
         dens_mastercomp_aer( l ) =  dens_bc_ant_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ant_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ant_aer
 
-        l = 113
+        l = 115
         mastercompindx_bc_bb_aer = l
         name_mastercomp_aer( l ) = 'black-c-bb'
         dens_mastercomp_aer( l ) =  dens_bc_bb_aer
         mw_mastercomp_aer(   l ) =    mw_bc_bb_aer
         hygro_mastercomp_aer(l ) = hygro_bc_bb_aer
 
-        l = 114
+        l = 116
         mastercompindx_bc_bdy_aer = l
         name_mastercomp_aer( l ) = 'black-c-bdy'
         dens_mastercomp_aer( l ) =  dens_bc_bdy_aer
         mw_mastercomp_aer(   l ) =    mw_bc_bdy_aer
         hygro_mastercomp_aer(l ) = hygro_bc_bdy_aer
 
-        l = 115
+        l = 117
         mastercompindx_bc_ar1_aer = l
         name_mastercomp_aer( l ) = 'black-c-ar1'
         dens_mastercomp_aer( l ) =  dens_bc_ar1_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar1_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar1_aer
 
-        l = 116
+        l = 118
         mastercompindx_bc_ar2_aer = l
         name_mastercomp_aer( l ) = 'black-c-ar2'
         dens_mastercomp_aer( l ) =  dens_bc_ar2_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar2_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar2_aer
 
-        l = 117
+        l = 119
         mastercompindx_bc_ar3_aer = l
         name_mastercomp_aer( l ) = 'black-c-ar3'
         dens_mastercomp_aer( l ) =  dens_bc_ar3_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar3_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar3_aer
 
-        l = 118
+        l = 120
         mastercompindx_bc_ar4_aer = l
         name_mastercomp_aer( l ) = 'black-c-ar4'
         dens_mastercomp_aer( l ) =  dens_bc_ar4_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar4_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar4_aer
 
-        l = 119
+        l = 121
         mastercompindx_bc_ar5_aer = l
         name_mastercomp_aer( l ) = 'black-c-ar5'
         dens_mastercomp_aer( l ) =  dens_bc_ar5_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar5_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar5_aer
 
-        l = 120
+        l = 122
         mastercompindx_bc_ar6_aer = l
         name_mastercomp_aer( l ) = 'black-c-ar6'
         dens_mastercomp_aer( l ) =  dens_bc_ar6_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar6_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar6_aer
 
-        l = 121
+        l = 123
         mastercompindx_bc_ar7_aer = l
         name_mastercomp_aer( l ) = 'black-c-ar7'
         dens_mastercomp_aer( l ) =  dens_bc_ar7_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar7_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar7_aer
 
-        l = 122
+        l = 124
         mastercompindx_bc_ar8_aer = l
         name_mastercomp_aer( l ) = 'black-c-ar8'
         dens_mastercomp_aer( l ) =  dens_bc_ar8_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar8_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar8_aer
 
-        l = 123
+        l = 125
         mastercompindx_bc_ar9_aer = l
         name_mastercomp_aer( l ) = 'black-c-ar9'
         dens_mastercomp_aer( l ) =  dens_bc_ar9_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar9_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar9_aer
 
-        l = 124
+        l = 126
         mastercompindx_bc_ar10_aer = l
         name_mastercomp_aer( l ) = 'black-c-ar10'
         dens_mastercomp_aer( l ) =  dens_bc_ar10_aer
         mw_mastercomp_aer(   l ) =    mw_bc_ar10_aer
         hygro_mastercomp_aer(l ) = hygro_bc_ar10_aer
-
 ! 20180717 cenlin_BC_trac end -----------------------
 !
 !   set section size arrays
@@ -7531,6 +7579,7 @@ n2o5_flag = n2o5_hetchem
       y_biog1_o,y_biog2_o,y_biog3_o,y_biog4_o, &
       y_asoaX, y_asoa1, y_asoa2, y_asoa3, y_asoa4, &
       y_bsoaX, y_bsoa1, y_bsoa2, y_bsoa3, y_bsoa4, &
+      y_brc1, y_brc2,  &  ! cenlin_brc
 ! 20180717 cenlin_BC_trac start --------------------------------------
       y_bc_ant, y_bc_bb ,  y_bc_bdy, &
       y_bc_ar1, y_bc_ar2, y_bc_ar3, y_bc_ar4, &
@@ -7541,6 +7590,7 @@ n2o5_flag = n2o5_hetchem
 	integer y_cw_so4, y_cw_no3, y_cw_cl, y_cw_msa, y_cw_co3,   &
 		y_cw_nh4, y_cw_na,   &
 		y_cw_ca, y_cw_oin, y_cw_oc, y_cw_bc, y_cw_num, &
+                y_cw_brc1, y_cw_brc2, &  ! cenlin_brc
 ! 20180717 cenlin_BC_trac start --------------------------------------
                 y_cw_bc_ant, y_cw_bc_bb ,  y_cw_bc_bdy, &
                 y_cw_bc_ar1, y_cw_bc_ar2, y_cw_bc_ar3, y_cw_bc_ar4, &
@@ -7673,6 +7723,10 @@ n2o5_flag = n2o5_hetchem
         lptr_bsoa2_aer(:,itype,:)        = 1
         lptr_bsoa3_aer(:,itype,:)        = 1
         lptr_bsoa4_aer(:,itype,:)        = 1
+! cenlin_brc start
+        lptr_brc1_aer(:,itype,:)     = 1
+        lptr_brc2_aer(:,itype,:)     = 1
+! cenlin_brc end
 ! 20180717 cenlin_BC_trac start --------------
         lptr_bc_ant_aer(:,itype,:)   = 1
         lptr_bc_bb_aer(:,itype,:)    = 1
@@ -7806,6 +7860,10 @@ n2o5_flag = n2o5_hetchem
         if (p_bsoa3_a01 .ge. p1st) lptr_bsoa3_aer(01,itype,ai_phase)  = p_bsoa3_a01
         if (p_bsoa4_a01 .ge. p1st) lptr_bsoa4_aer(01,itype,ai_phase)  = p_bsoa4_a01
 	if (p_num_a01 .ge. p1st)  numptr_aer(01,itype,ai_phase)        = p_num_a01
+! cenlin_brc start
+        if (p_brc1_a01 .ge. p1st) lptr_brc1_aer(01,itype,ai_phase)  = p_brc1_a01
+        if (p_brc2_a01 .ge. p1st) lptr_brc2_aer(01,itype,ai_phase)  = p_brc2_a01
+! cenlin_brc end
 ! 20180717 cenlin_BC_trac start ---------------------------------------------------------------
         if (p_bc_a01_ant .ge. p1st) lptr_bc_ant_aer(01,itype,ai_phase)  = p_bc_a01_ant
         if (p_bc_a01_bb  .ge. p1st) lptr_bc_bb_aer(01,itype,ai_phase)   = p_bc_a01_bb
@@ -7939,6 +7997,10 @@ n2o5_flag = n2o5_hetchem
         if (p_bsoa3_a02 .ge. p1st) lptr_bsoa3_aer(02,itype,ai_phase)  = p_bsoa3_a02
         if (p_bsoa4_a02 .ge. p1st) lptr_bsoa4_aer(02,itype,ai_phase)  = p_bsoa4_a02
         if (p_num_a02 .ge. p1st)  numptr_aer(02,itype,ai_phase)        = p_num_a02
+! cenlin_brc start
+        if (p_brc1_a02 .ge. p1st) lptr_brc1_aer(02,itype,ai_phase)  = p_brc1_a02
+        if (p_brc2_a02 .ge. p1st) lptr_brc2_aer(02,itype,ai_phase)  = p_brc2_a02
+! cenlin_brc end
 ! 20180717 cenlin_BC_trac start ---------------------------------------------------------------
         if (p_bc_a02_ant .ge. p1st) lptr_bc_ant_aer(02,itype,ai_phase)  = p_bc_a02_ant
         if (p_bc_a02_bb  .ge. p1st) lptr_bc_bb_aer(02,itype,ai_phase)   = p_bc_a02_bb
@@ -7954,6 +8016,7 @@ n2o5_flag = n2o5_hetchem
         if (p_bc_a02_ar9 .ge. p1st) lptr_bc_ar9_aer(02,itype,ai_phase)  = p_bc_a02_ar9
         if (p_bc_a02_ar10 .ge. p1st) lptr_bc_ar10_aer(02,itype,ai_phase)  = p_bc_a02_ar10
 ! 20180717 cenlin_BC_trac end ----------------------------------------------------
+
         end if
 
 	if (nsize_aer(itype) .ge. 3) then
@@ -8072,6 +8135,10 @@ n2o5_flag = n2o5_hetchem
         if (p_bsoa3_a03 .ge. p1st) lptr_bsoa3_aer(03,itype,ai_phase)  = p_bsoa3_a03
         if (p_bsoa4_a03 .ge. p1st) lptr_bsoa4_aer(03,itype,ai_phase)  = p_bsoa4_a03
         if (p_num_a03 .ge. p1st)  numptr_aer(03,itype,ai_phase)        = p_num_a03
+! cenlin_brc start
+        if (p_brc1_a03 .ge. p1st) lptr_brc1_aer(03,itype,ai_phase)  = p_brc1_a03
+        if (p_brc2_a03 .ge. p1st) lptr_brc2_aer(03,itype,ai_phase)  = p_brc2_a03
+! cenlin_brc end
 ! 20180717 cenlin_BC_trac start ---------------------------------------------------------------
         if (p_bc_a03_ant .ge. p1st) lptr_bc_ant_aer(03,itype,ai_phase)  = p_bc_a03_ant
         if (p_bc_a03_bb  .ge. p1st) lptr_bc_bb_aer(03,itype,ai_phase)   = p_bc_a03_bb
@@ -8087,6 +8154,7 @@ n2o5_flag = n2o5_hetchem
         if (p_bc_a03_ar9 .ge. p1st) lptr_bc_ar9_aer(03,itype,ai_phase)  = p_bc_a03_ar9
         if (p_bc_a03_ar10 .ge. p1st) lptr_bc_ar10_aer(03,itype,ai_phase)  = p_bc_a03_ar10
 ! 20180717 cenlin_BC_trac end -------------------------------------------------------
+
         end if
 
 
@@ -8206,6 +8274,10 @@ n2o5_flag = n2o5_hetchem
         if (p_bsoa3_a04 .ge. p1st) lptr_bsoa3_aer(04,itype,ai_phase)  = p_bsoa3_a04
         if (p_bsoa4_a04 .ge. p1st) lptr_bsoa4_aer(04,itype,ai_phase)  = p_bsoa4_a04
         if (p_num_a04 .ge. p1st)  numptr_aer(04,itype,ai_phase)        = p_num_a04
+! cenlin_brc start
+        if (p_brc1_a04 .ge. p1st) lptr_brc1_aer(04,itype,ai_phase)  = p_brc1_a04
+        if (p_brc2_a04 .ge. p1st) lptr_brc2_aer(04,itype,ai_phase)  = p_brc2_a04
+! cenlin_brc end
 ! 20180717 cenlin_BC_trac start ---------------------------------------------------------------
         if (p_bc_a04_ant .ge. p1st) lptr_bc_ant_aer(04,itype,ai_phase)  = p_bc_a04_ant
         if (p_bc_a04_bb  .ge. p1st) lptr_bc_bb_aer(04,itype,ai_phase)   = p_bc_a04_bb
@@ -8221,6 +8293,7 @@ n2o5_flag = n2o5_hetchem
         if (p_bc_a04_ar9 .ge. p1st) lptr_bc_ar9_aer(04,itype,ai_phase)  = p_bc_a04_ar9
         if (p_bc_a04_ar10 .ge. p1st) lptr_bc_ar10_aer(04,itype,ai_phase)  = p_bc_a04_ar10
 ! 20180717 cenlin_BC_trac end ---------------------------------------------
+
         end if
 
 
@@ -8679,6 +8752,10 @@ n2o5_flag = n2o5_hetchem
       if (p_bsoa2_cw01 .ge. p1st)    lptr_bsoa2_aer(01,itype,cw_phase)    = p_bsoa2_cw01
       if (p_bsoa3_cw01 .ge. p1st)    lptr_bsoa3_aer(01,itype,cw_phase)    = p_bsoa3_cw01
       if (p_bsoa4_cw01 .ge. p1st)    lptr_bsoa4_aer(01,itype,cw_phase)    = p_bsoa4_cw01
+! cenlin_brc start
+        if (p_brc1_cw01 .ge. p1st) lptr_brc1_aer(01,itype,cw_phase)  = p_brc1_cw01
+        if (p_brc2_cw01 .ge. p1st) lptr_brc2_aer(01,itype,cw_phase)  = p_brc2_cw01
+! cenlin_brc end
 ! 20180717 cenlin_BC_trac start -----------------------------------------------------------
       if (p_bc_cw01_ant .ge. p1st)   lptr_bc_ant_aer(01,itype,cw_phase)  =  p_bc_cw01_ant
       if (p_bc_cw01_bb  .ge. p1st)   lptr_bc_bb_aer(01,itype,cw_phase)   =  p_bc_cw01_bb
@@ -8694,6 +8771,7 @@ n2o5_flag = n2o5_hetchem
       if (p_bc_cw01_ar9 .ge. p1st)   lptr_bc_ar9_aer(01,itype,cw_phase)  =  p_bc_cw01_ar9
       if (p_bc_cw01_ar10 .ge. p1st)   lptr_bc_ar10_aer(01,itype,cw_phase)  =  p_bc_cw01_ar10
 ! 20180717 cenlin_BC_trac end -----------------------------------------------------------
+
 	    numptr_aer(01,itype,cw_phase)        = p_num_cw01
 	  end if
 	end if
@@ -8738,6 +8816,10 @@ n2o5_flag = n2o5_hetchem
       if (p_bsoa2_cw02 .ge. p1st)    lptr_bsoa2_aer(02,itype,cw_phase)    = p_bsoa2_cw02
       if (p_bsoa3_cw02 .ge. p1st)    lptr_bsoa3_aer(02,itype,cw_phase)    = p_bsoa3_cw02
       if (p_bsoa4_cw02 .ge. p1st)    lptr_bsoa4_aer(02,itype,cw_phase)    = p_bsoa4_cw02
+! cenlin_brc start
+        if (p_brc1_cw02 .ge. p1st) lptr_brc1_aer(02,itype,cw_phase)  = p_brc1_cw02
+        if (p_brc2_cw02 .ge. p1st) lptr_brc2_aer(02,itype,cw_phase)  = p_brc2_cw02
+! cenlin_brc end
 ! 20180717 cenlin_BC_trac start -----------------------------------------------------------
       if (p_bc_cw02_ant .ge. p1st)   lptr_bc_ant_aer(02,itype,cw_phase)  =  p_bc_cw02_ant
       if (p_bc_cw02_bb  .ge. p1st)   lptr_bc_bb_aer(02,itype,cw_phase)   =  p_bc_cw02_bb
@@ -8753,6 +8835,7 @@ n2o5_flag = n2o5_hetchem
       if (p_bc_cw02_ar9 .ge. p1st)   lptr_bc_ar9_aer(02,itype,cw_phase)  =  p_bc_cw02_ar9
       if (p_bc_cw02_ar10 .ge. p1st)   lptr_bc_ar10_aer(02,itype,cw_phase)  =  p_bc_cw02_ar10
 ! 20180717 cenlin_BC_trac end -----------------------------------------------------
+
 	    numptr_aer(02,itype,cw_phase)        = p_num_cw02
 	  end if
 	end if
@@ -8797,6 +8880,10 @@ n2o5_flag = n2o5_hetchem
       if (p_bsoa2_cw03 .ge. p1st)    lptr_bsoa2_aer(03,itype,cw_phase)    = p_bsoa2_cw03
       if (p_bsoa3_cw03 .ge. p1st)    lptr_bsoa3_aer(03,itype,cw_phase)    = p_bsoa3_cw03
       if (p_bsoa4_cw03 .ge. p1st)    lptr_bsoa4_aer(03,itype,cw_phase)    = p_bsoa4_cw03
+! cenlin_brc start
+        if (p_brc1_cw03 .ge. p1st) lptr_brc1_aer(03,itype,cw_phase)  = p_brc1_cw03
+        if (p_brc2_cw03 .ge. p1st) lptr_brc2_aer(03,itype,cw_phase)  = p_brc2_cw03
+! cenlin_brc end
 ! 20180717 cenlin_BC_trac start -----------------------------------------------------------
       if (p_bc_cw03_ant .ge. p1st)   lptr_bc_ant_aer(03,itype,cw_phase)  =  p_bc_cw03_ant
       if (p_bc_cw03_bb  .ge. p1st)   lptr_bc_bb_aer(03,itype,cw_phase)   =  p_bc_cw03_bb
@@ -8812,6 +8899,7 @@ n2o5_flag = n2o5_hetchem
       if (p_bc_cw03_ar9 .ge. p1st)   lptr_bc_ar9_aer(03,itype,cw_phase)  =  p_bc_cw03_ar9
       if (p_bc_cw03_ar10 .ge. p1st)   lptr_bc_ar10_aer(03,itype,cw_phase)  =  p_bc_cw03_ar10
 ! 20180717 cenlin_BC_trac end ----------------------------------------------------
+
 	    numptr_aer(03,itype,cw_phase)        = p_num_cw03
 	  end if
 	end if
@@ -8856,6 +8944,10 @@ n2o5_flag = n2o5_hetchem
       if (p_bsoa2_cw04 .ge. p1st)    lptr_bsoa2_aer(04,itype,cw_phase)    = p_bsoa2_cw04
       if (p_bsoa3_cw04 .ge. p1st)    lptr_bsoa3_aer(04,itype,cw_phase)    = p_bsoa3_cw04
       if (p_bsoa4_cw04 .ge. p1st)    lptr_bsoa4_aer(04,itype,cw_phase)    = p_bsoa4_cw04
+! cenlin_brc start
+        if (p_brc1_cw04 .ge. p1st) lptr_brc1_aer(04,itype,cw_phase)  = p_brc1_cw04
+        if (p_brc2_cw04 .ge. p1st) lptr_brc2_aer(04,itype,cw_phase)  = p_brc2_cw04
+! cenlin_brc end
 ! 20180717 cenlin_BC_trac start -----------------------------------------------------------
       if (p_bc_cw04_ant .ge. p1st)   lptr_bc_ant_aer(04,itype,cw_phase)  =  p_bc_cw04_ant
       if (p_bc_cw04_bb  .ge. p1st)   lptr_bc_bb_aer(04,itype,cw_phase)   =  p_bc_cw04_bb
@@ -8871,6 +8963,7 @@ n2o5_flag = n2o5_hetchem
       if (p_bc_cw04_ar9 .ge. p1st)   lptr_bc_ar9_aer(04,itype,cw_phase)  =  p_bc_cw04_ar9
       if (p_bc_cw04_ar10 .ge. p1st)   lptr_bc_ar10_aer(04,itype,cw_phase)  =  p_bc_cw04_ar10
 ! 20180717 cenlin_BC_trac end ------------------------------------------------------
+
 	    numptr_aer(04,itype,cw_phase)        = p_num_cw04
 	  end if
 	end if
@@ -9735,6 +9828,20 @@ n2o5_flag = n2o5_hetchem
             spectxt = 'bsoa4_'
             nspectxt = 6
 
+! cenlin_brc start
+        else if (l_mastercomp .eq. mastercompindx_brc1_aer) then
+            lptr_dum = lptr_brc1_aer(n,itype,iphase)
+            mcindx_dum = mastercompindx_brc1_aer
+            spectxt = 'brc1_'
+            nspectxt = 5
+
+        else if (l_mastercomp .eq. mastercompindx_brc2_aer) then
+            lptr_dum = lptr_brc2_aer(n,itype,iphase)
+            mcindx_dum = mastercompindx_brc2_aer
+            spectxt = 'brc2_'
+            nspectxt = 5
+! cenlin_brc end
+
 ! 20180717 cenlin_BC_trac start ------------------------------------------------------------
         else if (l_mastercomp .eq. mastercompindx_bc_ant_aer) then
             iaddto_ncomp = 0
@@ -9839,7 +9946,6 @@ n2o5_flag = n2o5_hetchem
             mcindx_dum = mastercompindx_bc_ar10_aer
             spectxt = 'bc_ar10_'
             nspectxt = 8
-
 ! 20180717 cenlin_BC_trac end --------------------------
 
 	else
@@ -10318,6 +10424,15 @@ n2o5_flag = n2o5_hetchem
                 (lptr_bsoa4_aer(n,itype,iphase), n=1,nsize_aer(itype))
         call peg_message( lunout, msg )
 
+! cenlin_brc start
+       write(msg,9350) 'lptr_brc1_aer  ',   &
+                (lptr_brc1_aer(n,itype,iphase), n=1,nsize_aer(itype))
+        call peg_message( lunout, msg )
+       write(msg,9350) 'lptr_brc2_aer  ',   &
+                (lptr_brc2_aer(n,itype,iphase), n=1,nsize_aer(itype))
+        call peg_message( lunout, msg )
+! cenlin_brc end
+
 ! 20180717 cenlin_BC_trac start ----------------------------------------
        write(msg,9350) 'lptr_bc_ant_aer  ',   &
                 (lptr_bc_ant_aer(n,itype,iphase), n=1,nsize_aer(itype))
@@ -10358,8 +10473,8 @@ n2o5_flag = n2o5_hetchem
        write(msg,9350) 'lptr_bc_ar10_aer  ',   &
                 (lptr_bc_ar10_aer(n,itype,iphase), n=1,nsize_aer(itype))
         call peg_message( lunout, msg )
-
 ! 20180717 cenlin_BC_trac end ----------------------------
+
   write(*,*) " ---------------------- "
 
 
@@ -10495,6 +10610,10 @@ n2o5_flag = n2o5_hetchem
         y_bsoa2=0
         y_bsoa3=0
         y_bsoa4=0
+! cenlin_brc
+        y_brc1 = 0
+        y_brc2 = 0
+! cenlin_brc end 
 ! 20180717 cenlin_BC_trac start ----------
         y_bc_ant = 0
         y_bc_bb = 0
@@ -10510,7 +10629,6 @@ n2o5_flag = n2o5_hetchem
         y_bc_ar9 = 0
         y_bc_ar10 = 0
 ! 20180717 cenlin_BC_trac end ------------
-    
 
 	do n = 1, nsize_aer(itype)
 	    if (lptr_so4_aer(n,itype,iphase) .ge. p1st) y_so4 = y_so4 + 1
@@ -10628,6 +10746,10 @@ n2o5_flag = n2o5_hetchem
             if (lptr_bsoa2_aer(n,itype,iphase) .ge. p1st) y_bsoa2 = y_bsoa2 + 1
             if (lptr_bsoa3_aer(n,itype,iphase) .ge. p1st) y_bsoa3 = y_bsoa3 + 1
             if (lptr_bsoa4_aer(n,itype,iphase) .ge. p1st) y_bsoa4 = y_bsoa4 + 1
+! cenlin_brc start
+            if (lptr_brc1_aer(n,itype,iphase)  .ge. p1st) y_brc1 = y_brc1 + 1
+            if (lptr_brc2_aer(n,itype,iphase)  .ge. p1st) y_brc2 = y_brc2 + 1
+! cenlin_brc end
 ! 20180717 cenlin_BC_trac start --------------------------------------------------------
             if (lptr_bc_ant_aer(n,itype,iphase)  .ge. p1st) y_bc_ant  = y_bc_ant + 1
             if (lptr_bc_bb_aer(n,itype,iphase)   .ge. p1st) y_bc_bb   = y_bc_bb + 1
@@ -11375,6 +11497,23 @@ n2o5_flag = n2o5_hetchem
 	    call peg_message( lunerr, msg )
 	    write(msg,9350) 'phase, type=', iphase,itype
 	    call peg_error_fatal( lunerr, msg )
+
+! cenlin_brc start
+       else if ((y_brc1 .ne. 0) .and.   &
+                 (y_brc1 .ne. nsize_aer(itype))) then
+            msg = '*** subr init_data_mosaic_ptr - ptr error for brc1'
+            call peg_message( lunerr, msg )
+            write(msg,9350) 'phase, type=', iphase,itype
+            call peg_error_fatal( lunerr, msg )
+
+       else if ((y_brc2 .ne. 0) .and.   &
+                 (y_brc2 .ne. nsize_aer(itype))) then
+            msg = '*** subr init_data_mosaic_ptr - ptr error for brc2'
+            call peg_message( lunerr, msg )
+            write(msg,9350) 'phase, type=', iphase,itype
+            call peg_error_fatal( lunerr, msg )
+
+! cenlin_brc end
 
 ! 20180717 cenlin_BC_trac start -----------------------------------------------
        else if ((y_bc_ant .ne. 0) .and.   &
@@ -12273,6 +12412,7 @@ n2o5_flag = n2o5_hetchem
                 lptr_bsoaX_aer(n,itype,iphase), &
                 lptr_bsoa1_aer(n,itype,iphase),lptr_bsoa2_aer(n,itype,iphase),          &
                 lptr_bsoa3_aer(n,itype,iphase),lptr_bsoa4_aer(n,itype,iphase),          &
+                lptr_brc1_aer(n,itype,iphase), lptr_brc2_aer(n,itype,iphase) ,          &   ! cenlin_brc
 ! 20180717 cenlin_BC_trac start ------------------------------------------------------------
                 lptr_bc_ant_aer(n,itype,iphase), lptr_bc_bb_aer(n,itype,iphase) ,       &
                 lptr_bc_bdy_aer(n,itype,iphase),       &
@@ -12281,7 +12421,8 @@ n2o5_flag = n2o5_hetchem
                 lptr_bc_ar5_aer(n,itype,iphase), lptr_bc_ar6_aer(n,itype,iphase),       &
                 lptr_bc_ar7_aer(n,itype,iphase), lptr_bc_ar8_aer(n,itype,iphase),       &
                 lptr_bc_ar9_aer(n,itype,iphase), lptr_bc_ar10_aer(n,itype,iphase)
-! 20180717 cenlin_BC_trac end -- -------------------------------------------------                         
+! 20180717 cenlin_BC_trac end -- -------------------------------------------------       
+
 	end do ! size
 	end do ! type
 	end do ! phase

@@ -1738,6 +1738,11 @@ end if !Chemistry time step check
 ! cenlin_dust
        grid%dust_a_tot(its:ite, kts:kte, jts:jte) = 0.0
        grid%dust_cw_tot(its:ite, kts:kte, jts:jte) = 0.0
+! cenlin_brc
+       grid%brc1_a_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%brc1_cw_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%brc2_a_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%brc2_cw_tot(its:ite, kts:kte, jts:jte) = 0.0
 
        grid%drydep_bc(its:ite,jts:jte) = 0.0
        grid%wetdep_bc(its:ite,jts:jte) = 0.0       
@@ -1792,7 +1797,9 @@ end if !Chemistry time step check
        grid%pm10_sfc(its:ite,jts:jte) = 0.0
        grid%dust_sfc_tot(its:ite,jts:jte) = 0.0
        grid%aod_550(its:ite,jts:jte) = 0.0
-
+! cenlin_brc
+       grid%brc1_sfc_tot(its:ite,jts:jte) = 0.0
+       grid%brc2_sfc_tot(its:ite,jts:jte) = 0.0
 
 !!!!!!! ! assign values: ug/kg -> ug/m3
 ! atmospheric 3D concentration aggregated over size bins
@@ -1809,6 +1816,19 @@ end if !Chemistry time step check
        grid%dust_cw_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_oin_cw01) + &
            chem(its:ite,kts:kte,jts:jte,p_oin_cw02) + chem(its:ite,kts:kte,jts:jte,p_oin_cw03) + &
            chem(its:ite,kts:kte,jts:jte,p_oin_cw04) ) / grid%alt(its:ite,kts:kte,jts:jte)
+! cenlin_brc
+       grid%brc1_a_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_brc1_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_brc1_a02) + chem(its:ite,kts:kte,jts:jte,p_brc1_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_brc1_a04) ) / grid%alt(its:ite,kts:kte,jts:jte)
+       grid%brc1_cw_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_brc1_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_brc1_cw02) + chem(its:ite,kts:kte,jts:jte,p_brc1_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_brc1_cw04) ) / grid%alt(its:ite,kts:kte,jts:jte)
+       grid%brc2_a_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_brc2_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_brc2_a02) + chem(its:ite,kts:kte,jts:jte,p_brc2_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_brc2_a04) ) / grid%alt(its:ite,kts:kte,jts:jte)
+       grid%brc2_cw_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_brc2_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_brc2_cw02) + chem(its:ite,kts:kte,jts:jte,p_brc2_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_brc2_cw04) ) / grid%alt(its:ite,kts:kte,jts:jte)
 
        grid%bc_a_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_bc_a01) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a02) + chem(its:ite,kts:kte,jts:jte,p_bc_a03) + &
@@ -2177,6 +2197,9 @@ end if !Chemistry time step check
      grid%pm10_sfc(its:ite,jts:jte) = grid%pm10(its:ite,kts,jts:jte)
 ! cenlin_dust
      grid%dust_sfc_tot(its:ite,jts:jte)=grid%dust_a_tot(its:ite,kts,jts:jte)+grid%dust_cw_tot(its:ite,kts,jts:jte)
+! cenlin_brc
+     grid%brc1_sfc_tot(its:ite,jts:jte)=grid%brc1_a_tot(its:ite,kts,jts:jte)+grid%brc1_cw_tot(its:ite,kts,jts:jte)
+     grid%brc2_sfc_tot(its:ite,jts:jte)=grid%brc2_a_tot(its:ite,kts,jts:jte)+grid%brc2_cw_tot(its:ite,kts,jts:jte)
 
      ! AOD 550 nm
      do k = kts, kte

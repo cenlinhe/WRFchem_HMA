@@ -136,14 +136,16 @@
 		ims,ime, jms,jme, kms,kme,                        &
 		its,ite, jts,jte, kts,kte                         )
 
+! cenlin_brc add secondary brc
+        use module_configure
+!	use module_configure, only:  grid_config_rec_type,            &
+!			p_qv,                                         &
+!			p_so2, p_ho2, p_so4aj, p_corn, p_hcl, p_mtf,  &
+!			p_so4_a01, p_water_a01, p_num_a01,            &
+!			p_so4_a04, p_water_a04, p_num_a04
 
-	use module_configure, only:  grid_config_rec_type,            &
-			p_qv,                                         &
-			p_so2, p_ho2, p_so4aj, p_corn, p_hcl, p_mtf,  &
-			p_so4_a01, p_water_a01, p_num_a01,            &
-			p_so4_a04, p_water_a04, p_num_a04
-
-	use module_state_description, only:  num_moist, num_chem
+        use module_state_description  ! cenlin_brc
+!	use module_state_description, only:  num_moist, num_chem
 
 	use module_data_mosaic_asect
 	use module_data_mosaic_other
@@ -250,6 +252,29 @@
 	real :: dum
 	real :: rsub0(l2maxd,kmaxd,nsubareamaxd)
 
+! cenlin_brc add local variables for SOA partition to brc2
+        real, dimension( ims:ime, kms:kme, jms:jme ) :: &
+          brc2_asoa1_r01,brc2_asoa1_r02,brc2_asoa1_r03,brc2_asoa1_r04, & ! aromatic brc in asoa ratio
+          brc2_asoa2_r01,brc2_asoa2_r02,brc2_asoa2_r03,brc2_asoa2_r04, &
+          brc2_asoa3_r01,brc2_asoa3_r02,brc2_asoa3_r03,brc2_asoa3_r04, &
+          brc2_asoa4_r01,brc2_asoa4_r02,brc2_asoa4_r03,brc2_asoa4_r04, &
+          brc2_asoaX_r01,brc2_asoaX_r02,brc2_asoaX_r03,brc2_asoaX_r04
+
+        real, dimension( ims:ime, kms:kme, jms:jme ) :: & 
+          asoa1_old_a01, asoa1_old_a02, asoa1_old_a03, asoa1_old_a04,  & ! store old asoa before new formation
+          asoa1_old_cw01,asoa1_old_cw02,asoa1_old_cw03,asoa1_old_cw04, &
+          asoa2_old_a01, asoa2_old_a02, asoa2_old_a03, asoa2_old_a04,  &
+          asoa2_old_cw01,asoa2_old_cw02,asoa2_old_cw03,asoa2_old_cw04, &
+          asoa3_old_a01, asoa3_old_a02, asoa3_old_a03, asoa3_old_a04,  &
+          asoa3_old_cw01,asoa3_old_cw02,asoa3_old_cw03,asoa3_old_cw04, &
+          asoa4_old_a01, asoa4_old_a02, asoa4_old_a03, asoa4_old_a04,  &
+          asoa4_old_cw01,asoa4_old_cw02,asoa4_old_cw03,asoa4_old_cw04, &
+          asoaX_old_a01, asoaX_old_a02, asoaX_old_a03, asoaX_old_a04,  &
+          asoaX_old_cw01,asoaX_old_cw02,asoaX_old_cw03,asoaX_old_cw04
+
+! cenlin_brc end
+
+
 	character*100 msg
 
 
@@ -285,6 +310,98 @@
 !   end if
 !rcetestc diagnostics --------------------------------------------------
     end if
+
+! cenlin_brc start
+! store old chem ASOA conc array to compute change of ASOA at the end 
+        asoa1_old_a01(:,:,:) = chem(:,:,:,p_asoa1_a01) ! ug/kg dry air
+        asoa1_old_a02(:,:,:) = chem(:,:,:,p_asoa1_a02)
+        asoa1_old_a03(:,:,:) = chem(:,:,:,p_asoa1_a03)
+        asoa1_old_a04(:,:,:) = chem(:,:,:,p_asoa1_a04)
+        asoa1_old_cw01(:,:,:) = chem(:,:,:,p_asoa1_cw01) ! ug/kg dry air
+        asoa1_old_cw02(:,:,:) = chem(:,:,:,p_asoa1_cw02)
+        asoa1_old_cw03(:,:,:) = chem(:,:,:,p_asoa1_cw03)
+        asoa1_old_cw04(:,:,:) = chem(:,:,:,p_asoa1_cw04)
+
+        asoa2_old_a01(:,:,:) = chem(:,:,:,p_asoa2_a01) ! ug/kg dry air
+        asoa2_old_a02(:,:,:) = chem(:,:,:,p_asoa2_a02)
+        asoa2_old_a03(:,:,:) = chem(:,:,:,p_asoa2_a03)
+        asoa2_old_a04(:,:,:) = chem(:,:,:,p_asoa2_a04)
+        asoa2_old_cw01(:,:,:) = chem(:,:,:,p_asoa2_cw01) ! ug/kg dry air
+        asoa2_old_cw02(:,:,:) = chem(:,:,:,p_asoa2_cw02)
+        asoa2_old_cw03(:,:,:) = chem(:,:,:,p_asoa2_cw03)
+        asoa2_old_cw04(:,:,:) = chem(:,:,:,p_asoa2_cw04)
+
+        asoa3_old_a01(:,:,:) = chem(:,:,:,p_asoa3_a01) ! ug/kg dry air
+        asoa3_old_a02(:,:,:) = chem(:,:,:,p_asoa3_a02)
+        asoa3_old_a03(:,:,:) = chem(:,:,:,p_asoa3_a03)
+        asoa3_old_a04(:,:,:) = chem(:,:,:,p_asoa3_a04)
+        asoa3_old_cw01(:,:,:) = chem(:,:,:,p_asoa3_cw01) ! ug/kg dry air
+        asoa3_old_cw02(:,:,:) = chem(:,:,:,p_asoa3_cw02)
+        asoa3_old_cw03(:,:,:) = chem(:,:,:,p_asoa3_cw03)
+        asoa3_old_cw04(:,:,:) = chem(:,:,:,p_asoa3_cw04)
+
+        asoa4_old_a01(:,:,:) = chem(:,:,:,p_asoa4_a01) ! ug/kg dry air
+        asoa4_old_a02(:,:,:) = chem(:,:,:,p_asoa4_a02)
+        asoa4_old_a03(:,:,:) = chem(:,:,:,p_asoa4_a03)
+        asoa4_old_a04(:,:,:) = chem(:,:,:,p_asoa4_a04)
+        asoa4_old_cw01(:,:,:) = chem(:,:,:,p_asoa4_cw01) ! ug/kg dry air
+        asoa4_old_cw02(:,:,:) = chem(:,:,:,p_asoa4_cw02)
+        asoa4_old_cw03(:,:,:) = chem(:,:,:,p_asoa4_cw03)
+        asoa4_old_cw04(:,:,:) = chem(:,:,:,p_asoa4_cw04)
+
+        asoaX_old_a01(:,:,:) = chem(:,:,:,p_asoaX_a01) ! ug/kg dry air
+        asoaX_old_a02(:,:,:) = chem(:,:,:,p_asoaX_a02)
+        asoaX_old_a03(:,:,:) = chem(:,:,:,p_asoaX_a03)
+        asoaX_old_a04(:,:,:) = chem(:,:,:,p_asoaX_a04)
+        asoaX_old_cw01(:,:,:) = chem(:,:,:,p_asoaX_cw01) ! ug/kg dry air
+        asoaX_old_cw02(:,:,:) = chem(:,:,:,p_asoaX_cw02)
+        asoaX_old_cw03(:,:,:) = chem(:,:,:,p_asoaX_cw03)
+        asoaX_old_cw04(:,:,:) = chem(:,:,:,p_asoaX_cw04)
+
+! compute aromatic ASOA fraction based on mass yield from Shrivastava et al. 2011
+! bigalk, bigene, benzene, tol, xyl
+        brc2_asoa1_r01(:,:,:) = ( chem(:,:,:,p_benzene)*2.604E-14 + &
+          chem(:,:,:,p_tol)*1.443E-12 + chem(:,:,:,p_xyl)*3.902E-13 ) / &
+         ( chem(:,:,:,p_bigalk)*0.0 + chem(:,:,:,p_bigene)*3.305E-13 + &
+          chem(:,:,:,p_benzene)*2.604E-14 + chem(:,:,:,p_tol)*1.443E-12 + &
+          chem(:,:,:,p_xyl)*3.902E-13 )
+        brc2_asoa1_r02(:,:,:) = brc2_asoa1_r01(:,:,:) ! assuming same partitioning fraction for different aerosol bins             
+        brc2_asoa1_r03(:,:,:) = brc2_asoa1_r01(:,:,:)
+        brc2_asoa1_r04(:,:,:) = brc2_asoa1_r01(:,:,:)
+
+        brc2_asoa2_r01(:,:,:) = ( chem(:,:,:,p_benzene)*1.685E-13 + &
+          chem(:,:,:,p_tol)*7.216E-12 + chem(:,:,:,p_xyl)*2.525E-12 ) / &
+         ( chem(:,:,:,p_bigalk)*4.725E-13 + chem(:,:,:,p_bigene)*8.942E-13 + &
+          chem(:,:,:,p_benzene)*1.685E-13 + chem(:,:,:,p_tol)*7.216E-12 + &
+          chem(:,:,:,p_xyl)*2.525E-12 )
+        brc2_asoa2_r02(:,:,:) = brc2_asoa2_r01(:,:,:) ! assuming same partitioning fraction for different aerosol bins             
+        brc2_asoa2_r03(:,:,:) = brc2_asoa2_r01(:,:,:)
+        brc2_asoa2_r04(:,:,:) = brc2_asoa2_r01(:,:,:)
+
+        brc2_asoa3_r01(:,:,:) = ( chem(:,:,:,p_benzene)*2.298E-13 + &
+          chem(:,:,:,p_tol)*1.249E-11 + chem(:,:,:,p_xyl)*3.443E-12 ) / &
+         ( chem(:,:,:,p_bigalk)*0.0 + chem(:,:,:,p_bigene)*2.741E-12 + &
+          chem(:,:,:,p_benzene)*2.298E-13 + chem(:,:,:,p_tol)*1.249E-11 + &
+          chem(:,:,:,p_xyl)*3.443E-12 )
+        brc2_asoa3_r02(:,:,:) = brc2_asoa3_r01(:,:,:) ! assuming same partitioning fraction for different aerosol bins             
+        brc2_asoa3_r03(:,:,:) = brc2_asoa3_r01(:,:,:)
+        brc2_asoa3_r04(:,:,:) = brc2_asoa3_r01(:,:,:)
+
+        brc2_asoa4_r01(:,:,:) = ( chem(:,:,:,p_benzene)*3.268E-13 + &
+          chem(:,:,:,p_tol)*1.776E-11 + chem(:,:,:,p_xyl)*4.896E-12 ) / &
+         ( chem(:,:,:,p_bigalk)*0.0 + chem(:,:,:,p_bigene)*8.359E-12 + &
+          chem(:,:,:,p_benzene)*3.268E-13 + chem(:,:,:,p_tol)*1.776E-11 + &
+          chem(:,:,:,p_xyl)*4.896E-12 )
+        brc2_asoa4_r02(:,:,:) = brc2_asoa4_r01(:,:,:) ! assuming same partitioning fraction for different aerosol bins             
+        brc2_asoa4_r03(:,:,:) = brc2_asoa4_r01(:,:,:)
+        brc2_asoa4_r04(:,:,:) = brc2_asoa4_r01(:,:,:)
+
+        brc2_asoaX_r01(:,:,:) = brc2_asoa1_r01(:,:,:) ! assuming the same fraction for asoaX and asoa1 since asoaX mainly from asoa1
+        brc2_asoaX_r02(:,:,:) = brc2_asoa1_r02(:,:,:)  
+        brc2_asoaX_r03(:,:,:) = brc2_asoa1_r03(:,:,:)
+        brc2_asoaX_r04(:,:,:) = brc2_asoa1_r04(:,:,:)
+
+! cenlin_brc end ----------------------------
 
 ! The default values for these informational printout settings are set
 ! in module_data_mosaic_therm.F.
@@ -336,7 +453,6 @@
  		t, dum )
 ! ***  end  of "box testing" code section ***
 #endif
-
 
 !   set "pegasus" grid size variables
 	itot = ite
@@ -452,6 +568,73 @@
 !	print 93010, 'backfrm mapaerbb', it, jt
 2910	continue
 2920	continue
+
+! cenlin_brc secondary BrC assignment start --------------
+! aerosol phase
+    chem(:,:,:,p_brc2_a01) = chem(:,:,:,p_brc2_a01) + &
+        (chem(:,:,:,p_asoa1_a01) - asoa1_old_a01(:,:,:))*brc2_asoa1_r01(:,:,:) + &
+        (chem(:,:,:,p_asoa2_a01) - asoa2_old_a01(:,:,:))*brc2_asoa2_r01(:,:,:) + &
+        (chem(:,:,:,p_asoa3_a01) - asoa3_old_a01(:,:,:))*brc2_asoa3_r01(:,:,:) + &
+        (chem(:,:,:,p_asoa4_a01) - asoa4_old_a01(:,:,:))*brc2_asoa4_r01(:,:,:) + &
+        (chem(:,:,:,p_asoaX_a01) - asoaX_old_a01(:,:,:))*brc2_asoaX_r01(:,:,:)
+
+    chem(:,:,:,p_brc2_a02) = chem(:,:,:,p_brc2_a02) + &
+        (chem(:,:,:,p_asoa1_a02) - asoa1_old_a02(:,:,:))*brc2_asoa1_r02(:,:,:) + &
+        (chem(:,:,:,p_asoa2_a02) - asoa2_old_a02(:,:,:))*brc2_asoa2_r02(:,:,:) + &
+        (chem(:,:,:,p_asoa3_a02) - asoa3_old_a02(:,:,:))*brc2_asoa3_r02(:,:,:) + &
+        (chem(:,:,:,p_asoa4_a02) - asoa4_old_a02(:,:,:))*brc2_asoa4_r02(:,:,:) + &
+        (chem(:,:,:,p_asoaX_a02) - asoaX_old_a02(:,:,:))*brc2_asoaX_r02(:,:,:)
+
+    chem(:,:,:,p_brc2_a03) = chem(:,:,:,p_brc2_a03) + &
+        (chem(:,:,:,p_asoa1_a03) - asoa1_old_a03(:,:,:))*brc2_asoa1_r03(:,:,:) + &
+        (chem(:,:,:,p_asoa2_a03) - asoa2_old_a03(:,:,:))*brc2_asoa2_r03(:,:,:) + &
+        (chem(:,:,:,p_asoa3_a03) - asoa3_old_a03(:,:,:))*brc2_asoa3_r03(:,:,:) + &
+        (chem(:,:,:,p_asoa4_a03) - asoa4_old_a03(:,:,:))*brc2_asoa4_r03(:,:,:) + &
+        (chem(:,:,:,p_asoaX_a03) - asoaX_old_a03(:,:,:))*brc2_asoaX_r03(:,:,:)
+
+    chem(:,:,:,p_brc2_a04) = chem(:,:,:,p_brc2_a04) + &
+        (chem(:,:,:,p_asoa1_a04) - asoa1_old_a04(:,:,:))*brc2_asoa1_r04(:,:,:) + &
+        (chem(:,:,:,p_asoa2_a04) - asoa2_old_a04(:,:,:))*brc2_asoa2_r04(:,:,:) + &
+        (chem(:,:,:,p_asoa3_a04) - asoa3_old_a04(:,:,:))*brc2_asoa3_r04(:,:,:) + &
+        (chem(:,:,:,p_asoa4_a04) - asoa4_old_a04(:,:,:))*brc2_asoa4_r04(:,:,:) + &
+        (chem(:,:,:,p_asoaX_a04) - asoaX_old_a04(:,:,:))*brc2_asoaX_r04(:,:,:)
+
+! cloud phase
+    chem(:,:,:,p_brc2_cw01) = chem(:,:,:,p_brc2_cw01) + &
+        (chem(:,:,:,p_asoa1_cw01) - asoa1_old_cw01(:,:,:))*brc2_asoa1_r01(:,:,:) + &
+        (chem(:,:,:,p_asoa2_cw01) - asoa2_old_cw01(:,:,:))*brc2_asoa2_r01(:,:,:) + &
+        (chem(:,:,:,p_asoa3_cw01) - asoa3_old_cw01(:,:,:))*brc2_asoa3_r01(:,:,:) + &
+        (chem(:,:,:,p_asoa4_cw01) - asoa4_old_cw01(:,:,:))*brc2_asoa4_r01(:,:,:) + &
+        (chem(:,:,:,p_asoaX_cw01) - asoaX_old_cw01(:,:,:))*brc2_asoaX_r01(:,:,:)
+
+    chem(:,:,:,p_brc2_cw02) = chem(:,:,:,p_brc2_cw02) + &
+        (chem(:,:,:,p_asoa1_cw02) - asoa1_old_cw02(:,:,:))*brc2_asoa1_r02(:,:,:) + &
+        (chem(:,:,:,p_asoa2_cw02) - asoa2_old_cw02(:,:,:))*brc2_asoa2_r02(:,:,:) + &
+        (chem(:,:,:,p_asoa3_cw02) - asoa3_old_cw02(:,:,:))*brc2_asoa3_r02(:,:,:) + &
+        (chem(:,:,:,p_asoa4_cw02) - asoa4_old_cw02(:,:,:))*brc2_asoa4_r02(:,:,:) + &
+        (chem(:,:,:,p_asoaX_cw02) - asoaX_old_cw02(:,:,:))*brc2_asoaX_r02(:,:,:)
+
+    chem(:,:,:,p_brc2_cw03) = chem(:,:,:,p_brc2_cw03) + &
+        (chem(:,:,:,p_asoa1_cw03) - asoa1_old_cw03(:,:,:))*brc2_asoa1_r03(:,:,:) + &
+        (chem(:,:,:,p_asoa2_cw03) - asoa2_old_cw03(:,:,:))*brc2_asoa2_r03(:,:,:) + &
+        (chem(:,:,:,p_asoa3_cw03) - asoa3_old_cw03(:,:,:))*brc2_asoa3_r03(:,:,:) + &
+        (chem(:,:,:,p_asoa4_cw03) - asoa4_old_cw03(:,:,:))*brc2_asoa4_r03(:,:,:) + &
+        (chem(:,:,:,p_asoaX_cw03) - asoaX_old_cw03(:,:,:))*brc2_asoaX_r03(:,:,:)
+
+    chem(:,:,:,p_brc2_cw04) = chem(:,:,:,p_brc2_cw04) + &
+        (chem(:,:,:,p_asoa1_cw04) - asoa1_old_cw04(:,:,:))*brc2_asoa1_r04(:,:,:) + &
+        (chem(:,:,:,p_asoa2_cw04) - asoa2_old_cw04(:,:,:))*brc2_asoa2_r04(:,:,:) + &
+        (chem(:,:,:,p_asoa3_cw04) - asoa3_old_cw04(:,:,:))*brc2_asoa3_r04(:,:,:) + &
+        (chem(:,:,:,p_asoa4_cw04) - asoa4_old_cw04(:,:,:))*brc2_asoa4_r04(:,:,:) + &
+        (chem(:,:,:,p_asoaX_cw04) - asoaX_old_cw04(:,:,:))*brc2_asoaX_r04(:,:,:)
+
+! cenlin_brc secondary BrC assignment end --------
+
+! cenlin_brc photobleaching start -----------
+
+
+
+! cenlin_brc photobleaching end ------------
 
 
 !   rce 2005-apr-30 - added 2 calls to print_mosaic_stats

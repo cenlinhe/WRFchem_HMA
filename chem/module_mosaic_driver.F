@@ -272,6 +272,9 @@
           asoaX_old_a01, asoaX_old_a02, asoaX_old_a03, asoaX_old_a04,  &
           asoaX_old_cw01,asoaX_old_cw02,asoaX_old_cw03,asoaX_old_cw04
 
+        real, dimension( ims:ime, kms:kme, jms:jme ) :: brc_photo     ! changes of BrC due to photobleaching
+
+    brc_photo(:,:,:) = 0.0
 ! cenlin_brc end
 
 
@@ -631,8 +634,36 @@
 ! cenlin_brc secondary BrC assignment end --------
 
 ! cenlin_brc photobleaching start -----------
+! based on Wang et al., 2018 parameterization related to [OH] molec/cm3, dt:days
+! chemistry timestep: dtstepc, [OH] 
+!   t_phy - temperature (K)
+!   rho_phy - air density (kg/m^3)
+!   p_phy - air pressure (Pa)
+! chem(:,:,:,p_ho): ppmv
+! to compute air number sensity: N(molec) / V(m3) = Na(molec/mol) * P(pa) / R(m3*pa/K/mol) / T(K),Na=6.022e23,R=8.3145
+! or = rho_air(kg/m3) / MW_air(kg/mol) * Na(molec/mol), MW_air=0.02897 air molecular weight
 
+     brc_photo(:,:,:) = EXP( chem(:,:,:,p_ho) * 1.0E-6 * -1.0 *    & ! ppmv -> mol/mol or molec/molec
+               (rho_phy(:,:,:) / 0.02897 * 6.022E+23 * 1.0E-6) *   & ! air number density: molec/cm3
+               dtstepc / (3600.0 * 24.0) / 5.0E+5 )                  ! dtstepc: sec-> days 
 
+     do j=jts,jte
+     do k=kts,kte
+     do i=its,ite
+          brc_photo(i,k,j) = max(0.25,brc_photo(i,k,j))  ! set minimum allowed absorption bleaching 25% based on Wang et al. 2018
+     enddo
+     enddo
+     enddo
+
+     chem(:,:,:,p_brc1_a01) = chem(:,:,:,p_brc1_a01) * brc_photo(:,:,:)
+     chem(:,:,:,p_brc1_a02) = chem(:,:,:,p_brc1_a02) * brc_photo(:,:,:)
+     chem(:,:,:,p_brc1_a03) = chem(:,:,:,p_brc1_a03) * brc_photo(:,:,:)
+     chem(:,:,:,p_brc1_a04) = chem(:,:,:,p_brc1_a04) * brc_photo(:,:,:)
+
+     chem(:,:,:,p_brc2_a01) = chem(:,:,:,p_brc2_a01) * brc_photo(:,:,:)
+     chem(:,:,:,p_brc2_a02) = chem(:,:,:,p_brc2_a02) * brc_photo(:,:,:)
+     chem(:,:,:,p_brc2_a03) = chem(:,:,:,p_brc2_a03) * brc_photo(:,:,:)
+     chem(:,:,:,p_brc2_a04) = chem(:,:,:,p_brc2_a04) * brc_photo(:,:,:)
 
 ! cenlin_brc photobleaching end ------------
 

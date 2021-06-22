@@ -157,7 +157,7 @@ CONTAINS
      &        ,mss_cnc_dust_2d4,mss_cnc_dust_2d5                                &
 ! cenlin_dust_CLM end
 ! cenlin_brc_CLM start
-     &        ,snowbrc_col2d,snowbrc_top2d,sfc_frc_brc,sfc_frc_brc_snow,albedo_dust  &
+     &        ,snowbrc_col2d,snowbrc_top2d,sfc_frc_brc,sfc_frc_brc_snow,albedo_brc   &
      &        ,mss_brc1_s1,mss_brc1_s2,mss_brc1_s3,mss_brc1_s4,mss_brc1_s5           &
      &        ,mss_cnc_brc1_s1,mss_cnc_brc1_s2,mss_cnc_brc1_s3                       &
      &        ,mss_cnc_brc1_s4,mss_cnc_brc1_s5                                       &
@@ -1132,7 +1132,7 @@ CONTAINS
                                 snow_top2d,snow_frac2d,snowlayer2d,snowrds2d1,snowrds2d2,&
                                 snowrds2d3,snowrds2d4,snowrds2d5,&
                                 snowdust_col2d,snowdust_top2d,   & ! cenlin_dust_CLM
-                                snowbrc_col2d,snowbrc_top2d,   & ! cenlin_brc_CLM
+                                snowbrc_col2d,snowbrc_top2d        ! cenlin_brc_CLM
 
   real,    optional,  dimension(ims:ime,jms:jme),intent(inout) :: sfc_frc_bc,sfc_frc_bc_snow
   real,    optional,  dimension(ims:ime,jms:jme),intent(inout) :: sfc_frc_dust,sfc_frc_dust_snow ! cenlin_dust_CLM
@@ -3761,7 +3761,7 @@ CONTAINS
 #if (WRF_CHEM == 1)
                 ,drydep_flux,wetdep_flux   & ! cenlin_BC_CLM
 #endif
-                 )
+                )
 
          IF ( FRACTIONAL_SEAICE == 1 ) THEN
             DO j=j_start(ij),j_end(ij)

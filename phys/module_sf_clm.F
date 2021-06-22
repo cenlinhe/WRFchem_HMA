@@ -59419,7 +59419,7 @@ end module initializeMod
 ! cenlin_BC_CLM end
                 ,mss_dust1_buf,mss_dust2_buf,mss_dust3_buf,mss_dust4_buf & ! cenlin_dust_CLM
                 ,mss_cnc_dust1_buf,mss_cnc_dust2_buf,mss_cnc_dust3_buf,mss_cnc_dust4_buf & ! cenlin_dust_CLM
-                ,mss_brc1_buf,mss_brc2_buf,,mss_cnc_brc1_buf,mss_cnc_brc2_buf & ! cenlin_brc
+                ,mss_brc1_buf,mss_brc2_buf,mss_cnc_brc1_buf,mss_cnc_brc2_buf & ! cenlin_brc
 #ifdef CN
                 ,tlaixy   ,tsaixy  ,htopxy    ,hbotxy                & 
                 ,htmx_buf,croplive_buf,gdd1020_buf,gdd820_buf,gdd020_buf,grainc_buf,grainc_storage_buf  &

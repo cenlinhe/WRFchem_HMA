@@ -1483,6 +1483,7 @@ if ( cam_mam_aerosols ) &
               vdrog3,vdrog3_vbs,grid%br_rto,grid%dgnum4d,grid%dgnumwet4d,wetdens_ap,  &
               del_h2so4_gasprod,grid%dvmrdt_sv13d,grid%dvmrcwdt_sv13d,                &
               grid%is_CAMMGMP_used,                                                   &
+              grid%brc2_acc,grid%brc_photo_acc,                                       & ! cenlin_brc
               ids,ide, jds,jde, kds,kde,                                              &
               ims,ime, jms,jme, kms,kme,                                              &
               its,ite,jts,jte,kts,kte                                                 )

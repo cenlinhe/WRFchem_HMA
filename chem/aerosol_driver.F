@@ -14,6 +14,7 @@
                vdrog3, vdrog3_vbs,brch_ratio,dgnum,dgnumwet,wetdens_ap,    &
                del_h2so4_gasprod,dvmrdt_sv13d,dvmrcwdt_sv13d,              &
                is_CAMMGMP_used,                                            &!BSINGH:01/31/2013: Added is_CAMMGMP_used for cam_mam_aerchem_driver
+               brc2_acc, brc_photo_acc,                                    & ! cenlin_brc
                ids,ide, jds,jde, kds,kde,                                  &
                ims,ime, jms,jme, kms,kme,                                  &
                its,ite, jts,jte, kts,kte                                   )
@@ -138,6 +139,11 @@
          INTENT(INOUT ) ::                                          &
            h2oaj,h2oai,nu3,ac3,cor3,asulf,ahno3,anh3,cvaro1,cvaro2, &
            cvalk1,cvole1,cvapi1,cvapi2,cvlim1,cvlim2,brch_ratio
+
+! cenlin_brc add output variable to track BrC secondary sources and photobleached mass accumulated
+   REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                    &
+         INTENT(INOUT ) ::   brc2_acc, brc_photo_acc
+! cenlin_brc end
 
    REAL, DIMENSION( ims:ime, kms:kme, jms:jme, ntot_amode_cam_mam ), &
          INTENT(INOUT ) ::                                   &
@@ -283,8 +289,8 @@
        CALL wrf_debug(15,'aerosols_driver calling mosaic_aerchem_driver')
        CALL mosaic_aerchem_driver(                                      &
             id, curr_secs, ktau, dtstep, ktauc, dtstepc, config_flags,  &
-            t_phy, rho_phy, p_phy,                                      &
-            moist, chem,vbs_nbin,                                       &
+            t_phy, rho_phy, p_phy, dx, dx, dz8w,                        & ! cenlin_brc
+            moist, chem,vbs_nbin, brc2_acc, brc_photo_acc,              & ! cenlin_brc
             ids,ide, jds,jde, kds,kde,                                  &
             ims,ime, jms,jme, kms,kme,                                  &
             its,ite, jts,jte, kts,kte                                   )

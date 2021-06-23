@@ -542,9 +542,10 @@ real, save :: fr8b_bburn_mosaic(8) = &
                     + fr_aem_mosaic_c(n)*emis_ant(i,k,j,p_e_ecc)   &
                     + fr_aem_sorgam_i(n)*emis_ant(i,k,j,p_e_eci)   &
                     + fr_aem_sorgam_j(n)*emis_ant(i,k,j,p_e_ecj)
-        aem_bc_bb   = fr_aem_mosaic_f(n)*ebu(i,k,j,p_ebu_bc)       &
-                    + fr_aem_sorgam_i(n)*0.25*ebu(i,k,j,p_ebu_bc)  &
-                    + fr_aem_sorgam_j(n)*0.75*ebu(i,k,j,p_ebu_bc)
+! cenlin: bug fix, move bb emission to below section
+!        aem_bc_bb   = fr_aem_mosaic_f(n)*ebu(i,k,j,p_ebu_bc)       &
+!                    + fr_aem_sorgam_i(n)*0.25*ebu(i,k,j,p_ebu_bc)  &
+!                    + fr_aem_sorgam_j(n)*0.75*ebu(i,k,j,p_ebu_bc)
         aem_bc_ar10  = fr_aem_sorgam_i(n)*emis_ant(i,k,j,p_e_eci_ar10) &
                     + fr_aem_sorgam_j(n)*emis_ant(i,k,j,p_e_ecj_ar10)
         aem_bc_ar9  = fr_aem_sorgam_i(n)*emis_ant(i,k,j,p_e_eci_ar9)   &
@@ -581,7 +582,7 @@ real, save :: fr8b_bburn_mosaic(8) = &
 	(aem_co3/dens_co3_aer) + (aem_nh4/dens_nh4_aer) +   &
 	(aem_na /dens_na_aer ) + (aem_ca /dens_ca_aer ) +   &
 	(aem_oin/dens_oin_aer) + (aem_oc /dens_oc_aer ) +   &
-	(aem_bc /dens_bc_aer ) + (aem_brc1 /dens_brc1_aer ) ! cenlin_brc
+	(aem_bc /dens_bc_aer )
 
 ! then multiply by 1.0e-6 to convert ug to g
 ! and divide by particle volume at center of section (cm3)
@@ -630,28 +631,41 @@ real, save :: fr8b_bburn_mosaic(8) = &
 
 ! 20180717 cenlin_BC_trac start ---------------------------------------
       IF ( config_flags%chem_opt == MOZART_MOSAIC_4BIN_AQ_KPP ) THEN
+
         l = lptr_bc_ant_aer(n,itype,iphase)
         if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ant*fact
-        l = lptr_bc_bb_aer(n,itype,iphase)
-        if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_bb*fact
+
+! bug fix: move it to below BB part
+!        l = lptr_bc_bb_aer(n,itype,iphase)
+!        if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_bb*fact
+
         l = lptr_bc_ar10_aer(n,itype,iphase)
         if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar10*fact
+
         l = lptr_bc_ar9_aer(n,itype,iphase)
         if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar9*fact
+
         l = lptr_bc_ar8_aer(n,itype,iphase)
         if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar8*fact
+
         l = lptr_bc_ar7_aer(n,itype,iphase)
         if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar7*fact
+
         l = lptr_bc_ar1_aer(n,itype,iphase)
         if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar1*fact
+
         l = lptr_bc_ar2_aer(n,itype,iphase)
         if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar2*fact
+
         l = lptr_bc_ar3_aer(n,itype,iphase)
         if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar3*fact
+
         l = lptr_bc_ar4_aer(n,itype,iphase)
         if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar4*fact
+
         l = lptr_bc_ar5_aer(n,itype,iphase)
         if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar5*fact
+
         l = lptr_bc_ar6_aer(n,itype,iphase)
         if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar6*fact
 
@@ -684,6 +698,7 @@ real, save :: fr8b_bburn_mosaic(8) = &
   aem_oin = 0.
   aem_num = 0.
   aem_brc1 = 0. ! cenlin_brc
+  aem_bc_bb = 0. ! cenlin_BC_trac
 
  fire_select:  SELECT CASE(config_flags%biomass_burn_opt)
    CASE (BIOMASSB,BIOMASSB_MOZC) 
@@ -711,6 +726,9 @@ size_loop: &
 ! cenlin_brc
                 aem_brc1 = bburn_mosaic_f(n)*ebu(i,k,j,p_ebu_brc)
 ! cenlin_brc end
+! cenlin_BC_trac start
+                aem_bc_bb = bburn_mosaic_f(n)*ebu(i,k,j,p_ebu_bc)
+! cenlin_BC_trac end
 
          chem_select_3 : SELECT CASE( config_flags%chem_opt )
             CASE(SAPRC99_MOSAIC_4BIN_VBS2_KPP) ! Set the oc to zero for VBS
@@ -733,7 +751,7 @@ size_loop: &
 		(aem_co3/dens_co3_aer) + (aem_nh4/dens_nh4_aer) +   &
 		(aem_na /dens_na_aer ) + (aem_ca /dens_ca_aer ) +   &
 		(aem_oin/dens_oin_aer) + (aem_oc /dens_oc_aer ) +   &
-		(aem_bc /dens_bc_aer ) + (aem_brc1 /dens_brc1_aer)  ! cenlin_brc
+		(aem_bc /dens_bc_aer ) 
 
 	! then multiply by 1.0e-6 to convert ug to g
 	! and divide by particle volume at center of section (cm3)
@@ -776,7 +794,10 @@ size_loop: &
 
 		l = lptr_bc_aer(n,itype,iphase)
 		if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc*fact
-
+! cenlin_BC_trac
+                l = lptr_bc_bb_aer(n,itype,iphase)
+                if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_bb*fact
+! cenlin_BC_trac end
 ! cenlin_brc
                 l = lptr_brc1_aer(n,itype,iphase)
                 if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_brc1*fact

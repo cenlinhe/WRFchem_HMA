@@ -947,16 +947,16 @@ CASE (CBMZ_CAM_MAM3_NOAQ,CBMZ_CAM_MAM3_AQ,CBMZ_CAM_MAM7_NOAQ,CBMZ_CAM_MAM7_AQ)
                            - 0.001*qsrflx(ii,jj,p_glysoa_oh_cw01)/mw_glysoa_oh_aer &
                            - 0.001*qsrflx(ii,jj,p_glysoa_oh_cw02)/mw_glysoa_oh_aer &
                            - 0.001*qsrflx(ii,jj,p_glysoa_oh_cw03)/mw_glysoa_oh_aer &
-                           - 0.001*qsrflx(ii,jj,p_glysoa_oh_cw04)/mw_glysoa_oh_aer &
-! cenlin_brc
-                           - 0.001*qsrflx(ii,jj,p_brc1_cw01)/mw_brc1_aer &
-                           - 0.001*qsrflx(ii,jj,p_brc1_cw02)/mw_brc1_aer &
-                           - 0.001*qsrflx(ii,jj,p_brc1_cw03)/mw_brc1_aer &
-                           - 0.001*qsrflx(ii,jj,p_brc1_cw04)/mw_brc1_aer & ! mmol/m2
-                           - 0.001*qsrflx(ii,jj,p_brc2_cw01)/mw_brc2_aer &
-                           - 0.001*qsrflx(ii,jj,p_brc2_cw02)/mw_brc2_aer &
-                           - 0.001*qsrflx(ii,jj,p_brc2_cw03)/mw_brc2_aer &
-                           - 0.001*qsrflx(ii,jj,p_brc2_cw04)/mw_brc2_aer   ! mmol/m2
+                           - 0.001*qsrflx(ii,jj,p_glysoa_oh_cw04)/mw_glysoa_oh_aer
+! cenlin_brc: treat brc as a tracer instead of species component affecting total oc
+!                           - 0.001*qsrflx(ii,jj,p_brc1_cw01)/mw_brc1_aer &
+!                           - 0.001*qsrflx(ii,jj,p_brc1_cw02)/mw_brc1_aer &
+!                           - 0.001*qsrflx(ii,jj,p_brc1_cw03)/mw_brc1_aer &
+!                           - 0.001*qsrflx(ii,jj,p_brc1_cw04)/mw_brc1_aer & ! mmol/m2
+!                           - 0.001*qsrflx(ii,jj,p_brc2_cw01)/mw_brc2_aer &
+!                           - 0.001*qsrflx(ii,jj,p_brc2_cw02)/mw_brc2_aer &
+!                           - 0.001*qsrflx(ii,jj,p_brc2_cw03)/mw_brc2_aer &
+!                           - 0.001*qsrflx(ii,jj,p_brc2_cw04)/mw_brc2_aer   ! mmol/m2
 ! cenlin_brc end
           ! Accumulated total organics wet deposition:
           wd_oa(ii,jj) = wd_oa(ii,jj) + wdi_oa(ii,jj)         ! mmol/m2

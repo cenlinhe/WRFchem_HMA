@@ -34007,7 +34007,7 @@ contains
     do c = lbc,ubc
        g = cgridcell(c)
        
-! cenlin_BC_CLM start  
+! cenlin_BC_CLM start forc_aer: kg/m2/s 
        flx_bc_dep_dry(c)   = max(0._r8,forc_aer(g,2))                                ! drydep bcpho
        flx_bc_dep_wet(c)   = max(0._r8,forc_aer(g,1)) + max(0._r8,forc_aer(g,3)) + &
                              max(0._r8,forc_aer(g,4))                                ! drydep_bcphi,wetdep_bcpho,wetdep_bcphi
@@ -60120,7 +60120,7 @@ subroutine driver (doalb,ilx,jlx,nextsw_cday, declinp1, declin, &
 #if (WRF_CHEM == 1)
     do g = begg, endg
 
-      ! BC deposition forcing
+      ! BC deposition forcing  kg/m2/s
       clm_a2l%forc_aer(g, 1) = drydep_buf(1,p_drydep_bcphi) + & ! drydep_bcphi
                                drydep_buf(2,p_drydep_bcphi) + &
                                drydep_buf(3,p_drydep_bcphi) + &
@@ -60141,7 +60141,7 @@ subroutine driver (doalb,ilx,jlx,nextsw_cday, declinp1, declin, &
                                wetdep_buf(3,p_wetdep_bcpho) + &
                                wetdep_buf(4,p_wetdep_bcpho)
 
-      ! OC & dust deposition forcing
+      ! OC & dust deposition forcing  ! cenlin_brc
       !clm_a2l%forc_aer(g, 4) = 0.0  !ocphidry2t
       clm_a2l%forc_aer(g, 5) = wetdep_buf(1,p_wetdep_brc1) + & ! brc1
                                wetdep_buf(2,p_wetdep_brc1) + &

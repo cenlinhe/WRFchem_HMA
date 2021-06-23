@@ -698,7 +698,10 @@ size_loop: &
               do i = its, ite
 ! compute mass biomass burning emissions [(ug/m3)*m/s] for each species
 ! using the apportioning fractions
-                aem_so4 = bburn_mosaic_f(n)*ebu(i,k,j,p_ebu_sulf)      
+! cenlin_brc: bug fix
+!                aem_so4 = bburn_mosaic_f(n)*ebu(i,k,j,p_ebu_sulf)      
+                aem_so4 =  0.0
+! cenlin bug fix end
                 aem_oc  = bburn_mosaic_f(n)*ebu(i,k,j,p_ebu_oc)    
                 aem_bc  = bburn_mosaic_f(n)*ebu(i,k,j,p_ebu_bc) 
 ! Option to calculate OIN fraction of total PM for fire emissions 

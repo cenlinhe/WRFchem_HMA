@@ -393,7 +393,7 @@ is_mozcart : &
                    ebu(i,k,j,p_ebu_nh3)  = ebu(i,k,j,p_ebu_nh3)*ratio
                    ebu(i,k,j,p_ebu_oc)  = ebu(i,k,j,p_ebu_oc)*ratio
                    ebu(i,k,j,p_ebu_bc)  = ebu(i,k,j,p_ebu_bc)*ratio
-                   ebu(i,k,j,p_ebu_sulf)  = ebu(i,k,j,p_ebu_sulf)*ratio
+!                   ebu(i,k,j,p_ebu_sulf)  = ebu(i,k,j,p_ebu_sulf)*ratio  !cenlin_brc: bug fix
                    ebu(i,k,j,p_ebu_dms)  = ebu(i,k,j,p_ebu_dms)*ratio
                  end do
               end if is_mozcart

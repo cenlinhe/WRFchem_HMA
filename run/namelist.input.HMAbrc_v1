@@ -1,19 +1,19 @@
 &time_control 
- start_year                          = 2016, 2016, 2016,
- start_month                         = 08,   07,   07,
+ start_year                          = 2013, 2016, 2016,
+ start_month                         = 01,   07,   07,
  start_day                           = 01,   06,   06,
  start_hour                          = 00,   00,   00,
  start_minute                        = 00,   00,   00,
  start_second                        = 00,   00,   00,
- end_year                            = 2016, 2016, 2016,
- end_month                           = 08,   07,   07,
- end_day                             = 02,   08,   08,
+ end_year                            = 2013, 2016, 2016,
+ end_month                           = 01,   07,   07,
+ end_day                             = 31,   08,   08,
  end_hour                            = 00,   18,   18,
  end_minute                          = 00,   00,   00,
  end_second                          = 00,   00,   00,
  interval_seconds                    = 21600,
  input_from_file                     = .true.,.true.,.true.,
- history_interval                    = 360,  180,  180,
+ history_interval                    = 180,  180,  180,
  frames_per_outfile                  = 1, 1, 1,
  restart                             = .false.,
  restart_interval                    = 1440,
@@ -22,7 +22,11 @@
  io_form_input                       = 2
  io_form_boundary                    = 2
  debug_level                         = 0
- auxinput5_inname                    = 'wrfchemi_d<domain>_<date>',
+ auxinput4_inname                    = "wrflowinp_d<domain>"
+ io_form_auxinput4                   = 2,
+ auxinput4_interval                  = 360,
+ auxinput4_end_h                     = 100000,
+! auxinput5_inname                    = 'wrfchemi_d<domain>_<date>',
  io_form_auxinput5                   = 2,
  frames_per_auxinput5                = 12,
  auxinput5_interval_m                = 60,
@@ -35,21 +39,22 @@
  auxinput7_interval_m                = 60,
  !iofields_filename                   = 'my_file_d01.txt',
  !ignore_iofields_warning             = .true.,
- auxhist3_outname                    = 'varout1h_d<domain>_<date>'
+ auxhist3_outname                    = 'varout1h_d<domain>_<date>',
  auxhist3_interval_m                 = 60,
- frames_per_auxhist3                 = 24,
+ frames_per_auxhist3                 = 1,
  io_form_auxhist3                    = 2,
+ write_hist_at_0h_rst                = .false.
 /
 
 &domains
- time_step                           = 120,
+ time_step                           = 60,
  time_step_fract_num                 = 0,
  time_step_fract_den                 = 1,
  max_dom                             = 1,
  e_we                                = 390,
  e_sn                                = 290,
- e_vert                              = 35,
- num_metgrid_levels                  = 32,
+ e_vert                              = 36,
+ num_metgrid_levels                  = 38,
  num_metgrid_soil_levels             = 4,
  dx                                  = 20000,
  dy                                  = 20000,
@@ -62,6 +67,15 @@
  feedback                            = 1,
  smooth_option                       = 0,
  p_top_requested                     = 5000.,
+ eta_levels                          = 1.000, 0.9975, 0.995, 0.990, 0.985,
+                                       0.980, 0.970, 0.960, 0.950,
+                                       0.940, 0.930, 0.920, 0.910,
+                                       0.900, 0.880, 0.860, 0.840,
+                                       0.820, 0.800, 0.770, 0.740,
+                                       0.700, 0.650, 0.600, 0.550,
+                                       0.500, 0.450, 0.400, 0.350,
+                                       0.300, 0.250, 0.200, 0.150,
+                                       0.100, 0.050, 0.000
  /
 
  &physics
@@ -80,7 +94,7 @@
  isfflx                              = 1,
  ifsnow                              = 1,
  icloud                              = 1,
- surface_input_source                = 3,
+ surface_input_source                = 1,
  num_soil_layers                     = 10,
  num_land_cat                        = 21,
  sf_urban_physics                    = 0,     0,  0,
@@ -90,11 +104,12 @@
  maxens3                             = 16,
  ensdim                              = 144,
  cu_rad_feedback                     = .true.,
+ sst_update                          = 1,
  /
 
  &fdda
  grid_fdda                           = 1, 1, 1,
- gfdda_inname                        = "wrffdda_d<domain>",
+ gfdda_inname                        = 'wrffdda_d<domain>',
  gfdda_end_h                         = 100000, 24, 24,
  gfdda_interval_m                    = 360, 360, 360,
  fgdt                                = 0, 0, 0,
@@ -128,6 +143,7 @@
  dampcoef                            = 0.2,
  khdif                               = 0,
  kvdif                               = 0,
+ epssm                               = 0.1,
  non_hydrostatic                     = .true.,
  moist_adv_opt                       = 2,
  chem_adv_opt                        = 2,
@@ -186,6 +202,7 @@
  ne_area                             = 500,
  opt_pars_out                        = 1,
  have_bcs_chem                       = .true.,
- have_bcs_upper                      = .false.,
+ have_bcs_upper                      = .true.,
+ fixed_ubc_press                     = 50.,
  aerosoldep                          = 1,
  /

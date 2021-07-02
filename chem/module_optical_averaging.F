@@ -1001,6 +1001,16 @@
 !           refindx_shell(i,k,j,isize) =ri_dum/vol_shell
             swrefindx_core(i,k,j,isize,ns) =ref_index_bc
             swrefindx_shell(i,k,j,isize,ns) =ri_dum/vol_shell
+
+! cenlin_brc: bug fix to avoid extreme low or high values in ref due to too small/large aerosol mass or volume
+! following rkumar's solution
+            if (real(ri_ave_a) .le. 1e-3 .or. vol_wet_a .lt. 3.12089e-17) then
+               swrefindx(i,k,j,isize,ns)    = (1.5,0.0)
+               radius_wet(i,k,j,isize) = dlo_sect(isize,itype)/2.0
+               number_bin(i,k,j,isize) =num_a
+            endif
+! cenlin_brc: bug fix end
+
           endif
 !         refr=real(refindx(i,k,j,isize))
         enddo  ! ns shortwave 
@@ -1061,6 +1071,15 @@
             radius_core(i,k,j,isize) =dp_bc_a/2.0
             lwrefindx_core(i,k,j,isize,ns) =ref_index_bc
             lwrefindx_shell(i,k,j,isize,ns) =ri_dum/vol_shell
+! cenlin_brc: bug fix to avoid extreme low or high values in ref due to too small/large aerosol mass or volume
+! following rkumar's solution
+            if (real(ri_ave_a) .le. 1e-3 .or. vol_wet_a .lt. 3.12089e-17) then
+               lwrefindx(i,k,j,isize,ns)    = (1.5,0.0)
+               radius_wet(i,k,j,isize) = dlo_sect(isize,itype)/2.0
+               number_bin(i,k,j,isize) =num_a
+            endif
+! cenlin_brc: bug fix end
+
           endif
 !          refr=real(refindx(i,k,j,isize))
         enddo ! ns longwave

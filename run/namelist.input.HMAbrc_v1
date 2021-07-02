@@ -7,7 +7,7 @@
  start_second                        = 00,   00,   00,
  end_year                            = 2013, 2016, 2016,
  end_month                           = 01,   07,   07,
- end_day                             = 31,   08,   08,
+ end_day                             = 10,   08,   08,
  end_hour                            = 00,   18,   18,
  end_minute                          = 00,   00,   00,
  end_second                          = 00,   00,   00,
@@ -21,8 +21,8 @@
  io_form_restart                     = 2
  io_form_input                       = 2
  io_form_boundary                    = 2
- debug_level                         = 0
- auxinput4_inname                    = "wrflowinp_d<domain>"
+ debug_level                         = 250
+ auxinput4_inname                    = 'wrflowinp_d<domain>',
  io_form_auxinput4                   = 2,
  auxinput4_interval                  = 360,
  auxinput4_end_h                     = 100000,
@@ -83,7 +83,7 @@
  progn                               = 1,
  ra_lw_physics                       = 4,
  ra_sw_physics                       = 4,
- radt                                = 20,
+ radt                                = 30,
  sf_sfclay_physics                   = 1,     2,   2,
  sf_surface_physics                  = 5,     2,    2,
  bl_pbl_physics                      = 1,     8,    8,
@@ -170,14 +170,14 @@
  &chem
  kemit                               = 1,
  chem_opt                            = 202,
- bioemdt                             = 20,
- photdt                              = 20.,
- chemdt                              = 4.0,
+ bioemdt                             = 30,
+ photdt                              = 30.,
+ chemdt                              = 3.0,
  io_style_emissions                  = 1,
  emiss_inpt_opt                      = 102,
  emiss_opt                           = 10,
  chem_in_opt                         = 1,
- phot_opt                            = 3,
+ phot_opt                            = 4,
  gas_drydep_opt                      = 1,
  aer_drydep_opt                      = 1,
  bio_emiss_opt                       = 3,
@@ -198,11 +198,17 @@
  dmsemis_opt                         = 1,
  biomass_burn_opt                    = 2,
  plumerisefire_frq                   = 60,
+ scale_fire_emiss                    = .true.,
  aer_ra_feedback                     = 1,
  ne_area                             = 500,
  opt_pars_out                        = 1,
  have_bcs_chem                       = .true.,
  have_bcs_upper                      = .true.,
  fixed_ubc_press                     = 50.,
+ fixed_ubc_inname                    = 'ubvals_b40.20th.track1_1996-2005.nc',
+ is_full_tuv                         = .false.,
+ has_o3_exo_coldens                  = .true.,
+ pht_cldfrc_opt                      = 2,
+ cld_od_opt                          = 2,
  aerosoldep                          = 1,
  /

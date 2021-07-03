@@ -238,7 +238,7 @@
 
 !-----------------------------------------------------------------------
 !   local variables
-	integer :: i, idum, istat, it, j, jt, k, l, n
+	integer :: i, idum, istat, it, j, jt, k, l, n, ib,jb,kb ! cenlin_brc
 	integer :: k_pegshift, kclm_calcbgn, kclm_calcend
 	integer :: ktmaps, ktmape
 	integer :: levdbg_err, levdbg_info
@@ -278,6 +278,8 @@
         real, dimension( ims:ime, kms:kme, jms:jme ) :: brc_photo     ! changes of BrC due to photobleaching
         real, dimension( ims:ime, kms:kme, jms:jme ) :: air_mass      ! total air mass in a grid box
 
+        real :: det_brc2_a01,det_brc2_a02,det_brc2_a03,det_brc2_a04, & ! brc2 formation temporary variable
+                det_brc2_cw01,det_brc2_cw02,det_brc2_cw03,det_brc2_cw04
 ! cenlin_brc end
 
 
@@ -579,189 +581,95 @@
 2920	continue
 
 ! cenlin_brc secondary BrC assignment start --------------
+
+ do jb=jts,jte
+ do kb=kts,kte
+ do ib=its,ite
+
+! initialize temporay brc2 formation variable
+    det_brc2_a01 = 0.0
+    det_brc2_a02 = 0.0
+    det_brc2_a03 = 0.0
+    det_brc2_a04 = 0.0
+    det_brc2_cw01 = 0.0
+    det_brc2_cw02 = 0.0
+    det_brc2_cw03 = 0.0
+    det_brc2_cw04 = 0.0
+
 ! aerosol phase
-    chem(its:ite,kts:kte,jts:jte,p_brc2_a01) = chem(its:ite,kts:kte,jts:jte,p_brc2_a01) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa1_a01) - asoa1_old_a01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa1_r01(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa2_a01) - asoa2_old_a01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa2_r01(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa3_a01) - asoa3_old_a01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa3_r01(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa4_a01) - asoa4_old_a01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa4_r01(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoaX_a01) - asoaX_old_a01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoaX_r01(its:ite,kts:kte,jts:jte)
+    det_brc2_a01=(chem(ib,kb,jb,p_asoa1_a01) - asoa1_old_a01(ib,kb,jb)) * brc2_asoa1_r01(ib,kb,jb) + &
+                 (chem(ib,kb,jb,p_asoa2_a01) - asoa2_old_a01(ib,kb,jb)) * brc2_asoa2_r01(ib,kb,jb) + &
+                 (chem(ib,kb,jb,p_asoa3_a01) - asoa3_old_a01(ib,kb,jb)) * brc2_asoa3_r01(ib,kb,jb) + &
+                 (chem(ib,kb,jb,p_asoa4_a01) - asoa4_old_a01(ib,kb,jb)) * brc2_asoa4_r01(ib,kb,jb) + &
+                 (chem(ib,kb,jb,p_asoaX_a01) - asoaX_old_a01(ib,kb,jb)) * brc2_asoaX_r01(ib,kb,jb)
+    chem(ib,kb,jb,p_brc2_a01) = chem(ib,kb,jb,p_brc2_a01) +  det_brc2_a01
+    chem(ib,kb,jb,p_brc2_a01) = max(chem(ib,kb,jb,p_brc2_a01),1e-30)
 
-    chem(its:ite,kts:kte,jts:jte,p_brc2_a02) = chem(its:ite,kts:kte,jts:jte,p_brc2_a02) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa1_a02) - asoa1_old_a02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa1_r02(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa2_a02) - asoa2_old_a02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa2_r02(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa3_a02) - asoa3_old_a02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa3_r02(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa4_a02) - asoa4_old_a02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa4_r02(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoaX_a02) - asoaX_old_a02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoaX_r02(its:ite,kts:kte,jts:jte)
+    det_brc2_a02=(chem(ib,kb,jb,p_asoa1_a02) - asoa1_old_a02(ib,kb,jb)) * brc2_asoa1_r02(ib,kb,jb) + &
+                 (chem(ib,kb,jb,p_asoa2_a02) - asoa2_old_a02(ib,kb,jb)) * brc2_asoa2_r02(ib,kb,jb) + &
+                 (chem(ib,kb,jb,p_asoa3_a02) - asoa3_old_a02(ib,kb,jb)) * brc2_asoa3_r02(ib,kb,jb) + &
+                 (chem(ib,kb,jb,p_asoa4_a02) - asoa4_old_a02(ib,kb,jb)) * brc2_asoa4_r02(ib,kb,jb) + &
+                 (chem(ib,kb,jb,p_asoaX_a02) - asoaX_old_a02(ib,kb,jb)) * brc2_asoaX_r02(ib,kb,jb)
+    chem(ib,kb,jb,p_brc2_a02) = chem(ib,kb,jb,p_brc2_a02) +  det_brc2_a02
+    chem(ib,kb,jb,p_brc2_a02) = max(chem(ib,kb,jb,p_brc2_a02),1e-30)
 
-    chem(its:ite,kts:kte,jts:jte,p_brc2_a03) = chem(its:ite,kts:kte,jts:jte,p_brc2_a03) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa1_a03) - asoa1_old_a03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa1_r03(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa2_a03) - asoa2_old_a03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa2_r03(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa3_a03) - asoa3_old_a03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa3_r03(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa4_a03) - asoa4_old_a03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa4_r03(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoaX_a03) - asoaX_old_a03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoaX_r03(its:ite,kts:kte,jts:jte)
+    det_brc2_a03=(chem(ib,kb,jb,p_asoa1_a03) - asoa1_old_a03(ib,kb,jb)) * brc2_asoa1_r03(ib,kb,jb) + &
+                 (chem(ib,kb,jb,p_asoa2_a03) - asoa2_old_a03(ib,kb,jb)) * brc2_asoa2_r03(ib,kb,jb) + &
+                 (chem(ib,kb,jb,p_asoa3_a03) - asoa3_old_a03(ib,kb,jb)) * brc2_asoa3_r03(ib,kb,jb) + &
+                 (chem(ib,kb,jb,p_asoa4_a03) - asoa4_old_a03(ib,kb,jb)) * brc2_asoa4_r03(ib,kb,jb) + &
+                 (chem(ib,kb,jb,p_asoaX_a03) - asoaX_old_a03(ib,kb,jb)) * brc2_asoaX_r03(ib,kb,jb)
+    chem(ib,kb,jb,p_brc2_a03) = chem(ib,kb,jb,p_brc2_a03) +  det_brc2_a03
+    chem(ib,kb,jb,p_brc2_a03) = max(chem(ib,kb,jb,p_brc2_a03),1e-30)
 
-    chem(its:ite,kts:kte,jts:jte,p_brc2_a04) = chem(its:ite,kts:kte,jts:jte,p_brc2_a04) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa1_a04) - asoa1_old_a04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa1_r04(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa2_a04) - asoa2_old_a04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa2_r04(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa3_a04) - asoa3_old_a04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa3_r04(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa4_a04) - asoa4_old_a04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa4_r04(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoaX_a04) - asoaX_old_a04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoaX_r04(its:ite,kts:kte,jts:jte)
+    det_brc2_a04=(chem(ib,kb,jb,p_asoa1_a04) - asoa1_old_a04(ib,kb,jb)) * brc2_asoa1_r04(ib,kb,jb) + &
+                 (chem(ib,kb,jb,p_asoa2_a04) - asoa2_old_a04(ib,kb,jb)) * brc2_asoa2_r04(ib,kb,jb) + &
+                 (chem(ib,kb,jb,p_asoa3_a04) - asoa3_old_a04(ib,kb,jb)) * brc2_asoa3_r04(ib,kb,jb) + &
+                 (chem(ib,kb,jb,p_asoa4_a04) - asoa4_old_a04(ib,kb,jb)) * brc2_asoa4_r04(ib,kb,jb) + &
+                 (chem(ib,kb,jb,p_asoaX_a04) - asoaX_old_a04(ib,kb,jb)) * brc2_asoaX_r04(ib,kb,jb)
+    chem(ib,kb,jb,p_brc2_a04) = chem(ib,kb,jb,p_brc2_a04) +  det_brc2_a04
+    chem(ib,kb,jb,p_brc2_a04) = max(chem(ib,kb,jb,p_brc2_a04),1e-30)
 
 ! cloud phase
-    chem(its:ite,kts:kte,jts:jte,p_brc2_cw01) = chem(its:ite,kts:kte,jts:jte,p_brc2_cw01) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa1_cw01) - asoa1_old_cw01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa1_r01(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa2_cw01) - asoa2_old_cw01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa2_r01(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa3_cw01) - asoa3_old_cw01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa3_r01(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa4_cw01) - asoa4_old_cw01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa4_r01(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoaX_cw01) - asoaX_old_cw01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoaX_r01(its:ite,kts:kte,jts:jte)
+    det_brc2_cw01=(chem(ib,kb,jb,p_asoa1_cw01) - asoa1_old_cw01(ib,kb,jb)) * brc2_asoa1_r01(ib,kb,jb) + &
+                  (chem(ib,kb,jb,p_asoa2_cw01) - asoa2_old_cw01(ib,kb,jb)) * brc2_asoa2_r01(ib,kb,jb) + &
+                  (chem(ib,kb,jb,p_asoa3_cw01) - asoa3_old_cw01(ib,kb,jb)) * brc2_asoa3_r01(ib,kb,jb) + &
+                  (chem(ib,kb,jb,p_asoa4_cw01) - asoa4_old_cw01(ib,kb,jb)) * brc2_asoa4_r01(ib,kb,jb) + &
+                  (chem(ib,kb,jb,p_asoaX_cw01) - asoaX_old_cw01(ib,kb,jb)) * brc2_asoaX_r01(ib,kb,jb)
+    chem(ib,kb,jb,p_brc2_cw01) = chem(ib,kb,jb,p_brc2_cw01) +  det_brc2_cw01
+    chem(ib,kb,jb,p_brc2_cw01) = max(chem(ib,kb,jb,p_brc2_cw01),1e-30)
 
-    chem(its:ite,kts:kte,jts:jte,p_brc2_cw02) = chem(its:ite,kts:kte,jts:jte,p_brc2_cw02) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa1_cw02) - asoa1_old_cw02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa1_r02(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa2_cw02) - asoa2_old_cw02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa2_r02(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa3_cw02) - asoa3_old_cw02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa3_r02(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa4_cw02) - asoa4_old_cw02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa4_r02(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoaX_cw02) - asoaX_old_cw02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoaX_r02(its:ite,kts:kte,jts:jte)
+    det_brc2_cw02=(chem(ib,kb,jb,p_asoa1_cw02) - asoa1_old_cw02(ib,kb,jb)) * brc2_asoa1_r02(ib,kb,jb) + &
+                  (chem(ib,kb,jb,p_asoa2_cw02) - asoa2_old_cw02(ib,kb,jb)) * brc2_asoa2_r02(ib,kb,jb) + &
+                  (chem(ib,kb,jb,p_asoa3_cw02) - asoa3_old_cw02(ib,kb,jb)) * brc2_asoa3_r02(ib,kb,jb) + &
+                  (chem(ib,kb,jb,p_asoa4_cw02) - asoa4_old_cw02(ib,kb,jb)) * brc2_asoa4_r02(ib,kb,jb) + &
+                  (chem(ib,kb,jb,p_asoaX_cw02) - asoaX_old_cw02(ib,kb,jb)) * brc2_asoaX_r02(ib,kb,jb)
+    chem(ib,kb,jb,p_brc2_cw02) = chem(ib,kb,jb,p_brc2_cw02) +  det_brc2_cw02
+    chem(ib,kb,jb,p_brc2_cw02) = max(chem(ib,kb,jb,p_brc2_cw02),1e-30)
 
-    chem(its:ite,kts:kte,jts:jte,p_brc2_cw03) = chem(its:ite,kts:kte,jts:jte,p_brc2_cw03) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa1_cw03) - asoa1_old_cw03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa1_r03(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa2_cw03) - asoa2_old_cw03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa2_r03(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa3_cw03) - asoa3_old_cw03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa3_r03(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa4_cw03) - asoa4_old_cw03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa4_r03(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoaX_cw03) - asoaX_old_cw03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoaX_r03(its:ite,kts:kte,jts:jte)
+    det_brc2_cw03=(chem(ib,kb,jb,p_asoa1_cw03) - asoa1_old_cw03(ib,kb,jb)) * brc2_asoa1_r03(ib,kb,jb) + &
+                  (chem(ib,kb,jb,p_asoa2_cw03) - asoa2_old_cw03(ib,kb,jb)) * brc2_asoa2_r03(ib,kb,jb) + &
+                  (chem(ib,kb,jb,p_asoa3_cw03) - asoa3_old_cw03(ib,kb,jb)) * brc2_asoa3_r03(ib,kb,jb) + &
+                  (chem(ib,kb,jb,p_asoa4_cw03) - asoa4_old_cw03(ib,kb,jb)) * brc2_asoa4_r03(ib,kb,jb) + &
+                  (chem(ib,kb,jb,p_asoaX_cw03) - asoaX_old_cw03(ib,kb,jb)) * brc2_asoaX_r03(ib,kb,jb)
+    chem(ib,kb,jb,p_brc2_cw03) = chem(ib,kb,jb,p_brc2_cw03) +  det_brc2_cw03
+    chem(ib,kb,jb,p_brc2_cw03) = max(chem(ib,kb,jb,p_brc2_cw03),1e-30)
 
-    chem(its:ite,kts:kte,jts:jte,p_brc2_cw04) = chem(its:ite,kts:kte,jts:jte,p_brc2_cw04) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa1_cw04) - asoa1_old_cw04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa1_r04(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa2_cw04) - asoa2_old_cw04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa2_r04(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa3_cw04) - asoa3_old_cw04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa3_r04(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa4_cw04) - asoa4_old_cw04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa4_r04(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoaX_cw04) - asoaX_old_cw04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoaX_r04(its:ite,kts:kte,jts:jte)
+    det_brc2_cw04=(chem(ib,kb,jb,p_asoa1_cw04) - asoa1_old_cw04(ib,kb,jb)) * brc2_asoa1_r04(ib,kb,jb) + &
+                  (chem(ib,kb,jb,p_asoa2_cw04) - asoa2_old_cw04(ib,kb,jb)) * brc2_asoa2_r04(ib,kb,jb) + &
+                  (chem(ib,kb,jb,p_asoa3_cw04) - asoa3_old_cw04(ib,kb,jb)) * brc2_asoa3_r04(ib,kb,jb) + &
+                  (chem(ib,kb,jb,p_asoa4_cw04) - asoa4_old_cw04(ib,kb,jb)) * brc2_asoa4_r04(ib,kb,jb) + &
+                  (chem(ib,kb,jb,p_asoaX_cw04) - asoaX_old_cw04(ib,kb,jb)) * brc2_asoaX_r04(ib,kb,jb)
+    chem(ib,kb,jb,p_brc2_cw04) = chem(ib,kb,jb,p_brc2_cw04) +  det_brc2_cw04
+    chem(ib,kb,jb,p_brc2_cw04) = max(chem(ib,kb,jb,p_brc2_cw04),1e-30)
+
 
 ! keep track of accumulated secondary BrC sources
-    air_mass(its:ite,kts:kte,jts:jte) = rho_phy(its:ite,kts:kte,jts:jte) * &
-                                        dz8w(its:ite,kts:kte,jts:jte) * dx * dy ! kg/m3 * m * m * m = kg total air mass in box
+    air_mass(ib,kb,jb) = rho_phy(ib,kb,jb) * dz8w(ib,kb,jb) * dx * dy ! kg/m3 * m * m * m = kg total air mass in box
  
-    brc2_acc(its:ite,kts:kte,jts:jte) = brc2_acc(its:ite,kts:kte,jts:jte) + &     ! kg
-      ( (chem(its:ite,kts:kte,jts:jte,p_asoa1_a01) - asoa1_old_a01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa1_r01(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa2_a01) - asoa2_old_a01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa2_r01(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa3_a01) - asoa3_old_a01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa3_r01(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa4_a01) - asoa4_old_a01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa4_r01(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoaX_a01) - asoaX_old_a01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoaX_r01(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa1_a02) - asoa1_old_a02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa1_r02(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa2_a02) - asoa2_old_a02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa2_r02(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa3_a02) - asoa3_old_a02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa3_r02(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa4_a02) - asoa4_old_a02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa4_r02(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoaX_a02) - asoaX_old_a02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoaX_r02(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa1_a03) - asoa1_old_a03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa1_r03(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa2_a03) - asoa2_old_a03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa2_r03(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa3_a03) - asoa3_old_a03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa3_r03(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa4_a03) - asoa4_old_a03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa4_r03(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoaX_a03) - asoaX_old_a03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoaX_r03(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa1_a04) - asoa1_old_a04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa1_r04(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa2_a04) - asoa2_old_a04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa2_r04(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa3_a04) - asoa3_old_a04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa3_r04(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa4_a04) - asoa4_old_a04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa4_r04(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoaX_a04) - asoaX_old_a04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoaX_r04(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa1_cw01) - asoa1_old_cw01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa1_r01(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa2_cw01) - asoa2_old_cw01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa2_r01(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa3_cw01) - asoa3_old_cw01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa3_r01(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa4_cw01) - asoa4_old_cw01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa4_r01(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoaX_cw01) - asoaX_old_cw01(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoaX_r01(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa1_cw02) - asoa1_old_cw02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa1_r02(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa2_cw02) - asoa2_old_cw02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa2_r02(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa3_cw02) - asoa3_old_cw02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa3_r02(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa4_cw02) - asoa4_old_cw02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa4_r02(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoaX_cw02) - asoaX_old_cw02(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoaX_r02(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa1_cw03) - asoa1_old_cw03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa1_r03(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa2_cw03) - asoa2_old_cw03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa2_r03(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa3_cw03) - asoa3_old_cw03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa3_r03(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa4_cw03) - asoa4_old_cw03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa4_r03(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoaX_cw03) - asoaX_old_cw03(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoaX_r03(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa1_cw04) - asoa1_old_cw04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa1_r04(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa2_cw04) - asoa2_old_cw04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa2_r04(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa3_cw04) - asoa3_old_cw04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa3_r04(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoa4_cw04) - asoa4_old_cw04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoa4_r04(its:ite,kts:kte,jts:jte) + &
-        (chem(its:ite,kts:kte,jts:jte,p_asoaX_cw04) - asoaX_old_cw04(its:ite,kts:kte,jts:jte)) * &
-         brc2_asoaX_r04(its:ite,kts:kte,jts:jte) ) *  air_mass(its:ite,kts:kte,jts:jte) * 1.0E-9   ! ug SOA -> kg SOA in box
+    brc2_acc(ib,kb,jb) = brc2_acc(ib,kb,jb) + & ! kg
+                       ( det_brc2_a01 + det_brc2_a02 + det_brc2_a03 + det_brc2_a04 + &
+                         det_brc2_cw01 + det_brc2_cw02 + det_brc2_cw03 + det_brc2_cw04 ) * &
+                         air_mass(ib,kb,jb) * 1.0E-9   ! ug SOA -> kg SOA in box
 
 ! cenlin_brc secondary BrC assignment end --------
 
@@ -775,47 +683,37 @@
 ! to compute air number sensity: N(molec) / V(m3) = Na(molec/mol) * P(pa) / R(m3*pa/K/mol) / T(K),Na=6.022e23,R=8.3145
 ! or = rho_air(kg/m3) / MW_air(kg/mol) * Na(molec/mol), MW_air=0.02897 air molecular weight
 
-     do j=jts,jte
-     do k=kts,kte
-     do i=its,ite
-          brc_photo(i,k,j) = EXP( chem(i,k,j,p_ho) * 1.0E-6 * -1.0 *    & ! ppmv -> mol/mol or molec/molec
-                   (rho_phy(i,k,j) / 0.02897 * 6.022E+23 * 1.0E-6) *   & ! air number density: molec/cm3
-                   dtstepc / (3600.0 * 24.0) / 5.0E+5 )                  ! dtstepc: sec-> days 
+     brc_photo(ib,kb,jb) = EXP( max(1e-30,chem(ib,kb,jb,p_ho)) * 1.0E-6 * -1.0 *    & ! ppmv -> mol/mol or molec/molec
+                          (rho_phy(ib,kb,jb) / 0.02897 * 6.022E+23 * 1.0E-6) *   & ! air number density: molec/cm3
+                           dtstepc / (3600.0 * 24.0) / 5.0E+5 )                  ! dtstepc: sec-> days 
 
-          brc_photo(i,k,j) = max(0.25,brc_photo(i,k,j))  ! set minimum allowed absorption bleaching 25% based on Wang et al. 2018
-     enddo
-     enddo
-     enddo
+     brc_photo(ib,kb,jb) = max(0.25,brc_photo(ib,kb,jb))  ! set minimum allowed absorption bleaching 25% based on Wang et al. 2018
 
 ! keep track of accumulated photobleached BrC
-     brc_photo_acc(its:ite,kts:kte,jts:jte) = brc_photo_acc(its:ite,kts:kte,jts:jte) + &
-         ( chem(its:ite,kts:kte,jts:jte,p_brc1_a01) + chem(its:ite,kts:kte,jts:jte,p_brc1_a02) + &
-           chem(its:ite,kts:kte,jts:jte,p_brc1_a03) + chem(its:ite,kts:kte,jts:jte,p_brc1_a04) + &
-           chem(its:ite,kts:kte,jts:jte,p_brc2_a01) + chem(its:ite,kts:kte,jts:jte,p_brc2_a02) + &
-           chem(its:ite,kts:kte,jts:jte,p_brc2_a03) + chem(its:ite,kts:kte,jts:jte,p_brc2_a04) ) * &
-          (1.0 - brc_photo(its:ite,kts:kte,jts:jte)) * air_mass(its:ite,kts:kte,jts:jte) * 1.0E-9   ! ug brc loss -> kg brc loss in box
+     brc_photo_acc(ib,kb,jb) = brc_photo_acc(ib,kb,jb) + &
+         ( chem(ib,kb,jb,p_brc1_a01) + chem(ib,kb,jb,p_brc1_a02) + &
+           chem(ib,kb,jb,p_brc1_a03) + chem(ib,kb,jb,p_brc1_a04) + &
+           chem(ib,kb,jb,p_brc2_a01) + chem(ib,kb,jb,p_brc2_a02) + &
+           chem(ib,kb,jb,p_brc2_a03) + chem(ib,kb,jb,p_brc2_a04) ) * &
+          (1.0 - brc_photo(ib,kb,jb)) * air_mass(ib,kb,jb) * 1.0E-9   ! ug brc loss -> kg brc loss in box
 
 ! update brc for photobleaching
-     chem(its:ite,kts:kte,jts:jte,p_brc1_a01) = chem(its:ite,kts:kte,jts:jte,p_brc1_a01) * &
-                                                      brc_photo(its:ite,kts:kte,jts:jte)
-     chem(its:ite,kts:kte,jts:jte,p_brc1_a02) = chem(its:ite,kts:kte,jts:jte,p_brc1_a02) * &
-                                                      brc_photo(its:ite,kts:kte,jts:jte)
-     chem(its:ite,kts:kte,jts:jte,p_brc1_a03) = chem(its:ite,kts:kte,jts:jte,p_brc1_a03) * &
-                                                      brc_photo(its:ite,kts:kte,jts:jte)
-     chem(its:ite,kts:kte,jts:jte,p_brc1_a04) = chem(its:ite,kts:kte,jts:jte,p_brc1_a04) * &
-                                                      brc_photo(its:ite,kts:kte,jts:jte)
+     chem(ib,kb,jb,p_brc1_a01) = chem(ib,kb,jb,p_brc1_a01) * brc_photo(ib,kb,jb)
+     chem(ib,kb,jb,p_brc1_a02) = chem(ib,kb,jb,p_brc1_a02) * brc_photo(ib,kb,jb)
+     chem(ib,kb,jb,p_brc1_a03) = chem(ib,kb,jb,p_brc1_a03) * brc_photo(ib,kb,jb)
+     chem(ib,kb,jb,p_brc1_a04) = chem(ib,kb,jb,p_brc1_a04) * brc_photo(ib,kb,jb)
 
-     chem(its:ite,kts:kte,jts:jte,p_brc2_a01) = chem(its:ite,kts:kte,jts:jte,p_brc2_a01) * &
-                                                      brc_photo(its:ite,kts:kte,jts:jte)
-     chem(its:ite,kts:kte,jts:jte,p_brc2_a02) = chem(its:ite,kts:kte,jts:jte,p_brc2_a02) * &
-                                                      brc_photo(its:ite,kts:kte,jts:jte)
-     chem(its:ite,kts:kte,jts:jte,p_brc2_a03) = chem(its:ite,kts:kte,jts:jte,p_brc2_a03) * &
-                                                      brc_photo(its:ite,kts:kte,jts:jte)
-     chem(its:ite,kts:kte,jts:jte,p_brc2_a04) = chem(its:ite,kts:kte,jts:jte,p_brc2_a04) * &
-                                                      brc_photo(its:ite,kts:kte,jts:jte)
-
+     chem(ib,kb,jb,p_brc2_a01) = chem(ib,kb,jb,p_brc2_a01) * brc_photo(ib,kb,jb)
+     chem(ib,kb,jb,p_brc2_a02) = chem(ib,kb,jb,p_brc2_a02) * brc_photo(ib,kb,jb)
+     chem(ib,kb,jb,p_brc2_a03) = chem(ib,kb,jb,p_brc2_a03) * brc_photo(ib,kb,jb)
+     chem(ib,kb,jb,p_brc2_a04) = chem(ib,kb,jb,p_brc2_a04) * brc_photo(ib,kb,jb)
 ! cenlin_brc photobleaching end ------------
 
+     enddo   ! ib
+     enddo   ! kb
+     enddo   ! jb
+
+! cenlin_brc brown carbon end
 
 !   rce 2005-apr-30 - added 2 calls to print_mosaic_stats
 	call print_mosaic_stats( 1 )

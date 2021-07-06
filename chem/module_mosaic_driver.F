@@ -280,6 +280,7 @@
 
         real :: det_brc2_a01,det_brc2_a02,det_brc2_a03,det_brc2_a04, & ! brc2 formation temporary variable
                 det_brc2_cw01,det_brc2_cw02,det_brc2_cw03,det_brc2_cw04
+        integer :: brc_photobleach ! switch for brc_photobleach = 1: on, =0: off
 ! cenlin_brc end
 
 
@@ -683,6 +684,9 @@
 ! to compute air number sensity: N(molec) / V(m3) = Na(molec/mol) * P(pa) / R(m3*pa/K/mol) / T(K),Na=6.022e23,R=8.3145
 ! or = rho_air(kg/m3) / MW_air(kg/mol) * Na(molec/mol), MW_air=0.02897 air molecular weight
 
+  brc_photobleach = 1
+  if (brc_photobleach == 1) then ! =1: activate photobleaching
+
      brc_photo(ib,kb,jb) = EXP( max(1e-30,chem(ib,kb,jb,p_ho)) * 1.0E-6 * -1.0 *    & ! ppmv -> mol/mol or molec/molec
                           (rho_phy(ib,kb,jb) / 0.02897 * 6.022E+23 * 1.0E-6) *   & ! air number density: molec/cm3
                            dtstepc / (3600.0 * 24.0) / 5.0E+5 )                  ! dtstepc: sec-> days 
@@ -707,7 +711,10 @@
      chem(ib,kb,jb,p_brc2_a02) = chem(ib,kb,jb,p_brc2_a02) * brc_photo(ib,kb,jb)
      chem(ib,kb,jb,p_brc2_a03) = chem(ib,kb,jb,p_brc2_a03) * brc_photo(ib,kb,jb)
      chem(ib,kb,jb,p_brc2_a04) = chem(ib,kb,jb,p_brc2_a04) * brc_photo(ib,kb,jb)
+
+  endif 
 ! cenlin_brc photobleaching end ------------
+
 
      enddo   ! ib
      enddo   ! kb

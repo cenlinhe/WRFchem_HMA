@@ -603,6 +603,9 @@
                  (chem(ib,kb,jb,p_asoa3_a01) - asoa3_old_a01(ib,kb,jb)) * brc2_asoa3_r01(ib,kb,jb) + &
                  (chem(ib,kb,jb,p_asoa4_a01) - asoa4_old_a01(ib,kb,jb)) * brc2_asoa4_r01(ib,kb,jb) + &
                  (chem(ib,kb,jb,p_asoaX_a01) - asoaX_old_a01(ib,kb,jb)) * brc2_asoaX_r01(ib,kb,jb)
+    if (det_brc2_a01 < 0.0 .and. (-1.0*det_brc2_a01) > chem(ib,kb,jb,p_brc2_a01) ) then
+       det_brc2_a01 = -1.0 * chem(ib,kb,jb,p_brc2_a01)
+    endif
     chem(ib,kb,jb,p_brc2_a01) = chem(ib,kb,jb,p_brc2_a01) +  det_brc2_a01
     chem(ib,kb,jb,p_brc2_a01) = max(chem(ib,kb,jb,p_brc2_a01),1e-30)
 
@@ -611,6 +614,9 @@
                  (chem(ib,kb,jb,p_asoa3_a02) - asoa3_old_a02(ib,kb,jb)) * brc2_asoa3_r02(ib,kb,jb) + &
                  (chem(ib,kb,jb,p_asoa4_a02) - asoa4_old_a02(ib,kb,jb)) * brc2_asoa4_r02(ib,kb,jb) + &
                  (chem(ib,kb,jb,p_asoaX_a02) - asoaX_old_a02(ib,kb,jb)) * brc2_asoaX_r02(ib,kb,jb)
+    if (det_brc2_a02 < 0.0 .and. (-1.0*det_brc2_a02) > chem(ib,kb,jb,p_brc2_a02) ) then
+       det_brc2_a02 = -1.0 * chem(ib,kb,jb,p_brc2_a02)
+    endif
     chem(ib,kb,jb,p_brc2_a02) = chem(ib,kb,jb,p_brc2_a02) +  det_brc2_a02
     chem(ib,kb,jb,p_brc2_a02) = max(chem(ib,kb,jb,p_brc2_a02),1e-30)
 
@@ -619,6 +625,9 @@
                  (chem(ib,kb,jb,p_asoa3_a03) - asoa3_old_a03(ib,kb,jb)) * brc2_asoa3_r03(ib,kb,jb) + &
                  (chem(ib,kb,jb,p_asoa4_a03) - asoa4_old_a03(ib,kb,jb)) * brc2_asoa4_r03(ib,kb,jb) + &
                  (chem(ib,kb,jb,p_asoaX_a03) - asoaX_old_a03(ib,kb,jb)) * brc2_asoaX_r03(ib,kb,jb)
+    if (det_brc2_a03 < 0.0 .and. (-1.0*det_brc2_a03) > chem(ib,kb,jb,p_brc2_a03) ) then
+       det_brc2_a03 = -1.0 * chem(ib,kb,jb,p_brc2_a03)
+    endif
     chem(ib,kb,jb,p_brc2_a03) = chem(ib,kb,jb,p_brc2_a03) +  det_brc2_a03
     chem(ib,kb,jb,p_brc2_a03) = max(chem(ib,kb,jb,p_brc2_a03),1e-30)
 
@@ -627,6 +636,9 @@
                  (chem(ib,kb,jb,p_asoa3_a04) - asoa3_old_a04(ib,kb,jb)) * brc2_asoa3_r04(ib,kb,jb) + &
                  (chem(ib,kb,jb,p_asoa4_a04) - asoa4_old_a04(ib,kb,jb)) * brc2_asoa4_r04(ib,kb,jb) + &
                  (chem(ib,kb,jb,p_asoaX_a04) - asoaX_old_a04(ib,kb,jb)) * brc2_asoaX_r04(ib,kb,jb)
+    if (det_brc2_a04 < 0.0 .and. (-1.0*det_brc2_a04) > chem(ib,kb,jb,p_brc2_a04) ) then
+       det_brc2_a04 = -1.0 * chem(ib,kb,jb,p_brc2_a04)
+    endif
     chem(ib,kb,jb,p_brc2_a04) = chem(ib,kb,jb,p_brc2_a04) +  det_brc2_a04
     chem(ib,kb,jb,p_brc2_a04) = max(chem(ib,kb,jb,p_brc2_a04),1e-30)
 
@@ -636,6 +648,9 @@
                   (chem(ib,kb,jb,p_asoa3_cw01) - asoa3_old_cw01(ib,kb,jb)) * brc2_asoa3_r01(ib,kb,jb) + &
                   (chem(ib,kb,jb,p_asoa4_cw01) - asoa4_old_cw01(ib,kb,jb)) * brc2_asoa4_r01(ib,kb,jb) + &
                   (chem(ib,kb,jb,p_asoaX_cw01) - asoaX_old_cw01(ib,kb,jb)) * brc2_asoaX_r01(ib,kb,jb)
+    if (det_brc2_cw01 < 0.0 .and. (-1.0*det_brc2_cw01) > chem(ib,kb,jb,p_brc2_cw01) ) then
+       det_brc2_cw01 = -1.0 * chem(ib,kb,jb,p_brc2_cw01)
+    endif
     chem(ib,kb,jb,p_brc2_cw01) = chem(ib,kb,jb,p_brc2_cw01) +  det_brc2_cw01
     chem(ib,kb,jb,p_brc2_cw01) = max(chem(ib,kb,jb,p_brc2_cw01),1e-30)
 
@@ -644,6 +659,9 @@
                   (chem(ib,kb,jb,p_asoa3_cw02) - asoa3_old_cw02(ib,kb,jb)) * brc2_asoa3_r02(ib,kb,jb) + &
                   (chem(ib,kb,jb,p_asoa4_cw02) - asoa4_old_cw02(ib,kb,jb)) * brc2_asoa4_r02(ib,kb,jb) + &
                   (chem(ib,kb,jb,p_asoaX_cw02) - asoaX_old_cw02(ib,kb,jb)) * brc2_asoaX_r02(ib,kb,jb)
+    if (det_brc2_cw02 < 0.0 .and. (-1.0*det_brc2_cw02) > chem(ib,kb,jb,p_brc2_cw02) ) then
+       det_brc2_cw02 = -1.0 * chem(ib,kb,jb,p_brc2_cw02)
+    endif
     chem(ib,kb,jb,p_brc2_cw02) = chem(ib,kb,jb,p_brc2_cw02) +  det_brc2_cw02
     chem(ib,kb,jb,p_brc2_cw02) = max(chem(ib,kb,jb,p_brc2_cw02),1e-30)
 
@@ -652,6 +670,9 @@
                   (chem(ib,kb,jb,p_asoa3_cw03) - asoa3_old_cw03(ib,kb,jb)) * brc2_asoa3_r03(ib,kb,jb) + &
                   (chem(ib,kb,jb,p_asoa4_cw03) - asoa4_old_cw03(ib,kb,jb)) * brc2_asoa4_r03(ib,kb,jb) + &
                   (chem(ib,kb,jb,p_asoaX_cw03) - asoaX_old_cw03(ib,kb,jb)) * brc2_asoaX_r03(ib,kb,jb)
+    if (det_brc2_cw03 < 0.0 .and. (-1.0*det_brc2_cw03) > chem(ib,kb,jb,p_brc2_cw03) ) then
+       det_brc2_cw03 = -1.0 * chem(ib,kb,jb,p_brc2_cw03)
+    endif
     chem(ib,kb,jb,p_brc2_cw03) = chem(ib,kb,jb,p_brc2_cw03) +  det_brc2_cw03
     chem(ib,kb,jb,p_brc2_cw03) = max(chem(ib,kb,jb,p_brc2_cw03),1e-30)
 
@@ -660,6 +681,9 @@
                   (chem(ib,kb,jb,p_asoa3_cw04) - asoa3_old_cw04(ib,kb,jb)) * brc2_asoa3_r04(ib,kb,jb) + &
                   (chem(ib,kb,jb,p_asoa4_cw04) - asoa4_old_cw04(ib,kb,jb)) * brc2_asoa4_r04(ib,kb,jb) + &
                   (chem(ib,kb,jb,p_asoaX_cw04) - asoaX_old_cw04(ib,kb,jb)) * brc2_asoaX_r04(ib,kb,jb)
+    if (det_brc2_cw04 < 0.0 .and. (-1.0*det_brc2_cw04) > chem(ib,kb,jb,p_brc2_cw04) ) then
+       det_brc2_cw04 = -1.0 * chem(ib,kb,jb,p_brc2_cw04)
+    endif
     chem(ib,kb,jb,p_brc2_cw04) = chem(ib,kb,jb,p_brc2_cw04) +  det_brc2_cw04
     chem(ib,kb,jb,p_brc2_cw04) = max(chem(ib,kb,jb,p_brc2_cw04),1e-30)
 
@@ -692,6 +716,11 @@
                            dtstepc / (3600.0 * 24.0) / 5.0E+5 )                  ! dtstepc: sec-> days 
 
      brc_photo(ib,kb,jb) = max(0.25,brc_photo(ib,kb,jb))  ! set minimum allowed absorption bleaching 25% based on Wang et al. 2018
+
+     if (ib == 104 .and. jb==131 ) then
+        print*,'cenlin: i,k,j,dtstepc,OH = ',ib,kb,jb,dtstepc ! add for debug
+        print*,'cenlin: OH,rho_air,brc_photo = ',chem(ib,kb,jb,p_ho),rho_phy(ib,kb,jb),brc_photo(ib,kb,jb) ! add for debug
+     endif
 
 ! keep track of accumulated photobleached BrC
      brc_photo_acc(ib,kb,jb) = brc_photo_acc(ib,kb,jb) + &

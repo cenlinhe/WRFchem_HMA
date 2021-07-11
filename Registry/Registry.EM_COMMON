@@ -731,8 +731,8 @@ state    real   ACGRDFLX         ij     misc        1         -      rdu        
 state    real   SFCEXC           ij     misc        1         -      r                                          "SFCEXC "          "SURFACE EXCHANGE COEFFICIENT"   "m s-1"
 
 # cenlin_clm: add accumulated surface and subsurface runoff output
-state    real   ACSFCRUNOFF      ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACSFCRUNOFF"         "ACCUMULATED RUNOFF"       "kg m-2"
-state    real   ACUDRUNOFF       ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACUDRUNOFF"         "ACCUMULATED RUNOFF"       "kg m-2"
+state    real   ACSFCRUNOFF      ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACSFCRUNOFF"         "ACCUMULATED SURFACE RUNOFF"       "kg m-2"
+state    real   ACUDRUNOFF       ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACUDRUNOFF"         "ACCUMULATED SUBSURFACE RUNOFF"       "kg m-2"
 # cenlin_clm: end
 state    real   ACSNOW           ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACSNOW"           "ACCUMULATED SNOW"         "kg m-2"
 state    real   ACRUNOFF         ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACRUNOFF"         "ACCUMULATED RUNOFF"       "kg m-2"

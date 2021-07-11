@@ -717,10 +717,10 @@
 
      brc_photo(ib,kb,jb) = max(0.25,brc_photo(ib,kb,jb))  ! set minimum allowed absorption bleaching 25% based on Wang et al. 2018
 
-     if (ib == 104 .and. jb==131 ) then
-        print*,'cenlin: i,k,j,dtstepc,OH = ',ib,kb,jb,dtstepc ! add for debug
-        print*,'cenlin: OH,rho_air,brc_photo = ',chem(ib,kb,jb,p_ho),rho_phy(ib,kb,jb),brc_photo(ib,kb,jb) ! add for debug
-     endif
+!     if (ib == 104 .and. jb==131 ) then
+!        print*,'cenlin: i,k,j,dtstepc,OH = ',ib,kb,jb,dtstepc ! add for debug
+!        print*,'cenlin: OH,rho_air,brc_photo = ',chem(ib,kb,jb,p_ho),rho_phy(ib,kb,jb),brc_photo(ib,kb,jb) ! add for debug
+!     endif
 
 ! keep track of accumulated photobleached BrC
      brc_photo_acc(ib,kb,jb) = brc_photo_acc(ib,kb,jb) + &

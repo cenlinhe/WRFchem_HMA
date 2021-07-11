@@ -3893,6 +3893,7 @@ CONTAINS
                    ,sh2o       ,snowh      ,forc_uxy    ,forc_vxy    ,shdmin    &
                    ,shdmax     ,acsnom     ,acsnow      ,dx          ,xlat      &
                    ,xlong,ht                                                    &   
+                   ,acsfcrunoff,acudrunoff,acrunoff              & ! cenlin_clm: add accumulated runoff output
                    ,ids,ide, jds,jde, kds,kde                    &
                    ,ims,ime, jms,jme, kms,kme                    &
                    ,its,ite, jts,jte, kts,kte                    &
@@ -4065,7 +4066,8 @@ CONTAINS
   real,dimension(ims:ime,jms:jme ),intent(inout) ::&
                     smstav     ,smstot                &
                    ,znt        ,snowc      ,qsfc       ,snow        ,snowh &
-                   ,canwat     ,acsnom     ,acsnow,   emiss, z0
+                   ,canwat     ,acsnom     ,acsnow,   emiss, z0   &
+                   ,acsfcrunoff,acudrunoff ,acrunoff   ! cenlin_clm: add accumulated runoff output
 
   real,dimension(ims:ime,jms:jme ),intent(in) ::&
                  vegfra, tmn,shdmin,shdmax
@@ -4274,6 +4276,8 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
   real(r8) :: lwup_buf
   real(r8) :: znt_buf
   real(r8) :: rhoxy_buf
+  real(r8) :: snowxy_buf ! cenlin_clm
+  real(r8) :: snomxy_buf ! cenlin_clm
 
   real(r8) :: swd_buf
   real(r8) :: forc_sols_buf
@@ -4642,6 +4646,9 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
     mss_cnc_brc2_2d4(i,j) = 0.0
     mss_cnc_brc2_2d5(i,j) = 0.0
 ! cenlin_brc end
+ 
+    snowxy_buf = 0.0
+    snomxy_buf = 0.0
 
     if(lndmsk == 1) then
       qsfxy_buf       = qsfxy(i,j)
@@ -5122,7 +5129,7 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
                   ,inest               ,i                      ,j               &
                   ,soiflx_buf          ,sabv_buf               ,sabg_buf        &
                   ,lwup_buf            ,znt_buf                ,q_ref2m_buf     &
-                  ,rhoxy_buf                                                    &
+                  ,rhoxy_buf           ,snowxy_buf             ,snomxy_buf      & ! cenlin_clm
                   ,albedosubgrid_buf   ,lhsubgrid_buf          ,hfxsubgrid_buf  &
                   ,lwupsubgrid_buf     ,q2subgrid_buf          ,sabvsubgrid_buf &
                   ,sabgsubgrid_buf     ,nrasubgrid_buf         ,swupsubgrid_buf &
@@ -5231,6 +5238,15 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
                   alswnirdif(i,j)     = alswnirdif_buf
 
                   t2clm(i,j)       = trefxy_buf
+
+! cenlin_clm: add accumulated runoff output
+                  acsnow(i,j) = acsnow(i,j) + snowxy_buf
+                  acsnom(i,j) = acsnom(i,j) + snomxy_buf 
+                  acsfcrunoff(i,j) = acsfcrunoff(i,j) + qsfxy(i,j)
+                  acudrunoff(i,j)  = acudrunoff(i,j) + qdnxy(i,j)
+                  acrunoff(i,j)    = acrunoff(i,j) + qsfxy(i,j) + qdnxy(i,j)
+! cenlin_clm end
+
 !Accumulate T2 MAX/MIN between history interval --Yaqiong Lu
                   if(mod(dt*(nstep-1),60.*history_interval)==0) then 
                     t2m_max(i,j) = 0.0
@@ -58981,12 +58997,12 @@ end module initializeMod
                   ,t_veg           ,h2ocan             ,h2ocan_col    &
                   ,h2osoi_vol      ,wtc                ,wtp           &
                   ,numc            ,nump                    &
-                  ,t_ref2m         ,albxy        , tsxy,  trefxy        &
+                  ,t_ref2m         ,albxy        , tsxy,  trefxy      &
                   ,shxy            ,lhxy               ,nstp          &
                   ,inest           ,ilx                ,jlx           &
                   ,soiflx          ,sabv               ,sabg          &
                   ,lwupxy          ,znt0               ,q_ref2m       &
-                  ,rhoxy                                              &
+                  ,rhoxy           ,snowxy             ,snomxy        & ! cenlin_clm: add accumulated snow and melt
                   ,ALBEDOsubgrid,LHsubgrid,HFXsubgrid,LWUPsubgrid     &
                   ,Q2subgrid,SABVsubgrid,SABGsubgrid,NRAsubgrid     &
                   ,SWUPsubgrid ,LHsoi,LHveg,LHtran,organicxy,efisopxy,gtixy &
@@ -59296,6 +59312,8 @@ end module initializeMod
   real(r8)  :: sabv
   real(r8)  :: sabg
   real(r8)  :: znt0
+  real(r8)  :: snowxy  ! cenlin_clm
+  real(r8)  :: snomxy  ! cenlin_clm
   real(r8),intent(out)  :: rhoxy
 
   integer   :: nstp
@@ -59463,6 +59481,8 @@ end module initializeMod
 
        gptr => clm3%g
 
+      snowxy = 0._r8 ! cenlin_clm
+
        do g = begg, endg
           !i = gptr%ixy(g)
           !j = gptr%jxy(g)
@@ -59547,6 +59567,8 @@ end module initializeMod
           rhoxy = clm_a2l%forc_rho(g) ! here assume that g is always 1
          
           clm_a2l%rainf(g) = clm_a2l%forc_rain(g)+clm_a2l%forc_snow(g)
+
+          snowxy = snowxy + clm_a2l%forc_snow(g) * dtime ! cenlin_clm mm/s -> mm
        end do
 
 
@@ -59838,11 +59860,13 @@ end module initializeMod
     write(msg,*) 'LWUP is', lwupxy, '.'
     call CLMDebug(msg)
 
+    snomxy  = 0._r8 ! cenlin_clm
     qsfxy  = 0._r8
     qdnxy  = 0._r8
     do c = begc,endc
        qsfxy = qsfxy + clm3%g%l%c%cwf%qflx_surf(c)*wtc(c)*dtime
        qdnxy = qdnxy + clm3%g%l%c%cwf%qflx_drain(c)*wtc(c)*dtime
+       snomxy = snomxy + clm3%g%l%c%cwf%qflx_snomelt(c)*wtc(c)*dtime ! cenlin_clm: mm/s -> mm
     end do
 !-------------------------------------------------------------------------
     call CLMDebug('call clmtype_dealloc')

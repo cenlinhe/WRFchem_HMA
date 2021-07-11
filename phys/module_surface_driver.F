@@ -26,6 +26,7 @@ CONTAINS
      &          ,psim,p_phy,q10,q2,qfx,qsfc,qshltr,qz0                &
 #endif
      &          ,raincv,rho,sfcevp,sfcexc,sfcrunoff ,acrunoff         &
+     &          ,acsfcrunoff, acudrunoff                              &  ! cenlin_clm: add accumulated runoff output
      &          ,smois,smstav,smstot,snoalb,snow,snowc,snowh,stepbl   &
      &          ,smcrel                                               &
      &          ,th10,th2,thz0,th_phy,tmn,tshltr,tsk,tslb             &
@@ -722,6 +723,8 @@ CONTAINS
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   QZ0
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   SFCRUNOFF
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   ACRUNOFF
+   REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   ACSFCRUNOFF ! cenlin_clm
+   REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   ACUDRUNOFF  ! cenlin_clm
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   SMSTAV
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   SMSTOT
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   SNOW
@@ -3625,6 +3628,7 @@ CONTAINS
                 shdmin,shdmax,                                  &
                 acsnom,acsnow,                                  &
                 dx,xlat,xlong,ht,                               &
+                acsfcrunoff,acudrunoff,acrunoff,                & ! cenlin_clm
                 ids,ide, jds,jde, kds,kde,                      &
                 ims,ime, jms,jme, kms,kme,                      &
                 i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte, &

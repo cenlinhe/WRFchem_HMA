@@ -720,8 +720,8 @@ state    real   SMSTOT           ij     misc        1         -      r          
 state    real   SOLDRAIN         ij     misc        1         -      r                                          "SOLDRAIN"         "soil column drainage"  "mm"
 state    real   SFCHEADRT        ij     misc        1         -      r                                          "SFCHEADRT"        "surface water depth"  "mm"
 state    real   INFXSRT          ij     misc        1         -      r                                          "INFXSRT"          "time step infiltration excess"  "mm"
-state    real   SFCRUNOFF        ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)      "SFROFF"           "SURFACE RUNOFF"     "mm"
-state    real   UDRUNOFF         ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)      "UDROFF"           "UNDERGROUND RUNOFF" "mm"
+state    real   SFCRUNOFF        ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)      "SFROFF"           "SURFACE RUNOFF"     "mm/bldt"
+state    real   UDRUNOFF         ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)      "UDROFF"           "UNDERGROUND RUNOFF" "mm/bldt"
 state  integer  IVGTYP           ij     misc        1         -     i02rhd=(interp_fcni)u=(copy_fcni)           "IVGTYP"           "DOMINANT VEGETATION CATEGORY" ""
 state  integer  ISLTYP           ij     misc        1         -     i02rhd=(interp_mask_soil:lu_index)u=(copy_fcni)           "ISLTYP"           "DOMINANT SOIL CATEGORY"       ""
 state    real   VEGFRA           ij     misc        1         -     i024rhd=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)   "VEGFRA"           "VEGETATION FRACTION" ""
@@ -730,9 +730,13 @@ state    real   GRDFLX           ij     misc        1         -      r          
 state    real   ACGRDFLX         ij     misc        1         -      rdu                                       "ACGRDFLX"         "ACCUMULATED GROUND HEAT FLUX" "J m-2"
 state    real   SFCEXC           ij     misc        1         -      r                                          "SFCEXC "          "SURFACE EXCHANGE COEFFICIENT"   "m s-1"
 
-state    real   ACSNOW           ij     misc        1         -      rd=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACSNOW"           "ACCUMULATED SNOW"         "kg m-2"
-state    real   ACRUNOFF         ij     misc        1         -     ird=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACRUNOFF"         "ACCUMULATED RUNOFF"       "kg m-2"
-state    real   ACSNOM           ij     misc        1         -      rd=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACSNOM"           "ACCUMULATED MELTED SNOW"  "kg m-2"
+# cenlin_clm: add accumulated surface and subsurface runoff output
+state    real   ACSFCRUNOFF      ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACSFCRUNOFF"         "ACCUMULATED RUNOFF"       "kg m-2"
+state    real   ACUDRUNOFF       ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACUDRUNOFF"         "ACCUMULATED RUNOFF"       "kg m-2"
+# cenlin_clm: end
+state    real   ACSNOW           ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACSNOW"           "ACCUMULATED SNOW"         "kg m-2"
+state    real   ACRUNOFF         ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACRUNOFF"         "ACCUMULATED RUNOFF"       "kg m-2"
+state    real   ACSNOM           ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACSNOM"           "ACCUMULATED MELTED SNOW"  "kg m-2"
 state    real   SNOW             ij     misc        1         -     i012rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)    "SNOW"             "SNOW WATER EQUIVALENT"    "kg m-2"
 state    real   SNOWH            ij     misc        1         -     i012rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)    "SNOWH"            "PHYSICAL SNOW DEPTH"      "m"
 #state    real   RHOSN            ij     misc        1         -    i02rhd=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)    "RHOSN"            " SNOW DENSITY"      "kg m-3" 

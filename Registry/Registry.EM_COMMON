@@ -731,12 +731,14 @@ state    real   ACGRDFLX         ij     misc        1         -      rdu        
 state    real   SFCEXC           ij     misc        1         -      r                                          "SFCEXC "          "SURFACE EXCHANGE COEFFICIENT"   "m s-1"
 
 # cenlin_clm: add accumulated surface and subsurface runoff output
-state    real   ACSFCRUNOFF      ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACSFCRUNOFF"         "ACCUMULATED SURFACE RUNOFF"       "kg m-2"
-state    real   ACUDRUNOFF       ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACUDRUNOFF"         "ACCUMULATED SUBSURFACE RUNOFF"       "kg m-2"
+state    real   ACSFCRUNOFF      ij     misc        1         -      rh3       "ACSFCRUNOFF"         "ACCUMULATED SURFACE RUNOFF"          "kg m-2"
+state    real   ACUDRUNOFF       ij     misc        1         -      rh3       "ACUDRUNOFF"          "ACCUMULATED SUBSURFACE RUNOFF"       "kg m-2"
+state    real   ACSNOWFALL       ij     misc        1         -      rh3       "ACSNOWFALL"          "ACCUMULATED SNOWFALL"                "kg m-2"
+state    real   ACSNOWMELT       ij     misc        1         -      rh3       "ACSNOWMELT"          "ACCUMULATED SNOWMELT"                "kg m-2"
 # cenlin_clm: end
-state    real   ACSNOW           ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACSNOW"           "ACCUMULATED SNOW"         "kg m-2"
-state    real   ACRUNOFF         ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACRUNOFF"         "ACCUMULATED RUNOFF"       "kg m-2"
-state    real   ACSNOM           ij     misc        1         -      rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACSNOM"           "ACCUMULATED MELTED SNOW"  "kg m-2"
+state    real   ACSNOW           ij     misc        1         -      rd=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACSNOW"           "ACCUMULATED SNOW"         "kg m-2"
+state    real   ACRUNOFF         ij     misc        1         -      rd=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACRUNOFF"         "ACCUMULATED RUNOFF"       "kg m-2"
+state    real   ACSNOM           ij     misc        1         -      rd=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)       "ACSNOM"           "ACCUMULATED MELTED SNOW"  "kg m-2"
 state    real   SNOW             ij     misc        1         -     i012rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)    "SNOW"             "SNOW WATER EQUIVALENT"    "kg m-2"
 state    real   SNOWH            ij     misc        1         -     i012rh3d=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)    "SNOWH"            "PHYSICAL SNOW DEPTH"      "m"
 #state    real   RHOSN            ij     misc        1         -    i02rhd=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)    "RHOSN"            " SNOW DENSITY"      "kg m-3" 

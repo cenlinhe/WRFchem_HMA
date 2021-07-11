@@ -466,7 +466,8 @@ BENCH_START(surf_driver_tim)
      &        ,RA_LW_PHYSICS=config_flags%ra_lw_physics         ,RHO=grid%rho            &
      &        ,RMOL=grid%rmol          ,SFCEVP=grid%sfcevp      ,SFCEXC=grid%sfcexc      &
      &        ,SFCRUNOFF=grid%sfcrunoff,ACRUNOFF=grid%ACRUNOFF                           &
-     &        ,ACSFCRUNOFF=grid%acsfcrunoff,ACUDRUNOFF=grid%acudrunoff                   & ! cenlin_clm
+     &        ,ACSFCRUNOFF=grid%ACSFCRUNOFF,ACUDRUNOFF=grid%ACUDRUNOFF                   & ! cenlin_clm
+     &        ,ACSNOWFALL=grid%ACSNOWFALL, ACSNOWMELT=grid%ACSNOWMELT                    & ! cenlin_clm
      &        ,opt_thcnd=config_flags%opt_thcnd                                          &
      &        ,SF_SFCLAY_PHYSICS=config_flags%sf_sfclay_physics                        &
      &        ,SF_SURFACE_PHYSICS=config_flags%sf_surface_physics  ,SH2O=grid%sh2o          &

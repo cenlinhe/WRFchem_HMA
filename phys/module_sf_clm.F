@@ -3893,7 +3893,7 @@ CONTAINS
                    ,sh2o       ,snowh      ,forc_uxy    ,forc_vxy    ,shdmin    &
                    ,shdmax     ,acsnom     ,acsnow      ,dx          ,xlat      &
                    ,xlong,ht                                                    &   
-                   ,acsfcrunoff,acudrunoff,acrunoff              & ! cenlin_clm: add accumulated runoff output
+                   ,acsfcrunoff,acudrunoff ,acsnowfall  ,acsnowmelt             & ! cenlin_clm: add accumulated runoff output
                    ,ids,ide, jds,jde, kds,kde                    &
                    ,ims,ime, jms,jme, kms,kme                    &
                    ,its,ite, jts,jte, kts,kte                    &
@@ -4067,7 +4067,7 @@ CONTAINS
                     smstav     ,smstot                &
                    ,znt        ,snowc      ,qsfc       ,snow        ,snowh &
                    ,canwat     ,acsnom     ,acsnow,   emiss, z0   &
-                   ,acsfcrunoff,acudrunoff ,acrunoff   ! cenlin_clm: add accumulated runoff output
+                   ,acsfcrunoff,acudrunoff ,acsnowfall, acsnowmelt   ! cenlin_clm: add accumulated runoff output
 
   real,dimension(ims:ime,jms:jme ),intent(in) ::&
                  vegfra, tmn,shdmin,shdmax
@@ -5240,11 +5240,10 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
                   t2clm(i,j)       = trefxy_buf
 
 ! cenlin_clm: add accumulated runoff output
-                  acsnow(i,j) = acsnow(i,j) + snowxy_buf
-                  acsnom(i,j) = acsnom(i,j) + snomxy_buf 
+                  acsnowfall(i,j) = acsnowfall(i,j) + snowxy_buf
+                  acsnowmelt(i,j) = acsnowmelt(i,j) + snomxy_buf 
                   acsfcrunoff(i,j) = acsfcrunoff(i,j) + qsfxy(i,j)
                   acudrunoff(i,j)  = acudrunoff(i,j) + qdnxy(i,j)
-                  acrunoff(i,j)    = acrunoff(i,j) + qsfxy(i,j) + qdnxy(i,j)
 ! cenlin_clm end
 
 !Accumulate T2 MAX/MIN between history interval --Yaqiong Lu

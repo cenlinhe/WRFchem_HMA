@@ -1703,7 +1703,11 @@ end if !Chemistry time step check
 
 !!! cenlin_BC_trac: add aggregated output variables start
     if (config_flags%chem_opt == MOZART_MOSAIC_4BIN_AQ_KPP) then
-       ! initialize
+
+!!!!!!!!!!!!!!!!!!!!!!!!! initialize !!!!!!!!!!!!!!!!!!!!!!!
+
+       !!!! 3-D output variables
+! BC tag cenlin_BC_trac
        grid%bc_a_tot(its:ite, kts:kte, jts:jte) = 0.0
        grid%bc_a_ant(its:ite, kts:kte, jts:jte) = 0.0
        grid%bc_a_bb(its:ite, kts:kte, jts:jte) = 0.0
@@ -1718,7 +1722,6 @@ end if !Chemistry time step check
        grid%bc_a_ar8(its:ite, kts:kte, jts:jte) = 0.0
        grid%bc_a_ar9(its:ite, kts:kte, jts:jte) = 0.0
        grid%bc_a_ar10(its:ite, kts:kte, jts:jte) = 0.0
-
        grid%bc_cw_tot(its:ite, kts:kte, jts:jte) = 0.0
        grid%bc_cw_ant(its:ite, kts:kte, jts:jte) = 0.0
        grid%bc_cw_bb(its:ite, kts:kte, jts:jte) = 0.0
@@ -1733,20 +1736,52 @@ end if !Chemistry time step check
        grid%bc_cw_ar8(its:ite, kts:kte, jts:jte) = 0.0
        grid%bc_cw_ar9(its:ite, kts:kte, jts:jte) = 0.0
        grid%bc_cw_ar10(its:ite, kts:kte, jts:jte) = 0.0
+       grid%oc_a_tot(its:ite, kts:kte, jts:jte) = 0.0     ! OC
+       grid%oc_cw_tot(its:ite, kts:kte, jts:jte) = 0.0    ! OC
+       grid%dust_a_tot(its:ite, kts:kte, jts:jte) = 0.0   ! cenlin_dust
+       grid%dust_cw_tot(its:ite, kts:kte, jts:jte) = 0.0  ! cenlin_dust
+       grid%brc1_a_tot(its:ite, kts:kte, jts:jte) = 0.0   ! cenlin_brc
+       grid%brc1_cw_tot(its:ite, kts:kte, jts:jte) = 0.0  ! cenlin_brc
+       grid%brc2_a_tot(its:ite, kts:kte, jts:jte) = 0.0   ! cenlin_brc
+       grid%brc2_cw_tot(its:ite, kts:kte, jts:jte) = 0.0  ! cenlin_brc
+! cenlin add new 3-D output
+       grid%brc1_3d_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%brc2_3d_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%bc_3d_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%bc_3d_ant(its:ite, kts:kte, jts:jte) = 0.0
+       grid%bc_3d_bb(its:ite, kts:kte, jts:jte) = 0.0
+       grid%bc_3d_bdy(its:ite, kts:kte, jts:jte) = 0.0
+       grid%bc_3d_ar1(its:ite, kts:kte, jts:jte) = 0.0
+       grid%bc_3d_ar2(its:ite, kts:kte, jts:jte) = 0.0
+       grid%bc_3d_ar3(its:ite, kts:kte, jts:jte) = 0.0
+       grid%bc_3d_ar4(its:ite, kts:kte, jts:jte) = 0.0
+       grid%bc_3d_ar5(its:ite, kts:kte, jts:jte) = 0.0
+       grid%bc_3d_ar6(its:ite, kts:kte, jts:jte) = 0.0
+       grid%bc_3d_ar7(its:ite, kts:kte, jts:jte) = 0.0
+       grid%bc_3d_ar8(its:ite, kts:kte, jts:jte) = 0.0
+       grid%bc_3d_ar9(its:ite, kts:kte, jts:jte) = 0.0
+       grid%bc_3d_ar10(its:ite, kts:kte, jts:jte) = 0.0
+       grid%oc_3d_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%dust_3d_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%cvsoa_3d_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%so4_3d_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%no3_3d_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%soa_3d_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%cl_3d_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%co3_3d_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%nh4_3d_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%na_3d_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%ca_3d_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%num_3d_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%hysw_3d_tot(its:ite, kts:kte, jts:jte) = 0.0
+       grid%water_3d_tot(its:ite, kts:kte, jts:jte) = 0.0
 
-       grid%oc_a_tot(its:ite, kts:kte, jts:jte) = 0.0
-       grid%oc_cw_tot(its:ite, kts:kte, jts:jte) = 0.0
-! cenlin_dust
-       grid%dust_a_tot(its:ite, kts:kte, jts:jte) = 0.0
-       grid%dust_cw_tot(its:ite, kts:kte, jts:jte) = 0.0
-! cenlin_brc
-       grid%brc1_a_tot(its:ite, kts:kte, jts:jte) = 0.0
-       grid%brc1_cw_tot(its:ite, kts:kte, jts:jte) = 0.0
-       grid%brc2_a_tot(its:ite, kts:kte, jts:jte) = 0.0
-       grid%brc2_cw_tot(its:ite, kts:kte, jts:jte) = 0.0
-
-       grid%drydep_bc(its:ite,jts:jte) = 0.0
-       grid%wetdep_bc(its:ite,jts:jte) = 0.0       
+       !!!! 2-D surface output variables
+       ! deposition flux
+       grid%drydep_bc_tot(its:ite,jts:jte) = 0.0
+       grid%wetdep_bc_tot(its:ite,jts:jte) = 0.0
+       grid%totdep_bcext(its:ite,jts:jte) = 0.0
+       grid%totdep_bcint(its:ite,jts:jte) = 0.0 
        grid%drydep_bc_ant(its:ite,jts:jte) = 0.0
        grid%wetdep_bc_ant(its:ite,jts:jte) = 0.0
        grid%drydep_bc_bb(its:ite,jts:jte) = 0.0
@@ -1773,16 +1808,45 @@ end if !Chemistry time step check
        grid%wetdep_bc_ar9(its:ite,jts:jte) = 0.0
        grid%drydep_bc_ar10(its:ite,jts:jte) = 0.0
        grid%wetdep_bc_ar10(its:ite,jts:jte) = 0.0
-
-! cenlin_dust
-       grid%drydep_dust_tot(its:ite,jts:jte) = 0.0
-       grid%wetdep_dust_tot(its:ite,jts:jte) = 0.0
-! cenlin_brc_CLM
-       grid%drydep_brc1_tot(its:ite,jts:jte) = 0.0
-       grid%wetdep_brc1_tot(its:ite,jts:jte) = 0.0
-       grid%drydep_brc2_tot(its:ite,jts:jte) = 0.0
-       grid%wetdep_brc2_tot(its:ite,jts:jte) = 0.0
-
+       grid%drydep_dust_tot(its:ite,jts:jte) = 0.0  ! cenlin_dust
+       grid%wetdep_dust_tot(its:ite,jts:jte) = 0.0  ! cenlin_dust
+       grid%drydep_brc1_tot(its:ite,jts:jte) = 0.0  ! cenlin_brc_CLM
+       grid%wetdep_brc1_tot(its:ite,jts:jte) = 0.0  ! cenlin_brc_CLM
+       grid%drydep_brc2_tot(its:ite,jts:jte) = 0.0  ! cenlin_brc_CLM
+       grid%wetdep_brc2_tot(its:ite,jts:jte) = 0.0  ! cenlin_brc_CLM
+       ! surface concentration
+       !! gas
+       grid%so2_sfc(its:ite,jts:jte) = 0.0
+       grid%sulf_sfc(its:ite,jts:jte) = 0.0
+       grid%no2_sfc(its:ite,jts:jte) = 0.0
+       grid%no_sfc(its:ite,jts:jte) = 0.0
+       grid%o3_sfc(its:ite,jts:jte) = 0.0
+       grid%ald_sfc(its:ite,jts:jte) = 0.0
+       grid%hcho_sfc(its:ite,jts:jte) = 0.0
+       grid%nh3_sfc(its:ite,jts:jte) = 0.0
+       grid%pan_sfc(its:ite,jts:jte) = 0.0
+       grid%co_sfc(its:ite,jts:jte) = 0.0
+       grid%tol_sfc(its:ite,jts:jte) = 0.0
+       grid%xyl_sfc(its:ite,jts:jte) = 0.0
+       grid%hono_sfc(its:ite,jts:jte) = 0.0
+       grid%ho_sfc(its:ite,jts:jte) = 0.0
+       grid%ho2_sfc(its:ite,jts:jte) = 0.0
+       grid%ch4_sfc(its:ite,jts:jte) = 0.0
+       grid%ch3oh_sfc(its:ite,jts:jte) = 0.0
+       grid%c2h5oh_sfc(its:ite,jts:jte) = 0.0
+       grid%bigene_sfc(its:ite,jts:jte) = 0.0
+       grid%bigalk_sfc(its:ite,jts:jte) = 0.0
+       grid%c10h16_sfc(its:ite,jts:jte) = 0.0
+       grid%benzene_sfc(its:ite,jts:jte) = 0.0
+       grid%acet_sfc(its:ite,jts:jte) = 0.0
+       grid%isopr_sfc(its:ite,jts:jte) = 0.0
+       grid%c2h2_sfc(its:ite,jts:jte) = 0.0
+       grid%c2h4_sfc(its:ite,jts:jte) = 0.0
+       grid%c2h6_sfc(its:ite,jts:jte) = 0.0
+       grid%c3h6_sfc(its:ite,jts:jte) = 0.0
+       grid%c3h8_sfc(its:ite,jts:jte) = 0.0
+       grid%cvsoa_sfc(its:ite,jts:jte) = 0.0
+       !! aerosol
        grid%bc_sfc_tot(its:ite,jts:jte) = 0.0
        grid%bc_sfc_ant(its:ite,jts:jte) = 0.0
        grid%bc_sfc_bb(its:ite,jts:jte) = 0.0
@@ -1797,17 +1861,61 @@ end if !Chemistry time step check
        grid%bc_sfc_ar8(its:ite,jts:jte) = 0.0
        grid%bc_sfc_ar9(its:ite,jts:jte) = 0.0
        grid%bc_sfc_ar10(its:ite,jts:jte) = 0.0
-
-       grid%oc_sfc_tot(its:ite,jts:jte) = 0.0
        grid%pm25_sfc(its:ite,jts:jte) = 0.0
        grid%pm10_sfc(its:ite,jts:jte) = 0.0
-       grid%dust_sfc_tot(its:ite,jts:jte) = 0.0
+       grid%dust_sfc_tot(its:ite,jts:jte) = 0.0  ! cenlin_dust
+       grid%oc_sfc_tot(its:ite,jts:jte) = 0.0
+       grid%brc1_sfc_tot(its:ite,jts:jte) = 0.0  ! cenlin_brc
+       grid%brc2_sfc_tot(its:ite,jts:jte) = 0.0  ! cenlin_brc
+       grid%so4_sfc_tot(its:ite,jts:jte) = 0.0
+       grid%no3_sfc_tot(its:ite,jts:jte) = 0.0
+       grid%soa_sfc_tot(its:ite,jts:jte) = 0.0
+       grid%cl_sfc_tot(its:ite,jts:jte) = 0.0
+       grid%co3_sfc_tot(its:ite,jts:jte) = 0.0
+       grid%nh4_sfc_tot(its:ite,jts:jte) = 0.0
+       grid%na_sfc_tot(its:ite,jts:jte) = 0.0
+       grid%ca_sfc_tot(its:ite,jts:jte) = 0.0
+       grid%num_sfc_tot(its:ite,jts:jte) = 0.0
+       grid%hysw_sfc_tot(its:ite,jts:jte) = 0.0
+       grid%water_sfc_tot(its:ite,jts:jte) = 0.0
+       !! aerosol optics
        grid%aod_550(its:ite,jts:jte) = 0.0
-! cenlin_brc
-       grid%brc1_sfc_tot(its:ite,jts:jte) = 0.0
-       grid%brc2_sfc_tot(its:ite,jts:jte) = 0.0
+       grid%ssa_550(its:ite,jts:jte) = 0.0
+       grid%saod_550(its:ite,jts:jte) = 0.0
+       grid%tauaer1_col(its:ite,jts:jte) = 0.0
+       grid%tauaer2_col(its:ite,jts:jte) = 0.0
+       grid%tauaer3_col(its:ite,jts:jte) = 0.0
+       grid%tauaer4_col(its:ite,jts:jte) = 0.0
+       grid%gaer1_col(its:ite,jts:jte) = 0.0
+       grid%gaer2_col(its:ite,jts:jte) = 0.0
+       grid%gaer3_col(its:ite,jts:jte) = 0.0
+       grid%gaer4_col(its:ite,jts:jte) = 0.0
+       grid%waer1_col(its:ite,jts:jte) = 0.0
+       grid%waer2_col(its:ite,jts:jte) = 0.0
+       grid%waer3_col(its:ite,jts:jte) = 0.0
+       grid%waer4_col(its:ite,jts:jte) = 0.0
+       grid%AAOD1_col(its:ite,jts:jte) = 0.0
+       grid%AAOD2_col(its:ite,jts:jte) = 0.0
+       grid%AAOD3_col(its:ite,jts:jte) = 0.0
+       grid%AAOD4_col(its:ite,jts:jte) = 0.0
+       grid%tauaer1_sfc(its:ite,jts:jte) = 0.0
+       grid%tauaer2_sfc(its:ite,jts:jte) = 0.0
+       grid%tauaer3_sfc(its:ite,jts:jte) = 0.0
+       grid%tauaer4_sfc(its:ite,jts:jte) = 0.0
+       grid%gaer1_sfc(its:ite,jts:jte) = 0.0
+       grid%gaer2_sfc(its:ite,jts:jte) = 0.0
+       grid%gaer3_sfc(its:ite,jts:jte) = 0.0
+       grid%gaer4_sfc(its:ite,jts:jte) = 0.0
+       grid%waer1_sfc(its:ite,jts:jte) = 0.0
+       grid%waer2_sfc(its:ite,jts:jte) = 0.0
+       grid%waer3_sfc(its:ite,jts:jte) = 0.0
+       grid%waer4_sfc(its:ite,jts:jte) = 0.0
 
-!!!!!!! ! assign values: ug/kg -> ug/m3
+
+!!!!!!!!!!!!!!!!!!!!!!! assign values !!!!!!!!!!!!!!!!!!!!!!!
+!!! aerosols: ug/kg -> ug/m3, gas: ppmv
+
+!!!!!!! 3D output variables
 ! atmospheric 3D concentration aggregated over size bins
        grid%oc_a_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_oc_a01) + &
            chem(its:ite,kts:kte,jts:jte,p_oc_a02) + chem(its:ite,kts:kte,jts:jte,p_oc_a03) + &
@@ -1815,6 +1923,8 @@ end if !Chemistry time step check
        grid%oc_cw_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_oc_cw01) + &
            chem(its:ite,kts:kte,jts:jte,p_oc_cw02) + chem(its:ite,kts:kte,jts:jte,p_oc_cw03) + &
            chem(its:ite,kts:kte,jts:jte,p_oc_cw04) ) / grid%alt(its:ite,kts:kte,jts:jte)
+       grid%oc_3d_tot(its:ite,kts:kte,jts:jte) = grid%oc_a_tot(its:ite,kts:kte,jts:jte) + &
+                                                 grid%oc_cw_tot(its:ite,kts:kte,jts:jte)
 ! cenlin_dust
        grid%dust_a_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_oin_a01) + &
            chem(its:ite,kts:kte,jts:jte,p_oin_a02) + chem(its:ite,kts:kte,jts:jte,p_oin_a03) + &
@@ -1822,6 +1932,8 @@ end if !Chemistry time step check
        grid%dust_cw_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_oin_cw01) + &
            chem(its:ite,kts:kte,jts:jte,p_oin_cw02) + chem(its:ite,kts:kte,jts:jte,p_oin_cw03) + &
            chem(its:ite,kts:kte,jts:jte,p_oin_cw04) ) / grid%alt(its:ite,kts:kte,jts:jte)
+       grid%dust_3d_tot(its:ite,kts:kte,jts:jte) = grid%dust_a_tot(its:ite,kts:kte,jts:jte) + &
+                                                   grid%dust_cw_tot(its:ite,kts:kte,jts:jte)
 ! cenlin_brc
        grid%brc1_a_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_brc1_a01) + &
            chem(its:ite,kts:kte,jts:jte,p_brc1_a02) + chem(its:ite,kts:kte,jts:jte,p_brc1_a03) + &
@@ -1829,129 +1941,278 @@ end if !Chemistry time step check
        grid%brc1_cw_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_brc1_cw01) + &
            chem(its:ite,kts:kte,jts:jte,p_brc1_cw02) + chem(its:ite,kts:kte,jts:jte,p_brc1_cw03) + &
            chem(its:ite,kts:kte,jts:jte,p_brc1_cw04) ) / grid%alt(its:ite,kts:kte,jts:jte)
+       grid%brc1_3d_tot(its:ite,kts:kte,jts:jte) = grid%brc1_a_tot(its:ite,kts:kte,jts:jte) + &
+                                                   grid%brc1_cw_tot(its:ite,kts:kte,jts:jte)
        grid%brc2_a_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_brc2_a01) + &
            chem(its:ite,kts:kte,jts:jte,p_brc2_a02) + chem(its:ite,kts:kte,jts:jte,p_brc2_a03) + &
            chem(its:ite,kts:kte,jts:jte,p_brc2_a04) ) / grid%alt(its:ite,kts:kte,jts:jte)
        grid%brc2_cw_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_brc2_cw01) + &
            chem(its:ite,kts:kte,jts:jte,p_brc2_cw02) + chem(its:ite,kts:kte,jts:jte,p_brc2_cw03) + &
            chem(its:ite,kts:kte,jts:jte,p_brc2_cw04) ) / grid%alt(its:ite,kts:kte,jts:jte)
-
+       grid%brc2_3d_tot(its:ite,kts:kte,jts:jte) = grid%brc2_a_tot(its:ite,kts:kte,jts:jte) + &
+                                                   grid%brc2_cw_tot(its:ite,kts:kte,jts:jte)
+! cenlin_BC_trac
        grid%bc_a_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_bc_a01) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a02) + chem(its:ite,kts:kte,jts:jte,p_bc_a03) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a04) ) / grid%alt(its:ite,kts:kte,jts:jte)
        grid%bc_cw_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_bc_cw01) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw02) + chem(its:ite,kts:kte,jts:jte,p_bc_cw03) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw04) ) / grid%alt(its:ite,kts:kte,jts:jte)
-
+       grid%bc_3d_tot(its:ite,kts:kte,jts:jte) = grid%bc_a_tot(its:ite,kts:kte,jts:jte) + &
+                                                 grid%bc_cw_tot(its:ite,kts:kte,jts:jte)
        grid%bc_a_ant(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_bc_a01_ant) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a02_ant) + chem(its:ite,kts:kte,jts:jte,p_bc_a03_ant) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a04_ant) ) / grid%alt(its:ite,kts:kte,jts:jte)
        grid%bc_cw_ant(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_bc_cw01_ant) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw02_ant) + chem(its:ite,kts:kte,jts:jte,p_bc_cw03_ant) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw04_ant) ) / grid%alt(its:ite,kts:kte,jts:jte)
-
+       grid%bc_3d_ant(its:ite,kts:kte,jts:jte) = grid%bc_a_ant(its:ite,kts:kte,jts:jte) + &
+                                                 grid%bc_cw_ant(its:ite,kts:kte,jts:jte)
        grid%bc_a_bb(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_a01_bb) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a02_bb) + chem(its:ite,kts:kte,jts:jte,p_bc_a03_bb) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a04_bb)) / grid%alt(its:ite,kts:kte,jts:jte)
        grid%bc_cw_bb(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_cw01_bb) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw02_bb) + chem(its:ite,kts:kte,jts:jte,p_bc_cw03_bb) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw04_bb)) / grid%alt(its:ite,kts:kte,jts:jte)
-
+       grid%bc_3d_bb(its:ite,kts:kte,jts:jte) = grid%bc_a_bb(its:ite,kts:kte,jts:jte) + &
+                                                grid%bc_cw_bb(its:ite,kts:kte,jts:jte)
        grid%bc_a_bdy(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_a01_bdy) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a02_bdy) + chem(its:ite,kts:kte,jts:jte,p_bc_a03_bdy) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a04_bdy)) / grid%alt(its:ite,kts:kte,jts:jte)
        grid%bc_cw_bdy(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_cw01_bdy) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw02_bdy) + chem(its:ite,kts:kte,jts:jte,p_bc_cw03_bdy) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw04_bdy)) / grid%alt(its:ite,kts:kte,jts:jte)
-
+       grid%bc_3d_bdy(its:ite,kts:kte,jts:jte) = grid%bc_a_bdy(its:ite,kts:kte,jts:jte) + &
+                                                 grid%bc_cw_bdy(its:ite,kts:kte,jts:jte)
        grid%bc_a_ar1(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_a01_ar1) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a02_ar1) + chem(its:ite,kts:kte,jts:jte,p_bc_a03_ar1) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a04_ar1)) / grid%alt(its:ite,kts:kte,jts:jte)
        grid%bc_cw_ar1(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_cw01_ar1) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw02_ar1) + chem(its:ite,kts:kte,jts:jte,p_bc_cw03_ar1) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw04_ar1)) / grid%alt(its:ite,kts:kte,jts:jte)
-
+       grid%bc_3d_ar1(its:ite,kts:kte,jts:jte) = grid%bc_a_ar1(its:ite,kts:kte,jts:jte) + &
+                                                 grid%bc_cw_ar1(its:ite,kts:kte,jts:jte)
        grid%bc_a_ar2(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_a01_ar2) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a02_ar2) + chem(its:ite,kts:kte,jts:jte,p_bc_a03_ar2) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a04_ar2)) / grid%alt(its:ite,kts:kte,jts:jte)
        grid%bc_cw_ar2(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_cw01_ar2) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw02_ar2) + chem(its:ite,kts:kte,jts:jte,p_bc_cw03_ar2) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw04_ar2)) / grid%alt(its:ite,kts:kte,jts:jte)
-
+       grid%bc_3d_ar2(its:ite,kts:kte,jts:jte) = grid%bc_a_ar2(its:ite,kts:kte,jts:jte) + &
+                                                 grid%bc_cw_ar2(its:ite,kts:kte,jts:jte)
        grid%bc_a_ar3(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_a01_ar3) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a02_ar3) + chem(its:ite,kts:kte,jts:jte,p_bc_a03_ar3) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a04_ar3)) / grid%alt(its:ite,kts:kte,jts:jte)
        grid%bc_cw_ar3(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_cw01_ar3) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw02_ar3) + chem(its:ite,kts:kte,jts:jte,p_bc_cw03_ar3) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw04_ar3)) / grid%alt(its:ite,kts:kte,jts:jte)
-
+       grid%bc_3d_ar3(its:ite,kts:kte,jts:jte) = grid%bc_a_ar3(its:ite,kts:kte,jts:jte) + &
+                                                 grid%bc_cw_ar3(its:ite,kts:kte,jts:jte)
        grid%bc_a_ar4(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_a01_ar4) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a02_ar4) + chem(its:ite,kts:kte,jts:jte,p_bc_a03_ar4) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a04_ar4)) / grid%alt(its:ite,kts:kte,jts:jte)
        grid%bc_cw_ar4(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_cw01_ar4) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw02_ar4) + chem(its:ite,kts:kte,jts:jte,p_bc_cw03_ar4) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw04_ar4)) / grid%alt(its:ite,kts:kte,jts:jte)
-
+       grid%bc_3d_ar4(its:ite,kts:kte,jts:jte) = grid%bc_a_ar4(its:ite,kts:kte,jts:jte) + &
+                                                 grid%bc_cw_ar4(its:ite,kts:kte,jts:jte)
        grid%bc_a_ar5(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_a01_ar5) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a02_ar5) + chem(its:ite,kts:kte,jts:jte,p_bc_a03_ar5) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a04_ar5)) / grid%alt(its:ite,kts:kte,jts:jte)
        grid%bc_cw_ar5(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_cw01_ar5) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw02_ar5) + chem(its:ite,kts:kte,jts:jte,p_bc_cw03_ar5) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw04_ar5)) / grid%alt(its:ite,kts:kte,jts:jte)
-
+       grid%bc_3d_ar5(its:ite,kts:kte,jts:jte) = grid%bc_a_ar5(its:ite,kts:kte,jts:jte) + &
+                                                 grid%bc_cw_ar5(its:ite,kts:kte,jts:jte) 
        grid%bc_a_ar6(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_a01_ar6) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a02_ar6) + chem(its:ite,kts:kte,jts:jte,p_bc_a03_ar6) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a04_ar6)) / grid%alt(its:ite,kts:kte,jts:jte)
        grid%bc_cw_ar6(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_cw01_ar6) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw02_ar6) + chem(its:ite,kts:kte,jts:jte,p_bc_cw03_ar6) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw04_ar6)) / grid%alt(its:ite,kts:kte,jts:jte)
-
+       grid%bc_3d_ar6(its:ite,kts:kte,jts:jte) = grid%bc_a_ar6(its:ite,kts:kte,jts:jte) + &
+                                                 grid%bc_cw_ar6(its:ite,kts:kte,jts:jte)
        grid%bc_a_ar7(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_a01_ar7) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a02_ar7) + chem(its:ite,kts:kte,jts:jte,p_bc_a03_ar7) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a04_ar7)) / grid%alt(its:ite,kts:kte,jts:jte)
        grid%bc_cw_ar7(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_cw01_ar7) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw02_ar7) + chem(its:ite,kts:kte,jts:jte,p_bc_cw03_ar7) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw04_ar7)) / grid%alt(its:ite,kts:kte,jts:jte)
-
+       grid%bc_3d_ar7(its:ite,kts:kte,jts:jte) = grid%bc_a_ar7(its:ite,kts:kte,jts:jte) + &
+                                                 grid%bc_cw_ar7(its:ite,kts:kte,jts:jte)
        grid%bc_a_ar8(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_a01_ar8) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a02_ar8) + chem(its:ite,kts:kte,jts:jte,p_bc_a03_ar8) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a04_ar8)) / grid%alt(its:ite,kts:kte,jts:jte)
        grid%bc_cw_ar8(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_cw01_ar8) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw02_ar8) + chem(its:ite,kts:kte,jts:jte,p_bc_cw03_ar8) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw04_ar8)) / grid%alt(its:ite,kts:kte,jts:jte)
-
+       grid%bc_3d_ar8(its:ite,kts:kte,jts:jte) = grid%bc_a_ar8(its:ite,kts:kte,jts:jte) + &
+                                                 grid%bc_cw_ar8(its:ite,kts:kte,jts:jte)
        grid%bc_a_ar9(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_a01_ar9) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a02_ar9) + chem(its:ite,kts:kte,jts:jte,p_bc_a03_ar9) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a04_ar9)) / grid%alt(its:ite,kts:kte,jts:jte)
        grid%bc_cw_ar9(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_cw01_ar9) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw02_ar9) + chem(its:ite,kts:kte,jts:jte,p_bc_cw03_ar9) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw04_ar9)) / grid%alt(its:ite,kts:kte,jts:jte)
-
+       grid%bc_3d_ar9(its:ite,kts:kte,jts:jte) = grid%bc_a_ar9(its:ite,kts:kte,jts:jte) + &
+                                                 grid%bc_cw_ar9(its:ite,kts:kte,jts:jte)
        grid%bc_a_ar10(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_a01_ar10) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a02_ar10) + chem(its:ite,kts:kte,jts:jte,p_bc_a03_ar10) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_a04_ar10)) / grid%alt(its:ite,kts:kte,jts:jte)
        grid%bc_cw_ar10(its:ite,kts:kte,jts:jte) = (chem(its:ite,kts:kte,jts:jte,p_bc_cw01_ar10) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw02_ar10) + chem(its:ite,kts:kte,jts:jte,p_bc_cw03_ar10) + &
            chem(its:ite,kts:kte,jts:jte,p_bc_cw04_ar10)) / grid%alt(its:ite,kts:kte,jts:jte)
+       grid%bc_3d_ar10(its:ite,kts:kte,jts:jte) = grid%bc_a_ar10(its:ite,kts:kte,jts:jte) + &
+                                                  grid%bc_cw_ar10(its:ite,kts:kte,jts:jte)
+! cenlin_HMA add more
+       grid%cvsoa_3d_tot(its:ite,kts:kte,jts:jte) = chem(its:ite,kts:kte,jts:jte,p_cvasoa1) + &
+           chem(its:ite,kts:kte,jts:jte,p_cvasoa2) + chem(its:ite,kts:kte,jts:jte,p_cvasoa3) + &
+           chem(its:ite,kts:kte,jts:jte,p_cvasoa4) + chem(its:ite,kts:kte,jts:jte,p_cvasoaX) + &
+           chem(its:ite,kts:kte,jts:jte,p_cvbsoa1) + &
+           chem(its:ite,kts:kte,jts:jte,p_cvbsoa2) + chem(its:ite,kts:kte,jts:jte,p_cvbsoa3) + &
+           chem(its:ite,kts:kte,jts:jte,p_cvbsoa4) + chem(its:ite,kts:kte,jts:jte,p_cvbsoaX)
+       grid%so4_3d_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_so4_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_so4_a02) + chem(its:ite,kts:kte,jts:jte,p_so4_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_so4_a04) + chem(its:ite,kts:kte,jts:jte,p_so4_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_so4_cw02) + chem(its:ite,kts:kte,jts:jte,p_so4_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_so4_cw04) ) / grid%alt(its:ite,kts:kte,jts:jte)
+       grid%no3_3d_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_no3_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_no3_a02) + chem(its:ite,kts:kte,jts:jte,p_no3_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_no3_a04) + chem(its:ite,kts:kte,jts:jte,p_no3_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_no3_cw02) + chem(its:ite,kts:kte,jts:jte,p_no3_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_no3_cw04) ) / grid%alt(its:ite,kts:kte,jts:jte)
+       grid%cl_3d_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_cl_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_cl_a02) + chem(its:ite,kts:kte,jts:jte,p_cl_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_cl_a04) + chem(its:ite,kts:kte,jts:jte,p_cl_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_cl_cw02) + chem(its:ite,kts:kte,jts:jte,p_cl_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_cl_cw04) ) / grid%alt(its:ite,kts:kte,jts:jte)
+       grid%co3_3d_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_co3_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_co3_a02) + chem(its:ite,kts:kte,jts:jte,p_co3_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_co3_a04) + chem(its:ite,kts:kte,jts:jte,p_co3_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_co3_cw02) + chem(its:ite,kts:kte,jts:jte,p_co3_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_co3_cw04) ) / grid%alt(its:ite,kts:kte,jts:jte)
+       grid%nh4_3d_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_nh4_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_nh4_a02) + chem(its:ite,kts:kte,jts:jte,p_nh4_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_nh4_a04) + chem(its:ite,kts:kte,jts:jte,p_nh4_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_nh4_cw02) + chem(its:ite,kts:kte,jts:jte,p_nh4_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_nh4_cw04) ) / grid%alt(its:ite,kts:kte,jts:jte)
+       grid%na_3d_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_na_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_na_a02) + chem(its:ite,kts:kte,jts:jte,p_na_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_na_a04) + chem(its:ite,kts:kte,jts:jte,p_na_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_na_cw02) + chem(its:ite,kts:kte,jts:jte,p_na_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_na_cw04) ) / grid%alt(its:ite,kts:kte,jts:jte)
+       grid%ca_3d_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_ca_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_ca_a02) + chem(its:ite,kts:kte,jts:jte,p_ca_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_ca_a04) + chem(its:ite,kts:kte,jts:jte,p_ca_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_ca_cw02) + chem(its:ite,kts:kte,jts:jte,p_ca_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_ca_cw04) ) / grid%alt(its:ite,kts:kte,jts:jte)
+       grid%num_3d_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_num_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_num_a02) + chem(its:ite,kts:kte,jts:jte,p_num_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_num_a04) + chem(its:ite,kts:kte,jts:jte,p_num_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_num_cw02) + chem(its:ite,kts:kte,jts:jte,p_num_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_num_cw04) ) / grid%alt(its:ite,kts:kte,jts:jte)
+       grid%hysw_3d_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_hysw_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_hysw_a02) + chem(its:ite,kts:kte,jts:jte,p_hysw_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_hysw_a04) ) / grid%alt(its:ite,kts:kte,jts:jte)
+       grid%water_3d_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_water_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_water_a02) + chem(its:ite,kts:kte,jts:jte,p_water_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_water_a04) ) / grid%alt(its:ite,kts:kte,jts:jte)
+       grid%soa_3d_tot(its:ite,kts:kte,jts:jte) = ( chem(its:ite,kts:kte,jts:jte,p_asoaX_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoaX_a02) + chem(its:ite,kts:kte,jts:jte,p_asoaX_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoaX_a04) + chem(its:ite,kts:kte,jts:jte,p_asoaX_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoaX_cw02) + chem(its:ite,kts:kte,jts:jte,p_asoaX_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoaX_cw04) + chem(its:ite,kts:kte,jts:jte,p_asoa1_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoa1_a02) + chem(its:ite,kts:kte,jts:jte,p_asoa1_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoa1_a04) + chem(its:ite,kts:kte,jts:jte,p_asoa1_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoa1_cw02) + chem(its:ite,kts:kte,jts:jte,p_asoa1_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoa1_cw04) + chem(its:ite,kts:kte,jts:jte,p_asoa2_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoa2_a02) + chem(its:ite,kts:kte,jts:jte,p_asoa2_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoa2_a04) + chem(its:ite,kts:kte,jts:jte,p_asoa2_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoa2_cw02) + chem(its:ite,kts:kte,jts:jte,p_asoa2_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoa2_cw04) + chem(its:ite,kts:kte,jts:jte,p_asoa3_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoa3_a02) + chem(its:ite,kts:kte,jts:jte,p_asoa3_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoa3_a04) + chem(its:ite,kts:kte,jts:jte,p_asoa3_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoa3_cw02) + chem(its:ite,kts:kte,jts:jte,p_asoa3_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoa3_cw04) + chem(its:ite,kts:kte,jts:jte,p_asoa4_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoa4_a02) + chem(its:ite,kts:kte,jts:jte,p_asoa4_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoa4_a04) + chem(its:ite,kts:kte,jts:jte,p_asoa4_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoa4_cw02) + chem(its:ite,kts:kte,jts:jte,p_asoa4_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_asoa4_cw04) + chem(its:ite,kts:kte,jts:jte,p_bsoaX_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoaX_a02) + chem(its:ite,kts:kte,jts:jte,p_bsoaX_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoaX_a04) + chem(its:ite,kts:kte,jts:jte,p_bsoaX_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoaX_cw02) + chem(its:ite,kts:kte,jts:jte,p_bsoaX_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoaX_cw04) + chem(its:ite,kts:kte,jts:jte,p_bsoa1_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoa1_a02) + chem(its:ite,kts:kte,jts:jte,p_bsoa1_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoa1_a04) + chem(its:ite,kts:kte,jts:jte,p_bsoa1_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoa1_cw02) + chem(its:ite,kts:kte,jts:jte,p_bsoa1_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoa1_cw04) + chem(its:ite,kts:kte,jts:jte,p_bsoa2_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoa2_a02) + chem(its:ite,kts:kte,jts:jte,p_bsoa2_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoa2_a04) + chem(its:ite,kts:kte,jts:jte,p_bsoa2_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoa2_cw02) + chem(its:ite,kts:kte,jts:jte,p_bsoa2_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoa2_cw04) + chem(its:ite,kts:kte,jts:jte,p_bsoa3_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoa3_a02) + chem(its:ite,kts:kte,jts:jte,p_bsoa3_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoa3_a04) + chem(its:ite,kts:kte,jts:jte,p_bsoa3_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoa3_cw02) + chem(its:ite,kts:kte,jts:jte,p_bsoa3_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoa3_cw04) + chem(its:ite,kts:kte,jts:jte,p_bsoa4_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoa4_a02) + chem(its:ite,kts:kte,jts:jte,p_bsoa4_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoa4_a04) + chem(its:ite,kts:kte,jts:jte,p_bsoa4_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoa4_cw02) + chem(its:ite,kts:kte,jts:jte,p_bsoa4_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_bsoa4_cw04) + chem(its:ite,kts:kte,jts:jte,p_glysoa_r1_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_r1_a02) + chem(its:ite,kts:kte,jts:jte,p_glysoa_r1_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_r1_a04) + chem(its:ite,kts:kte,jts:jte,p_glysoa_r1_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_r1_cw02) + chem(its:ite,kts:kte,jts:jte,p_glysoa_r1_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_r1_cw04) + chem(its:ite,kts:kte,jts:jte,p_glysoa_r2_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_r2_a02) + chem(its:ite,kts:kte,jts:jte,p_glysoa_r2_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_r2_a04) + chem(its:ite,kts:kte,jts:jte,p_glysoa_r2_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_r2_cw02) + chem(its:ite,kts:kte,jts:jte,p_glysoa_r2_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_r2_cw04) + chem(its:ite,kts:kte,jts:jte,p_glysoa_sfc_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_sfc_a02) + chem(its:ite,kts:kte,jts:jte,p_glysoa_sfc_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_sfc_a04) + chem(its:ite,kts:kte,jts:jte,p_glysoa_sfc_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_sfc_cw02) + chem(its:ite,kts:kte,jts:jte,p_glysoa_sfc_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_sfc_cw04) + chem(its:ite,kts:kte,jts:jte,p_glysoa_nh4_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_nh4_a02) + chem(its:ite,kts:kte,jts:jte,p_glysoa_nh4_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_nh4_a04) + chem(its:ite,kts:kte,jts:jte,p_glysoa_nh4_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_nh4_cw02) + chem(its:ite,kts:kte,jts:jte,p_glysoa_nh4_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_nh4_cw04) + chem(its:ite,kts:kte,jts:jte,p_glysoa_oh_a01) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_oh_a02) + chem(its:ite,kts:kte,jts:jte,p_glysoa_oh_a03) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_oh_a04) + chem(its:ite,kts:kte,jts:jte,p_glysoa_oh_cw01) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_oh_cw02) + chem(its:ite,kts:kte,jts:jte,p_glysoa_oh_cw03) + &
+           chem(its:ite,kts:kte,jts:jte,p_glysoa_oh_cw04) ) / grid%alt(its:ite,kts:kte,jts:jte)
 
+!!!!!!! 2D output variables
        ! deposition flux kg/m2/s aggregate over size bins
-       grid%drydep_bc(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcpho) + &
-                                         grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcpho) + &
-                                         grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcpho) + &
-                                         grid%drydep_flux(its:ite,jts:jte,4,p_drydep_bcpho)
-       grid%wetdep_bc(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcphi) + &
-                                         grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcphi) + &
-                                         grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcphi) + &
-                                         grid%drydep_flux(its:ite,jts:jte,4,p_drydep_bcphi) + &
-                                         grid%wetdep_flux(its:ite,jts:jte,1,p_wetdep_bcphi) + &
-                                         grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_bcphi) + &
-                                         grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_bcphi) + &
-                                         grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcphi) + &
-                                         grid%wetdep_flux(its:ite,jts:jte,1,p_wetdep_bcpho) + &
-                                         grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_bcpho) + &
-                                         grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_bcpho) + &
-                                         grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcpho)
- 
+       grid%drydep_bc_tot(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcpho) + &
+                                             grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcpho) + &
+                                             grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcpho) + &
+                                             grid%drydep_flux(its:ite,jts:jte,4,p_drydep_bcpho)
+       grid%wetdep_bc_tot(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcphi) + &
+                                             grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcphi) + &
+                                             grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcphi) + &
+                                             grid%drydep_flux(its:ite,jts:jte,4,p_drydep_bcphi) + &
+                                             grid%wetdep_flux(its:ite,jts:jte,1,p_wetdep_bcphi) + &
+                                             grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_bcphi) + &
+                                             grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_bcphi) + &
+                                             grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcphi) + &
+                                             grid%wetdep_flux(its:ite,jts:jte,1,p_wetdep_bcpho) + &
+                                             grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_bcpho) + &
+                                             grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_bcpho) + &
+                                             grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcpho)
+       grid%totdep_bcint(its:ite,jts:jte)  = grid%wetdep_flux(its:ite,jts:jte,1,p_wetdep_bcphi) + &
+                                             grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_bcphi) + &
+                                             grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_bcphi) + &
+                                             grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcphi)
+       grid%totdep_bcext(its:ite,jts:jte)  = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcpho) + &
+                                             grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcpho) + &
+                                             grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcpho) + &
+                                             grid%drydep_flux(its:ite,jts:jte,4,p_drydep_bcpho) + &
+                                             grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcphi) + &
+                                             grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcphi) + &
+                                             grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcphi) + &
+                                             grid%drydep_flux(its:ite,jts:jte,4,p_drydep_bcphi) + &
+                                             grid%wetdep_flux(its:ite,jts:jte,1,p_wetdep_bcpho) + &
+                                             grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_bcpho) + &
+                                             grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_bcpho) + &
+                                             grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcpho)
        grid%drydep_bc_ant(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcpho_ant) + &
                                              grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcpho_ant) + &
                                              grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcpho_ant) + &
@@ -1968,7 +2229,6 @@ end if !Chemistry time step check
                                              grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_bcpho_ant) + &
                                              grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_bcpho_ant) + &
                                              grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcpho_ant)
-
        grid%drydep_bc_bb(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcpho_bb) + &
                                             grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcpho_bb) + &
                                             grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcpho_bb) + &
@@ -1985,7 +2245,6 @@ end if !Chemistry time step check
                                             grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_bcpho_bb) + &
                                             grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_bcpho_bb) + &
                                             grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcpho_bb)
-
        grid%drydep_bc_bdy(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcpho_bdy) + &
                                              grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcpho_bdy) + &
                                              grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcpho_bdy) + &
@@ -2002,7 +2261,6 @@ end if !Chemistry time step check
                                              grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_bcpho_bdy) + &
                                              grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_bcpho_bdy) + &
                                              grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcpho_bdy)
-
        grid%drydep_bc_ar1(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcpho_ar1) + &
                                              grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcpho_ar1) + &
                                              grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcpho_ar1) + &
@@ -2019,7 +2277,6 @@ end if !Chemistry time step check
                                              grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_bcpho_ar1) + &
                                              grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_bcpho_ar1) + &
                                              grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcpho_ar1)
-
        grid%drydep_bc_ar2(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcpho_ar2) + &
                                              grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcpho_ar2) + &
                                              grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcpho_ar2) + &
@@ -2036,7 +2293,6 @@ end if !Chemistry time step check
                                              grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_bcpho_ar2) + &
                                              grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_bcpho_ar2) + &
                                              grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcpho_ar2)
-
        grid%drydep_bc_ar3(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcpho_ar3) + &
                                              grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcpho_ar3) + &
                                              grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcpho_ar3) + &
@@ -2053,7 +2309,6 @@ end if !Chemistry time step check
                                              grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_bcpho_ar3) + &
                                              grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_bcpho_ar3) + &
                                              grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcpho_ar3)
-
        grid%drydep_bc_ar4(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcpho_ar4) + &
                                              grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcpho_ar4) + &
                                              grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcpho_ar4) + &
@@ -2070,7 +2325,6 @@ end if !Chemistry time step check
                                              grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_bcpho_ar4) + &
                                              grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_bcpho_ar4) + &
                                              grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcpho_ar4)
-
        grid%drydep_bc_ar5(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcpho_ar5) + &
                                              grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcpho_ar5) + &
                                              grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcpho_ar5) + &
@@ -2087,7 +2341,6 @@ end if !Chemistry time step check
                                              grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_bcpho_ar5) + &
                                              grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_bcpho_ar5) + &
                                              grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcpho_ar5)
-
        grid%drydep_bc_ar6(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcpho_ar6) + &
                                              grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcpho_ar6) + &
                                              grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcpho_ar6) + &
@@ -2104,7 +2357,6 @@ end if !Chemistry time step check
                                              grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_bcpho_ar6) + &
                                              grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_bcpho_ar6) + &
                                              grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcpho_ar6)
-
        grid%drydep_bc_ar7(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcpho_ar7) + &
                                              grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcpho_ar7) + &
                                              grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcpho_ar7) + &
@@ -2121,7 +2373,6 @@ end if !Chemistry time step check
                                              grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_bcpho_ar7) + &
                                              grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_bcpho_ar7) + &
                                              grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcpho_ar7)
-
        grid%drydep_bc_ar8(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcpho_ar8) + &
                                              grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcpho_ar8) + &
                                              grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcpho_ar8) + &
@@ -2138,7 +2389,6 @@ end if !Chemistry time step check
                                              grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_bcpho_ar8) + &
                                              grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_bcpho_ar8) + &
                                              grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcpho_ar8)
-
        grid%drydep_bc_ar9(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcpho_ar9) + &
                                              grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcpho_ar9) + &
                                              grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcpho_ar9) + &
@@ -2155,7 +2405,6 @@ end if !Chemistry time step check
                                              grid%wetdep_flux(its:ite,jts:jte,2,p_wetdep_bcpho_ar9) + &
                                              grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_bcpho_ar9) + &
                                              grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_bcpho_ar9)
-
        grid%drydep_bc_ar10(its:ite,jts:jte) = grid%drydep_flux(its:ite,jts:jte,1,p_drydep_bcpho_ar10) + &
                                              grid%drydep_flux(its:ite,jts:jte,2,p_drydep_bcpho_ar10) + &
                                              grid%drydep_flux(its:ite,jts:jte,3,p_drydep_bcpho_ar10) + &
@@ -2199,39 +2448,138 @@ end if !Chemistry time step check
                                                grid%wetdep_flux(its:ite,jts:jte,3,p_wetdep_brc2) + &
                                                grid%wetdep_flux(its:ite,jts:jte,4,p_wetdep_brc2)
 
-
-     ! total surface concentration
-     grid%bc_sfc_tot(its:ite,jts:jte) = grid%bc_a_tot(its:ite,kts,jts:jte)+grid%bc_cw_tot(its:ite,kts,jts:jte)
-     grid%bc_sfc_ant(its:ite,jts:jte) = grid%bc_a_ant(its:ite,kts,jts:jte)+grid%bc_cw_ant(its:ite,kts,jts:jte)
-     grid%bc_sfc_bb(its:ite,jts:jte) = grid%bc_a_bb(its:ite,kts,jts:jte)+grid%bc_cw_bb(its:ite,kts,jts:jte)
-     grid%bc_sfc_bdy(its:ite,jts:jte) = grid%bc_a_bdy(its:ite,kts,jts:jte)+grid%bc_cw_bdy(its:ite,kts,jts:jte)
-     grid%bc_sfc_ar1(its:ite,jts:jte) = grid%bc_a_ar1(its:ite,kts,jts:jte)+grid%bc_cw_ar1(its:ite,kts,jts:jte)
-     grid%bc_sfc_ar2(its:ite,jts:jte) = grid%bc_a_ar2(its:ite,kts,jts:jte)+grid%bc_cw_ar2(its:ite,kts,jts:jte)
-     grid%bc_sfc_ar3(its:ite,jts:jte) = grid%bc_a_ar3(its:ite,kts,jts:jte)+grid%bc_cw_ar3(its:ite,kts,jts:jte)
-     grid%bc_sfc_ar4(its:ite,jts:jte) = grid%bc_a_ar4(its:ite,kts,jts:jte)+grid%bc_cw_ar4(its:ite,kts,jts:jte)
-     grid%bc_sfc_ar5(its:ite,jts:jte) = grid%bc_a_ar5(its:ite,kts,jts:jte)+grid%bc_cw_ar5(its:ite,kts,jts:jte)
-     grid%bc_sfc_ar6(its:ite,jts:jte) = grid%bc_a_ar6(its:ite,kts,jts:jte)+grid%bc_cw_ar6(its:ite,kts,jts:jte)
-     grid%bc_sfc_ar7(its:ite,jts:jte) = grid%bc_a_ar7(its:ite,kts,jts:jte)+grid%bc_cw_ar7(its:ite,kts,jts:jte)
-     grid%bc_sfc_ar8(its:ite,jts:jte) = grid%bc_a_ar8(its:ite,kts,jts:jte)+grid%bc_cw_ar8(its:ite,kts,jts:jte)
-     grid%bc_sfc_ar9(its:ite,jts:jte) = grid%bc_a_ar9(its:ite,kts,jts:jte)+grid%bc_cw_ar9(its:ite,kts,jts:jte)
-     grid%bc_sfc_ar10(its:ite,jts:jte) = grid%bc_a_ar10(its:ite,kts,jts:jte)+grid%bc_cw_ar10(its:ite,kts,jts:jte)
-
-     grid%oc_sfc_tot(its:ite,jts:jte) = grid%oc_a_tot(its:ite,kts,jts:jte)+grid%oc_cw_tot(its:ite,kts,jts:jte)
+!!!!!!!! total surface concentration
+! gas species
+     grid%so2_sfc(its:ite,jts:jte)     = chem(its:ite,kts,jts:jte, p_so2)
+     grid%sulf_sfc(its:ite,jts:jte)    = chem(its:ite,kts,jts:jte, p_sulf)
+     grid%no2_sfc(its:ite,jts:jte)     = chem(its:ite,kts,jts:jte, p_no2)
+     grid%no_sfc(its:ite,jts:jte)      = chem(its:ite,kts,jts:jte, p_no)
+     grid%o3_sfc(its:ite,jts:jte)      = chem(its:ite,kts,jts:jte, p_o3)
+     grid%ald_sfc(its:ite,jts:jte)     = chem(its:ite,kts,jts:jte, p_ald)
+     grid%hcho_sfc(its:ite,jts:jte)    = chem(its:ite,kts,jts:jte, p_hcho)
+     grid%nh3_sfc(its:ite,jts:jte)     = chem(its:ite,kts,jts:jte, p_nh3)
+     grid%pan_sfc(its:ite,jts:jte)     = chem(its:ite,kts,jts:jte, p_pan)
+     grid%co_sfc(its:ite,jts:jte)      = chem(its:ite,kts,jts:jte, p_co)
+     grid%tol_sfc(its:ite,jts:jte)     = chem(its:ite,kts,jts:jte, p_tol)
+     grid%xyl_sfc(its:ite,jts:jte)     = chem(its:ite,kts,jts:jte, p_xyl)
+     grid%hono_sfc(its:ite,jts:jte)    = chem(its:ite,kts,jts:jte, p_hono)
+     grid%ho_sfc(its:ite,jts:jte)      = chem(its:ite,kts,jts:jte, p_ho)
+     grid%ho2_sfc(its:ite,jts:jte)     = chem(its:ite,kts,jts:jte, p_ho2)
+     grid%ch4_sfc(its:ite,jts:jte)     = chem(its:ite,kts,jts:jte, p_ch4)
+     grid%ch3oh_sfc(its:ite,jts:jte)   = chem(its:ite,kts,jts:jte, p_ch3oh)
+     grid%c2h5oh_sfc(its:ite,jts:jte)  = chem(its:ite,kts,jts:jte, p_c2h5oh)
+     grid%bigene_sfc(its:ite,jts:jte)  = chem(its:ite,kts,jts:jte, p_bigene)
+     grid%bigalk_sfc(its:ite,jts:jte)  = chem(its:ite,kts,jts:jte, p_bigalk)
+     grid%c10h16_sfc(its:ite,jts:jte)  = chem(its:ite,kts,jts:jte, p_c10h16)
+     grid%benzene_sfc(its:ite,jts:jte) = chem(its:ite,kts,jts:jte, p_benzene)
+     grid%acet_sfc(its:ite,jts:jte)    = chem(its:ite,kts,jts:jte, p_acet)
+     grid%isopr_sfc(its:ite,jts:jte)   = chem(its:ite,kts,jts:jte, p_isopr)
+     grid%c2h2_sfc(its:ite,jts:jte)    = chem(its:ite,kts,jts:jte, p_c2h2)
+     grid%c2h4_sfc(its:ite,jts:jte)    = chem(its:ite,kts,jts:jte, p_c2h4)
+     grid%c2h6_sfc(its:ite,jts:jte)    = chem(its:ite,kts,jts:jte, p_c2h6)
+     grid%c3h6_sfc(its:ite,jts:jte)    = chem(its:ite,kts,jts:jte, p_c3h6)
+     grid%c3h8_sfc(its:ite,jts:jte)    = chem(its:ite,kts,jts:jte, p_c3h8)
+     grid%cvsoa_sfc(its:ite,jts:jte)   = grid%cvsoa_3d_tot(its:ite,kts,jts:jte)
+! aerosol species
+! cenlin_BC
+     grid%bc_sfc_tot(its:ite,jts:jte) = grid%bc_3d_tot(its:ite,kts,jts:jte)
+     grid%bc_sfc_ant(its:ite,jts:jte) = grid%bc_3d_ant(its:ite,kts,jts:jte)
+     grid%bc_sfc_bb(its:ite,jts:jte)  = grid%bc_3d_bb(its:ite,kts,jts:jte)
+     grid%bc_sfc_bdy(its:ite,jts:jte) = grid%bc_3d_bdy(its:ite,kts,jts:jte)
+     grid%bc_sfc_ar1(its:ite,jts:jte) = grid%bc_3d_ar1(its:ite,kts,jts:jte)
+     grid%bc_sfc_ar2(its:ite,jts:jte) = grid%bc_3d_ar2(its:ite,kts,jts:jte)
+     grid%bc_sfc_ar3(its:ite,jts:jte) = grid%bc_3d_ar3(its:ite,kts,jts:jte)
+     grid%bc_sfc_ar4(its:ite,jts:jte) = grid%bc_3d_ar4(its:ite,kts,jts:jte)
+     grid%bc_sfc_ar5(its:ite,jts:jte) = grid%bc_3d_ar5(its:ite,kts,jts:jte)
+     grid%bc_sfc_ar6(its:ite,jts:jte) = grid%bc_3d_ar6(its:ite,kts,jts:jte)
+     grid%bc_sfc_ar7(its:ite,jts:jte) = grid%bc_3d_ar7(its:ite,kts,jts:jte)
+     grid%bc_sfc_ar8(its:ite,jts:jte) = grid%bc_3d_ar8(its:ite,kts,jts:jte)
+     grid%bc_sfc_ar9(its:ite,jts:jte) = grid%bc_3d_ar9(its:ite,kts,jts:jte)
+     grid%bc_sfc_ar10(its:ite,jts:jte) = grid%bc_3d_ar10(its:ite,kts,jts:jte)
+     grid%oc_sfc_tot(its:ite,jts:jte) = grid%oc_3d_tot(its:ite,kts,jts:jte)
      grid%pm25_sfc(its:ite,jts:jte) = grid%pm2_5_dry(its:ite,kts,jts:jte)
      grid%pm10_sfc(its:ite,jts:jte) = grid%pm10(its:ite,kts,jts:jte)
 ! cenlin_dust
-     grid%dust_sfc_tot(its:ite,jts:jte)=grid%dust_a_tot(its:ite,kts,jts:jte)+grid%dust_cw_tot(its:ite,kts,jts:jte)
+     grid%dust_sfc_tot(its:ite,jts:jte) = grid%dust_3d_tot(its:ite,kts,jts:jte)
 ! cenlin_brc
-     grid%brc1_sfc_tot(its:ite,jts:jte)=grid%brc1_a_tot(its:ite,kts,jts:jte)+grid%brc1_cw_tot(its:ite,kts,jts:jte)
-     grid%brc2_sfc_tot(its:ite,jts:jte)=grid%brc2_a_tot(its:ite,kts,jts:jte)+grid%brc2_cw_tot(its:ite,kts,jts:jte)
-
-     ! AOD 550 nm
+     grid%brc1_sfc_tot(its:ite,jts:jte) = grid%brc1_3d_tot(its:ite,kts,jts:jte)
+     grid%brc2_sfc_tot(its:ite,jts:jte) = grid%brc2_3d_tot(its:ite,kts,jts:jte)
+! others
+     grid%so4_sfc_tot(its:ite,jts:jte)  = grid%so4_3d_tot(its:ite,kts,jts:jte)
+     grid%no3_sfc_tot(its:ite,jts:jte)  = grid%no3_3d_tot(its:ite,kts,jts:jte)
+     grid%soa_sfc_tot(its:ite,jts:jte)  = grid%soa_3d_tot(its:ite,kts,jts:jte)
+     grid%cl_sfc_tot(its:ite,jts:jte)   = grid%cl_3d_tot(its:ite,kts,jts:jte)
+     grid%co3_sfc_tot(its:ite,jts:jte)  = grid%co3_3d_tot(its:ite,kts,jts:jte)
+     grid%nh4_sfc_tot(its:ite,jts:jte)  = grid%nh4_3d_tot(its:ite,kts,jts:jte)
+     grid%na_sfc_tot(its:ite,jts:jte)   = grid%na_3d_tot(its:ite,kts,jts:jte)
+     grid%ca_sfc_tot(its:ite,jts:jte)   = grid%ca_3d_tot(its:ite,kts,jts:jte)
+     grid%num_sfc_tot(its:ite,jts:jte)  = grid%num_3d_tot(its:ite,kts,jts:jte)
+     grid%hysw_sfc_tot(its:ite,jts:jte) = grid%hysw_3d_tot(its:ite,kts,jts:jte)
+     grid%water_sfc_tot(its:ite,jts:jte)= grid%water_3d_tot(its:ite,kts,jts:jte)
+! aerosol optics
      do k = kts, kte
+        ! optical depth
         grid%aod_550(its:ite,jts:jte) = grid%aod_550(its:ite,jts:jte) + &
-                              grid%ext_coef(its:ite,k,jts:jte,p_extcof55) * dz8w(its:ite,k,jts:jte) / 1000.0
+                       grid%ext_coef(its:ite,k,jts:jte,p_extcof55) * dz8w(its:ite,k,jts:jte) / 1000.0
+        grid%saod_550(its:ite,jts:jte) = grid%saod_550(its:ite,jts:jte) + &
+                       grid%bscat_coef(its:ite,k,jts:jte,p_bscof55) * dz8w(its:ite,k,jts:jte) / 1000.0
+        grid%tauaer1_col(its:ite,jts:jte)=grid%tauaer1_col(its:ite,jts:jte)+grid%tauaer1(its:ite,k,jts:jte)
+        grid%tauaer2_col(its:ite,jts:jte)=grid%tauaer2_col(its:ite,jts:jte)+grid%tauaer2(its:ite,k,jts:jte)
+        grid%tauaer3_col(its:ite,jts:jte)=grid%tauaer3_col(its:ite,jts:jte)+grid%tauaer3(its:ite,k,jts:jte)
+        grid%tauaer4_col(its:ite,jts:jte)=grid%tauaer4_col(its:ite,jts:jte)+grid%tauaer4(its:ite,k,jts:jte)
+        ! single-scattering albedo 
+        grid%waer1_col(its:ite,jts:jte) = grid%waer1_col(its:ite,jts:jte) + &
+                                          grid%waer1(its:ite,k,jts:jte) * grid%tauaer1(its:ite,k,jts:jte)
+        grid%waer2_col(its:ite,jts:jte) = grid%waer2_col(its:ite,jts:jte) + &
+                                          grid%waer2(its:ite,k,jts:jte) * grid%tauaer2(its:ite,k,jts:jte)
+        grid%waer3_col(its:ite,jts:jte) = grid%waer3_col(its:ite,jts:jte) + &
+                                          grid%waer3(its:ite,k,jts:jte) * grid%tauaer3(its:ite,k,jts:jte)
+        grid%waer4_col(its:ite,jts:jte) = grid%waer4_col(its:ite,jts:jte) + &
+                                          grid%waer4(its:ite,k,jts:jte) * grid%tauaer4(its:ite,k,jts:jte)
+        ! absorption AOD
+        grid%AAOD1_col(its:ite,jts:jte) = grid%AAOD1_col(its:ite,jts:jte) + &
+                                    grid%tauaer1(its:ite,k,jts:jte) * (1 - grid%waer1(its:ite,k,jts:jte))
+        grid%AAOD2_col(its:ite,jts:jte) = grid%AAOD2_col(its:ite,jts:jte) + &
+                                    grid%tauaer2(its:ite,k,jts:jte) * (1 - grid%waer2(its:ite,k,jts:jte))
+        grid%AAOD3_col(its:ite,jts:jte) = grid%AAOD3_col(its:ite,jts:jte) + &
+                                    grid%tauaer3(its:ite,k,jts:jte) * (1 - grid%waer3(its:ite,k,jts:jte))
+        grid%AAOD4_col(its:ite,jts:jte) = grid%AAOD4_col(its:ite,jts:jte) + &
+                                    grid%tauaer4(its:ite,k,jts:jte) * (1 - grid%waer4(its:ite,k,jts:jte))
+        ! asymmetry factor
+        grid%gaer1_col(its:ite,jts:jte) = grid%gaer1_col(its:ite,jts:jte) + &        
+             grid%gaer1(its:ite,k,jts:jte) * grid%waer1(its:ite,k,jts:jte) * grid%tauaer1(its:ite,k,jts:jte)
+        grid%gaer2_col(its:ite,jts:jte) = grid%gaer2_col(its:ite,jts:jte) + &
+             grid%gaer2(its:ite,k,jts:jte) * grid%waer2(its:ite,k,jts:jte) * grid%tauaer2(its:ite,k,jts:jte)
+        grid%gaer3_col(its:ite,jts:jte) = grid%gaer3_col(its:ite,jts:jte) + &
+             grid%gaer3(its:ite,k,jts:jte) * grid%waer3(its:ite,k,jts:jte) * grid%tauaer3(its:ite,k,jts:jte)
+        grid%gaer4_col(its:ite,jts:jte) = grid%gaer4_col(its:ite,jts:jte) + &
+             grid%gaer4(its:ite,k,jts:jte) * grid%waer4(its:ite,k,jts:jte) * grid%tauaer4(its:ite,k,jts:jte)
      end do
+     grid%gaer1_col(its:ite,jts:jte) = grid%gaer1_col(its:ite,jts:jte) / grid%waer1_col(its:ite,jts:jte)
+     grid%gaer2_col(its:ite,jts:jte) = grid%gaer2_col(its:ite,jts:jte) / grid%waer2_col(its:ite,jts:jte)
+     grid%gaer3_col(its:ite,jts:jte) = grid%gaer3_col(its:ite,jts:jte) / grid%waer3_col(its:ite,jts:jte)
+     grid%gaer4_col(its:ite,jts:jte) = grid%gaer4_col(its:ite,jts:jte) / grid%waer4_col(its:ite,jts:jte)
+     grid%waer1_col(its:ite,jts:jte) = grid%waer1_col(its:ite,jts:jte) / grid%tauaer1_col(its:ite,jts:jte)
+     grid%waer2_col(its:ite,jts:jte) = grid%waer2_col(its:ite,jts:jte) / grid%tauaer2_col(its:ite,jts:jte)
+     grid%waer3_col(its:ite,jts:jte) = grid%waer3_col(its:ite,jts:jte) / grid%tauaer3_col(its:ite,jts:jte)
+     grid%waer4_col(its:ite,jts:jte) = grid%waer4_col(its:ite,jts:jte) / grid%tauaer4_col(its:ite,jts:jte)
+     grid%ssa_550(its:ite,jts:jte) = grid%saod_550(its:ite,jts:jte) / grid%aod_550(its:ite,jts:jte)
 
-    endif
+     grid%tauaer1_sfc(its:ite,jts:jte) = grid%tauaer1(its:ite,kts,jts:jte)
+     grid%tauaer2_sfc(its:ite,jts:jte) = grid%tauaer2(its:ite,kts,jts:jte)
+     grid%tauaer3_sfc(its:ite,jts:jte) = grid%tauaer3(its:ite,kts,jts:jte)
+     grid%tauaer4_sfc(its:ite,jts:jte) = grid%tauaer4(its:ite,kts,jts:jte)
+     grid%gaer1_sfc(its:ite,jts:jte)   = grid%gaer1(its:ite,kts,jts:jte)
+     grid%gaer2_sfc(its:ite,jts:jte)   = grid%gaer2(its:ite,kts,jts:jte)
+     grid%gaer3_sfc(its:ite,jts:jte)   = grid%gaer3(its:ite,kts,jts:jte)
+     grid%gaer4_sfc(its:ite,jts:jte)   = grid%gaer4(its:ite,kts,jts:jte)
+     grid%waer1_sfc(its:ite,jts:jte)   = grid%waer1(its:ite,kts,jts:jte)
+     grid%waer2_sfc(its:ite,jts:jte)   = grid%waer2(its:ite,kts,jts:jte)
+     grid%waer3_sfc(its:ite,jts:jte)   = grid%waer3(its:ite,kts,jts:jte)
+     grid%waer4_sfc(its:ite,jts:jte)   = grid%waer4(its:ite,kts,jts:jte)
+
+
+    endif ! chem_opt=202
 
 !!! cenlin_BC_trac: add aggregated output variables end
 

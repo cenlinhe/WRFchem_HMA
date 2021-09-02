@@ -201,6 +201,7 @@
  plumerisefire_frq                   = 60,
  scale_fire_emiss                    = .true.,
  aer_ra_feedback                     = 1,
+ aer_op_opt                          = 1,
  ne_area                             = 500,
  opt_pars_out                        = 1,
  have_bcs_chem                       = .true.,

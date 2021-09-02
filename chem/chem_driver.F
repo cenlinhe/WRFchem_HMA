@@ -864,7 +864,6 @@
               chem,dz8w,rri,rh,                                                       &
               grid%h2oai,grid%h2oaj,                                                  &
               grid%tauaer1,grid%tauaer2,grid%tauaer3,grid%tauaer4,                    &
-             !czhao
               grid%extaer1,grid%extaer2,grid%extaer3,grid%extaer4,                    &
               grid%gaer1,grid%gaer2,grid%gaer3,grid%gaer4,                            &
               grid%waer1,grid%waer2,grid%waer3,grid%waer4,                            &
@@ -880,6 +879,53 @@
               grid%tauaerlw6,grid%tauaerlw7,grid%tauaerlw8,grid%tauaerlw9,grid%tauaerlw10,  &
               grid%tauaerlw11,grid%tauaerlw12,grid%tauaerlw13,grid%tauaerlw14,grid%tauaerlw15,  &
               grid%tauaerlw16,    &
+! cenlin_DRF: add new optics variables
+! for no brc case:
+              grid%tauaer1_nobrc,grid%tauaer2_nobrc,grid%tauaer3_nobrc,grid%tauaer4_nobrc,  &
+              grid%extaer1_nobrc,grid%extaer2_nobrc,grid%extaer3_nobrc,grid%extaer4_nobrc,  &
+              grid%gaer1_nobrc,grid%gaer2_nobrc,grid%gaer3_nobrc,grid%gaer4_nobrc,          &
+              grid%waer1_nobrc,grid%waer2_nobrc,grid%waer3_nobrc,grid%waer4_nobrc,          &
+              grid%bscoef1_nobrc,grid%bscoef2_nobrc,grid%bscoef3_nobrc,grid%bscoef4_nobrc,  &
+              grid%l2aer_nobrc,grid%l3aer_nobrc,grid%l4aer_nobrc,grid%l5aer_nobrc,grid%l6aer_nobrc,grid%l7aer_nobrc, &
+              grid%extaerlw1_nobrc,grid%extaerlw2_nobrc,grid%extaerlw3_nobrc,grid%extaerlw4_nobrc, &
+              grid%extaerlw5_nobrc,grid%extaerlw6_nobrc,grid%extaerlw7_nobrc,grid%extaerlw8_nobrc, &
+              grid%extaerlw9_nobrc,grid%extaerlw10_nobrc,grid%extaerlw11_nobrc,grid%extaerlw12_nobrc, &
+              grid%extaerlw13_nobrc,grid%extaerlw14_nobrc,grid%extaerlw15_nobrc,grid%extaerlw16_nobrc, &
+              grid%tauaerlw1_nobrc,grid%tauaerlw2_nobrc,grid%tauaerlw3_nobrc,grid%tauaerlw4_nobrc,&
+              grid%tauaerlw5_nobrc,grid%tauaerlw6_nobrc,grid%tauaerlw7_nobrc,grid%tauaerlw8_nobrc,&
+              grid%tauaerlw9_nobrc,grid%tauaerlw10_nobrc,grid%tauaerlw11_nobrc,grid%tauaerlw12_nobrc,  &
+              grid%tauaerlw13_nobrc,grid%tauaerlw14_nobrc,grid%tauaerlw15_nobrc,grid%tauaerlw16_nobrc, &
+! for no BC case:
+              grid%tauaer1_nobc,grid%tauaer2_nobc,grid%tauaer3_nobc,grid%tauaer4_nobc,  &
+              grid%extaer1_nobc,grid%extaer2_nobc,grid%extaer3_nobc,grid%extaer4_nobc,  &
+              grid%gaer1_nobc,grid%gaer2_nobc,grid%gaer3_nobc,grid%gaer4_nobc,          &
+              grid%waer1_nobc,grid%waer2_nobc,grid%waer3_nobc,grid%waer4_nobc,          &
+              grid%bscoef1_nobc,grid%bscoef2_nobc,grid%bscoef3_nobc,grid%bscoef4_nobc,  &
+              grid%l2aer_nobc,grid%l3aer_nobc,grid%l4aer_nobc,grid%l5aer_nobc,grid%l6aer_nobc,grid%l7aer_nobc, &
+              grid%extaerlw1_nobc,grid%extaerlw2_nobc,grid%extaerlw3_nobc,grid%extaerlw4_nobc, &
+              grid%extaerlw5_nobc,grid%extaerlw6_nobc,grid%extaerlw7_nobc,grid%extaerlw8_nobc, &
+              grid%extaerlw9_nobc,grid%extaerlw10_nobc,grid%extaerlw11_nobc,grid%extaerlw12_nobc, &
+              grid%extaerlw13_nobc,grid%extaerlw14_nobc,grid%extaerlw15_nobc,grid%extaerlw16_nobc, &
+              grid%tauaerlw1_nobc,grid%tauaerlw2_nobc,grid%tauaerlw3_nobc,grid%tauaerlw4_nobc,&
+              grid%tauaerlw5_nobc,grid%tauaerlw6_nobc,grid%tauaerlw7_nobc,grid%tauaerlw8_nobc,&
+              grid%tauaerlw9_nobc,grid%tauaerlw10_nobc,grid%tauaerlw11_nobc,grid%tauaerlw12_nobc,  &
+              grid%tauaerlw13_nobc,grid%tauaerlw14_nobc,grid%tauaerlw15_nobc,grid%tauaerlw16_nobc, &
+! for no dust case:
+              grid%tauaer1_nodust,grid%tauaer2_nodust,grid%tauaer3_nodust,grid%tauaer4_nodust,  &
+              grid%extaer1_nodust,grid%extaer2_nodust,grid%extaer3_nodust,grid%extaer4_nodust,  &
+              grid%gaer1_nodust,grid%gaer2_nodust,grid%gaer3_nodust,grid%gaer4_nodust,          &
+              grid%waer1_nodust,grid%waer2_nodust,grid%waer3_nodust,grid%waer4_nodust,          &
+              grid%bscoef1_nodust,grid%bscoef2_nodust,grid%bscoef3_nodust,grid%bscoef4_nodust,  &
+              grid%l2aer_nodust,grid%l3aer_nodust,grid%l4aer_nodust,grid%l5aer_nodust,grid%l6aer_nodust,grid%l7aer_nodust,&
+              grid%extaerlw1_nodust,grid%extaerlw2_nodust,grid%extaerlw3_nodust,grid%extaerlw4_nodust, &
+              grid%extaerlw5_nodust,grid%extaerlw6_nodust,grid%extaerlw7_nodust,grid%extaerlw8_nodust, &
+              grid%extaerlw9_nodust,grid%extaerlw10_nodust,grid%extaerlw11_nodust,grid%extaerlw12_nodust, &
+              grid%extaerlw13_nodust,grid%extaerlw14_nodust,grid%extaerlw15_nodust,grid%extaerlw16_nodust, &
+              grid%tauaerlw1_nodust,grid%tauaerlw2_nodust,grid%tauaerlw3_nodust,grid%tauaerlw4_nodust,&
+              grid%tauaerlw5_nodust,grid%tauaerlw6_nodust,grid%tauaerlw7_nodust,grid%tauaerlw8_nodust,&
+              grid%tauaerlw9_nodust,grid%tauaerlw10_nodust,grid%tauaerlw11_nodust,grid%tauaerlw12_nodust,  &
+              grid%tauaerlw13_nodust,grid%tauaerlw14_nodust,grid%tauaerlw15_nodust,grid%tauaerlw16_nodust, &
+! cenlin_DRF end 
               ids,ide, jds,jde, kds,kde,                                              &
               ims,ime, jms,jme, kms,kme,                                              &
               its,ite, jts,jte, kts,kte)

@@ -383,6 +383,60 @@ BENCH_START(rad_driver_tim)
      &        ,TAUAERlw13 =grid%tauaerlw13, TAUAERlw14=grid%tauaerlw14    & 
      &        ,TAUAERlw15 =grid%tauaerlw15, TAUAERlw16=grid%tauaerlw16   & 
      &        ,progn=config_flags%progn                                            &
+! cenlin_DRF: add new optics variables to compute aerosol DRF
+! for no brc
+     &        ,TAUAER300_nobrc=grid%tauaer1_nobrc, TAUAER400_nobrc=grid%tauaer2_nobrc &
+     &        ,TAUAER600_nobrc=grid%tauaer3_nobrc, TAUAER999_nobrc=grid%tauaer4_nobrc &
+     &        ,GAER300_nobrc=grid%gaer1_nobrc, GAER400_nobrc=grid%gaer2_nobrc &
+     &        ,GAER600_nobrc=grid%gaer3_nobrc, GAER999_nobrc=grid%gaer4_nobrc &
+     &        ,WAER300_nobrc=grid%waer1_nobrc, WAER400_nobrc=grid%waer2_nobrc &
+     &        ,WAER600_nobrc=grid%waer3_nobrc, WAER999_nobrc=grid%waer4_nobrc &
+     &        ,TAUAERlw1_nobrc  =grid%tauaerlw1_nobrc,  TAUAERlw2_nobrc=grid%tauaerlw2_nobrc    &
+     &        ,TAUAERlw3_nobrc  =grid%tauaerlw3_nobrc,  TAUAERlw4_nobrc=grid%tauaerlw4_nobrc    &
+     &        ,TAUAERlw5_nobrc  =grid%tauaerlw5_nobrc,  TAUAERlw6_nobrc=grid%tauaerlw6_nobrc    &
+     &        ,TAUAERlw7_nobrc  =grid%tauaerlw7_nobrc,  TAUAERlw8_nobrc=grid%tauaerlw8_nobrc    &
+     &        ,TAUAERlw9_nobrc  =grid%tauaerlw9_nobrc,  TAUAERlw10_nobrc=grid%tauaerlw10_nobrc    &
+     &        ,TAUAERlw11_nobrc =grid%tauaerlw11_nobrc, TAUAERlw12_nobrc=grid%tauaerlw12_nobrc    &
+     &        ,TAUAERlw13_nobrc =grid%tauaerlw13_nobrc, TAUAERlw14_nobrc=grid%tauaerlw14_nobrc    &
+     &        ,TAUAERlw15_nobrc =grid%tauaerlw15_nobrc, TAUAERlw16_nobrc=grid%tauaerlw16_nobrc   &
+! for no BC
+     &        ,TAUAER300_nobc=grid%tauaer1_nobc, TAUAER400_nobc=grid%tauaer2_nobc & 
+     &        ,TAUAER600_nobc=grid%tauaer3_nobc, TAUAER999_nobc=grid%tauaer4_nobc & 
+     &        ,GAER300_nobc=grid%gaer1_nobc, GAER400_nobc=grid%gaer2_nobc &
+     &        ,GAER600_nobc=grid%gaer3_nobc, GAER999_nobc=grid%gaer4_nobc & 
+     &        ,WAER300_nobc=grid%waer1_nobc, WAER400_nobc=grid%waer2_nobc & 
+     &        ,WAER600_nobc=grid%waer3_nobc, WAER999_nobc=grid%waer4_nobc & 
+     &        ,TAUAERlw1_nobc  =grid%tauaerlw1_nobc,  TAUAERlw2_nobc=grid%tauaerlw2_nobc    &
+     &        ,TAUAERlw3_nobc  =grid%tauaerlw3_nobc,  TAUAERlw4_nobc=grid%tauaerlw4_nobc    &
+     &        ,TAUAERlw5_nobc  =grid%tauaerlw5_nobc,  TAUAERlw6_nobc=grid%tauaerlw6_nobc    &
+     &        ,TAUAERlw7_nobc  =grid%tauaerlw7_nobc,  TAUAERlw8_nobc=grid%tauaerlw8_nobc    &
+     &        ,TAUAERlw9_nobc  =grid%tauaerlw9_nobc,  TAUAERlw10_nobc=grid%tauaerlw10_nobc    &
+     &        ,TAUAERlw11_nobc =grid%tauaerlw11_nobc, TAUAERlw12_nobc=grid%tauaerlw12_nobc    &
+     &        ,TAUAERlw13_nobc =grid%tauaerlw13_nobc, TAUAERlw14_nobc=grid%tauaerlw14_nobc    &
+     &        ,TAUAERlw15_nobc =grid%tauaerlw15_nobc, TAUAERlw16_nobc=grid%tauaerlw16_nobc   &
+! for no dust
+     &        ,TAUAER300_nodust=grid%tauaer1_nodust, TAUAER400_nodust=grid%tauaer2_nodust & 
+     &        ,TAUAER600_nodust=grid%tauaer3_nodust, TAUAER999_nodust=grid%tauaer4_nodust & 
+     &        ,GAER300_nodust=grid%gaer1_nodust, GAER400_nodust=grid%gaer2_nodust &
+     &        ,GAER600_nodust=grid%gaer3_nodust, GAER999_nodust=grid%gaer4_nodust & 
+     &        ,WAER300_nodust=grid%waer1_nodust, WAER400_nodust=grid%waer2_nodust & 
+     &        ,WAER600_nodust=grid%waer3_nodust, WAER999_nodust=grid%waer4_nodust & 
+     &        ,TAUAERlw1_nodust  =grid%tauaerlw1_nodust,  TAUAERlw2_nodust=grid%tauaerlw2_nodust    &
+     &        ,TAUAERlw3_nodust  =grid%tauaerlw3_nodust,  TAUAERlw4_nodust=grid%tauaerlw4_nodust    &
+     &        ,TAUAERlw5_nodust  =grid%tauaerlw5_nodust,  TAUAERlw6_nodust=grid%tauaerlw6_nodust    &
+     &        ,TAUAERlw7_nodust  =grid%tauaerlw7_nodust,  TAUAERlw8_nodust=grid%tauaerlw8_nodust    &
+     &        ,TAUAERlw9_nodust  =grid%tauaerlw9_nodust,  TAUAERlw10_nodust=grid%tauaerlw10_nodust    &
+     &        ,TAUAERlw11_nodust =grid%tauaerlw11_nodust, TAUAERlw12_nodust=grid%tauaerlw12_nodust    &
+     &        ,TAUAERlw13_nodust =grid%tauaerlw13_nodust, TAUAERlw14_nodust=grid%tauaerlw14_nodust    &
+     &        ,TAUAERlw15_nodust =grid%tauaerlw15_nodust, TAUAERlw16_nodust=grid%tauaerlw16_nodust   &
+! for DRF output
+     &        ,DRFTOASW_brc=grid%DRFTOASW_brc,DRFTOASW_bc=grid%DRFTOASW_bc,DRFTOASW_dust=grid%DRFTOASW_dust &
+     &        ,DRFSFCSW_brc=grid%DRFSFCSW_brc,DRFSFCSW_bc=grid%DRFSFCSW_bc,DRFSFCSW_dust=grid%DRFSFCSW_dust &
+     &        ,HEATRATESW_brc=grid%HEATRATESW_brc,HEATRATESW_bc=grid%HEATRATESW_bc,HEATRATESW_dust=grid%HEATRATESW_dust &
+     &        ,DRFTOALW_brc=grid%DRFTOALW_brc,DRFTOALW_bc=grid%DRFTOALW_bc,DRFTOALW_dust=grid%DRFTOALW_dust &
+     &        ,DRFSFCLW_brc=grid%DRFSFCLW_brc,DRFSFCLW_bc=grid%DRFSFCLW_bc,DRFSFCLW_dust=grid%DRFSFCLW_dust &
+     &        ,HEATRATELW_brc=grid%HEATRATELW_brc,HEATRATELW_bc=grid%HEATRATELW_bc,HEATRATELW_dust=grid%HEATRATELW_dust &
+! cenlin_DRF end
 #endif
      &         ,slope_rad=config_flags%slope_rad,topo_shading=config_flags%topo_shading     &
      &         ,shadowmask=grid%shadowmask,ht=grid%ht,dx=grid%dx,dy=grid%dy &           

@@ -122,6 +122,54 @@ CONTAINS
               ,TAUAERlw13, TAUAERlw14   &
               ,TAUAERlw15, TAUAERlw16  &
               ,progn                                            &
+! cenlin_DRF: add new optics variables to compute aerosol DRF
+! for no brc
+              ,TAUAER300_nobrc, TAUAER400_nobrc & 
+              ,TAUAER600_nobrc, TAUAER999_nobrc &
+              ,GAER300_nobrc, GAER400_nobrc, GAER600_nobrc, GAER999_nobrc &
+              ,WAER300_nobrc, WAER400_nobrc, WAER600_nobrc, WAER999_nobrc &
+              ,TAUAERlw1_nobrc,  TAUAERlw2_nobrc  &
+              ,TAUAERlw3_nobrc,  TAUAERlw4_nobrc  &
+              ,TAUAERlw5_nobrc,  TAUAERlw6_nobrc  &
+              ,TAUAERlw7_nobrc,  TAUAERlw8_nobrc  &
+              ,TAUAERlw9_nobrc,  TAUAERlw10_nobrc   &
+              ,TAUAERlw11_nobrc, TAUAERlw12_nobrc   &
+              ,TAUAERlw13_nobrc, TAUAERlw14_nobrc   &
+              ,TAUAERlw15_nobrc, TAUAERlw16_nobrc  &
+! for no BC
+              ,TAUAER300_nobc, TAUAER400_nobc &
+              ,TAUAER600_nobc, TAUAER999_nobc &
+              ,GAER300_nobc, GAER400_nobc, GAER600_nobc, GAER999_nobc &
+              ,WAER300_nobc, WAER400_nobc, WAER600_nobc, WAER999_nobc &
+              ,TAUAERlw1_nobc,  TAUAERlw2_nobc  &
+              ,TAUAERlw3_nobc,  TAUAERlw4_nobc  &
+              ,TAUAERlw5_nobc,  TAUAERlw6_nobc  &
+              ,TAUAERlw7_nobc,  TAUAERlw8_nobc  &
+              ,TAUAERlw9_nobc,  TAUAERlw10_nobc   &
+              ,TAUAERlw11_nobc, TAUAERlw12_nobc   &
+              ,TAUAERlw13_nobc, TAUAERlw14_nobc   &
+              ,TAUAERlw15_nobc, TAUAERlw16_nobc  &
+! for no dust
+              ,TAUAER300_nodust, TAUAER400_nodust &
+              ,TAUAER600_nodust, TAUAER999_nodust &
+              ,GAER300_nodust, GAER400_nodust, GAER600_nodust, GAER999_nodust &
+              ,WAER300_nodust, WAER400_nodust, WAER600_nodust, WAER999_nodust & 
+              ,TAUAERlw1_nodust,  TAUAERlw2_nodust  &
+              ,TAUAERlw3_nodust,  TAUAERlw4_nodust  &
+              ,TAUAERlw5_nodust,  TAUAERlw6_nodust  &
+              ,TAUAERlw7_nodust,  TAUAERlw8_nodust  &
+              ,TAUAERlw9_nodust,  TAUAERlw10_nodust   &
+              ,TAUAERlw11_nodust, TAUAERlw12_nodust   &
+              ,TAUAERlw13_nodust, TAUAERlw14_nodust   &
+              ,TAUAERlw15_nodust, TAUAERlw16_nodust  &
+! for DRF output
+              ,DRFTOASW_brc,DRFTOASW_bc,DRFTOASW_dust &
+              ,DRFSFCSW_brc,DRFSFCSW_bc,DRFSFCSW_dust &
+              ,HEATRATESW_brc,HEATRATESW_bc,HEATRATESW_dust &
+              ,DRFTOALW_brc,DRFTOALW_bc,DRFTOALW_dust &
+              ,DRFSFCLW_brc,DRFSFCLW_bc,DRFSFCLW_dust &
+              ,HEATRATELW_brc,HEATRATELW_bc,HEATRATELW_dust &
+! cenlin_DRF end
               ,slope_rad,topo_shading     &
               ,shadowmask,ht,dx,dy                 &
               ,dxkm                                                       &
@@ -460,6 +508,38 @@ CONTAINS
                          tauaerlw5,tauaerlw6,tauaerlw7,tauaerlw8, & ! czhao 
                          tauaerlw9,tauaerlw10,tauaerlw11,tauaerlw12, & ! czhao 
                          tauaerlw13,tauaerlw14,tauaerlw15,tauaerlw16
+! cenlin_DRF: add new optics variables to compute aerosol DRF
+! for no BrC
+   REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), OPTIONAL , INTENT(IN ) :: &
+         tauaer300_nobrc,tauaer400_nobrc,tauaer600_nobrc,tauaer999_nobrc, &
+         gaer300_nobrc,gaer400_nobrc,gaer600_nobrc,gaer999_nobrc, &
+         waer300_nobrc,waer400_nobrc,waer600_nobrc,waer999_nobrc
+   REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), OPTIONAL , INTENT(IN ) :: &
+          tauaerlw1_nobrc,tauaerlw2_nobrc,tauaerlw3_nobrc,tauaerlw4_nobrc, &
+          tauaerlw5_nobrc,tauaerlw6_nobrc,tauaerlw7_nobrc,tauaerlw8_nobrc, &
+          tauaerlw9_nobrc,tauaerlw10_nobrc,tauaerlw11_nobrc,tauaerlw12_nobrc, &
+          tauaerlw13_nobrc,tauaerlw14_nobrc,tauaerlw15_nobrc,tauaerlw16_nobrc
+! for no BC
+   REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), OPTIONAL , INTENT(IN ) :: &
+         tauaer300_nobc,tauaer400_nobc,tauaer600_nobc,tauaer999_nobc, &
+         gaer300_nobc,gaer400_nobc,gaer600_nobc,gaer999_nobc, &
+         waer300_nobc,waer400_nobc,waer600_nobc,waer999_nobc
+   REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), OPTIONAL , INTENT(IN ) :: & 
+          tauaerlw1_nobc,tauaerlw2_nobc,tauaerlw3_nobc,tauaerlw4_nobc, &
+          tauaerlw5_nobc,tauaerlw6_nobc,tauaerlw7_nobc,tauaerlw8_nobc, &
+          tauaerlw9_nobc,tauaerlw10_nobc,tauaerlw11_nobc,tauaerlw12_nobc, &
+          tauaerlw13_nobc,tauaerlw14_nobc,tauaerlw15_nobc,tauaerlw16_nobc
+! for no dust
+   REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), OPTIONAL , INTENT(IN ) :: &
+         tauaer300_nodust,tauaer400_nodust,tauaer600_nodust,tauaer999_nodust, &
+         gaer300_nodust,gaer400_nodust,gaer600_nodust,gaer999_nodust, &
+         waer300_nodust,waer400_nodust,waer600_nodust,waer999_nodust
+   REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), OPTIONAL , INTENT(IN ) :: & 
+          tauaerlw1_nodust,tauaerlw2_nodust,tauaerlw3_nodust,tauaerlw4_nodust, &
+          tauaerlw5_nodust,tauaerlw6_nodust,tauaerlw7_nodust,tauaerlw8_nodust, &
+          tauaerlw9_nodust,tauaerlw10_nodust,tauaerlw11_nodust,tauaerlw12_nodust, &
+          tauaerlw13_nodust,tauaerlw14_nodust,tauaerlw15_nodust,tauaerlw16_nodust
+! cenlin_DRF end
 
    INTEGER, INTENT(IN) :: icloud_cu
 
@@ -480,6 +560,17 @@ CONTAINS
          INTENT(INOUT)  ::                              RTHRATEN, &
                                                       RTHRATENLW, &
                                                       RTHRATENSW
+! cenlin_DRF: add output variables
+   REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), OPTIONAL,INTENT(INOUT) :: &
+                  HEATRATESW_brc, HEATRATESW_bc, HEATRATESW_dust, &
+                  HEATRATELW_brc, HEATRATELW_bc, HEATRATELW_dust
+                          
+   REAL, DIMENSION( ims:ime, jms:jme ), OPTIONAL, INTENT(INOUT) ::&
+                          DRFTOASW_brc, DRFTOASW_bc, DRFTOASW_dust,&
+                          DRFSFCSW_brc, DRFSFCSW_bc, DRFSFCSW_dust,&
+                          DRFTOALW_brc, DRFTOALW_bc, DRFTOALW_dust,&
+                          DRFSFCLW_brc, DRFSFCLW_bc, DRFSFCLW_dust
+! cenlin_DRF end
 
 !  REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), OPTIONAL ,       &
 !        INTENT(INOUT)  ::                                  SWUP, &
@@ -715,6 +806,49 @@ CONTAINS
    REAL    ::    cldji,cldlji
 !ckay
    REAL, DIMENSION( ims:ime, kms:kme, jms:jme ) ::    cldfra_cu
+
+!----- cenlin_DRF add local variables for aerosol DRF
+   REAL, DIMENSION( ims:ime, kms:kme, jms:jme ) ::  &
+         RTHRATENSW_nobrc, RTHRATENSW_nobc, RTHRATENSW_nodust, &
+         RTHRATEN_nobrc, RTHRATEN_nobc, RTHRATEN_nodust
+
+   REAL, DIMENSION( ims:ime, jms:jme ) ::   &
+         SWUPT_nobrc, SWUPTC_nobrc, SWDNT_nobrc, SWDNTC_nobrc,   &
+         SWUPB_nobrc, SWUPBC_nobrc, SWDNB_nobrc, SWDNBC_nobrc,   &
+         SWUPT_nobc, SWUPTC_nobc, SWDNT_nobc, SWDNTC_nobc,   &
+         SWUPB_nobc, SWUPBC_nobc, SWDNB_nobc, SWDNBC_nobc,   &
+         SWUPT_nodust, SWUPTC_nodust, SWDNT_nodust, SWDNTC_nodust,   &
+         SWUPB_nodust, SWUPBC_nodust, SWDNB_nodust, SWDNBC_nodust,   &
+         SWCF_nobrc, SWCF_nobc, SWCF_nodust, &
+         GSW_nobrc, GSW_nobc, GSW_nodust, &
+         COSZR_nobrc, COSZR_nobc, COSZR_nodust, &
+         swvisdir_nobrc, swvisdir_nobc, swvisdir_nodust, &
+         swvisdif_nobrc, swvisdif_nobc, swvisdif_nodust, &
+         swnirdir_nobrc, swnirdir_nobc, swnirdir_nodust, &
+         swnirdif_nobrc, swnirdif_nobc, swnirdif_nodust, &
+         swddir_nobrc, swddir_nobc, swddir_nodust, &
+         swddni_nobrc, swddni_nobc, swddni_nodust, &
+         swddif_nobrc, swddif_nobc, swddif_nodust, &
+         LWUPT_nobrc, LWUPTC_nobrc, LWDNT_nobrc, LWDNTC_nobrc,   &
+         LWUPB_nobrc, LWUPBC_nobrc, LWDNB_nobrc, LWDNBC_nobrc,   &
+         LWUPT_nobc, LWUPTC_nobc, LWDNT_nobc, LWDNTC_nobc,   &
+         LWUPB_nobc, LWUPBC_nobc, LWDNB_nobc, LWDNBC_nobc,   &
+         LWUPT_nodust, LWUPTC_nodust, LWDNT_nodust, LWDNTC_nodust,   &
+         LWUPB_nodust, LWUPBC_nodust, LWDNB_nodust, LWDNBC_nodust,   &
+         LWCF_nobrc, LWCF_nobc, LWCF_nodust, &
+         GLW_nobrc, GLW_nobc, GLW_nodust, &
+         RLWTOA_nobrc,RLWTOA_nobc,RLWTOA_nodust
+
+   REAL, DIMENSION( ims:ime, kms:kme+2, jms:jme ) ::     &
+         SWUPFLX_nobrc, SWUPFLXC_nobrc, SWDNFLX_nobrc, SWDNFLXC_nobrc, &
+         SWUPFLX_nobc, SWUPFLXC_nobc, SWDNFLX_nobc, SWDNFLXC_nobc, &
+         SWUPFLX_nodust, SWUPFLXC_nodust, SWDNFLX_nodust, SWDNFLXC_nodust
+         LWUPFLX_nobrc, LWUPFLXC_nobrc, LWDNFLX_nobrc, LWDNFLXC_nobrc, &
+         LWUPFLX_nobc, LWUPFLXC_nobc, LWDNFLX_nobc, LWDNFLXC_nobc, &
+         LWUPFLX_nodust, LWUPFLXC_nodust, LWDNFLX_nodust, LWDNFLXC_nodust
+
+!---- cenlin_DRF end
+
 !------------------------------------------------------------------
 ! solar related variables are added to declaration
 !-------------------------------------------------
@@ -1517,6 +1651,66 @@ CONTAINS
              ENDIF
 
         CASE (RRTMG_LWSCHEME)
+! cenlin_DRF add initialization for computing aerosol DRF below
+             DRFTOALW_brc(its:ite,jts:jte) = 0.0
+             DRFTOALW_bc(its:ite,jts:jte) = 0.0
+             DRFTOALW_dust(its:ite,jts:jte) = 0.0
+             DRFSFCLW_brc(its:ite,jts:jte) = 0.0
+             DRFSFCLW_bc(its:ite,jts:jte) = 0.0
+             DRFSFCLW_dust(its:ite,jts:jte) = 0.0
+             HEATRATELW_brc(its:ite,kts:kte,jts:jte) = 0.0
+             HEATRATELW_bc(its:ite,kts:kte,jts:jte) = 0.0
+             HEATRATELW_dust(its:ite,kts:kte,jts:jte)= 0.0
+             RTHRATEN_nobrc(its:ite,kts:kte,jts:jte)=RTHRATEN(its:ite,kts:kte,jts:jte)
+             RTHRATEN_nobc(its:ite,kts:kte,jts:jte)=RTHRATEN(its:ite,kts:kte,jts:jte)
+             RTHRATEN_nodust(its:ite,kts:kte,jts:jte)=RTHRATEN(its:ite,kts:kte,jts:jte)
+             LWUPT_nobrc(its:ite,jts:jte) = LWUPT(its:ite,jts:jte)
+             LWUPT_nobc(its:ite,jts:jte) = LWUPT(its:ite,jts:jte)
+             LWUPT_nodust(its:ite,jts:jte) = LWUPT(its:ite,jts:jte)
+             LWUPTC_nobrc(its:ite,jts:jte) = LWUPTC(its:ite,jts:jte)
+             LWUPTC_nobc(its:ite,jts:jte) = LWUPTC(its:ite,jts:jte)
+             LWUPTC_nodust(its:ite,jts:jte) = LWUPTC(its:ite,jts:jte)
+             LWDNT_nobrc(its:ite,jts:jte) = LWDNT(its:ite,jts:jte)
+             LWDNT_nobc(its:ite,jts:jte) = LWDNT(its:ite,jts:jte)
+             LWDNT_nodust(its:ite,jts:jte) =  LWDNT(its:ite,jts:jte)
+             LWDNTC_nobrc(its:ite,jts:jte) = LWDNTC(its:ite,jts:jte)
+             LWDNTC_nobc(its:ite,jts:jte) = LWDNTC(its:ite,jts:jte)
+             LWDNTC_nodust(its:ite,jts:jte) =  LWDNTC(its:ite,jts:jte)
+             LWUPB_nobrc(its:ite,jts:jte) = LWUPB(its:ite,jts:jte)
+             LWUPB_nobc(its:ite,jts:jte) = LWUPB(its:ite,jts:jte)
+             LWUPB_nodust(its:ite,jts:jte) = LWUPB(its:ite,jts:jte)
+             LWUPBC_nobrc(its:ite,jts:jte) = LWUPBC(its:ite,jts:jte)
+             LWUPBC_nobc(its:ite,jts:jte) = LWUPBC(its:ite,jts:jte)
+             LWUPBC_nodust(its:ite,jts:jte) = LWUPBC(its:ite,jts:jte)
+             LWDNB_nobrc(its:ite,jts:jte) = LWDNB(its:ite,jts:jte)
+             LWDNB_nobc(its:ite,jts:jte) = LWDNB(its:ite,jts:jte)
+             LWDNB_nodust(its:ite,jts:jte) = LWDNB(its:ite,jts:jte)
+             LWDNBC_nobrc(its:ite,jts:jte) = LWDNBC(its:ite,jts:jte)
+             LWDNBC_nobc(its:ite,jts:jte) = LWDNBC(its:ite,jts:jte)
+             LWDNBC_nodust(its:ite,jts:jte) = LWDNBC(its:ite,jts:jte)
+             LWCF_nobrc(its:ite,jts:jte) = LWCF(its:ite,jts:jte)
+             LWCF_nobc(its:ite,jts:jte) = LWCF(its:ite,jts:jte)
+             LWCF_nodust(its:ite,jts:jte) = LWCF(its:ite,jts:jte)
+             GLW_nobrc(its:ite,jts:jte) = GLW(its:ite,jts:jte)
+             GLW_nobc(its:ite,jts:jte) = GLW(its:ite,jts:jte)
+             GLW_nodust(its:ite,jts:jte) = GLW(its:ite,jts:jte)
+             RLWTOA_nobrc(its:ite,jts:jte) = RLWTOA(its:ite,jts:jte)
+             RLWTOA_nobc(its:ite,jts:jte) = RLWTOA(its:ite,jts:jte)
+             RLWTOA_nodust(its:ite,jts:jte) = RLWTOA(its:ite,jts:jte)
+             LWUPFLX_nobrc(its:ite,kts:kte+2,jts:jte)=LWUPFLX(its:ite,kts:kte+2,jts:jte)
+             LWUPFLX_nobc(its:ite,kts:kte+2,jts:jte)=LWUPFLX(its:ite,kts:kte+2,jts:jte)
+             LWUPFLX_nodust(its:ite,kts:kte+2,jts:jte)=LWUPFLX(its:ite,kts:kte+2,jts:jte)
+             LWUPFLXC_nobrc(its:ite,kts:kte+2,jts:jte)=LWUPFLXC(its:ite,kts:kte+2,jts:jte)
+             LWUPFLXC_nobc(its:ite,kts:kte+2,jts:jte)=LWUPFLXC(its:ite,kts:kte+2,jts:jte)
+             LWUPFLXC_nodust(its:ite,kts:kte+2,jts:jte)=LWUPFLXC(its:ite,kts:kte+2,jts:jte)
+             LWDNFLX_nobrc(its:ite,kts:kte+2,jts:jte)=LWDNFLX(its:ite,kts:kte+2,jts:jte)
+             LWDNFLX_nobc(its:ite,kts:kte+2,jts:jte)=LWDNFLX(its:ite,kts:kte+2,jts:jte)
+             LWDNFLX_nodust(its:ite,kts:kte+2,jts:jte)=LWDNFLX(its:ite,kts:kte+2,jts:jte)
+             LWDNFLXC_nobrc(its:ite,kts:kte+2,jts:jte)=LWDNFLXC(its:ite,kts:kte+2,jts:jte)
+             LWDNFLXC_nobc(its:ite,kts:kte+2,jts:jte)=LWDNFLXC(its:ite,kts:kte+2,jts:jte)
+             LWDNFLXC_nodust(its:ite,kts:kte+2,jts:jte)=LWDNFLXC(its:ite,kts:kte+2,jts:jte)
+
+
              CALL wrf_debug (100, 'CALL rrtmg_lw')
              CALL RRTMG_LWRAD(                                      &
                   RTHRATENLW=RTHRATEN,                              &
@@ -1568,6 +1762,171 @@ CONTAINS
                   LWUPFLX=LWUPFLX,LWUPFLXC=LWUPFLXC,                &
                   LWDNFLX=LWDNFLX,LWDNFLXC=LWDNFLXC,                &
                   mp_physics=mp_physics                             )
+
+
+! cenlin_DRF: multiple calls for RRTMG to compute aerosol radiative effect
+! for no brc case
+             CALL wrf_debug (100, 'CALL rrtmg_lw for no brc')
+             CALL RRTMG_LWRAD(                                      &
+                  RTHRATENLW=RTHRATEN_nobrc,                        &
+                  LWUPT=LWUPT_nobrc,LWUPTC=LWUPTC_nobrc,            &
+                  LWDNT=LWDNT_nobrc,LWDNTC=LWDNTC_nobrc,            &
+                  LWUPB=LWUPB_nobrc,LWUPBC=LWUPBC_nobrc,            &
+                  LWDNB=LWDNB_nobrc,LWDNBC=LWDNBC_nobrc,            &
+                  GLW=GLW_nobrc,OLR=RLWTOA_nobrc,LWCF=LWCF_nobrc,   &
+                  EMISS=EMISS,                                      &
+                  P8W=p8w,P3D=p,PI3D=pi,DZ8W=dz8w,TSK=tsk,T3D=t,    &
+                  T8W=t8w,RHO3D=rho,R=R_d,G=G,                      &
+                  ICLOUD=icloud,WARM_RAIN=warm_rain,CLDFRA3D=CLDFRA,&
+#if (EM_CORE == 1)
+                  LRADIUS=lradius, IRADIUS=iradius,                 &
+#endif
+                  IS_CAMMGMP_USED=is_cammgmp_used,                  &
+                  F_ICE_PHY=F_ICE_PHY,F_RAIN_PHY=F_RAIN_PHY,        &
+                  XLAND=XLAND,XICE=XICE,SNOW=SNOW,                  &
+                  QV3D=QV,QC3D=QC,QR3D=QR,                          &
+                  QI3D=QI,QS3D=QS,QG3D=QG,                          &
+                  O3INPUT=O3INPUT,O33D=O3RAD,                       &
+                  F_QV=F_QV,F_QC=F_QC,F_QR=F_QR,                    &
+                  F_QI=F_QI,F_QS=F_QS,F_QG=F_QG,                    &
+                  RE_CLOUD=re_cloud,RE_ICE=re_ice,RE_SNOW=re_snow,  & 
+                  has_reqc=has_reqc,has_reqi=has_reqi,has_reqs=has_reqs, &
+#if ( WRF_CHEM == 1 )
+                  TAUAERLW1=tauaerlw1_nobrc,TAUAERLW2=tauaerlw2_nobrc,    &
+                  TAUAERLW3=tauaerlw3_nobrc,TAUAERLW4=tauaerlw4_nobrc,    &
+                  TAUAERLW5=tauaerlw5_nobrc,TAUAERLW6=tauaerlw6_nobrc,    & 
+                  TAUAERLW7=tauaerlw7_nobrc,TAUAERLW8=tauaerlw8_nobrc,    &
+                  TAUAERLW9=tauaerlw9_nobrc,TAUAERLW10=tauaerlw10_nobrc,  &
+                  TAUAERLW11=tauaerlw11_nobrc,TAUAERLW12=tauaerlw12_nobrc,&
+                  TAUAERLW13=tauaerlw13_nobrc,TAUAERLW14=tauaerlw14_nobrc,&
+                  TAUAERLW15=tauaerlw15_nobrc,TAUAERLW16=tauaerlw16_nobrc,&
+                  aer_ra_feedback=aer_ra_feedback,                  &
+                  progn=progn,                                      &
+#endif
+                  QNDROP3D=qndrop,F_QNDROP=f_qndrop,                &
+                  YR=YR,JULIAN=JULIAN,                              &
+                  IDS=ids,IDE=ide, JDS=jds,JDE=jde, KDS=kds,KDE=kde,&
+                  IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme,&
+                  ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte,&
+                  LWUPFLX=LWUPFLX_nobrc,LWUPFLXC=LWUPFLXC_nobrc,    &
+                  LWDNFLX=LWDNFLX_nobrc,LWDNFLXC=LWDNFLXC_nobrc,    &
+                  mp_physics=mp_physics                             )
+
+! for no BC case
+             CALL wrf_debug (100, 'CALL rrtmg_lw for no BC')
+             CALL RRTMG_LWRAD(                                      &
+                  RTHRATENLW=RTHRATEN_nobc,                        &
+                  LWUPT=LWUPT_nobc,LWUPTC=LWUPTC_nobc,            &
+                  LWDNT=LWDNT_nobc,LWDNTC=LWDNTC_nobc,            &
+                  LWUPB=LWUPB_nobc,LWUPBC=LWUPBC_nobc,            &
+                  LWDNB=LWDNB_nobc,LWDNBC=LWDNBC_nobc,            &
+                  GLW=GLW_nobc,OLR=RLWTOA_nobc,LWCF=LWCF_nobc,   &
+                  EMISS=EMISS,                                      &
+                  P8W=p8w,P3D=p,PI3D=pi,DZ8W=dz8w,TSK=tsk,T3D=t,    &
+                  T8W=t8w,RHO3D=rho,R=R_d,G=G,                      &
+                  ICLOUD=icloud,WARM_RAIN=warm_rain,CLDFRA3D=CLDFRA,&
+#if (EM_CORE == 1)
+                  LRADIUS=lradius, IRADIUS=iradius,                 &
+#endif
+                  IS_CAMMGMP_USED=is_cammgmp_used,                  &
+                  F_ICE_PHY=F_ICE_PHY,F_RAIN_PHY=F_RAIN_PHY,        &
+                  XLAND=XLAND,XICE=XICE,SNOW=SNOW,                  &
+                  QV3D=QV,QC3D=QC,QR3D=QR,                          &
+                  QI3D=QI,QS3D=QS,QG3D=QG,                          &
+                  O3INPUT=O3INPUT,O33D=O3RAD,                       &
+                  F_QV=F_QV,F_QC=F_QC,F_QR=F_QR,                    &
+                  F_QI=F_QI,F_QS=F_QS,F_QG=F_QG,                    &
+                  RE_CLOUD=re_cloud,RE_ICE=re_ice,RE_SNOW=re_snow,  &
+                  has_reqc=has_reqc,has_reqi=has_reqi,has_reqs=has_reqs, &
+#if ( WRF_CHEM == 1 )
+                  TAUAERLW1=tauaerlw1_nobc,TAUAERLW2=tauaerlw2_nobc,    &
+                  TAUAERLW3=tauaerlw3_nobc,TAUAERLW4=tauaerlw4_nobc,    &
+                  TAUAERLW5=tauaerlw5_nobc,TAUAERLW6=tauaerlw6_nobc,    &
+                  TAUAERLW7=tauaerlw7_nobc,TAUAERLW8=tauaerlw8_nobc,    &
+                  TAUAERLW9=tauaerlw9_nobc,TAUAERLW10=tauaerlw10_nobc,  &
+                  TAUAERLW11=tauaerlw11_nobc,TAUAERLW12=tauaerlw12_nobc,&
+                  TAUAERLW13=tauaerlw13_nobc,TAUAERLW14=tauaerlw14_nobc,&
+                  TAUAERLW15=tauaerlw15_nobc,TAUAERLW16=tauaerlw16_nobc,&
+                  aer_ra_feedback=aer_ra_feedback,                  &
+                  progn=progn,                                      &
+#endif
+                  QNDROP3D=qndrop,F_QNDROP=f_qndrop,                &
+                  YR=YR,JULIAN=JULIAN,                              &
+                  IDS=ids,IDE=ide, JDS=jds,JDE=jde, KDS=kds,KDE=kde,&
+                  IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme,&
+                  ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte,&
+                  LWUPFLX=LWUPFLX_nobc,LWUPFLXC=LWUPFLXC_nobc,    &
+                  LWDNFLX=LWDNFLX_nobc,LWDNFLXC=LWDNFLXC_nobc,    &
+                  mp_physics=mp_physics                             )
+
+! for no dust case
+             CALL wrf_debug (100, 'CALL rrtmg_lw for no dust')
+             CALL RRTMG_LWRAD(                                      &
+                  RTHRATENLW=RTHRATEN_nodust,                        &
+                  LWUPT=LWUPT_nodust,LWUPTC=LWUPTC_nodust,            &
+                  LWDNT=LWDNT_nodust,LWDNTC=LWDNTC_nodust,            &
+                  LWUPB=LWUPB_nodust,LWUPBC=LWUPBC_nodust,            &
+                  LWDNB=LWDNB_nodust,LWDNBC=LWDNBC_nodust,            &
+                  GLW=GLW_nodust,OLR=RLWTOA_nodust,LWCF=LWCF_nodust,   &
+                  EMISS=EMISS,                                      &
+                  P8W=p8w,P3D=p,PI3D=pi,DZ8W=dz8w,TSK=tsk,T3D=t,    &
+                  T8W=t8w,RHO3D=rho,R=R_d,G=G,                      &
+                  ICLOUD=icloud,WARM_RAIN=warm_rain,CLDFRA3D=CLDFRA,&
+#if (EM_CORE == 1)
+                  LRADIUS=lradius, IRADIUS=iradius,                 &
+#endif
+                  IS_CAMMGMP_USED=is_cammgmp_used,                  &
+                  F_ICE_PHY=F_ICE_PHY,F_RAIN_PHY=F_RAIN_PHY,        &
+                  XLAND=XLAND,XICE=XICE,SNOW=SNOW,                  &
+                  QV3D=QV,QC3D=QC,QR3D=QR,                          &
+                  QI3D=QI,QS3D=QS,QG3D=QG,                          &
+                  O3INPUT=O3INPUT,O33D=O3RAD,                       &
+                  F_QV=F_QV,F_QC=F_QC,F_QR=F_QR,                    &
+                  F_QI=F_QI,F_QS=F_QS,F_QG=F_QG,                    &
+                  RE_CLOUD=re_cloud,RE_ICE=re_ice,RE_SNOW=re_snow,  &
+                  has_reqc=has_reqc,has_reqi=has_reqi,has_reqs=has_reqs, &
+#if ( WRF_CHEM == 1 )
+                  TAUAERLW1=tauaerlw1_nodust,TAUAERLW2=tauaerlw2_nodust, &
+                  TAUAERLW3=tauaerlw3_nodust,TAUAERLW4=tauaerlw4_nodust, &
+                  TAUAERLW5=tauaerlw5_nodust,TAUAERLW6=tauaerlw6_nodust, &
+                  TAUAERLW7=tauaerlw7_nodust,TAUAERLW8=tauaerlw8_nodust, &
+                  TAUAERLW9=tauaerlw9_nodust,TAUAERLW10=tauaerlw10_nodust,  &
+                  TAUAERLW11=tauaerlw11_nodust,TAUAERLW12=tauaerlw12_nodust,&
+                  TAUAERLW13=tauaerlw13_nodust,TAUAERLW14=tauaerlw14_nodust,&
+                  TAUAERLW15=tauaerlw15_nodust,TAUAERLW16=tauaerlw16_nodust,&
+                  aer_ra_feedback=aer_ra_feedback,                  &
+                  progn=progn,                                      &
+#endif
+                  QNDROP3D=qndrop,F_QNDROP=f_qndrop,                &
+                  YR=YR,JULIAN=JULIAN,                              &
+                  IDS=ids,IDE=ide, JDS=jds,JDE=jde, KDS=kds,KDE=kde,&
+                  IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme,&
+                  ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte,&
+                  LWUPFLX=LWUPFLX_nodust,LWUPFLXC=LWUPFLXC_nodust,    &
+                  LWDNFLX=LWDNFLX_nodust,LWDNFLXC=LWDNFLXC_nodust,    &
+                  mp_physics=mp_physics                             )
+
+! compute radiative effects and heating rate
+             DO j=jts,jte
+             DO i=its,ite
+! aerosol DRF TOA
+               DRFTOALW_brc(i,j) = LWUPT_nobrc(i,j) - LWUPT(i,j)
+               DRFTOALW_bc(i,j) = LWUPT_nobc(i,j) - LWUPT(i,j)
+               DRFTOALW_dust(i,j) = LWUPT_nodust(i,j) - LWUPT(i,j)
+! aerosol DRF surface
+               DRFSFCLW_brc(i,j)=(LWDNB(i,j)-LWUPB(i,j))-(LWDNB_nobrc(i,j)-LWUPB_nobrc(i,j))
+               DRFSFCLW_bc(i,j)=(LWDNB(i,j)-LWUPB(i,j))-(LWDNB_nobc(i,j)-LWUPB_nobc(i,j))
+               DRFSFCLW_dust(i,j)=(LWDNB(i,j)-LWUPB(i,j))-(LWDNB_nodust(i,j)-LWUPB_nodust(i,j))
+! aerosol heating rate 3D
+             DO k=kts,kte
+               HEATRATELW_brc(i,k,j) = RTHRATEN(i,k,j) - RTHRATEN_nobrc(i,k,j)
+               HEATRATELW_bc(i,k,j) = RTHRATEN(i,k,j) - RTHRATEN_nobc(i,k,j)
+               HEATRATELW_dust(i,k,j) = RTHRATEN(i,k,j) - RTHRATEN_nodust(i,k,j)
+             ENDDO
+
+             ENDDO
+             ENDDO
+! cenlin_DRF end
 
         CASE (RRTMG_LWSCHEME_FAST)
              CALL wrf_debug (100, 'CALL rrtmg_lw')
@@ -1933,6 +2292,87 @@ CONTAINS
              ENDDO
 
         CASE (RRTMG_SWSCHEME)
+! cenlin_DRF add initialization for computing aerosol DRF below
+             DRFTOASW_brc(its:ite,jts:jte) = 0.0
+             DRFTOASW_bc(its:ite,jts:jte) = 0.0
+             DRFTOASW_dust(its:ite,jts:jte) = 0.0
+             DRFSFCSW_brc(its:ite,jts:jte) = 0.0
+             DRFSFCSW_bc(its:ite,jts:jte) = 0.0
+             DRFSFCSW_dust(its:ite,jts:jte) = 0.0
+             HEATRATESW_brc(its:ite,kts:kte,jts:jte) = 0.0
+             HEATRATESW_bc(its:ite,kts:kte,jts:jte) = 0.0
+             HEATRATESW_dust(its:ite,kts:kte,jts:jte)= 0.0
+             RTHRATENSW_nobrc(its:ite,kts:kte,jts:jte)=RTHRATENSW(its:ite,kts:kte,jts:jte)
+             RTHRATENSW_nobc(its:ite,kts:kte,jts:jte)=RTHRATENSW(its:ite,kts:kte,jts:jte)
+             RTHRATENSW_nodust(its:ite,kts:kte,jts:jte)=RTHRATENSW(its:ite,kts:kte,jts:jte)
+             SWUPT_nobrc(its:ite,jts:jte) = SWUPT(its:ite,jts:jte)
+             SWUPT_nobc(its:ite,jts:jte) = SWUPT(its:ite,jts:jte)
+             SWUPT_nodust(its:ite,jts:jte) = SWUPT(its:ite,jts:jte)
+             SWUPTC_nobrc(its:ite,jts:jte) = SWUPTC(its:ite,jts:jte)
+             SWUPTC_nobc(its:ite,jts:jte) = SWUPTC(its:ite,jts:jte)
+             SWUPTC_nodust(its:ite,jts:jte) = SWUPTC(its:ite,jts:jte)
+             SWDNT_nobrc(its:ite,jts:jte) = SWDNT(its:ite,jts:jte)
+             SWDNT_nobc(its:ite,jts:jte) = SWDNT(its:ite,jts:jte)
+             SWDNT_nodust(its:ite,jts:jte) =  SWDNT(its:ite,jts:jte)
+             SWDNTC_nobrc(its:ite,jts:jte) = SWDNTC(its:ite,jts:jte)
+             SWDNTC_nobc(its:ite,jts:jte) = SWDNTC(its:ite,jts:jte)
+             SWDNTC_nodust(its:ite,jts:jte) =  SWDNTC(its:ite,jts:jte)
+             SWUPB_nobrc(its:ite,jts:jte) = SWUPB(its:ite,jts:jte)
+             SWUPB_nobc(its:ite,jts:jte) = SWUPB(its:ite,jts:jte)
+             SWUPB_nodust(its:ite,jts:jte) = SWUPB(its:ite,jts:jte)
+             SWUPBC_nobrc(its:ite,jts:jte) = SWUPBC(its:ite,jts:jte)
+             SWUPBC_nobc(its:ite,jts:jte) = SWUPBC(its:ite,jts:jte)
+             SWUPBC_nodust(its:ite,jts:jte) = SWUPBC(its:ite,jts:jte)
+             SWDNB_nobrc(its:ite,jts:jte) = SWDNB(its:ite,jts:jte)
+             SWDNB_nobc(its:ite,jts:jte) = SWDNB(its:ite,jts:jte)
+             SWDNB_nodust(its:ite,jts:jte) = SWDNB(its:ite,jts:jte)
+             SWDNBC_nobrc(its:ite,jts:jte) = SWDNBC(its:ite,jts:jte)
+             SWDNBC_nobc(its:ite,jts:jte) = SWDNBC(its:ite,jts:jte)
+             SWDNBC_nodust(its:ite,jts:jte) = SWDNBC(its:ite,jts:jte)
+             SWCF_nobrc(its:ite,jts:jte) = SWCF(its:ite,jts:jte)
+             SWCF_nobc(its:ite,jts:jte) = SWCF(its:ite,jts:jte)
+             SWCF_nodust(its:ite,jts:jte) = SWCF(its:ite,jts:jte)
+             GSW_nobrc(its:ite,jts:jte) = GSW(its:ite,jts:jte)
+             GSW_nobc(its:ite,jts:jte) = GSW(its:ite,jts:jte)
+             GSW_nodust(its:ite,jts:jte) = GSW(its:ite,jts:jte)
+             COSZR_nobrc(its:ite,jts:jte) = COSZR(its:ite,jts:jte)
+             COSZR_nobc(its:ite,jts:jte) = COSZR(its:ite,jts:jte)
+             COSZR_nodust(its:ite,jts:jte) = COSZR(its:ite,jts:jte)
+             swvisdir_nobrc(its:ite,jts:jte) = swvisdir(its:ite,jts:jte)
+             swvisdir_nobc(its:ite,jts:jte) = swvisdir(its:ite,jts:jte)
+             swvisdir_nodust(its:ite,jts:jte) = swvisdir(its:ite,jts:jte)
+             swvisdif_nobrc(its:ite,jts:jte) = swvisdif(its:ite,jts:jte)
+             swvisdif_nobc(its:ite,jts:jte) = swvisdif(its:ite,jts:jte)
+             swvisdif_nodust(its:ite,jts:jte) = swvisdif(its:ite,jts:jte)
+             swnirdir_nobrc(its:ite,jts:jte) = swnirdir(its:ite,jts:jte)
+             swnirdir_nobc(its:ite,jts:jte) = swnirdir(its:ite,jts:jte)
+             swnirdir_nodust(its:ite,jts:jte) = swnirdir(its:ite,jts:jte)
+             swnirdif_nobrc(its:ite,jts:jte) = swnirdif(its:ite,jts:jte)
+             swnirdif_nobc(its:ite,jts:jte) = swnirdif(its:ite,jts:jte)
+             swnirdif_nodust(its:ite,jts:jte) = swnirdif(its:ite,jts:jte)
+             SWUPFLX_nobrc(its:ite,kts:kte+2,jts:jte)=SWUPFLX(its:ite,kts:kte+2,jts:jte)
+             SWUPFLX_nobc(its:ite,kts:kte+2,jts:jte)=SWUPFLX(its:ite,kts:kte+2,jts:jte)
+             SWUPFLX_nodust(its:ite,kts:kte+2,jts:jte)=SWUPFLX(its:ite,kts:kte+2,jts:jte)
+             SWUPFLXC_nobrc(its:ite,kts:kte+2,jts:jte)=SWUPFLXC(its:ite,kts:kte+2,jts:jte)
+             SWUPFLXC_nobc(its:ite,kts:kte+2,jts:jte)=SWUPFLXC(its:ite,kts:kte+2,jts:jte)
+             SWUPFLXC_nodust(its:ite,kts:kte+2,jts:jte)=SWUPFLXC(its:ite,kts:kte+2,jts:jte)
+             SWDNFLX_nobrc(its:ite,kts:kte+2,jts:jte)=SWDNFLX(its:ite,kts:kte+2,jts:jte)
+             SWDNFLX_nobc(its:ite,kts:kte+2,jts:jte)=SWDNFLX(its:ite,kts:kte+2,jts:jte)
+             SWDNFLX_nodust(its:ite,kts:kte+2,jts:jte)=SWDNFLX(its:ite,kts:kte+2,jts:jte)
+             SWDNFLXC_nobrc(its:ite,kts:kte+2,jts:jte)=SWDNFLXC(its:ite,kts:kte+2,jts:jte)
+             SWDNFLXC_nobc(its:ite,kts:kte+2,jts:jte)=SWDNFLXC(its:ite,kts:kte+2,jts:jte)
+             SWDNFLXC_nodust(its:ite,kts:kte+2,jts:jte)=SWDNFLXC(its:ite,kts:kte+2,jts:jte)
+             swddir_nobrc(its:ite,jts:jte) = swddir(its:ite,jts:jte)
+             swddir_nobc(its:ite,jts:jte) = swddir(its:ite,jts:jte)
+             swddir_nodust(its:ite,jts:jte) = swddir(its:ite,jts:jte)
+             swddni_nobrc(its:ite,jts:jte) = swddni(its:ite,jts:jte)
+             swddni_nobc(its:ite,jts:jte) = swddni(its:ite,jts:jte)
+             swddni_nodust(its:ite,jts:jte) = swddni(its:ite,jts:jte)
+             swddif_nobrc(its:ite,jts:jte) = swddif(its:ite,jts:jte)
+             swddif_nobc(its:ite,jts:jte) = swddif(its:ite,jts:jte)
+             swddif_nodust(its:ite,jts:jte) = swddif(its:ite,jts:jte)
+! cenlin_DRF end
+
              CALL wrf_debug(100, 'CALL rrtmg_sw')
              CALL RRTMG_SWRAD(                                         &
                      RTHRATENSW=RTHRATENSW,                            &
@@ -2000,6 +2440,206 @@ CONTAINS
              ENDDO
              ENDDO
              ENDDO
+
+! cenlin_DRF: multiple RRTMG_SW call to compute aerosol radiative forcing
+! radiation call for no brc case
+             CALL wrf_debug(100, 'CALL rrtmg_sw for no brc')
+             CALL RRTMG_SWRAD(                                         &
+                     RTHRATENSW=RTHRATENSW_nobrc,                      &
+                     SWUPT=SWUPT_nobrc,SWUPTC=SWUPTC_nobrc,            &
+                     SWDNT=SWDNT_nobrc,SWDNTC=SWDNTC_nobrc,            &
+                     SWUPB=SWUPB_nobrc,SWUPBC=SWUPBC_nobrc,            &
+                     SWDNB=SWDNB_nobrc,SWDNBC=SWDNBC_nobrc,            &
+                     SWCF=SWCF_nobrc,GSW=GSW_nobrc,                    &
+                     XTIME=XTIME,GMT=GMT,XLAT=XLAT,XLONG=XLONG,        &
+                     RADT=RADT,DEGRAD=DEGRAD,DECLIN=DECLIN,            &
+                     COSZR=COSZR_nobrc,JULDAY=JULDAY,SOLCON=SOLCON,    &
+                     ALBEDO=ALBEDO,t3d=t,t8w=t8w,TSK=TSK,              &
+                     p3d=p,p8w=p8w,pi3d=pi,rho3d=rho,                  &
+                     dz8w=dz8w,CLDFRA3D=CLDFRA,                        &
+#if (EM_CORE == 1)
+                     LRADIUS=lradius, IRADIUS=iradius,                 &
+#endif
+                     IS_CAMMGMP_USED=is_cammgmp_used,                  &
+                     R=R_D,G=G,              &
+                     ICLOUD=icloud,WARM_RAIN=warm_rain,                &
+                     F_ICE_PHY=F_ICE_PHY,F_RAIN_PHY=F_RAIN_PHY,        &
+                     XLAND=XLAND,XICE=XICE,SNOW=SNOW,                  &
+                     QV3D=qv,QC3D=qc,QR3D=qr,                          &
+                     QI3D=qi,QS3D=qs,QG3D=qg,                          &
+                     O3INPUT=O3INPUT,O33D=O3RAD,                       &
+                     AER_OPT=AER_OPT,aerod=aerod,no_src=no_src_types,  &
+                     ALSWVISDIR=alswvisdir ,ALSWVISDIF=alswvisdif,     & 
+                     ALSWNIRDIR=alswnirdir ,ALSWNIRDIF=alswnirdif,     &
+                     SWVISDIR=swvisdir_nobrc ,SWVISDIF=swvisdif_nobrc,   &
+                     SWNIRDIR=swnirdir_nobrc ,SWNIRDIF=swnirdif_nobrc,   &
+                     SF_SURFACE_PHYSICS=sf_surface_physics,            &
+                     F_QV=f_qv,F_QC=f_qc,F_QR=f_qr,                    &
+                     F_QI=f_qi,F_QS=f_qs,F_QG=f_qg,                    &
+                     RE_CLOUD=re_cloud,RE_ICE=re_ice,RE_SNOW=re_snow,  &
+                     has_reqc=has_reqc,has_reqi=has_reqi,has_reqs=has_reqs, & 
+#if ( WRF_CHEM == 1 )
+                     TAUAER300=tauaer300_nobrc,TAUAER400=tauaer400_nobrc,   &
+                     TAUAER600=tauaer600_nobrc,TAUAER999=tauaer999_nobrc,   &
+                     GAER300=gaer300_nobrc,GAER400=gaer400_nobrc,           &
+                     GAER600=gaer600_nobrc,GAER999=gaer999_nobrc,           &
+                     WAER300=waer300_nobrc,WAER400=waer400_nobrc,           &
+                     WAER600=waer600_nobrc,WAER999=waer999_nobrc,           &
+                     aer_ra_feedback=aer_ra_feedback,                  &
+                     progn=progn,                                      &
+#endif
+                     QNDROP3D=qndrop,F_QNDROP=f_qndrop,                &
+                     IDS=ids,IDE=ide, JDS=jds,JDE=jde, KDS=kds,KDE=kde,&
+                     IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme,&
+                     ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte,&
+                     SWUPFLX=SWUPFLX_nobrc,SWUPFLXC=SWUPFLXC_nobrc,    &
+                     SWDNFLX=SWDNFLX_nobrc,SWDNFLXC=SWDNFLXC_nobrc,    &
+                     tauaer3d_sw=tauaer_sw,                             &
+                     ssaaer3d_sw=ssaaer_sw,                             & 
+                     asyaer3d_sw=asyaer_sw,                             & 
+                     swddir=swddir_nobrc,swddni=swddni_nobrc,swddif=swddif_nobrc,  & 
+                     xcoszen=coszen,julian=julian,mp_physics=mp_physics )
+
+
+! radiation call for no BC case
+             CALL wrf_debug(100, 'CALL rrtmg_sw for no BC')
+             CALL RRTMG_SWRAD(                                         &
+                     RTHRATENSW=RTHRATENSW_nobc,                      &
+                     SWUPT=SWUPT_nobc,SWUPTC=SWUPTC_nobc,            &
+                     SWDNT=SWDNT_nobc,SWDNTC=SWDNTC_nobc,            &
+                     SWUPB=SWUPB_nobc,SWUPBC=SWUPBC_nobc,            &
+                     SWDNB=SWDNB_nobc,SWDNBC=SWDNBC_nobc,            &
+                     SWCF=SWCF_nobc,GSW=GSW_nobc,                    &
+                     XTIME=XTIME,GMT=GMT,XLAT=XLAT,XLONG=XLONG,        &
+                     RADT=RADT,DEGRAD=DEGRAD,DECLIN=DECLIN,            &
+                     COSZR=COSZR_nobc,JULDAY=JULDAY,SOLCON=SOLCON,    &
+                     ALBEDO=ALBEDO,t3d=t,t8w=t8w,TSK=TSK,              &
+                     p3d=p,p8w=p8w,pi3d=pi,rho3d=rho,                  &
+                     dz8w=dz8w,CLDFRA3D=CLDFRA,                        &
+#if (EM_CORE == 1)
+                     LRADIUS=lradius, IRADIUS=iradius,                 &
+#endif
+                     IS_CAMMGMP_USED=is_cammgmp_used,                  &
+                     R=R_D,G=G,              &
+                     ICLOUD=icloud,WARM_RAIN=warm_rain,                &
+                     F_ICE_PHY=F_ICE_PHY,F_RAIN_PHY=F_RAIN_PHY,        &
+                     XLAND=XLAND,XICE=XICE,SNOW=SNOW,                  &
+                     QV3D=qv,QC3D=qc,QR3D=qr,                          &
+                     QI3D=qi,QS3D=qs,QG3D=qg,                          &
+                     O3INPUT=O3INPUT,O33D=O3RAD,                       &
+                     AER_OPT=AER_OPT,aerod=aerod,no_src=no_src_types,  &
+                     ALSWVISDIR=alswvisdir ,ALSWVISDIF=alswvisdif,     &  
+                     ALSWNIRDIR=alswnirdir ,ALSWNIRDIF=alswnirdif,     &  
+                     SWVISDIR=swvisdir_nobc ,SWVISDIF=swvisdif_nobc,   &  
+                     SWNIRDIR=swnirdir_nobc ,SWNIRDIF=swnirdif_nobc,   &  
+                     SF_SURFACE_PHYSICS=sf_surface_physics,            &  
+                     F_QV=f_qv,F_QC=f_qc,F_QR=f_qr,                    &
+                     F_QI=f_qi,F_QS=f_qs,F_QG=f_qg,                    &
+                     RE_CLOUD=re_cloud,RE_ICE=re_ice,RE_SNOW=re_snow,  & 
+                     has_reqc=has_reqc,has_reqi=has_reqi,has_reqs=has_reqs, & 
+#if ( WRF_CHEM == 1 )
+                     TAUAER300=tauaer300_nobc,TAUAER400=tauaer400_nobc,   & 
+                     TAUAER600=tauaer600_nobc,TAUAER999=tauaer999_nobc,   & 
+                     GAER300=gaer300_nobc,GAER400=gaer400_nobc,           & 
+                     GAER600=gaer600_nobc,GAER999=gaer999_nobc,           & 
+                     WAER300=waer300_nobc,WAER400=waer400_nobc,           & 
+                     WAER600=waer600_nobc,WAER999=waer999_nobc,           & 
+                     aer_ra_feedback=aer_ra_feedback,                  &
+                     progn=progn,                                      &
+#endif
+                     QNDROP3D=qndrop,F_QNDROP=f_qndrop,                &
+                     IDS=ids,IDE=ide, JDS=jds,JDE=jde, KDS=kds,KDE=kde,&
+                     IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme,&
+                     ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte,&
+                     SWUPFLX=SWUPFLX_nobc,SWUPFLXC=SWUPFLXC_nobc,    &
+                     SWDNFLX=SWDNFLX_nobc,SWDNFLXC=SWDNFLXC_nobc,    &
+                     tauaer3d_sw=tauaer_sw,                             &
+                     ssaaer3d_sw=ssaaer_sw,                             &
+                     asyaer3d_sw=asyaer_sw,                             &
+                     swddir=swddir_nobc,swddni=swddni_nobc,swddif=swddif_nobc,  &
+                     xcoszen=coszen,julian=julian,mp_physics=mp_physics )
+
+
+! radiation call for no dust case
+             CALL wrf_debug(100, 'CALL rrtmg_sw for no dust')
+             CALL RRTMG_SWRAD(                                         &
+                     RTHRATENSW=RTHRATENSW_nodust,                      &
+                     SWUPT=SWUPT_nodust,SWUPTC=SWUPTC_nodust,            &
+                     SWDNT=SWDNT_nodust,SWDNTC=SWDNTC_nodust,            &
+                     SWUPB=SWUPB_nodust,SWUPBC=SWUPBC_nodust,            &
+                     SWDNB=SWDNB_nodust,SWDNBC=SWDNBC_nodust,            &
+                     SWCF=SWCF_nodust,GSW=GSW_nodust,                    &
+                     XTIME=XTIME,GMT=GMT,XLAT=XLAT,XLONG=XLONG,        &
+                     RADT=RADT,DEGRAD=DEGRAD,DECLIN=DECLIN,            &
+                     COSZR=COSZR_nodust,JULDAY=JULDAY,SOLCON=SOLCON,    &
+                     ALBEDO=ALBEDO,t3d=t,t8w=t8w,TSK=TSK,              &
+                     p3d=p,p8w=p8w,pi3d=pi,rho3d=rho,                  &
+                     dz8w=dz8w,CLDFRA3D=CLDFRA,                        &
+#if (EM_CORE == 1)
+                     LRADIUS=lradius, IRADIUS=iradius,                 &
+#endif
+                     IS_CAMMGMP_USED=is_cammgmp_used,                  &
+                     R=R_D,G=G,              &
+                     ICLOUD=icloud,WARM_RAIN=warm_rain,                &
+                     F_ICE_PHY=F_ICE_PHY,F_RAIN_PHY=F_RAIN_PHY,        &
+                     XLAND=XLAND,XICE=XICE,SNOW=SNOW,                  &
+                     QV3D=qv,QC3D=qc,QR3D=qr,                          &
+                     QI3D=qi,QS3D=qs,QG3D=qg,                          &
+                     O3INPUT=O3INPUT,O33D=O3RAD,                       &
+                     AER_OPT=AER_OPT,aerod=aerod,no_src=no_src_types,  &
+                     ALSWVISDIR=alswvisdir ,ALSWVISDIF=alswvisdif,     &  
+                     ALSWNIRDIR=alswnirdir ,ALSWNIRDIF=alswnirdif,     &  
+                     SWVISDIR=swvisdir_nodust ,SWVISDIF=swvisdif_nodust,    &  
+                     SWNIRDIR=swnirdir_nodust ,SWNIRDIF=swnirdif_nodust,    &  
+                     SF_SURFACE_PHYSICS=sf_surface_physics,            &  
+                     F_QV=f_qv,F_QC=f_qc,F_QR=f_qr,                    &
+                     F_QI=f_qi,F_QS=f_qs,F_QG=f_qg,                    &
+                     RE_CLOUD=re_cloud,RE_ICE=re_ice,RE_SNOW=re_snow,  & 
+                     has_reqc=has_reqc,has_reqi=has_reqi,has_reqs=has_reqs, & 
+#if ( WRF_CHEM == 1 )
+                     TAUAER300=tauaer300_nodust,TAUAER400=tauaer400_nodust,   & 
+                     TAUAER600=tauaer600_nodust,TAUAER999=tauaer999_nodust,   & 
+                     GAER300=gaer300_nodust,GAER400=gaer400_nodust,           & 
+                     GAER600=gaer600_nodust,GAER999=gaer999_nodust,           & 
+                     WAER300=waer300_nodust,WAER400=waer400_nodust,           & 
+                     WAER600=waer600_nodust,WAER999=waer999_nodust,           & 
+                     aer_ra_feedback=aer_ra_feedback,                  &
+                     progn=progn,                                      &
+#endif
+                     QNDROP3D=qndrop,F_QNDROP=f_qndrop,                &
+                     IDS=ids,IDE=ide, JDS=jds,JDE=jde, KDS=kds,KDE=kde,&
+                     IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme,&
+                     ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte,&
+                     SWUPFLX=SWUPFLX_nodust,SWUPFLXC=SWUPFLXC_nodust,    &
+                     SWDNFLX=SWDNFLX_nodust,SWDNFLXC=SWDNFLXC_nodust,    &
+                     tauaer3d_sw=tauaer_sw,                             &
+                     ssaaer3d_sw=ssaaer_sw,                             &
+                     asyaer3d_sw=asyaer_sw,                             &
+                     swddir=swddir_nodust,swddni=swddni_nodust,swddif=swddif_nodust,  &
+                     xcoszen=coszen,julian=julian,mp_physics=mp_physics )
+
+
+! compute aerosol radiative forcing and heating rate
+             DO j=jts,jte
+             DO i=its,ite
+! aerosol DRF TOA
+               DRFTOASW_brc(i,j)=(SWDNT(i,j)-SWUPT(i,j))-(SWDNT_nobrc(i,j)-SWUPT_nobrc(i,j))
+               DRFTOASW_bc(i,j)=(SWDNT(i,j)-SWUPT(i,j))-(SWDNT_nobc(i,j)-SWUPT_nobc(i,j))
+               DRFTOASW_dust(i,j)=(SWDNT(i,j)-SWUPT(i,j))-(SWDNT_nodust(i,j)-SWUPT_nodust(i,j))
+! aerosol DRF surface
+               DRFSFCSW_brc(i,j)=(SWDNB(i,j)-SWUPB(i,j))-(SWDNB_nobrc(i,j)-SWUPB_nobrc(i,j))
+               DRFSFCSW_bc(i,j)=(SWDNB(i,j)-SWUPB(i,j))-(SWDNB_nobc(i,j)-SWUPB_nobc(i,j))
+               DRFSFCSW_dust(i,j)=(SWDNB(i,j)-SWUPB(i,j))-(SWDNB_nodust(i,j)-SWUPB_nodust(i,j))
+! aerosol heating rate 3D
+             DO k=kts,kte
+               HEATRATESW_brc(i,k,j) = RTHRATENSW(i,k,j) - RTHRATENSW_nobrc(i,k,j)
+               HEATRATESW_bc(i,k,j) = RTHRATENSW(i,k,j) - RTHRATENSW_nobc(i,k,j)
+               HEATRATESW_dust(i,k,j) = RTHRATENSW(i,k,j) - RTHRATENSW_nodust(i,k,j)
+             ENDDO
+
+             ENDDO
+             ENDDO
+! cenlin_DRF end
 
         CASE (RRTMG_SWSCHEME_FAST)
              CALL wrf_debug(100, 'CALL rrtmg_sw_fast')

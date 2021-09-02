@@ -1432,6 +1432,27 @@ state    real  GSW              ij      misc        1         -      rd       "G
 state    real  GLW              ij      misc        1         -      rh3d      "GLW"                   "DOWNWARD LONG WAVE FLUX AT GROUND SURFACE"            "W m-2"      
 state    real  SWNORM           ij      misc        1         -      rd      "SWNORM"                "NORMAL SHORT WAVE FLUX AT GROUND SURFACE (SLOPE-DEPENDENT)"           "W m-2"
 state    real  diffuse_frac     ij      misc        1         -      rh3d       "DIFFUSE_FRAC"          "DIFFUSE FRACTION OF SURFACE SHORTWAVE IRRADIANCE"       ""
+# cenlin_DRF add aerosol DRF output variables
+state    real  HEATRATESW_brc    ikj     misc        1         -      rh       "HEATRATESW_brc"         "Shortwave heating rate due to brown carbon direct radiative effect"   "K s-1"
+state    real  HEATRATESW_bc     ikj     misc        1         -      rh       "HEATRATESW_bc"          "Shortwave heating rate due to black carbon direct radiative effect"   "K s-1"
+state    real  HEATRATESW_dust   ikj     misc        1         -      rh       "HEATRATESW_dus"         "Shortwave heating rate due to dust direct radiative effect"   "K s-1"
+state    real  HEATRATELW_brc    ikj     misc        1         -      rh       "HEATRATELW_brc"         "longwave heating rate due to brown carbon direct radiative effect"   "K s-1"
+state    real  HEATRATELW_bc     ikj     misc        1         -      rh       "HEATRATELW_bc"          "longwave heating rate due to black carbon direct radiative effect"   "K s-1"
+state    real  HEATRATELW_dust   ikj     misc        1         -      rh       "HEATRATELW_dus"         "longwave heating rate due to dust direct radiative effect"   "K s-1"
+state    real  DRFTOASW_brc       ij     misc        1         -      rh3      "DRFTOASW_brc"           "Shortwave TOA brown carbon direct radiative effect"           "W m-2"
+state    real  DRFTOASW_bc        ij     misc        1         -      rh3      "DRFTOASW_bc"            "Shortwave TOA black carbon direct radiative effect"           "W m-2"
+state    real  DRFTOASW_dust      ij     misc        1         -      rh3      "DRFTOASW_dust"          "Shortwave TOA dust direct radiative effect"           "W m-2"
+state    real  DRFSFCSW_brc       ij     misc        1         -      rh3      "DRFSFCSW_brc"           "Shortwave surface brown carbon direct radiative effect"           "W m-2"
+state    real  DRFSFCSW_bc        ij     misc        1         -      rh3      "DRFSFCSW_bc"            "Shortwave surface black carbon direct radiative effect"           "W m-2"
+state    real  DRFSFCSW_dust      ij     misc        1         -      rh3      "DRFSFCSW_dust"          "Shortwave surface dust direct radiative effect"           "W m-2"
+state    real  DRFTOALW_brc       ij     misc        1         -      rh3      "DRFTOALW_brc"           "longwave TOA brown carbon direct radiative effect"           "W m-2"
+state    real  DRFTOALW_bc        ij     misc        1         -      rh3      "DRFTOALW_bc"            "longwave TOA black carbon direct radiative effect"           "W m-2"
+state    real  DRFTOALW_dust      ij     misc        1         -      rh3      "DRFTOALW_dust"          "longwave TOA dust direct radiative effect"           "W m-2"
+state    real  DRFSFCLW_brc       ij     misc        1         -      rh3      "DRFSFCLW_brc"           "longwave surface brown carbon direct radiative effect"           "W m-2"
+state    real  DRFSFCLW_bc        ij     misc        1         -      rh3      "DRFSFCLW_bc"            "longwave surface black carbon direct radiative effect"           "W m-2"
+state    real  DRFSFCLW_dust      ij     misc        1         -      rh3      "DRFSFCLW_dust"          "longwave surface dust direct radiative effect"           "W m-2"
+# cenlin_DRF end
+
 # WRF-Solar
 state   real    swddir       ij     misc         1         -     rd     "SWDDIR"     "Shortwave surface downward direct irradiance" "W m-2" ""
 state   real    swddni       ij     misc         1         -     rd     "SWDDNI"     "Shortwave surface downward direct normal irradiance" "W m-2" ""

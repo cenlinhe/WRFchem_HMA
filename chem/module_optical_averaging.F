@@ -113,7 +113,7 @@
                  l2aer,l3aer,l4aer,l5aer,l6aer,l7aer,                   &
                  totoa_a01,totoa_a02,totoa_a03,totoa_a04,               &
                  totoa_a05,totoa_a06,totoa_a07,totoa_a08,               &
-                 tauaerlw,extaerlw,                                     &
+                 tauaerlw,extaerlw,aerDRF_flag,                         &  ! cenlin_DRF: add flag for different aerosol species DRF
                  ids,ide, jds,jde, kds,kde,                             &
                  ims,ime, jms,jme, kms,kme,                             &
                  its,ite, jts,jte, kts,kte                              )
@@ -132,6 +132,8 @@
    INTEGER,      INTENT(IN   ) :: nbin_o
    REAL(KIND=8), INTENT(IN   ) :: curr_secs
    REAL,         INTENT(IN   ) :: dtstep
+
+   INTEGER,      INTENT(IN   ) :: aerDRF_flag  ! cenlin_DRF: 0:all aerosols; 1:no brc; 2:no BC; 3:no dust;
 !
 ! array that holds all advected chemical species
 !
@@ -288,6 +290,7 @@
           radius_core, radius_wet, number_bin,                             &
           swrefindx,swrefindx_core,swrefindx_shell,                    &
           lwrefindx,lwrefindx_core,lwrefindx_shell,                    &
+          aerDRF_flag,        & ! cenlin_DRF: add flag for aerosol species
           ids,ide, jds,jde, kds,kde,                                   &
           ims,ime, jms,jme, kms,kme,                                   &
           its,ite, jts,jte, kts,kte                                    )
@@ -318,6 +321,7 @@
 !         lwrefindx_shell=0.0
 !         enddo
    END SELECT chem_select
+
      do jclm = jts, jte
      do iclm = its, ite
        do k = kts, kte
@@ -544,6 +548,7 @@
         radius_core,radius_wet, number_bin,                         &
         swrefindx,swrefindx_core,swrefindx_shell,               &
         lwrefindx,lwrefindx_core,lwrefindx_shell,               &
+        aerDRF_flag,        & ! cenlin_DRF: add flag for aerosol species
         ids,ide, jds,jde, kds,kde,                               &
         ims,ime, jms,jme, kms,kme,                               &
         its,ite, jts,jte, kts,kte                                )
@@ -558,6 +563,7 @@
    INTEGER, INTENT(IN   ) :: its,ite, jts,jte, kts,kte, nbin_o
    INTEGER, INTENT(IN   ) :: ims,ime, jms,jme, kms,kme
    INTEGER, INTENT(IN   ) :: ids,ide, jds,jde, kds,kde
+   INTEGER, INTENT(IN   ) :: aerDRF_flag ! cenlin_DRF: 0:all aerosols; 1:no brc; 2:no BC; 3:no dust
 
    REAL, DIMENSION( ims:ime, kms:kme, jms:jme, num_chem ),             &
          INTENT(IN ) ::  chem
@@ -891,13 +897,30 @@
           vol_ca  = mass_ca  / dens_ca
 !         mass_h2o = 0.0 ! testing purposes only
           vol_h2o = mass_h2o / dens_h2o
+
+! cenlin_DRF: add aerosol flag for each LAP
+         if (aerDRF_flag .eq. 1) then  ! option=1 for no BrC case
+            mass_brc1 = 0.0
+            mass_brc2 = 0.0
+            vol_brc1 = 0.0
+            vol_brc2 = 0.0
+         endif
+         if (aerDRF_flag .eq. 2) then  ! option=2 for no BC case
+            mass_bc = 0.0
+            vol_bc = 0.0
+         endif
+         if (aerDRF_flag .eq. 3) then  ! option=3 for no dust case
+            mass_oin = 0.0
+            vol_oin = 0.0
+         endif
+! cenlin_DRF end
+
           mass_dry_a = mass_so4 + mass_no3 + mass_nh4 + mass_oin + &
                        mass_oc  + mass_bc  + mass_na  + mass_cl  + &
                        mass_msa + mass_co3 + mass_ca + mass_aro1 + &
                        mass_aro2 + mass_alk1 + mass_ole1 +mass_api1 + &
 !jdfcz                 mass_api2 + mass_lim1 + mass_lim2 + mass_dust
                        mass_api2 + mass_lim1 + mass_lim2 + mass_brc1 + mass_brc2 ! cenlin_brc
-
           mass_wet_a = mass_dry_a + mass_h2o 
           vol_dry_a  = vol_so4  + vol_no3  + vol_nh4  + vol_oin  + &
                        vol_oc   + vol_bc   + vol_na   + vol_cl   + &
@@ -905,7 +928,6 @@
                        vol_aro2 + vol_alk1 + vol_ole1 + vol_api1 + &
 !jdfcz                 vol_api2 + vol_lim1 + vol_lim2 + vol_dust
                        vol_api2 + vol_lim1 + vol_lim2 + vol_brc1 + vol_brc2 ! cenlin_brc
-
           vol_wet_a  = vol_dry_a + vol_h2o
           vol_shell  = vol_wet_a - vol_bc
 ! jdf: Adjustment of aerosol number if it falls outside of reasonable bounds.

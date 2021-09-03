@@ -54,7 +54,7 @@ SUBROUTINE med_before_solve_io ( grid , config_flags )
 
  CALL WRFU_ClockGet( grid%domain_clock, CurrTime=currTime, StartTime=startTime )
 
- IF( (WRFU_AlarmIsRinging( grid%alarms( HISTORY_ALARM ), rc=rc ) .AND. &
+  IF( (WRFU_AlarmIsRinging( grid%alarms( HISTORY_ALARM ), rc=rc ) .AND. &
      (grid%dfi_write_dfi_history .OR. grid%dfi_stage == DFI_FST .OR. grid%dfi_opt == DFI_NODFI) )) THEN
      IF       ( ( config_flags%restart )                    .AND. &
                 ( config_flags%write_hist_at_0h_rst )       .AND. &
@@ -64,22 +64,9 @@ SUBROUTINE med_before_solve_io ( grid , config_flags )
 !      call med_boundary_out(grid,config_flags)
 #endif
 
-
        !  output history at beginning of restart if alarm is ringing
        CALL med_hist_out ( grid , HISTORY_ALARM, config_flags )
 
-! cenlin_HMA: assign accumualted output variables to 0 after each hourly output
-       grid%ACSFCRUNOFF = 0.0
-       grid%ACUDRUNOFF = 0.0
-       grid%ACSNOWFALL = 0.0
-       grid%ACSNOWMELT = 0.0
-       grid%SFCEVP = 0.0
-       grid%RAINC  = 0.0
-       grid%RAINNC = 0.0
-       grid%SNOWNC = 0.0
-       grid%GRAUPELNC = 0.0
-! cenlin HMA end     
- 
      ELSE IF  ( ( config_flags%restart )                    .AND. &
                 ( .NOT. config_flags%write_hist_at_0h_rst ) .AND. &
                 ( currTime .EQ. startTime )                       ) THEN
@@ -87,20 +74,22 @@ SUBROUTINE med_before_solve_io ( grid , config_flags )
      ELSE
        CALL med_hist_out ( grid , HISTORY_ALARM, config_flags )
 
-! cenlin_HMA: assign accumualted output variables to 0 after each hourly output
-       grid%ACSFCRUNOFF = 0.0
-       grid%ACUDRUNOFF = 0.0
-       grid%ACSNOWFALL = 0.0
-       grid%ACSNOWMELT = 0.0
-       grid%SFCEVP = 0.0
-       grid%RAINC  = 0.0
-       grid%RAINNC = 0.0
-       grid%SNOWNC = 0.0
-       grid%GRAUPELNC = 0.0
-! cenlin HMA end     
-       
      END IF
+
+! cenlin_HMA: assign accumualted output variables to 0 after each hourly output
+     grid%ACSFCRUNOFF = 0.0
+     grid%ACUDRUNOFF = 0.0
+     grid%ACSNOWFALL = 0.0
+     grid%ACSNOWMELT = 0.0
+     grid%SFCEVP = 0.0
+     grid%RAINC  = 0.0
+     grid%RAINNC = 0.0
+     grid%SNOWNC = 0.0
+     grid%GRAUPELNC = 0.0
+! cenlin HMA end     
+
      CALL WRFU_AlarmRingerOff( grid%alarms( HISTORY_ALARM ), rc=rc )
+
    ELSE IF  ( (config_flags%restart) .AND. ( currTime .EQ. startTime ) .AND. &
               ( config_flags%write_hist_at_0h_rst ) ) THEN
      !  output history at beginning of restart even if alarm is not ringing
@@ -141,15 +130,17 @@ SUBROUTINE med_before_solve_io ( grid , config_flags )
          CALL med_hist_out ( grid , ialarm, config_flags )
 
 ! cenlin_HMA: assign accumualted output variables to 0 after each hourly output
-       grid%ACSFCRUNOFF = 0.0
-       grid%ACUDRUNOFF = 0.0
-       grid%ACSNOWFALL = 0.0
-       grid%ACSNOWMELT = 0.0
-       grid%SFCEVP = 0.0
-       grid%RAINC  = 0.0
-       grid%RAINNC = 0.0
-       grid%SNOWNC = 0.0
-       grid%GRAUPELNC = 0.0
+       if ( ialarm .eq. AUXHIST3_ALARM ) then
+           grid%ACSFCRUNOFF = 0.0
+           grid%ACUDRUNOFF = 0.0
+           grid%ACSNOWFALL = 0.0
+           grid%ACSNOWMELT = 0.0
+           grid%SFCEVP = 0.0
+           grid%RAINC  = 0.0
+           grid%RAINNC = 0.0
+           grid%SNOWNC = 0.0
+           grid%GRAUPELNC = 0.0
+       endif
 ! cenlin HMA end     
 
        ENDIF

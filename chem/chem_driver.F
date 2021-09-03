@@ -1956,6 +1956,45 @@ end if !Chemistry time step check
        grid%waer2_sfc(its:ite,jts:jte) = 0.0
        grid%waer3_sfc(its:ite,jts:jte) = 0.0
        grid%waer4_sfc(its:ite,jts:jte) = 0.0
+! for no brc
+       grid%tauaer1_col_nobrc(its:ite,jts:jte) = 0.0
+       grid%tauaer2_col_nobrc(its:ite,jts:jte) = 0.0
+       grid%tauaer3_col_nobrc(its:ite,jts:jte) = 0.0
+       grid%tauaer4_col_nobrc(its:ite,jts:jte) = 0.0
+       grid%gaer1_col_nobrc(its:ite,jts:jte) = 0.0
+       grid%gaer2_col_nobrc(its:ite,jts:jte) = 0.0
+       grid%gaer3_col_nobrc(its:ite,jts:jte) = 0.0
+       grid%gaer4_col_nobrc(its:ite,jts:jte) = 0.0
+       grid%waer1_col_nobrc(its:ite,jts:jte) = 0.0
+       grid%waer2_col_nobrc(its:ite,jts:jte) = 0.0
+       grid%waer3_col_nobrc(its:ite,jts:jte) = 0.0
+       grid%waer4_col_nobrc(its:ite,jts:jte) = 0.0
+! for no BC
+       grid%tauaer1_col_nobc(its:ite,jts:jte) = 0.0
+       grid%tauaer2_col_nobc(its:ite,jts:jte) = 0.0
+       grid%tauaer3_col_nobc(its:ite,jts:jte) = 0.0
+       grid%tauaer4_col_nobc(its:ite,jts:jte) = 0.0
+       grid%gaer1_col_nobc(its:ite,jts:jte) = 0.0
+       grid%gaer2_col_nobc(its:ite,jts:jte) = 0.0
+       grid%gaer3_col_nobc(its:ite,jts:jte) = 0.0
+       grid%gaer4_col_nobc(its:ite,jts:jte) = 0.0
+       grid%waer1_col_nobc(its:ite,jts:jte) = 0.0
+       grid%waer2_col_nobc(its:ite,jts:jte) = 0.0
+       grid%waer3_col_nobc(its:ite,jts:jte) = 0.0
+       grid%waer4_col_nobc(its:ite,jts:jte) = 0.0
+! for no dust
+       grid%tauaer1_col_nodust(its:ite,jts:jte) = 0.0
+       grid%tauaer2_col_nodust(its:ite,jts:jte) = 0.0
+       grid%tauaer3_col_nodust(its:ite,jts:jte) = 0.0
+       grid%tauaer4_col_nodust(its:ite,jts:jte) = 0.0
+       grid%gaer1_col_nodust(its:ite,jts:jte) = 0.0
+       grid%gaer2_col_nodust(its:ite,jts:jte) = 0.0
+       grid%gaer3_col_nodust(its:ite,jts:jte) = 0.0
+       grid%gaer4_col_nodust(its:ite,jts:jte) = 0.0
+       grid%waer1_col_nodust(its:ite,jts:jte) = 0.0
+       grid%waer2_col_nodust(its:ite,jts:jte) = 0.0
+       grid%waer3_col_nodust(its:ite,jts:jte) = 0.0
+       grid%waer4_col_nodust(its:ite,jts:jte) = 0.0
 
 
 !!!!!!!!!!!!!!!!!!!!!!! assign values !!!!!!!!!!!!!!!!!!!!!!!
@@ -2573,6 +2612,21 @@ end if !Chemistry time step check
         grid%tauaer2_col(its:ite,jts:jte)=grid%tauaer2_col(its:ite,jts:jte)+grid%tauaer2(its:ite,k,jts:jte)
         grid%tauaer3_col(its:ite,jts:jte)=grid%tauaer3_col(its:ite,jts:jte)+grid%tauaer3(its:ite,k,jts:jte)
         grid%tauaer4_col(its:ite,jts:jte)=grid%tauaer4_col(its:ite,jts:jte)+grid%tauaer4(its:ite,k,jts:jte)
+        ! for no brc
+        grid%tauaer1_col_nobrc(its:ite,jts:jte)=grid%tauaer1_col_nobrc(its:ite,jts:jte)+grid%tauaer1_nobrc(its:ite,k,jts:jte)
+        grid%tauaer2_col_nobrc(its:ite,jts:jte)=grid%tauaer2_col_nobrc(its:ite,jts:jte)+grid%tauaer2_nobrc(its:ite,k,jts:jte)
+        grid%tauaer3_col_nobrc(its:ite,jts:jte)=grid%tauaer3_col_nobrc(its:ite,jts:jte)+grid%tauaer3_nobrc(its:ite,k,jts:jte)
+        grid%tauaer4_col_nobrc(its:ite,jts:jte)=grid%tauaer4_col_nobrc(its:ite,jts:jte)+grid%tauaer4_nobrc(its:ite,k,jts:jte)
+        ! for no BC
+        grid%tauaer1_col_nobc(its:ite,jts:jte)=grid%tauaer1_col_nobc(its:ite,jts:jte)+grid%tauaer1_nobc(its:ite,k,jts:jte)
+        grid%tauaer2_col_nobc(its:ite,jts:jte)=grid%tauaer2_col_nobc(its:ite,jts:jte)+grid%tauaer2_nobc(its:ite,k,jts:jte)
+        grid%tauaer3_col_nobc(its:ite,jts:jte)=grid%tauaer3_col_nobc(its:ite,jts:jte)+grid%tauaer3_nobc(its:ite,k,jts:jte)
+        grid%tauaer4_col_nobc(its:ite,jts:jte)=grid%tauaer4_col_nobc(its:ite,jts:jte)+grid%tauaer4_nobc(its:ite,k,jts:jte)
+        ! for no dust
+        grid%tauaer1_col_nodust(its:ite,jts:jte)=grid%tauaer1_col_nodust(its:ite,jts:jte)+grid%tauaer1_nodust(its:ite,k,jts:jte)
+        grid%tauaer2_col_nodust(its:ite,jts:jte)=grid%tauaer2_col_nodust(its:ite,jts:jte)+grid%tauaer2_nodust(its:ite,k,jts:jte)
+        grid%tauaer3_col_nodust(its:ite,jts:jte)=grid%tauaer3_col_nodust(its:ite,jts:jte)+grid%tauaer3_nodust(its:ite,k,jts:jte)
+        grid%tauaer4_col_nodust(its:ite,jts:jte)=grid%tauaer4_col_nodust(its:ite,jts:jte)+grid%tauaer4_nodust(its:ite,k,jts:jte)
         ! single-scattering albedo 
         grid%waer1_col(its:ite,jts:jte) = grid%waer1_col(its:ite,jts:jte) + &
                                           grid%waer1(its:ite,k,jts:jte) * grid%tauaer1(its:ite,k,jts:jte)
@@ -2582,6 +2636,33 @@ end if !Chemistry time step check
                                           grid%waer3(its:ite,k,jts:jte) * grid%tauaer3(its:ite,k,jts:jte)
         grid%waer4_col(its:ite,jts:jte) = grid%waer4_col(its:ite,jts:jte) + &
                                           grid%waer4(its:ite,k,jts:jte) * grid%tauaer4(its:ite,k,jts:jte)
+        ! for no brc
+        grid%waer1_col_nobrc(its:ite,jts:jte) = grid%waer1_col_nobrc(its:ite,jts:jte) + &
+                                          grid%waer1_nobrc(its:ite,k,jts:jte) * grid%tauaer1_nobrc(its:ite,k,jts:jte)
+        grid%waer2_col_nobrc(its:ite,jts:jte) = grid%waer2_col_nobrc(its:ite,jts:jte) + &
+                                          grid%waer2_nobrc(its:ite,k,jts:jte) * grid%tauaer2_nobrc(its:ite,k,jts:jte)
+        grid%waer3_col_nobrc(its:ite,jts:jte) = grid%waer3_col_nobrc(its:ite,jts:jte) + &
+                                          grid%waer3_nobrc(its:ite,k,jts:jte) * grid%tauaer3_nobrc(its:ite,k,jts:jte)
+        grid%waer4_col_nobrc(its:ite,jts:jte) = grid%waer4_col_nobrc(its:ite,jts:jte) + &
+                                          grid%waer4_nobrc(its:ite,k,jts:jte) * grid%tauaer4_nobrc(its:ite,k,jts:jte)
+        ! for no BC
+        grid%waer1_col_nobc(its:ite,jts:jte) = grid%waer1_col_nobc(its:ite,jts:jte) + &
+                                          grid%waer1_nobc(its:ite,k,jts:jte) * grid%tauaer1_nobc(its:ite,k,jts:jte)
+        grid%waer2_col_nobc(its:ite,jts:jte) = grid%waer2_col_nobc(its:ite,jts:jte) + &
+                                          grid%waer2_nobc(its:ite,k,jts:jte) * grid%tauaer2_nobc(its:ite,k,jts:jte)
+        grid%waer3_col_nobc(its:ite,jts:jte) = grid%waer3_col_nobc(its:ite,jts:jte) + &
+                                          grid%waer3_nobc(its:ite,k,jts:jte) * grid%tauaer3_nobc(its:ite,k,jts:jte)
+        grid%waer4_col_nobc(its:ite,jts:jte) = grid%waer4_col_nobc(its:ite,jts:jte) + &
+                                          grid%waer4_nobc(its:ite,k,jts:jte) * grid%tauaer4_nobc(its:ite,k,jts:jte)
+        ! for no dust
+        grid%waer1_col_nodust(its:ite,jts:jte) = grid%waer1_col_nodust(its:ite,jts:jte) + &
+                                          grid%waer1_nodust(its:ite,k,jts:jte) * grid%tauaer1_nodust(its:ite,k,jts:jte)
+        grid%waer2_col_nodust(its:ite,jts:jte) = grid%waer2_col_nodust(its:ite,jts:jte) + &
+                                          grid%waer2_nodust(its:ite,k,jts:jte) * grid%tauaer2_nodust(its:ite,k,jts:jte)
+        grid%waer3_col_nodust(its:ite,jts:jte) = grid%waer3_col_nodust(its:ite,jts:jte) + &
+                                          grid%waer3_nodust(its:ite,k,jts:jte) * grid%tauaer3_nodust(its:ite,k,jts:jte)
+        grid%waer4_col_nodust(its:ite,jts:jte) = grid%waer4_col_nodust(its:ite,jts:jte) + &
+                                          grid%waer4_nodust(its:ite,k,jts:jte) * grid%tauaer4_nodust(its:ite,k,jts:jte)
         ! absorption AOD
         grid%AAOD1_col(its:ite,jts:jte) = grid%AAOD1_col(its:ite,jts:jte) + &
                                     grid%tauaer1(its:ite,k,jts:jte) * (1 - grid%waer1(its:ite,k,jts:jte))
@@ -2600,6 +2681,34 @@ end if !Chemistry time step check
              grid%gaer3(its:ite,k,jts:jte) * grid%waer3(its:ite,k,jts:jte) * grid%tauaer3(its:ite,k,jts:jte)
         grid%gaer4_col(its:ite,jts:jte) = grid%gaer4_col(its:ite,jts:jte) + &
              grid%gaer4(its:ite,k,jts:jte) * grid%waer4(its:ite,k,jts:jte) * grid%tauaer4(its:ite,k,jts:jte)
+        ! for no brc
+        grid%gaer1_col_nobrc(its:ite,jts:jte) = grid%gaer1_col_nobrc(its:ite,jts:jte) + &
+             grid%gaer1_nobrc(its:ite,k,jts:jte) * grid%waer1_nobrc(its:ite,k,jts:jte) * grid%tauaer1_nobrc(its:ite,k,jts:jte)
+        grid%gaer2_col_nobrc(its:ite,jts:jte) = grid%gaer2_col_nobrc(its:ite,jts:jte) + &
+             grid%gaer2_nobrc(its:ite,k,jts:jte) * grid%waer2_nobrc(its:ite,k,jts:jte) * grid%tauaer2_nobrc(its:ite,k,jts:jte)
+        grid%gaer3_col_nobrc(its:ite,jts:jte) = grid%gaer3_col_nobrc(its:ite,jts:jte) + &
+             grid%gaer3_nobrc(its:ite,k,jts:jte) * grid%waer3_nobrc(its:ite,k,jts:jte) * grid%tauaer3_nobrc(its:ite,k,jts:jte)
+        grid%gaer4_col_nobrc(its:ite,jts:jte) = grid%gaer4_col_nobrc(its:ite,jts:jte) + &
+             grid%gaer4_nobrc(its:ite,k,jts:jte) * grid%waer4_nobrc(its:ite,k,jts:jte) * grid%tauaer4_nobrc(its:ite,k,jts:jte)
+        ! for no BC
+        grid%gaer1_col_nobc(its:ite,jts:jte) = grid%gaer1_col_nobc(its:ite,jts:jte) + &
+             grid%gaer1_nobc(its:ite,k,jts:jte) * grid%waer1_nobc(its:ite,k,jts:jte) * grid%tauaer1_nobc(its:ite,k,jts:jte)
+        grid%gaer2_col_nobc(its:ite,jts:jte) = grid%gaer2_col_nobc(its:ite,jts:jte) + &
+             grid%gaer2_nobc(its:ite,k,jts:jte) * grid%waer2_nobc(its:ite,k,jts:jte) * grid%tauaer2_nobc(its:ite,k,jts:jte)
+        grid%gaer3_col_nobc(its:ite,jts:jte) = grid%gaer3_col_nobc(its:ite,jts:jte) + &
+             grid%gaer3_nobc(its:ite,k,jts:jte) * grid%waer3_nobc(its:ite,k,jts:jte) * grid%tauaer3_nobc(its:ite,k,jts:jte)
+        grid%gaer4_col_nobc(its:ite,jts:jte) = grid%gaer4_col_nobc(its:ite,jts:jte) + &
+             grid%gaer4_nobc(its:ite,k,jts:jte) * grid%waer4_nobc(its:ite,k,jts:jte) * grid%tauaer4_nobc(its:ite,k,jts:jte)
+        ! for no dust
+        grid%gaer1_col_nodust(its:ite,jts:jte) = grid%gaer1_col_nodust(its:ite,jts:jte) + &
+             grid%gaer1_nodust(its:ite,k,jts:jte) * grid%waer1_nodust(its:ite,k,jts:jte) * grid%tauaer1_nodust(its:ite,k,jts:jte)
+        grid%gaer2_col_nodust(its:ite,jts:jte) = grid%gaer2_col_nodust(its:ite,jts:jte) + &
+             grid%gaer2_nodust(its:ite,k,jts:jte) * grid%waer2_nodust(its:ite,k,jts:jte) * grid%tauaer2_nodust(its:ite,k,jts:jte)
+        grid%gaer3_col_nodust(its:ite,jts:jte) = grid%gaer3_col_nodust(its:ite,jts:jte) + &
+             grid%gaer3_nodust(its:ite,k,jts:jte) * grid%waer3_nodust(its:ite,k,jts:jte) * grid%tauaer3_nodust(its:ite,k,jts:jte)
+        grid%gaer4_col_nodust(its:ite,jts:jte) = grid%gaer4_col_nodust(its:ite,jts:jte) + &
+             grid%gaer4_nodust(its:ite,k,jts:jte) * grid%waer4_nodust(its:ite,k,jts:jte) * grid%tauaer4_nodust(its:ite,k,jts:jte)
+
      end do
      grid%gaer1_col(its:ite,jts:jte) = grid%gaer1_col(its:ite,jts:jte) / grid%waer1_col(its:ite,jts:jte)
      grid%gaer2_col(its:ite,jts:jte) = grid%gaer2_col(its:ite,jts:jte) / grid%waer2_col(its:ite,jts:jte)
@@ -2610,7 +2719,35 @@ end if !Chemistry time step check
      grid%waer3_col(its:ite,jts:jte) = grid%waer3_col(its:ite,jts:jte) / grid%tauaer3_col(its:ite,jts:jte)
      grid%waer4_col(its:ite,jts:jte) = grid%waer4_col(its:ite,jts:jte) / grid%tauaer4_col(its:ite,jts:jte)
      grid%ssa_550(its:ite,jts:jte) = grid%saod_550(its:ite,jts:jte) / grid%aod_550(its:ite,jts:jte)
+     ! for no brc
+     grid%gaer1_col_nobrc(its:ite,jts:jte) = grid%gaer1_col_nobrc(its:ite,jts:jte) / grid%waer1_col_nobrc(its:ite,jts:jte)
+     grid%gaer2_col_nobrc(its:ite,jts:jte) = grid%gaer2_col_nobrc(its:ite,jts:jte) / grid%waer2_col_nobrc(its:ite,jts:jte)
+     grid%gaer3_col_nobrc(its:ite,jts:jte) = grid%gaer3_col_nobrc(its:ite,jts:jte) / grid%waer3_col_nobrc(its:ite,jts:jte)
+     grid%gaer4_col_nobrc(its:ite,jts:jte) = grid%gaer4_col_nobrc(its:ite,jts:jte) / grid%waer4_col_nobrc(its:ite,jts:jte)
+     grid%waer1_col_nobrc(its:ite,jts:jte) = grid%waer1_col_nobrc(its:ite,jts:jte) / grid%tauaer1_col_nobrc(its:ite,jts:jte)
+     grid%waer2_col_nobrc(its:ite,jts:jte) = grid%waer2_col_nobrc(its:ite,jts:jte) / grid%tauaer2_col_nobrc(its:ite,jts:jte)
+     grid%waer3_col_nobrc(its:ite,jts:jte) = grid%waer3_col_nobrc(its:ite,jts:jte) / grid%tauaer3_col_nobrc(its:ite,jts:jte)
+     grid%waer4_col_nobrc(its:ite,jts:jte) = grid%waer4_col_nobrc(its:ite,jts:jte) / grid%tauaer4_col_nobrc(its:ite,jts:jte)
+     ! for no BC
+     grid%gaer1_col_nobc(its:ite,jts:jte) = grid%gaer1_col_nobc(its:ite,jts:jte) / grid%waer1_col_nobc(its:ite,jts:jte)
+     grid%gaer2_col_nobc(its:ite,jts:jte) = grid%gaer2_col_nobc(its:ite,jts:jte) / grid%waer2_col_nobc(its:ite,jts:jte)
+     grid%gaer3_col_nobc(its:ite,jts:jte) = grid%gaer3_col_nobc(its:ite,jts:jte) / grid%waer3_col_nobc(its:ite,jts:jte)
+     grid%gaer4_col_nobc(its:ite,jts:jte) = grid%gaer4_col_nobc(its:ite,jts:jte) / grid%waer4_col_nobc(its:ite,jts:jte)
+     grid%waer1_col_nobc(its:ite,jts:jte) = grid%waer1_col_nobc(its:ite,jts:jte) / grid%tauaer1_col_nobc(its:ite,jts:jte)
+     grid%waer2_col_nobc(its:ite,jts:jte) = grid%waer2_col_nobc(its:ite,jts:jte) / grid%tauaer2_col_nobc(its:ite,jts:jte)
+     grid%waer3_col_nobc(its:ite,jts:jte) = grid%waer3_col_nobc(its:ite,jts:jte) / grid%tauaer3_col_nobc(its:ite,jts:jte)
+     grid%waer4_col_nobc(its:ite,jts:jte) = grid%waer4_col_nobc(its:ite,jts:jte) / grid%tauaer4_col_nobc(its:ite,jts:jte)
+     ! for no dust
+     grid%gaer1_col_nodust(its:ite,jts:jte) = grid%gaer1_col_nodust(its:ite,jts:jte) / grid%waer1_col_nodust(its:ite,jts:jte)
+     grid%gaer2_col_nodust(its:ite,jts:jte) = grid%gaer2_col_nodust(its:ite,jts:jte) / grid%waer2_col_nodust(its:ite,jts:jte)
+     grid%gaer3_col_nodust(its:ite,jts:jte) = grid%gaer3_col_nodust(its:ite,jts:jte) / grid%waer3_col_nodust(its:ite,jts:jte)
+     grid%gaer4_col_nodust(its:ite,jts:jte) = grid%gaer4_col_nodust(its:ite,jts:jte) / grid%waer4_col_nodust(its:ite,jts:jte)
+     grid%waer1_col_nodust(its:ite,jts:jte) = grid%waer1_col_nodust(its:ite,jts:jte) / grid%tauaer1_col_nodust(its:ite,jts:jte)
+     grid%waer2_col_nodust(its:ite,jts:jte) = grid%waer2_col_nodust(its:ite,jts:jte) / grid%tauaer2_col_nodust(its:ite,jts:jte)
+     grid%waer3_col_nodust(its:ite,jts:jte) = grid%waer3_col_nodust(its:ite,jts:jte) / grid%tauaer3_col_nodust(its:ite,jts:jte)
+     grid%waer4_col_nodust(its:ite,jts:jte) = grid%waer4_col_nodust(its:ite,jts:jte) / grid%tauaer4_col_nodust(its:ite,jts:jte)
 
+     ! surface layer optics
      grid%tauaer1_sfc(its:ite,jts:jte) = grid%tauaer1(its:ite,kts,jts:jte)
      grid%tauaer2_sfc(its:ite,jts:jte) = grid%tauaer2(its:ite,kts,jts:jte)
      grid%tauaer3_sfc(its:ite,jts:jte) = grid%tauaer3(its:ite,kts,jts:jte)

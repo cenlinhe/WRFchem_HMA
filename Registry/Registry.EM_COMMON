@@ -1435,10 +1435,10 @@ state    real  diffuse_frac     ij      misc        1         -      rh3d       
 # cenlin_DRF add aerosol DRF output variables
 state    real  HEATRATESW_brc    ikj     misc        1         -      rh       "HEATRATESW_brc"         "Shortwave heating rate due to brown carbon direct radiative effect"   "K s-1"
 state    real  HEATRATESW_bc     ikj     misc        1         -      rh       "HEATRATESW_bc"          "Shortwave heating rate due to black carbon direct radiative effect"   "K s-1"
-state    real  HEATRATESW_dust   ikj     misc        1         -      rh       "HEATRATESW_dus"         "Shortwave heating rate due to dust direct radiative effect"   "K s-1"
+state    real  HEATRATESW_dust   ikj     misc        1         -      rh       "HEATRATESW_dust"         "Shortwave heating rate due to dust direct radiative effect"   "K s-1"
 state    real  HEATRATELW_brc    ikj     misc        1         -      rh       "HEATRATELW_brc"         "longwave heating rate due to brown carbon direct radiative effect"   "K s-1"
 state    real  HEATRATELW_bc     ikj     misc        1         -      rh       "HEATRATELW_bc"          "longwave heating rate due to black carbon direct radiative effect"   "K s-1"
-state    real  HEATRATELW_dust   ikj     misc        1         -      rh       "HEATRATELW_dus"         "longwave heating rate due to dust direct radiative effect"   "K s-1"
+state    real  HEATRATELW_dust   ikj     misc        1         -      rh       "HEATRATELW_dust"         "longwave heating rate due to dust direct radiative effect"   "K s-1"
 state    real  DRFTOASW_brc       ij     misc        1         -      rh3      "DRFTOASW_brc"           "Shortwave TOA brown carbon direct radiative effect"           "W m-2"
 state    real  DRFTOASW_bc        ij     misc        1         -      rh3      "DRFTOASW_bc"            "Shortwave TOA black carbon direct radiative effect"           "W m-2"
 state    real  DRFTOASW_dust      ij     misc        1         -      rh3      "DRFTOASW_dust"          "Shortwave TOA dust direct radiative effect"           "W m-2"
@@ -1927,9 +1927,9 @@ state    real    HAIL_MAX2D       ij     misc        1         -      r       "H
 
 state   real    max_cfl         -       misc        1         -     -       "max_cfl"           "maximum CFL value in grid at a time" "-"
 
-state   real  prec_acc_c       ij       misc        1         -     rh3du     "prec_acc_c"       "ACCUMULATED CUMULUS PRECIPITATION OVER prec_acc_dt PERIODS OF TIME"       "mm"
-state   real  prec_acc_nc      ij       misc        1         -     rh3du     "prec_acc_nc"      "ACCUMULATED GRID SCALE  PRECIPITATION OVER prec_acc_dt PERIODS OF TIME"   "mm"
-state   real  snow_acc_nc      ij       misc        1         -     rh3du     "snow_acc_nc"      "ACCUMULATED SNOW WATER EQUIVALENT OVER prec_acc_dt PERIODS OF TIME"       "mm"
+state   real  prec_acc_c       ij       misc        1         -     rdu     "prec_acc_c"       "ACCUMULATED CUMULUS PRECIPITATION OVER prec_acc_dt PERIODS OF TIME"       "mm"
+state   real  prec_acc_nc      ij       misc        1         -     rdu     "prec_acc_nc"      "ACCUMULATED GRID SCALE  PRECIPITATION OVER prec_acc_dt PERIODS OF TIME"   "mm"
+state   real  snow_acc_nc      ij       misc        1         -     rdu     "snow_acc_nc"      "ACCUMULATED SNOW WATER EQUIVALENT OVER prec_acc_dt PERIODS OF TIME"       "mm"
 
 # Placeholder for decoupled advective tendency diagnostics for non-chem
 state   real  -               ikjf      advh_t      1         -     -         -

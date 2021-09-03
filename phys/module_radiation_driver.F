@@ -842,7 +842,7 @@ CONTAINS
    REAL, DIMENSION( ims:ime, kms:kme+2, jms:jme ) ::     &
          SWUPFLX_nobrc, SWUPFLXC_nobrc, SWDNFLX_nobrc, SWDNFLXC_nobrc, &
          SWUPFLX_nobc, SWUPFLXC_nobc, SWDNFLX_nobc, SWDNFLXC_nobc, &
-         SWUPFLX_nodust, SWUPFLXC_nodust, SWDNFLX_nodust, SWDNFLXC_nodust
+         SWUPFLX_nodust, SWUPFLXC_nodust, SWDNFLX_nodust, SWDNFLXC_nodust, &
          LWUPFLX_nobrc, LWUPFLXC_nobrc, LWDNFLX_nobrc, LWDNFLXC_nobrc, &
          LWUPFLX_nobc, LWUPFLXC_nobc, LWDNFLX_nobc, LWDNFLXC_nobc, &
          LWUPFLX_nodust, LWUPFLXC_nodust, LWDNFLX_nodust, LWDNFLXC_nodust
@@ -1652,64 +1652,77 @@ CONTAINS
 
         CASE (RRTMG_LWSCHEME)
 ! cenlin_DRF add initialization for computing aerosol DRF below
-             DRFTOALW_brc(its:ite,jts:jte) = 0.0
-             DRFTOALW_bc(its:ite,jts:jte) = 0.0
-             DRFTOALW_dust(its:ite,jts:jte) = 0.0
-             DRFSFCLW_brc(its:ite,jts:jte) = 0.0
-             DRFSFCLW_bc(its:ite,jts:jte) = 0.0
-             DRFSFCLW_dust(its:ite,jts:jte) = 0.0
-             HEATRATELW_brc(its:ite,kts:kte,jts:jte) = 0.0
-             HEATRATELW_bc(its:ite,kts:kte,jts:jte) = 0.0
-             HEATRATELW_dust(its:ite,kts:kte,jts:jte)= 0.0
-             RTHRATEN_nobrc(its:ite,kts:kte,jts:jte)=RTHRATEN(its:ite,kts:kte,jts:jte)
-             RTHRATEN_nobc(its:ite,kts:kte,jts:jte)=RTHRATEN(its:ite,kts:kte,jts:jte)
-             RTHRATEN_nodust(its:ite,kts:kte,jts:jte)=RTHRATEN(its:ite,kts:kte,jts:jte)
-             LWUPT_nobrc(its:ite,jts:jte) = LWUPT(its:ite,jts:jte)
-             LWUPT_nobc(its:ite,jts:jte) = LWUPT(its:ite,jts:jte)
-             LWUPT_nodust(its:ite,jts:jte) = LWUPT(its:ite,jts:jte)
-             LWUPTC_nobrc(its:ite,jts:jte) = LWUPTC(its:ite,jts:jte)
-             LWUPTC_nobc(its:ite,jts:jte) = LWUPTC(its:ite,jts:jte)
-             LWUPTC_nodust(its:ite,jts:jte) = LWUPTC(its:ite,jts:jte)
-             LWDNT_nobrc(its:ite,jts:jte) = LWDNT(its:ite,jts:jte)
-             LWDNT_nobc(its:ite,jts:jte) = LWDNT(its:ite,jts:jte)
-             LWDNT_nodust(its:ite,jts:jte) =  LWDNT(its:ite,jts:jte)
-             LWDNTC_nobrc(its:ite,jts:jte) = LWDNTC(its:ite,jts:jte)
-             LWDNTC_nobc(its:ite,jts:jte) = LWDNTC(its:ite,jts:jte)
-             LWDNTC_nodust(its:ite,jts:jte) =  LWDNTC(its:ite,jts:jte)
-             LWUPB_nobrc(its:ite,jts:jte) = LWUPB(its:ite,jts:jte)
-             LWUPB_nobc(its:ite,jts:jte) = LWUPB(its:ite,jts:jte)
-             LWUPB_nodust(its:ite,jts:jte) = LWUPB(its:ite,jts:jte)
-             LWUPBC_nobrc(its:ite,jts:jte) = LWUPBC(its:ite,jts:jte)
-             LWUPBC_nobc(its:ite,jts:jte) = LWUPBC(its:ite,jts:jte)
-             LWUPBC_nodust(its:ite,jts:jte) = LWUPBC(its:ite,jts:jte)
-             LWDNB_nobrc(its:ite,jts:jte) = LWDNB(its:ite,jts:jte)
-             LWDNB_nobc(its:ite,jts:jte) = LWDNB(its:ite,jts:jte)
-             LWDNB_nodust(its:ite,jts:jte) = LWDNB(its:ite,jts:jte)
-             LWDNBC_nobrc(its:ite,jts:jte) = LWDNBC(its:ite,jts:jte)
-             LWDNBC_nobc(its:ite,jts:jte) = LWDNBC(its:ite,jts:jte)
-             LWDNBC_nodust(its:ite,jts:jte) = LWDNBC(its:ite,jts:jte)
-             LWCF_nobrc(its:ite,jts:jte) = LWCF(its:ite,jts:jte)
-             LWCF_nobc(its:ite,jts:jte) = LWCF(its:ite,jts:jte)
-             LWCF_nodust(its:ite,jts:jte) = LWCF(its:ite,jts:jte)
-             GLW_nobrc(its:ite,jts:jte) = GLW(its:ite,jts:jte)
-             GLW_nobc(its:ite,jts:jte) = GLW(its:ite,jts:jte)
-             GLW_nodust(its:ite,jts:jte) = GLW(its:ite,jts:jte)
-             RLWTOA_nobrc(its:ite,jts:jte) = RLWTOA(its:ite,jts:jte)
-             RLWTOA_nobc(its:ite,jts:jte) = RLWTOA(its:ite,jts:jte)
-             RLWTOA_nodust(its:ite,jts:jte) = RLWTOA(its:ite,jts:jte)
-             LWUPFLX_nobrc(its:ite,kts:kte+2,jts:jte)=LWUPFLX(its:ite,kts:kte+2,jts:jte)
-             LWUPFLX_nobc(its:ite,kts:kte+2,jts:jte)=LWUPFLX(its:ite,kts:kte+2,jts:jte)
-             LWUPFLX_nodust(its:ite,kts:kte+2,jts:jte)=LWUPFLX(its:ite,kts:kte+2,jts:jte)
-             LWUPFLXC_nobrc(its:ite,kts:kte+2,jts:jte)=LWUPFLXC(its:ite,kts:kte+2,jts:jte)
-             LWUPFLXC_nobc(its:ite,kts:kte+2,jts:jte)=LWUPFLXC(its:ite,kts:kte+2,jts:jte)
-             LWUPFLXC_nodust(its:ite,kts:kte+2,jts:jte)=LWUPFLXC(its:ite,kts:kte+2,jts:jte)
-             LWDNFLX_nobrc(its:ite,kts:kte+2,jts:jte)=LWDNFLX(its:ite,kts:kte+2,jts:jte)
-             LWDNFLX_nobc(its:ite,kts:kte+2,jts:jte)=LWDNFLX(its:ite,kts:kte+2,jts:jte)
-             LWDNFLX_nodust(its:ite,kts:kte+2,jts:jte)=LWDNFLX(its:ite,kts:kte+2,jts:jte)
-             LWDNFLXC_nobrc(its:ite,kts:kte+2,jts:jte)=LWDNFLXC(its:ite,kts:kte+2,jts:jte)
-             LWDNFLXC_nobc(its:ite,kts:kte+2,jts:jte)=LWDNFLXC(its:ite,kts:kte+2,jts:jte)
-             LWDNFLXC_nodust(its:ite,kts:kte+2,jts:jte)=LWDNFLXC(its:ite,kts:kte+2,jts:jte)
+             CALL wrf_debug (100, 'CALL rrtmg_lw initialize aerDRF')
 
+             DO j=jts,jte
+             DO i=its,ite
+               DRFTOALW_brc(i,j) = 0.0
+               DRFTOALW_bc(i,j) = 0.0
+               DRFTOALW_dust(i,j) = 0.0
+               DRFSFCLW_brc(i,j) = 0.0
+               DRFSFCLW_bc(i,j) = 0.0
+               DRFSFCLW_dust(i,j) = 0.0
+               LWUPT_nobrc(i,j) = LWUPT(i,j)
+               LWUPT_nobc(i,j) = LWUPT(i,j)
+               LWUPT_nodust(i,j) = LWUPT(i,j)
+               LWUPTC_nobrc(i,j) = LWUPTC(i,j)
+               LWUPTC_nobc(i,j) = LWUPTC(i,j)
+               LWUPTC_nodust(i,j) = LWUPTC(i,j)
+               LWDNT_nobrc(i,j) = LWDNT(i,j)
+               LWDNT_nobc(i,j) = LWDNT(i,j)
+               LWDNT_nodust(i,j) =  LWDNT(i,j)
+               LWDNTC_nobrc(i,j) = LWDNTC(i,j)
+               LWDNTC_nobc(i,j) = LWDNTC(i,j)
+               LWDNTC_nodust(i,j) =  LWDNTC(i,j)
+               LWUPB_nobrc(i,j) = LWUPB(i,j)
+               LWUPB_nobc(i,j) = LWUPB(i,j)
+               LWUPB_nodust(i,j) = LWUPB(i,j)
+               LWUPBC_nobrc(i,j) = LWUPBC(i,j)
+               LWUPBC_nobc(i,j) = LWUPBC(i,j)
+               LWUPBC_nodust(i,j) = LWUPBC(i,j)
+               LWDNB_nobrc(i,j) = LWDNB(i,j)
+               LWDNB_nobc(i,j) = LWDNB(i,j)
+               LWDNB_nodust(i,j) = LWDNB(i,j)
+               LWDNBC_nobrc(i,j) = LWDNBC(i,j)
+               LWDNBC_nobc(i,j) = LWDNBC(i,j)
+               LWDNBC_nodust(i,j) = LWDNBC(i,j)
+               LWCF_nobrc(i,j) = LWCF(i,j)
+               LWCF_nobc(i,j) = LWCF(i,j)
+               LWCF_nodust(i,j) = LWCF(i,j)
+               GLW_nobrc(i,j) = GLW(i,j)
+               GLW_nobc(i,j) = GLW(i,j)
+               GLW_nodust(i,j) = GLW(i,j)
+               RLWTOA_nobrc(i,j) = RLWTOA(i,j)
+               RLWTOA_nobc(i,j) = RLWTOA(i,j)
+               RLWTOA_nodust(i,j) = RLWTOA(i,j)
+               DO k=kts,kte
+                 HEATRATELW_brc(i,k,j) = 0.0
+                 HEATRATELW_bc(i,k,j) = 0.0
+                 HEATRATELW_dust(i,k,j)= 0.0
+                 RTHRATEN_nobrc(i,k,j)=RTHRATEN(i,k,j)
+                 RTHRATEN_nobc(i,k,j)=RTHRATEN(i,k,j)
+                 RTHRATEN_nodust(i,k,j)=RTHRATEN(i,k,j)
+               ENDDO
+               IF ( PRESENT( LWUPFLX ) ) THEN
+                 DO k=kts,kte+2
+                   LWUPFLX_nobrc(i,k,j)=LWUPFLX(i,k,j)
+                   LWUPFLX_nobc(i,k,j)=LWUPFLX(i,k,j)
+                   LWUPFLX_nodust(i,k,j)=LWUPFLX(i,k,j)
+                   LWUPFLXC_nobrc(i,k,j)=LWUPFLXC(i,k,j)
+                   LWUPFLXC_nobc(i,k,j)=LWUPFLXC(i,k,j)
+                   LWUPFLXC_nodust(i,k,j)=LWUPFLXC(i,k,j)
+                   LWDNFLX_nobrc(i,k,j)=LWDNFLX(i,k,j)
+                   LWDNFLX_nobc(i,k,j)=LWDNFLX(i,k,j)
+                   LWDNFLX_nodust(i,k,j)=LWDNFLX(i,k,j)
+                   LWDNFLXC_nobrc(i,k,j)=LWDNFLXC(i,k,j)
+                   LWDNFLXC_nobc(i,k,j)=LWDNFLXC(i,k,j)
+                   LWDNFLXC_nodust(i,k,j)=LWDNFLXC(i,k,j)
+                 ENDDO
+               ENDIF
+
+             ENDDO
+             ENDDO
+! cenlin_DRF end
 
              CALL wrf_debug (100, 'CALL rrtmg_lw')
              CALL RRTMG_LWRAD(                                      &
@@ -2293,84 +2306,97 @@ CONTAINS
 
         CASE (RRTMG_SWSCHEME)
 ! cenlin_DRF add initialization for computing aerosol DRF below
-             DRFTOASW_brc(its:ite,jts:jte) = 0.0
-             DRFTOASW_bc(its:ite,jts:jte) = 0.0
-             DRFTOASW_dust(its:ite,jts:jte) = 0.0
-             DRFSFCSW_brc(its:ite,jts:jte) = 0.0
-             DRFSFCSW_bc(its:ite,jts:jte) = 0.0
-             DRFSFCSW_dust(its:ite,jts:jte) = 0.0
-             HEATRATESW_brc(its:ite,kts:kte,jts:jte) = 0.0
-             HEATRATESW_bc(its:ite,kts:kte,jts:jte) = 0.0
-             HEATRATESW_dust(its:ite,kts:kte,jts:jte)= 0.0
-             RTHRATENSW_nobrc(its:ite,kts:kte,jts:jte)=RTHRATENSW(its:ite,kts:kte,jts:jte)
-             RTHRATENSW_nobc(its:ite,kts:kte,jts:jte)=RTHRATENSW(its:ite,kts:kte,jts:jte)
-             RTHRATENSW_nodust(its:ite,kts:kte,jts:jte)=RTHRATENSW(its:ite,kts:kte,jts:jte)
-             SWUPT_nobrc(its:ite,jts:jte) = SWUPT(its:ite,jts:jte)
-             SWUPT_nobc(its:ite,jts:jte) = SWUPT(its:ite,jts:jte)
-             SWUPT_nodust(its:ite,jts:jte) = SWUPT(its:ite,jts:jte)
-             SWUPTC_nobrc(its:ite,jts:jte) = SWUPTC(its:ite,jts:jte)
-             SWUPTC_nobc(its:ite,jts:jte) = SWUPTC(its:ite,jts:jte)
-             SWUPTC_nodust(its:ite,jts:jte) = SWUPTC(its:ite,jts:jte)
-             SWDNT_nobrc(its:ite,jts:jte) = SWDNT(its:ite,jts:jte)
-             SWDNT_nobc(its:ite,jts:jte) = SWDNT(its:ite,jts:jte)
-             SWDNT_nodust(its:ite,jts:jte) =  SWDNT(its:ite,jts:jte)
-             SWDNTC_nobrc(its:ite,jts:jte) = SWDNTC(its:ite,jts:jte)
-             SWDNTC_nobc(its:ite,jts:jte) = SWDNTC(its:ite,jts:jte)
-             SWDNTC_nodust(its:ite,jts:jte) =  SWDNTC(its:ite,jts:jte)
-             SWUPB_nobrc(its:ite,jts:jte) = SWUPB(its:ite,jts:jte)
-             SWUPB_nobc(its:ite,jts:jte) = SWUPB(its:ite,jts:jte)
-             SWUPB_nodust(its:ite,jts:jte) = SWUPB(its:ite,jts:jte)
-             SWUPBC_nobrc(its:ite,jts:jte) = SWUPBC(its:ite,jts:jte)
-             SWUPBC_nobc(its:ite,jts:jte) = SWUPBC(its:ite,jts:jte)
-             SWUPBC_nodust(its:ite,jts:jte) = SWUPBC(its:ite,jts:jte)
-             SWDNB_nobrc(its:ite,jts:jte) = SWDNB(its:ite,jts:jte)
-             SWDNB_nobc(its:ite,jts:jte) = SWDNB(its:ite,jts:jte)
-             SWDNB_nodust(its:ite,jts:jte) = SWDNB(its:ite,jts:jte)
-             SWDNBC_nobrc(its:ite,jts:jte) = SWDNBC(its:ite,jts:jte)
-             SWDNBC_nobc(its:ite,jts:jte) = SWDNBC(its:ite,jts:jte)
-             SWDNBC_nodust(its:ite,jts:jte) = SWDNBC(its:ite,jts:jte)
-             SWCF_nobrc(its:ite,jts:jte) = SWCF(its:ite,jts:jte)
-             SWCF_nobc(its:ite,jts:jte) = SWCF(its:ite,jts:jte)
-             SWCF_nodust(its:ite,jts:jte) = SWCF(its:ite,jts:jte)
-             GSW_nobrc(its:ite,jts:jte) = GSW(its:ite,jts:jte)
-             GSW_nobc(its:ite,jts:jte) = GSW(its:ite,jts:jte)
-             GSW_nodust(its:ite,jts:jte) = GSW(its:ite,jts:jte)
-             COSZR_nobrc(its:ite,jts:jte) = COSZR(its:ite,jts:jte)
-             COSZR_nobc(its:ite,jts:jte) = COSZR(its:ite,jts:jte)
-             COSZR_nodust(its:ite,jts:jte) = COSZR(its:ite,jts:jte)
-             swvisdir_nobrc(its:ite,jts:jte) = swvisdir(its:ite,jts:jte)
-             swvisdir_nobc(its:ite,jts:jte) = swvisdir(its:ite,jts:jte)
-             swvisdir_nodust(its:ite,jts:jte) = swvisdir(its:ite,jts:jte)
-             swvisdif_nobrc(its:ite,jts:jte) = swvisdif(its:ite,jts:jte)
-             swvisdif_nobc(its:ite,jts:jte) = swvisdif(its:ite,jts:jte)
-             swvisdif_nodust(its:ite,jts:jte) = swvisdif(its:ite,jts:jte)
-             swnirdir_nobrc(its:ite,jts:jte) = swnirdir(its:ite,jts:jte)
-             swnirdir_nobc(its:ite,jts:jte) = swnirdir(its:ite,jts:jte)
-             swnirdir_nodust(its:ite,jts:jte) = swnirdir(its:ite,jts:jte)
-             swnirdif_nobrc(its:ite,jts:jte) = swnirdif(its:ite,jts:jte)
-             swnirdif_nobc(its:ite,jts:jte) = swnirdif(its:ite,jts:jte)
-             swnirdif_nodust(its:ite,jts:jte) = swnirdif(its:ite,jts:jte)
-             SWUPFLX_nobrc(its:ite,kts:kte+2,jts:jte)=SWUPFLX(its:ite,kts:kte+2,jts:jte)
-             SWUPFLX_nobc(its:ite,kts:kte+2,jts:jte)=SWUPFLX(its:ite,kts:kte+2,jts:jte)
-             SWUPFLX_nodust(its:ite,kts:kte+2,jts:jte)=SWUPFLX(its:ite,kts:kte+2,jts:jte)
-             SWUPFLXC_nobrc(its:ite,kts:kte+2,jts:jte)=SWUPFLXC(its:ite,kts:kte+2,jts:jte)
-             SWUPFLXC_nobc(its:ite,kts:kte+2,jts:jte)=SWUPFLXC(its:ite,kts:kte+2,jts:jte)
-             SWUPFLXC_nodust(its:ite,kts:kte+2,jts:jte)=SWUPFLXC(its:ite,kts:kte+2,jts:jte)
-             SWDNFLX_nobrc(its:ite,kts:kte+2,jts:jte)=SWDNFLX(its:ite,kts:kte+2,jts:jte)
-             SWDNFLX_nobc(its:ite,kts:kte+2,jts:jte)=SWDNFLX(its:ite,kts:kte+2,jts:jte)
-             SWDNFLX_nodust(its:ite,kts:kte+2,jts:jte)=SWDNFLX(its:ite,kts:kte+2,jts:jte)
-             SWDNFLXC_nobrc(its:ite,kts:kte+2,jts:jte)=SWDNFLXC(its:ite,kts:kte+2,jts:jte)
-             SWDNFLXC_nobc(its:ite,kts:kte+2,jts:jte)=SWDNFLXC(its:ite,kts:kte+2,jts:jte)
-             SWDNFLXC_nodust(its:ite,kts:kte+2,jts:jte)=SWDNFLXC(its:ite,kts:kte+2,jts:jte)
-             swddir_nobrc(its:ite,jts:jte) = swddir(its:ite,jts:jte)
-             swddir_nobc(its:ite,jts:jte) = swddir(its:ite,jts:jte)
-             swddir_nodust(its:ite,jts:jte) = swddir(its:ite,jts:jte)
-             swddni_nobrc(its:ite,jts:jte) = swddni(its:ite,jts:jte)
-             swddni_nobc(its:ite,jts:jte) = swddni(its:ite,jts:jte)
-             swddni_nodust(its:ite,jts:jte) = swddni(its:ite,jts:jte)
-             swddif_nobrc(its:ite,jts:jte) = swddif(its:ite,jts:jte)
-             swddif_nobc(its:ite,jts:jte) = swddif(its:ite,jts:jte)
-             swddif_nodust(its:ite,jts:jte) = swddif(its:ite,jts:jte)
+             CALL wrf_debug(100, 'CALL rrtmg_sw for aerDRF initialize')
+
+             DO j=jts,jte
+             DO i=its,ite
+               DRFTOASW_brc(i,j) = 0.0
+               DRFTOASW_bc(i,j) = 0.0
+               DRFTOASW_dust(i,j) = 0.0
+               DRFSFCSW_brc(i,j) = 0.0
+               DRFSFCSW_bc(i,j) = 0.0
+               DRFSFCSW_dust(i,j) = 0.0
+               SWUPT_nobrc(i,j) = SWUPT(i,j)
+               SWUPT_nobc(i,j) = SWUPT(i,j)
+               SWUPT_nodust(i,j) = SWUPT(i,j)
+               SWUPTC_nobrc(i,j) = SWUPTC(i,j)
+               SWUPTC_nobc(i,j) = SWUPTC(i,j)
+               SWUPTC_nodust(i,j) = SWUPTC(i,j)
+               SWDNT_nobrc(i,j) = SWDNT(i,j)
+               SWDNT_nobc(i,j) = SWDNT(i,j)
+               SWDNT_nodust(i,j) =  SWDNT(i,j)
+               SWDNTC_nobrc(i,j) = SWDNTC(i,j)
+               SWDNTC_nobc(i,j) = SWDNTC(i,j)
+               SWDNTC_nodust(i,j) =  SWDNTC(i,j)
+               SWUPB_nobrc(i,j) = SWUPB(i,j)
+               SWUPB_nobc(i,j) = SWUPB(i,j)
+               SWUPB_nodust(i,j) = SWUPB(i,j)
+               SWUPBC_nobrc(i,j) = SWUPBC(i,j)
+               SWUPBC_nobc(i,j) = SWUPBC(i,j)
+               SWUPBC_nodust(i,j) = SWUPBC(i,j)
+               SWDNB_nobrc(i,j) = SWDNB(i,j)
+               SWDNB_nobc(i,j) = SWDNB(i,j)
+               SWDNB_nodust(i,j) = SWDNB(i,j)
+               SWDNBC_nobrc(i,j) = SWDNBC(i,j)
+               SWDNBC_nobc(i,j) = SWDNBC(i,j)
+               SWDNBC_nodust(i,j) = SWDNBC(i,j)
+               SWCF_nobrc(i,j) = SWCF(i,j)
+               SWCF_nobc(i,j) = SWCF(i,j)
+               SWCF_nodust(i,j) = SWCF(i,j)
+               GSW_nobrc(i,j) = GSW(i,j)
+               GSW_nobc(i,j) = GSW(i,j)
+               GSW_nodust(i,j) = GSW(i,j)
+               COSZR_nobrc(i,j) = COSZR(i,j)
+               COSZR_nobc(i,j) = COSZR(i,j)
+               COSZR_nodust(i,j) = COSZR(i,j)
+               swvisdir_nobrc(i,j) = swvisdir(i,j)
+               swvisdir_nobc(i,j) = swvisdir(i,j)
+               swvisdir_nodust(i,j) = swvisdir(i,j)
+               swvisdif_nobrc(i,j) = swvisdif(i,j)
+               swvisdif_nobc(i,j) = swvisdif(i,j)
+               swvisdif_nodust(i,j) = swvisdif(i,j)
+               swnirdir_nobrc(i,j) = swnirdir(i,j)
+               swnirdir_nobc(i,j) = swnirdir(i,j)
+               swnirdir_nodust(i,j) = swnirdir(i,j)
+               swnirdif_nobrc(i,j) = swnirdif(i,j)
+               swnirdif_nobc(i,j) = swnirdif(i,j)
+               swnirdif_nodust(i,j) = swnirdif(i,j)
+               swddir_nobrc(i,j) = swddir(i,j)
+               swddir_nobc(i,j) = swddir(i,j)
+               swddir_nodust(i,j) = swddir(i,j)
+               swddni_nobrc(i,j) = swddni(i,j)
+               swddni_nobc(i,j) = swddni(i,j)
+               swddni_nodust(i,j) = swddni(i,j)
+               swddif_nobrc(i,j) = swddif(i,j)
+               swddif_nobc(i,j) = swddif(i,j)
+               swddif_nodust(i,j) = swddif(i,j)
+               DO k=kts,kte
+                 HEATRATESW_brc(i,k,j) = 0.0
+                 HEATRATESW_bc(i,k,j) = 0.0
+                 HEATRATESW_dust(i,k,j)= 0.0
+                 RTHRATENSW_nobrc(i,k,j)=RTHRATENSW(i,k,j)
+                 RTHRATENSW_nobc(i,k,j)=RTHRATENSW(i,k,j)
+                 RTHRATENSW_nodust(i,k,j)=RTHRATENSW(i,k,j)
+               ENDDO
+               IF ( PRESENT( SWUPFLX ) ) THEN
+                 DO k=kts,kte+2
+                   SWUPFLX_nobrc(i,k,j)=SWUPFLX(i,k,j)
+                   SWUPFLX_nobc(i,k,j)=SWUPFLX(i,k,j)
+                   SWUPFLX_nodust(i,k,j)=SWUPFLX(i,k,j)
+                   SWUPFLXC_nobrc(i,k,j)=SWUPFLXC(i,k,j)
+                   SWUPFLXC_nobc(i,k,j)=SWUPFLXC(i,k,j)
+                   SWUPFLXC_nodust(i,k,j)=SWUPFLXC(i,k,j)
+                   SWDNFLX_nobrc(i,k,j)=SWDNFLX(i,k,j)
+                   SWDNFLX_nobc(i,k,j)=SWDNFLX(i,k,j)
+                   SWDNFLX_nodust(i,k,j)=SWDNFLX(i,k,j)
+                   SWDNFLXC_nobrc(i,k,j)=SWDNFLXC(i,k,j)
+                   SWDNFLXC_nobc(i,k,j)=SWDNFLXC(i,k,j)
+                   SWDNFLXC_nodust(i,k,j)=SWDNFLXC(i,k,j)
+                 ENDDO
+               ENDIF
+
+             ENDDO
+             ENDDO
 ! cenlin_DRF end
 
              CALL wrf_debug(100, 'CALL rrtmg_sw')

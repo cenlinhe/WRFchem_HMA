@@ -105,7 +105,7 @@
  ensdim                              = 144,
  cu_rad_feedback                     = .true.,
  sst_update                          = 1,
- prec_acc_dt                         = 60,
+! prec_acc_dt                         = 60,
  /
 
  &fdda

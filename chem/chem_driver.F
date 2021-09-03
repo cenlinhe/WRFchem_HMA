@@ -668,6 +668,19 @@
          enddo
       end select
 
+! cenlin_HMA: special treatment of CH4 in MOZART_MOSAIC
+      if(config_flags%chem_opt == MOZART_MOSAIC_4BIN_AQ_KPP) then
+         CALL wrf_debug ( 15 , ' fixing ch4 conc to 1.74 ppmv' )
+         do j=jps,jpe
+            do k=kps,kpe
+               do i=ips,ipe
+                  chem(i,k,j,p_ch4)=1.74
+               enddo
+            enddo
+         enddo
+      endif
+! cenlin_HMA end
+
       vdrog3=0.
       do j=jps,min(jde-1,jpe)
          do k=kps,kpe

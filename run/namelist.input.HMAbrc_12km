@@ -39,7 +39,7 @@
  auxinput7_interval_m                = 60,
 ! iofields_filename                   = 'my_file_d01.txt',
 ! ignore_iofields_warning             = .true.,
- auxhist3_outname                    = 'varout1h_d<domain>_<date>',
+ auxhist3_outname                    = 'wrfout_houly_d<domain>_<date>',
  auxhist3_interval_m                 = 60,
  frames_per_auxhist3                 = 1,
  io_form_auxhist3                    = 2,
@@ -105,7 +105,7 @@
  ensdim                              = 144,
  cu_rad_feedback                     = .true.,
  sst_update                          = 1,
- prec_acc_dt                         = 60,
+! prec_acc_dt                         = 60,
  /
 
  &fdda

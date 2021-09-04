@@ -334,7 +334,7 @@ state    real   tke            ikj     dyn_em      2         -       r        "t
 i1       real   tke_tend       ikj     dyn_em      1         -      
 
 # Pressure and Density
-state    real   p              ikj     dyn_em      1         -      irh       "p"           "perturbation pressure"         "Pa"
+state    real   p              ikj     dyn_em      1         -      ir       "p"           "perturbation pressure"         "Pa"
 state    real   al             ikj     dyn_em      1         -      r         "al"          "inverse perturbation density"  "m3 kg-1"
 state    real   alt            ikj     dyn_em      1         -      rh         "alt"         "inverse density"               "m3 kg-1"
 state    real   alb            ikj     dyn_em      1         -      rdus      "alb"         "inverse base density"          "m3 kg-1"
@@ -342,7 +342,7 @@ state    real   zx             ikj     dyn_em      1         XZ     -         " 
 state    real   zy             ikj     dyn_em      1         YZ     -         " "  " "  " "   
 state    real   rdz            ikj     dyn_em      1         Z      -         " "  " "  " "   
 state    real   rdzw           ikj     dyn_em      1         Z       -        " "  " "  " "   
-state    real   pb             ikj     dyn_em      1         -      irhdus    "pb"          "BASE STATE PRESSURE "          "Pa"
+state    real   pb             ikj     dyn_em      1         -      irdus    "pb"          "BASE STATE PRESSURE "          "Pa"
 
 #                                               
 # Other dyn                                             
@@ -358,8 +358,8 @@ i1       real   cqu            ikj     dyn_em      1         -     -
 i1       real   cqv            ikj     dyn_em      1         -     -
 i1       real   cqw            ikj     dyn_em      1         -     -
 i1       real   pm1            ikj     dyn_em      1         -     -
-state    real    fnm            k       dyn_em      1         -     ir       "fnm"  "upper weight for vertical stretching"  ""
-state    real    fnp            k       dyn_em      1         -     ir       "fnp"  "lower weight for vertical stretching"  ""
+state    real    fnm            k       dyn_em      1         -     irh       "fnm"  "upper weight for vertical stretching"  ""
+state    real    fnp            k       dyn_em      1         -     irh       "fnp"  "lower weight for vertical stretching"  ""
 state    real    rdnw           k       dyn_em      1         -     irh       "rdnw"  "inverse d(eta) values between full (w) levels"   ""
 state    real    rdn            k       dyn_em      1         -     irh       "rdn"  "inverse d(eta) values between half (mass) levels"   ""
 state    real    dnw            k       dyn_em      1         -     irh       "dnw" "d(eta) values between full (w) levels"   ""
@@ -385,7 +385,7 @@ state    integer last_dt_yr             - misc    -         -      r     "last_d
 state    integer last_dt_mm             - misc    -         -      r     "last_dt_mm"               "Relative month"                   "months"
 
 # hydrostatic pressure vars
-state    real   p_hyd           ikj     dyn_em      1         -      irh       "p_hyd"       "hydrostatic pressure"         "Pa"
+state    real   p_hyd           ikj     dyn_em      1         -      ir       "p_hyd"       "hydrostatic pressure"         "Pa"
 state    real   p_hyd_w         ikj     dyn_em      1         Z       r        "p_hyd_w"     "hydrostatic pressure at full levels"         "Pa"
 
 # 2m and 10m output diagnostics
@@ -1418,8 +1418,8 @@ state    real  RQVFTEN          ikj     misc        1         -      r        "R
 state integer  STEPCU          -        misc        1         -      r        "STEPCU"                "NUMBER OF FUNDAMENTAL TIMESTEPS BETWEEN CONVECTION CALLS"  ""
                                                 
 state    real  RTHRATEN        ikj      misc        1         -      rd       "RTHRATEN"              "THETA TENDENCY DUE TO RADIATION"              "K s-1"
-state    real  RTHRATENLW      ikj      misc        1         -      r        "RTHRATLW"              "UNCOUPLED THETA TENDENCY DUE TO LONG WAVE RADIATION"    "K s-1"
-state    real  RTHRATENSW      ikj      misc        1         -      r        "RTHRATSW"              "UNCOUPLED THETA TENDENCY DUE TO SHORT WAVE RADIATION"   "K s-1"
+state    real  RTHRATENLW      ikj      misc        1         -      rh        "RTHRATLW"              "UNCOUPLED THETA TENDENCY DUE TO LONG WAVE RADIATION"    "K s-1"
+state    real  RTHRATENSW      ikj      misc        1         -      rh        "RTHRATSW"              "UNCOUPLED THETA TENDENCY DUE TO SHORT WAVE RADIATION"   "K s-1"
 state    real  CLDFRA          ikj      misc        1         -      rh       "CLDFRA"                "CLOUD FRACTION"                                       ""
 state    real  CLDFRA_OLD      ikj      misc        1         -      r        "CLDFRA_OLD"            "previous time level cldfra"                           ""
 state    real  CLDFRA_BL       ikj      misc        1         -      -        "CLDFRA_BL"             "CLOUD FRACTION pbl"                                   ""
@@ -1760,12 +1760,12 @@ state    real     lu_state        p      misc       -          -     r
 
 i1       real  th_phy          ikj      misc        1         -
 i1       real  pi_phy          ikj      misc        1         -
-i1       real  p_phy           ikj      misc        1         -
-state    real  t_phy           ikj      misc        1         -      rh      "T_PHY"                        "Temperature"         "K"
-state    real  u_phy           ikj      misc        1         -      rh      "U_PHY"                        "x-wind component at mass point"         "m s-1"
-state    real  v_phy           ikj      misc        1         -      rh      "V_PHY"                        "y-wind component at mass point"         "m s-1"
-i1       real  dz8w            ikj      misc        1         Z
-i1       real  p8w             ikj      misc        1         Z
+i1       real  p_phy           ikj      misc        1         -       h      "P_PHY"                        "Pressure at mass level"       "Pa"
+state    real  t_phy           ikj      misc        1         -      rh      "T_PHY"                        "Temperature at mass level"         "K"
+state    real  u_phy           ikj      misc        1         -      r      "U_PHY"                        "x-wind component at mass point"         "m s-1"
+state    real  v_phy           ikj      misc        1         -      r      "V_PHY"                        "y-wind component at mass point"         "m s-1"
+i1       real  dz8w            ikj      misc        1         Z       h      "DZ8W"                         "gridbox thickness"    "m"
+i1       real  p8w             ikj      misc        1         Z       h      "P8W"                          "Pressure at w levels"  "Pa"
 i1       real  t8w             ikj      misc        1         Z
 i1       real  rho_phy         ikj      misc        1         -
 i1    logical  CU_ACT_FLAG     ij       misc        1         -

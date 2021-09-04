@@ -71,19 +71,6 @@ SUBROUTINE med_before_solve_io ( grid , config_flags )
                 ( .NOT. config_flags%write_hist_at_0h_rst ) .AND. &
                 ( currTime .EQ. startTime )                       ) THEN
        !  we do not do anything
-! cenlin_HMA: assign accumualted output variables to 0 after each hourly output
-! note: need to set write_hist_at_0h_rst = .false. in the namelist
-           print *, 'cenlin: set to zero place 1 ...'
-       grid%ACSFCRUNOFF = 0.0
-       grid%ACUDRUNOFF = 0.0
-       grid%ACSNOWFALL = 0.0
-       grid%ACSNOWMELT = 0.0
-       grid%SFCEVP = 0.0
-       grid%RAINC  = 0.0
-       grid%RAINNC = 0.0
-       grid%SNOWNC = 0.0
-       grid%GRAUPELNC = 0.0
-! cenlin HMA end     
 
      ELSE
        CALL med_hist_out ( grid , HISTORY_ALARM, config_flags )
@@ -122,8 +109,7 @@ SUBROUTINE med_before_solve_io ( grid , config_flags )
 ! cenlin_HMA: assign accumualted output variables to 0 after each hourly output
 ! note: this only works for auxhist3 that is set in the namelist for hourly output files
        if ( ialarm .eq. AUXHIST3_ALARM ) then
-           print *, 'cenlin: set to zero place 3, ialarm = ',ialarm
-           print *, 'cenlin: AUXHIST3_ALARM = ', AUXHIST3_ALARM
+           print *, 'cenlin_HMA: re-initilize accumulated var to zero before a new period ...'
            grid%ACSFCRUNOFF = 0.0
            grid%ACUDRUNOFF = 0.0
            grid%ACSNOWFALL = 0.0

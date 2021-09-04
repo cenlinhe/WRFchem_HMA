@@ -844,14 +844,14 @@
           if (totoa_a08(i,k,j) .gt. 1.0e-12 .and. isize .eq. 8) mass_oc=totoa_a08(i,k,j)*conv1a
 
 ! cenlin_brc separate to primary & secondary brc
-!-------------MShrivastava brc-------------
           l=lptr_brc1_aer(isize,itype,iphase)
           if (l .ge. p1st)  mass_brc1 = chem(i,k,j,l)*conv1a
           l=lptr_brc2_aer(isize,itype,iphase)
           if (l .ge. p1st)  mass_brc2 = chem(i,k,j,l)*conv1a
-!----------------------------------------------
+
           mass_oc = max(1.0e-30,mass_oc - mass_brc1 - mass_brc2) !avoid double counting brc
 ! cenlin_brc end
+
           l=lptr_bc_aer(isize,itype,iphase)
           if (l .ge. p1st)  mass_bc= chem(i,k,j,l)*conv1a
           l=lptr_na_aer(isize,itype,iphase)
@@ -884,10 +884,8 @@
 !jdfcz    vol_dust = mass_dust / dens_dust
           vol_oc  = mass_oc  / dens_oc
 ! cenlin_brc separate into primary & sencondary
-!-------------MShrivastava brc-------------
           vol_brc1 = mass_brc1 / dens_brc1
           vol_brc2 = mass_brc2 / dens_brc2
-!-----------------------------------------
 ! cenlin_brc end
           vol_bc  = mass_bc  / dens_bc
           vol_na  = mass_na  / dens_na

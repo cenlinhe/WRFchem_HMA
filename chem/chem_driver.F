@@ -2010,7 +2010,7 @@ end if !Chemistry time step check
        grid%waer4_col_nodust(its:ite,jts:jte) = 0.0
 ! for IVT
        grid%IVT500(its:ite,jts:jte) = 0.0
-       grid%IVT200(its:ite,jts:jte) = 0.0
+       grid%IVT100(its:ite,jts:jte) = 0.0
 
 
 !!!!!!!!!!!!!!!!!!!!!!! assign values !!!!!!!!!!!!!!!!!!!!!!!
@@ -2777,17 +2777,17 @@ end if !Chemistry time step check
      grid%waer3_sfc(its:ite,jts:jte)   = grid%waer3(its:ite,kts,jts:jte)
      grid%waer4_sfc(its:ite,jts:jte)   = grid%waer4(its:ite,kts,jts:jte)
 
-     ! add for integrated water vapor transport output (IVT)
+     ! add for integrated water vapor transport output (IVT): kg/m/s = kg/kg * m/s * Pa(kg/m/s2) * s2/m
      do j=jts,jte
      do k=kts,kte-1     
      do i=its,ite
        if (p8w(i,k+1,j) .ge. 50000) then
          grid%IVT500(i,j) = grid%IVT500(i,j) + &
-              grid%qv(i,k,j)*sqrt(u_phy(i,k,j)*u_phy(i,k,j)+v_phy(i,k,j)*v_phy(i,k,j))*(p8w(i,k,j)-p8w(i,k+1,j))/100.0/9.81
+              moist(i,k,j,P_QV)*sqrt(u_phy(i,k,j)*u_phy(i,k,j)+v_phy(i,k,j)*v_phy(i,k,j))*(p8w(i,k,j)-p8w(i,k+1,j)) / 9.81
        endif
-       if (p8w(i,k+1,j) .ge. 20000) then
-         grid%IVT200(i,j) = grid%IVT200(i,j) + &
-              grid%qv(i,k,j)*sqrt(u_phy(i,k,j)*u_phy(i,k,j)+v_phy(i,k,j)*v_phy(i,k,j))*(p8w(i,k,j)-p8w(i,k+1,j))/100.0/9.81
+       if (p8w(i,k+1,j) .ge. 10000) then
+         grid%IVT100(i,j) = grid%IVT100(i,j) + &
+              moist(i,k,j,P_QV)*sqrt(u_phy(i,k,j)*u_phy(i,k,j)+v_phy(i,k,j)*v_phy(i,k,j))*(p8w(i,k,j)-p8w(i,k+1,j)) / 9.81
        endif
      enddo
      enddo

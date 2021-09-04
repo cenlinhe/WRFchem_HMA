@@ -823,7 +823,7 @@ state   real  xyl_sfc              ij       misc      1      -      h3     "xyl_
 state   real  hono_sfc             ij       misc      1      -      -     "hono_sfc"       "HONO gas total surface conc."            "ppmv"
 state   real  ho_sfc               ij       misc      1      -      h3     "ho_sfc"         "OH gas total surface conc."              "ppmv"
 state   real  ho2_sfc              ij       misc      1      -      h3     "ho2_sfc"        "HO2 gas total surface conc."             "ppmv"
-state   real  ch4_sfc              ij       misc      1      -      h3     "ch4_sfc"        "CH4 gas total surface conc."             "ppmv"
+state   real  ch4_sfc              ij       misc      1      -      -     "ch4_sfc"        "CH4 gas total surface conc."             "ppmv"
 state   real  ch3oh_sfc            ij       misc      1      -      h3     "ch3oh_sfc"      "CH3OH gas total surface conc."           "ppmv"
 state   real  c2h5oh_sfc           ij       misc      1      -      h3     "c2h5oh_sfc"     "C2H5OH gas total surface conc."          "ppmv"
 state   real  bigene_sfc           ij       misc      1      -      h3     "bigene_sfc"     "Bigene gas total surface conc."          "ppmv"
@@ -1862,6 +1862,9 @@ state    real  waer1_col_nodust       ij     misc        1         -      h3    
 state    real  waer2_col_nodust       ij     misc        1         -      h3       "WAER2_COL_nodust"                 "SW band 2 total column single-scattering albedo" "?"
 state    real  waer3_col_nodust       ij     misc        1         -      h3       "WAER3_COL_nodust"                 "SW band 3 total column single-scattering albedo" "?"
 state    real  waer4_col_nodust       ij     misc        1         -      h3       "WAER4_COL_nodust"                 "SW band 4 total column single-scattering albedo" "?"
+# add for IVT output
+state    real  IVT500       ij     misc        1         -      h3       "IVT500"      "Integrated water vapor transport from surface to 500hPa" "kg/m/s"
+state    real  IVT200       ij     misc        1         -      h3       "IVT200"      "Integrated water vapor transport from surface to 200hPa" "kg/m/s"
 # cenlin end Aug27 2021
 
 # chem variables for "cup" convective cloud parameterization
@@ -2135,7 +2138,7 @@ state   real   smpbb       ikjftb   chem        1         -   i0{12}rusdf=(bdy_i
 #RACM has a few more variables to those of RADM2 (ETE is equivilant to OL2 from RADM2)
 state   real   ete         ikjftb   chem        1         -   i0{12}rusdf=(bdy_interp:dt)   "ete"           "ETE mixing ratio"         "ppmv"
 state   real   co2         ikjftb   chem        1         -   i0{12}rusdf=(bdy_interp:dt)   "co2"           "CO2 mixing ratio"         "ppmv"
-state   real   ch4         ikjftb   chem        1         -   i0{12}rhusdf=(bdy_interp:dt)   "ch4"           "CH4 mixing ratio"         "ppmv"
+state   real   ch4         ikjftb   chem        1         -   i0{12}rusdf=(bdy_interp:dt)   "ch4"           "CH4 mixing ratio"         "ppmv"
 state   real   udd         ikjftb   chem        1         -   i0{12}rusdf=(bdy_interp:dt)   "udd"           "UDD mixing ratio"         "ppmv"
 state   real   hket        ikjftb   chem        1         -   i0{12}rusdf=(bdy_interp:dt)   "hket"          "HKET mixing ratio"        "ppmv"
 state   real   api         ikjftb   chem        1         -   i0{12}rusdf=(bdy_interp:dt)   "api"           "API mixing ratio"         "ppmv"

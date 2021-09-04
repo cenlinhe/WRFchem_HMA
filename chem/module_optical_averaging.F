@@ -850,7 +850,7 @@
           l=lptr_brc2_aer(isize,itype,iphase)
           if (l .ge. p1st)  mass_brc2 = chem(i,k,j,l)*conv1a
 !----------------------------------------------
-          if (aerDRF_flag .ne. 1) mass_oc = max(1.0e-30,mass_oc - mass_brc1 - mass_brc2) !avoid double counting brc
+          mass_oc = max(1.0e-30,mass_oc - mass_brc1 - mass_brc2) !avoid double counting brc
 ! cenlin_brc end
           l=lptr_bc_aer(isize,itype,iphase)
           if (l .ge. p1st)  mass_bc= chem(i,k,j,l)*conv1a

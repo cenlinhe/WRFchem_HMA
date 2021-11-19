@@ -2011,6 +2011,10 @@ end if !Chemistry time step check
 ! for IVT
        grid%IVT500(its:ite,jts:jte) = 0.0
        grid%IVT100(its:ite,jts:jte) = 0.0
+! for other phys
+       grid%p_phy_out(its:ite, kts:kte, jts:jte) = 0.0
+       grid%dz8w_out(its:ite, kts:kte, jts:jte) = 0.0
+       grid%p8w_out(its:ite, kts:kte, jts:jte) = 0.0
 
 
 !!!!!!!!!!!!!!!!!!!!!!! assign values !!!!!!!!!!!!!!!!!!!!!!!
@@ -2789,9 +2793,22 @@ end if !Chemistry time step check
          grid%IVT100(i,j) = grid%IVT100(i,j) + &
               moist(i,k,j,P_QV)*sqrt(u_phy(i,k,j)*u_phy(i,k,j)+v_phy(i,k,j)*v_phy(i,k,j))*(p8w(i,k,j)-p8w(i,k+1,j)) / 9.81
        endif
+
      enddo
      enddo
      enddo
+
+! add for new phys output
+     do j=jts,jte
+     do k=kts,kte
+     do i=its,ite
+         grid%p8w_out(i,k,j) = p8w(i,k,j)
+         grid%dz8w_out(i,k,j) = dz8w(i,k,j)
+         grid%p_phy_out(i,k,j) = p_phy(i,k,j)
+     enddo
+     enddo
+     enddo
+
 
     endif ! chem_opt=202
 

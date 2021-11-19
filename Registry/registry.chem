@@ -1866,6 +1866,11 @@ state    real  waer4_col_nodust       ij     misc        1         -      h3    
 state    real  IVT500       ij     misc        1         -      h3       "IVT500"      "Integrated water vapor transport from surface to 500hPa" "kg/m/s"
 state    real  IVT100       ij     misc        1         -      h3       "IVT100"      "Integrated water vapor transport from surface to 100hPa" "kg/m/s"
 # cenlin end Aug27 2021
+# cenlin add for phys output
+state    real  p_phy_out    ikj    misc        1         -       h      "P_PHY_OUT"                        "Pressure at mass level"       "Pa"
+state    real  dz8w_out     ikj    misc        1         Z       h      "DZ8W_OUT"                         "gridbox thickness"    "m"
+state    real  p8w_out      ikj    misc        1         Z       h      "P8W_OUT"                          "Pressure at w levels"  "Pa"
+# cenlin end
 
 # chem variables for "cup" convective cloud parameterization
 state    integer  chem_cupflag   ikj   misc        1         -      -        "CHEM_CUPFLAG"          "flag for cup chemistry - positive when there is cup conv. cloud chemistry at ikj"

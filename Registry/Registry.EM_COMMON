@@ -334,7 +334,7 @@ state    real   tke            ikj     dyn_em      2         -       r        "t
 i1       real   tke_tend       ikj     dyn_em      1         -      
 
 # Pressure and Density
-state    real   p              ikj     dyn_em      1         -      ir       "p"           "perturbation pressure"         "Pa"
+state    real   p              ikj     dyn_em      1         -      irh       "p"           "perturbation pressure"         "Pa"
 state    real   al             ikj     dyn_em      1         -      r         "al"          "inverse perturbation density"  "m3 kg-1"
 state    real   alt            ikj     dyn_em      1         -      rh         "alt"         "inverse density"               "m3 kg-1"
 state    real   alb            ikj     dyn_em      1         -      rdus      "alb"         "inverse base density"          "m3 kg-1"
@@ -342,7 +342,7 @@ state    real   zx             ikj     dyn_em      1         XZ     -         " 
 state    real   zy             ikj     dyn_em      1         YZ     -         " "  " "  " "   
 state    real   rdz            ikj     dyn_em      1         Z      -         " "  " "  " "   
 state    real   rdzw           ikj     dyn_em      1         Z       -        " "  " "  " "   
-state    real   pb             ikj     dyn_em      1         -      irdus    "pb"          "BASE STATE PRESSURE "          "Pa"
+state    real   pb             ikj     dyn_em      1         -      irhdus    "pb"          "BASE STATE PRESSURE "          "Pa"
 
 #                                               
 # Other dyn                                             
@@ -1760,12 +1760,12 @@ state    real     lu_state        p      misc       -          -     r
 
 i1       real  th_phy          ikj      misc        1         -
 i1       real  pi_phy          ikj      misc        1         -
-i1       real  p_phy           ikj      misc        1         -       h      "P_PHY"                        "Pressure at mass level"       "Pa"
+i1       real  p_phy           ikj      misc        1         -       -      "P_PHY"                        "Pressure at mass level"       "Pa"
 state    real  t_phy           ikj      misc        1         -      rh      "T_PHY"                        "Temperature at mass level"         "K"
 state    real  u_phy           ikj      misc        1         -      r      "U_PHY"                        "x-wind component at mass point"         "m s-1"
 state    real  v_phy           ikj      misc        1         -      r      "V_PHY"                        "y-wind component at mass point"         "m s-1"
-i1       real  dz8w            ikj      misc        1         Z       h      "DZ8W"                         "gridbox thickness"    "m"
-i1       real  p8w             ikj      misc        1         Z       h      "P8W"                          "Pressure at w levels"  "Pa"
+i1       real  dz8w            ikj      misc        1         Z       -      "DZ8W"                         "gridbox thickness"    "m"
+i1       real  p8w             ikj      misc        1         Z       -      "P8W"                          "Pressure at w levels"  "Pa"
 i1       real  t8w             ikj      misc        1         Z
 i1       real  rho_phy         ikj      misc        1         -
 i1    logical  CU_ACT_FLAG     ij       misc        1         -

@@ -4788,6 +4788,13 @@ END subroutine optical_prep_modal_soa_vbs
                 endif
           !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 
+! cenlin: add bug fix for refr and refi outside table range to prevent unstable extrapolation
+          if (refr <= refrtabsw(1,ns))     refr = refrtabsw(1,ns)
+          if (refr >= refrtabsw(prefr,ns)) refr = refrtabsw(prefr,ns)
+          if (refi <= refitabsw(1,ns))     refi = refitabsw(1,ns)
+          if (refi >= refitabsw(prefi,ns)) refi = refitabsw(prefi,ns)
+! cenlin end
+
 ! interpolate coefficients linear in refractive index
 ! first call calcs itab,jtab,ttab,utab
                   itab=0
@@ -5044,6 +5051,13 @@ END subroutine optical_prep_modal_soa_vbs
                      call peg_error_fatal( lunerr, msg )
                 endif
           !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+
+! cenlin: add bug fix for refr and refi outside table range to prevent unstable extrapolation
+          if (refr <= refrtablw(1,ns))     refr = refrtablw(1,ns)
+          if (refr >= refrtablw(prefr,ns)) refr = refrtablw(prefr,ns)
+          if (refi <= refitablw(1,ns))     refi = refitablw(1,ns)
+          if (refi >= refitablw(prefi,ns)) refi = refitablw(prefi,ns)
+! cenlin end
 
 ! interpolate coefficients linear in refractive index
 ! first call calcs itab,jtab,ttab,utab

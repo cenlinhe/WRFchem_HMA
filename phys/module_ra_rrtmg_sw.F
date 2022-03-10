@@ -10972,7 +10972,7 @@ CONTAINS
             end do
 
             call wrf_message("Diagnostics 4: k, ssaal, asyal, taual")
-            do k=kts-1,kte
+            do k=kts,kte
                write(msg,'(i4,3f8.2)') k, ssaaer(i,k,nb), asmaer(i,k,nb), tauaer(i,k,nb)
                call wrf_message(msg)
             end do

@@ -273,6 +273,10 @@ subroutine plumerise_driver (id,ktau,dtstep,                           &
             do nv=1,num_ebu
               do k=kts+1,kte
                 ebu(i,k,j,nv)=eburn_out(k,nv)*(z_at_w(i,k+1,j)-z_at_w(i,k,j))
+! cenlin: bug fix for non-realistic emission
+                if ((ebu(i,k,j,nv) .gt. 1.e10) .or. (ebu(i,k,j,nv) .lt. 0.0)) then
+                    ebu(i,k,j,nv) = 0.0
+                endif
               enddo
             enddo
 

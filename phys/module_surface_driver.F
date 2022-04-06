@@ -27,6 +27,7 @@ CONTAINS
 #endif
      &          ,raincv,rho,sfcevp,sfcexc,sfcrunoff ,acrunoff         &
      &          ,acsfcrunoff, acudrunoff,acsnowfall,acsnowmelt        &  ! cenlin_clm: add accumulated runoff output
+     &          ,actotrunoff, acgwlrunoff,totrunoff,gwlrunoff         & ! cenlin_clm
      &          ,smois,smstav,smstot,snoalb,snow,snowc,snowh,stepbl   &
      &          ,smcrel                                               &
      &          ,th10,th2,thz0,th_phy,tmn,tshltr,tsk,tslb             &
@@ -727,6 +728,10 @@ CONTAINS
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   ACUDRUNOFF  ! cenlin_clm
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   ACSNOWFALL  ! cenlin_clm
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   ACSNOWMELT  ! cenlin_clm
+   REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   actotrunoff ! cenlin_clm
+   REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   acgwlrunoff ! cenlin_clm
+   REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   totrunoff   ! cenlin_clm
+   REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   gwlrunoff   ! cenlin_clm
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   SMSTAV
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   SMSTOT
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   SNOW
@@ -3620,7 +3625,7 @@ CONTAINS
        CALL clmdrv(dz8w,qv_curr,p8w, t_phy,tsk,                   &
                 hfx,qfx,lh,grdflx,qgh,gsw,swdown,               &
                 ra_sw_physics,history_interval,glw,smstav,smstot, &
-                sfcrunoff,udrunoff,ivgtyp,isltyp,vegfra,        &
+                sfcrunoff,udrunoff,totrunoff,gwlrunoff,ivgtyp,isltyp,vegfra, & ! cenlin_clm
                 albedo,znt,z0, tmn,xland,xice, emiss,           &
                 snowc,qsfc,rainbl,maxpatch,                     &
                 num_soil_layers,dtbl,xtime, dt,dzs,             &
@@ -3631,6 +3636,7 @@ CONTAINS
                 acsnom,acsnow,                                  &
                 dx,xlat,xlong,ht,                               &
                 acsfcrunoff,acudrunoff,acsnowfall,acsnowmelt,   & ! cenlin_clm
+                actotrunoff,acgwlrunoff, & ! cenlin_clm
                 ids,ide, jds,jde, kds,kde,                      &
                 ims,ime, jms,jme, kms,kme,                      &
                 i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte, &

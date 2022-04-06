@@ -114,6 +114,8 @@ SUBROUTINE med_before_solve_io ( grid , config_flags )
            grid%ACUDRUNOFF = 0.0
            grid%ACSNOWFALL = 0.0
            grid%ACSNOWMELT = 0.0
+           grid%actotrunoff = 0.0
+           grid%acgwlrunoff = 0.0
            grid%SFCEVP = 0.0
            grid%RAINC  = 0.0
            grid%RAINNC = 0.0

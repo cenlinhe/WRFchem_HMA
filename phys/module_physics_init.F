@@ -67,7 +67,7 @@ CONTAINS
                          APR_GR,APR_W,APR_MC,APR_ST,APR_AS,      &
                          APR_CAPMA,APR_CAPME,APR_CAPMI,          &
                          XICE,XICEM,VEGFRA,SNOW,CANWAT,SMSTAV,   &
-                         SMSTOT, SFCRUNOFF,UDRUNOFF,GRDFLX,ACSNOW,&
+                         SMSTOT, SFCRUNOFF,UDRUNOFF,totrunoff,gwlrunoff,GRDFLX,ACSNOW,&  ! cenlin_clm
                          ACSNOM,IVGTYP,ISLTYP, SFCEVP, SMOIS,    &
                          SH2O, SNOWH, SMFR3D,                    &  ! temporary
                          SNOALB,                                 &
@@ -294,6 +294,8 @@ CONTAINS
                                                         SMSTOT, &
                                                      SFCRUNOFF, &
                                                       UDRUNOFF, &
+                                                     totrunoff, & ! cenlin_clm
+                                                     gwlrunoff, & ! cenlin_clm
                                                         SFCEVP, &
                                                         GRDFLX, &
                                                         ACSNOW, &
@@ -1113,7 +1115,7 @@ integer myproc
                 frac_up, &
                 EXCH_H,VEGFRA,                                  &
                 SNOW,SNOWC, CANWAT,SMSTAV,                      &
-                SMSTOT, SFCRUNOFF,UDRUNOFF,ACSNOW,ACSNOM,       &
+                SMSTOT, SFCRUNOFF,UDRUNOFF,totrunoff,gwlrunoff,ACSNOW,ACSNOM,       & ! cenlin_clm
                 IVGTYP,ISLTYP,ISURBAN,SMOIS,SMFR3D,MAVAIL,      &
                 SNOWH,SH2O,SNOALB,FNDSOILW,FNDSNOWH,RDMAXALB,   &
 #if (NMM_CORE == 1)
@@ -2029,7 +2031,7 @@ integer myproc
                 frac_up, &
                 EXCH_H,VEGFRA,                                  &
                 SNOW,SNOWC, CANWAT,SMSTAV,                      &
-                SMSTOT, SFCRUNOFF,UDRUNOFF,ACSNOW,ACSNOM,       &
+                SMSTOT, SFCRUNOFF,UDRUNOFF,totrunoff,gwlrunoff,ACSNOW,ACSNOM,       & ! cenlin_clm
                 IVGTYP,ISLTYP,ISURBAN,SMOIS,SMFR3D,mavail,      &
                 SNOWH,SH2O,SNOALB,FNDSOILW,FNDSNOWH,RDMAXALB,   &
 #if  ( NMM_CORE == 1 )
@@ -2244,6 +2246,8 @@ integer myproc
                                                         SMSTOT, &
                                                      SFCRUNOFF, &
                                                       UDRUNOFF, &
+                                                     totrunoff, & ! cenlin_clm
+                                                     gwlrunoff, & ! cenlin_clm
                                                         ACSNOW, &
                                                         VEGFRA, &
                                                         ACSNOM, &
@@ -2954,7 +2958,7 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
             ('module_physics_init: USGS or MODIS must be used with CLM option')
 
             CALL CLMINIT(VEGFRA,SNOW,SNOWC,SNOWH,CANWAT,SMSTAV,    &
-                     SMSTOT, SFCRUNOFF,UDRUNOFF,ACSNOW,            &
+                     SMSTOT, SFCRUNOFF,UDRUNOFF,totrunoff,gwlrunoff,ACSNOW,  & ! cenlin_clm
                      ACSNOM,IVGTYP,ISLTYP,TSLB,SMOIS,SH2O,ZS,DZS,  &
                      FNDSOILW, FNDSNOWH,                           &
                      num_soil_layers, restart,                     &

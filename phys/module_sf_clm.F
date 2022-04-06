@@ -3884,7 +3884,7 @@ CONTAINS
                    ,shxy       ,qfx        ,lhxy        ,soiflx      ,qgh       &
                    ,gsw, swdown,ra_sw_physics &   
                    ,history_interval ,flwdsxy    ,smstav      ,smstot      ,qsfxy     &
-                   ,qdnxy      ,ivgtyp     ,isltyp      ,vegfra      ,albxy     &
+                   ,qdnxy      ,qtotxy, qgwlxy, ivgtyp     ,isltyp      ,vegfra      ,albxy     &  ! cenlin_clm
                    ,znt        ,z0         ,tmn         ,xland       ,xice      &
                    ,emiss      ,snowc      ,qsfc        ,prec        ,maxpatch  &
                    ,num_soil_layers        ,dt          ,xtime      ,dtwrf ,dzs &
@@ -3893,7 +3893,7 @@ CONTAINS
                    ,sh2o       ,snowh      ,forc_uxy    ,forc_vxy    ,shdmin    &
                    ,shdmax     ,acsnom     ,acsnow      ,dx          ,xlat      &
                    ,xlong,ht                                                    &   
-                   ,acsfcrunoff,acudrunoff ,acsnowfall  ,acsnowmelt             & ! cenlin_clm: add accumulated runoff output
+                   ,acsfcrunoff,acudrunoff,acsnowfall,acsnowmelt,actotrunoff,acgwlrunoff & ! cenlin_clm: add accumulated runoff output
                    ,ids,ide, jds,jde, kds,kde                    &
                    ,ims,ime, jms,jme, kms,kme                    &
                    ,its,ite, jts,jte, kts,kte                    &
@@ -4067,7 +4067,7 @@ CONTAINS
                     smstav     ,smstot                &
                    ,znt        ,snowc      ,qsfc       ,snow        ,snowh &
                    ,canwat     ,acsnom     ,acsnow,   emiss, z0   &
-                   ,acsfcrunoff,acudrunoff ,acsnowfall, acsnowmelt   ! cenlin_clm: add accumulated runoff output
+                   ,acsfcrunoff,acudrunoff,acsnowfall,acsnowmelt,actotrunoff,acgwlrunoff   ! cenlin_clm: add accumulated runoff output
 
   real,dimension(ims:ime,jms:jme ),intent(in) ::&
                  vegfra, tmn,shdmin,shdmax
@@ -4260,6 +4260,8 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
   real :: qfx(ims:ime,jms:jme)   ! kg/(sm^2) =>mm/s       
   real :: qsfxy(ims:ime,jms:jme) 
   real :: qdnxy(ims:ime,jms:jme) 
+  real :: qtotxy(ims:ime,jms:jme)
+  real :: qgwlxy(ims:ime,jms:jme)
 
   real(r8) :: alswvisdir_buf,alswvisdif_buf,alswnirdir_buf,alswnirdif_buf
   real(r8) :: swvisdir_buf,swvisdif_buf,swnirdir_buf,swnirdif_buf
@@ -4270,6 +4272,8 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
   real(r8) :: lhxy_buf
   real(r8) :: qsfxy_buf
   real(r8) :: qdnxy_buf
+  real(r8) :: qgwlxy_buf ! cenlin_clm
+  real(r8) :: qtotxy_buf 
   real(r8) :: soiflx_buf
   real(r8) :: sabv_buf
   real(r8) :: sabg_buf
@@ -4653,6 +4657,8 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
     if(lndmsk == 1) then
       qsfxy_buf       = qsfxy(i,j)
       qdnxy_buf       = qdnxy(i,j)
+      qtotxy_buf      = qtotxy(i,j)
+      qgwlxy_buf      = qgwlxy(i,j) ! cenlin_clm
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
       xlon_buf       = xlong(i,j) + 360.0
@@ -5117,6 +5123,7 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
                   ,calday              ,myr1                   ,mon1            &
                   ,mday1               ,msec1                  ,calday1         &
                   ,mbdate              ,qsfxy_buf              ,qdnxy_buf       &
+                  ,qtotxy_buf          ,qgwlxy_buf                              & ! cenlin_clm
                   ,snl1(i,:,j)          ,snowdp_buf            ,snw_rds_buf     & 
                   ,dzclm               ,zclm                   ,ziclm           &
                   ,h2osno_buf          ,h2osoi_liq_buf         ,h2osoi_ice_buf  &
@@ -5226,6 +5233,8 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
                   tsxy(i,j)           = tsxy_buf
                   qsfxy(i,j)          = qsfxy_buf
                   qdnxy(i,j)          = qdnxy_buf
+                  qtotxy(i,j)         = qtotxy_buf  ! cenlin_clm
+                  qgwlxy(i,j)         = qgwlxy_buf
                   soiflx(i,j)         = soiflx_buf
                   sabv(i,j)           = sabv_buf
                   sabg(i,j)           = sabg_buf
@@ -5243,7 +5252,9 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
                   acsnowfall(i,j) = acsnowfall(i,j) + snowxy_buf
                   acsnowmelt(i,j) = acsnowmelt(i,j) + snomxy_buf 
                   acsfcrunoff(i,j) = acsfcrunoff(i,j) + qsfxy(i,j)
-                  acudrunoff(i,j)  = acudrunoff(i,j) + qdnxy(i,j)
+                  acudrunoff(i,j)  = acudrunoff(i,j)  + qdnxy(i,j)
+                  acgwlrunoff(i,j) = acgwlrunoff(i,j) + qgwlxy(i,j)  ! cenlin_clm
+                  actotrunoff(i,j) = actotrunoff(i,j) + qtotxy(i,j)
 ! cenlin_clm end
 
 !Accumulate T2 MAX/MIN between history interval --Yaqiong Lu
@@ -5965,7 +5976,7 @@ real,  dimension(ims:ime,jms:jme),intent(inout) ::  &
 end subroutine clmdrv
 !------------------------------------------------------------------------
   subroutine clminit(VEGFRA,SNOW,SNOWC,SNOWH,CANWAT,SMSTAV,        &
-                     SMSTOT, SFCRUNOFF,UDRUNOFF,ACSNOW,            &
+                     SMSTOT, SFCRUNOFF,UDRUNOFF,totrunoff,gwlrunoff,ACSNOW,  & ! cenlin_clm
                      ACSNOM,IVGTYP,ISLTYP,TSLB,SMOIS,SH2O,ZS,DZS,  &
                      FNDSOILW, FNDSNOWH,                           &
                      num_soil_layers, restart,                     &
@@ -6083,7 +6094,9 @@ end subroutine clmdrv
                                                       UDRUNOFF, &
                                                         ACSNOW, &
                                                         VEGFRA, &
-                                                        ACSNOM
+                                                        ACSNOM, & 
+                                                     totrunoff, & ! cenlin_clm
+                                                     gwlrunoff
 
    REAL,  DIMENSION( ims:ime, jms:jme ), INTENT(IN) :: HT
    INTEGER, DIMENSION( ims:ime, jms:jme )                     , &
@@ -6550,6 +6563,8 @@ END IF
               h2ocan_col(i,:,j) = 0.0
               sfcrunoff(i,j) = 0.0 
               udrunoff(i,j) = 0.0
+              totrunoff(i,j) = 0.0  ! cenlin_clm
+              gwlrunoff(i,j) = 0.0
           end do
        end do
 !------------------------------------------------------------------------------
@@ -58989,6 +59004,7 @@ end module initializeMod
                   ,cxday           ,yr1                ,mnp1          &
                   ,dyp1            ,nsec1              ,cxday1        &
                   ,mbdate          ,qsfxy              ,qdnxy         &
+                  ,qtotxy          ,qgwlxy                            & ! cenlin_clm
                   ,snl             ,snowdp             ,snw_rdsxy     &
                   ,dzclm           ,zclm               ,ziclm         &
                   ,h2osno          ,h2osoi_liq         ,h2osoi_ice    &
@@ -59307,6 +59323,8 @@ end module initializeMod
   real(r8)  :: lwupxy
   real(r8)  :: qsfxy
   real(r8)  :: qdnxy
+  real(r8)  :: qtotxy  ! cenlin_clm
+  real(r8)  :: qgwlxy
   real(r8)  :: soiflx
   real(r8)  :: sabv
   real(r8)  :: sabg
@@ -59862,9 +59880,13 @@ end module initializeMod
     snomxy  = 0._r8 ! cenlin_clm
     qsfxy  = 0._r8
     qdnxy  = 0._r8
+    qgwlxy = 0._r8 ! cenlin_clm
+    qtotxy = 0._r8
     do c = begc,endc
        qsfxy = qsfxy + clm3%g%l%c%cwf%qflx_surf(c)*wtc(c)*dtime
        qdnxy = qdnxy + clm3%g%l%c%cwf%qflx_drain(c)*wtc(c)*dtime
+       qgwlxy = qgwlxy + clm3%g%l%c%cwf%qflx_qrgwl(c)*wtc(c)*dtime   ! cenlin_clm
+       qtotxy = qtotxy + clm3%g%l%c%cwf%qflx_runoff(c)*wtc(c)*dtime
        snomxy = snomxy + clm3%g%l%c%cwf%qflx_snomelt(c)*wtc(c)*dtime ! cenlin_clm: mm/s -> mm
     end do
 !-------------------------------------------------------------------------

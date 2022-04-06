@@ -308,6 +308,8 @@
 ! acsnow, and acrunoff are run-total
             grid%acrunoff   (i,j) = 0.
             grid%acsnow     (i,j) = 0.
+            grid%totrunoff(i,j) = 0.
+            grid%gwlrunoff(i,j) = 0.
        ENDDO
        ENDDO
     endif
@@ -1116,7 +1118,7 @@ endif
                       grid%apr_gr,grid%apr_w,grid%apr_mc,grid%apr_st,grid%apr_as,      &
                       grid%apr_capma,grid%apr_capme,grid%apr_capmi,          &
                       grid%xice,grid%xicem,grid%vegfra,grid%snow,grid%canwat,grid%smstav,         &
-                      grid%smstot, grid%sfcrunoff,grid%udrunoff,grid%grdflx,grid%acsnow,      &
+                      grid%smstot, grid%sfcrunoff,grid%udrunoff,grid%totrunoff,grid%gwlrunoff,grid%grdflx,grid%acsnow,      & ! cenlin_clm
                       grid%acsnom,grid%ivgtyp,grid%isltyp, grid%sfcevp,grid%smois,     &
                       grid%sh2o, grid%snowh, grid%smfr3d,                    &
                       grid%snoalb,                 &

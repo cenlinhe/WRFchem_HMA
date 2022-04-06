@@ -522,6 +522,8 @@ BENCH_START(surf_driver_tim)
      &        ,SFCRUNOFF=grid%sfcrunoff,ACRUNOFF=grid%ACRUNOFF                           &
      &        ,ACSFCRUNOFF=grid%ACSFCRUNOFF,ACUDRUNOFF=grid%ACUDRUNOFF                   & ! cenlin_clm
      &        ,ACSNOWFALL=grid%ACSNOWFALL, ACSNOWMELT=grid%ACSNOWMELT                    & ! cenlin_clm
+     &        ,actotrunoff=grid%actotrunoff, acgwlrunoff=grid%acgwlrunoff                & ! cenlin_clm
+     &        ,totrunoff=grid%totrunoff, gwlrunoff=grid%gwlrunoff                        & ! cenlin_clm
      &        ,opt_thcnd=config_flags%opt_thcnd                                          &
      &        ,SF_SFCLAY_PHYSICS=config_flags%sf_sfclay_physics                        &
      &        ,SF_SURFACE_PHYSICS=config_flags%sf_surface_physics  ,SH2O=grid%sh2o          &

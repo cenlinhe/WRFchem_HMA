@@ -183,6 +183,18 @@ subroutine plumerise_driver (id,ktau,dtstep,                           &
 ! cenlin_brc only for primary brc (brc1)
              ebu(its:ite,kts,j,p_ebu_brc) = ebu_in(its:ite,1,j,p_ebu_in_brc)
 ! cenlin_brc_end
+! fire_tracer cenlin
+             ebu(its:ite,kts,j,p_ebu_bcar1) = ebu_in(its:ite,1,j,p_ebu_in_bcar1)
+             ebu(its:ite,kts,j,p_ebu_bcar2) = ebu_in(its:ite,1,j,p_ebu_in_bcar2)
+             ebu(its:ite,kts,j,p_ebu_bcar3) = ebu_in(its:ite,1,j,p_ebu_in_bcar3)
+             ebu(its:ite,kts,j,p_ebu_bcar4) = ebu_in(its:ite,1,j,p_ebu_in_bcar4)
+             ebu(its:ite,kts,j,p_ebu_bcar5) = ebu_in(its:ite,1,j,p_ebu_in_bcar5)
+             ebu(its:ite,kts,j,p_ebu_bcar6) = ebu_in(its:ite,1,j,p_ebu_in_bcar6)
+             ebu(its:ite,kts,j,p_ebu_bcar7) = ebu_in(its:ite,1,j,p_ebu_in_bcar7)
+             ebu(its:ite,kts,j,p_ebu_bcar8) = ebu_in(its:ite,1,j,p_ebu_in_bcar8)
+             ebu(its:ite,kts,j,p_ebu_bcar9) = ebu_in(its:ite,1,j,p_ebu_in_bcar9)
+             ebu(its:ite,kts,j,p_ebu_bcar10) = ebu_in(its:ite,1,j,p_ebu_in_bcar10)
+! end cenlin
            enddo
          endif
        elseif ( config_flags%biomass_burn_opt == BIOMASSB_GHG ) then
@@ -347,6 +359,18 @@ is_mozcart : &
 ! cenlin_brc
                     ebu(i,k,j,p_ebu_brc)  = ebu(i,k,j,p_ebu_brc)*ratio
 ! cenlin_brc_end
+! fire_tracer cenlin
+                    ebu(i,k,j,p_ebu_bcar1)  = ebu(i,k,j,p_ebu_bcar1)*ratio
+                    ebu(i,k,j,p_ebu_bcar2)  = ebu(i,k,j,p_ebu_bcar2)*ratio
+                    ebu(i,k,j,p_ebu_bcar3)  = ebu(i,k,j,p_ebu_bcar3)*ratio
+                    ebu(i,k,j,p_ebu_bcar4)  = ebu(i,k,j,p_ebu_bcar4)*ratio
+                    ebu(i,k,j,p_ebu_bcar5)  = ebu(i,k,j,p_ebu_bcar5)*ratio
+                    ebu(i,k,j,p_ebu_bcar6)  = ebu(i,k,j,p_ebu_bcar6)*ratio
+                    ebu(i,k,j,p_ebu_bcar7)  = ebu(i,k,j,p_ebu_bcar7)*ratio
+                    ebu(i,k,j,p_ebu_bcar8)  = ebu(i,k,j,p_ebu_bcar8)*ratio
+                    ebu(i,k,j,p_ebu_bcar9)  = ebu(i,k,j,p_ebu_bcar9)*ratio
+                    ebu(i,k,j,p_ebu_bcar10) = ebu(i,k,j,p_ebu_bcar10)*ratio
+! end cenlin
                   end do
                 endif
 

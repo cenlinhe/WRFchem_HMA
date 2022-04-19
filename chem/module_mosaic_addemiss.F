@@ -699,6 +699,17 @@ real, save :: fr8b_bburn_mosaic(8) = &
   aem_num = 0.
   aem_brc1 = 0. ! cenlin_brc
   aem_bc_bb = 0. ! cenlin_BC_trac
+! fire_tracer cenlin
+  aem_bc_ar10 = 0.
+  aem_bc_ar9 = 0.
+  aem_bc_ar8 = 0.
+  aem_bc_ar7 = 0.
+  aem_bc_ar1 = 0.
+  aem_bc_ar2 = 0.
+  aem_bc_ar3 = 0.
+  aem_bc_ar4 = 0.
+  aem_bc_ar5 = 0.
+  aem_bc_ar6 = 0.
 
  fire_select:  SELECT CASE(config_flags%biomass_burn_opt)
    CASE (BIOMASSB,BIOMASSB_MOZC) 
@@ -729,6 +740,18 @@ size_loop: &
 ! cenlin_BC_trac start
                 aem_bc_bb = bburn_mosaic_f(n)*ebu(i,k,j,p_ebu_bc)
 ! cenlin_BC_trac end
+! cenlin fire_tracer
+                aem_bc_ar1 = bburn_mosaic_f(n)*ebu(i,k,j,p_ebu_bcar1)
+                aem_bc_ar2 = bburn_mosaic_f(n)*ebu(i,k,j,p_ebu_bcar2)
+                aem_bc_ar3 = bburn_mosaic_f(n)*ebu(i,k,j,p_ebu_bcar3)
+                aem_bc_ar4 = bburn_mosaic_f(n)*ebu(i,k,j,p_ebu_bcar4)
+                aem_bc_ar5 = bburn_mosaic_f(n)*ebu(i,k,j,p_ebu_bcar5)
+                aem_bc_ar6 = bburn_mosaic_f(n)*ebu(i,k,j,p_ebu_bcar6)
+                aem_bc_ar7 = bburn_mosaic_f(n)*ebu(i,k,j,p_ebu_bcar7)
+                aem_bc_ar8 = bburn_mosaic_f(n)*ebu(i,k,j,p_ebu_bcar8)
+                aem_bc_ar9 = bburn_mosaic_f(n)*ebu(i,k,j,p_ebu_bcar9)
+                aem_bc_ar10 = bburn_mosaic_f(n)*ebu(i,k,j,p_ebu_bcar10)
+! cenlin end
 
          chem_select_3 : SELECT CASE( config_flags%chem_opt )
             CASE(SAPRC99_MOSAIC_4BIN_VBS2_KPP) ! Set the oc to zero for VBS
@@ -802,6 +825,38 @@ size_loop: &
                 l = lptr_brc1_aer(n,itype,iphase)
                 if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_brc1*fact
 ! cenlin_brc end
+! cenlin fire_tracer
+                l = lptr_bc_ar1_aer(n,itype,iphase)
+                if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar1*fact
+
+                l = lptr_bc_ar2_aer(n,itype,iphase)
+                if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar2*fact
+
+                l = lptr_bc_ar3_aer(n,itype,iphase)
+                if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar3*fact
+
+                l = lptr_bc_ar4_aer(n,itype,iphase)
+                if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar4*fact
+
+                l = lptr_bc_ar5_aer(n,itype,iphase)
+                if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar5*fact
+
+                l = lptr_bc_ar6_aer(n,itype,iphase)
+                if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar6*fact
+
+                l = lptr_bc_ar7_aer(n,itype,iphase)
+                if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar7*fact
+
+                l = lptr_bc_ar8_aer(n,itype,iphase)
+                if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar8*fact
+
+                l = lptr_bc_ar9_aer(n,itype,iphase)
+                if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar9*fact
+
+                l = lptr_bc_ar10_aer(n,itype,iphase)
+                if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_bc_ar10*fact
+! cenlin end
+
 		l = numptr_aer(n,itype,iphase)
 		if (l >= p1st) chem(i,k,j,l) = chem(i,k,j,l) + aem_num*fact
 

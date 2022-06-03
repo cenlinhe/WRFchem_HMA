@@ -2,9 +2,9 @@
 
 state   integer NUMC           ij       misc      1          Z     rd=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)           "NUMC"     "NUMBER OF COLUMN SUBGRIDS"   " "
 state   integer NUMP           ij       misc      1          Z     rd=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)           "NUMP"     "NUMBER OF PFT SUBGRIDS"   " "
-state   real    SABV           ij       misc      1          Z     h3                                                           "SABV"     "NET VEGETATION SOLAR RADIATION" "W m-2"
-state   real    SABG           ij       misc      1          Z     h3                                                           "SABG"     "NET SOIL SOLAR RADIATION"       "W m-2"
-state   real    LWUP           ij       misc      1          Z     h3                                                           "LWUP"     "OUTGOING LONGWAVE RADIATION"    "W m-2"
+state   real    SABV           ij       misc      1          Z    rh3                                                           "SABV"     "NET VEGETATION SOLAR RADIATION" "W m-2"
+state   real    SABG           ij       misc      1          Z    rh3                                                           "SABG"     "NET SOIL SOLAR RADIATION"       "W m-2"
+state   real    LWUP           ij       misc      1          Z    rh3                                                           "LWUP"     "OUTGOING LONGWAVE RADIATION"    "W m-2"
 state  real     LHSOI          i4j      misc      1          Z     r                                                           "LHSOI"           "LH from soil"              "W/m^2"
 state  real     LHVEG          i4j      misc      1          Z     r                                                           "LHVEG"           "LH from vegetation"        "W/m^2"
 state  real     LHTRAN         i4j      misc      1          Z     r                                                           "LHTRAN"          "LH from transpiration"     "W/m^2"

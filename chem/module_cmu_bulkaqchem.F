@@ -417,7 +417,13 @@
       aerosol(nahso5) = yaq(12)		! hso5 (aq) in ug/m3
       aerosol(nahmsa) = yaq(13)		! hmsa (aq) in ug/m3
 
-!
+! rkumar_start
+      if (aerosol(na4) .gt. (gas(ngso2)*fso2 + sulfateold) ) then
+       write(*,*)'Potential error in aq sulf prod. Restore mass balance'
+       aerosol(na4) = max( (sulfateold + (yaq(3) - gas(ngso2)*fso2) ), 1.e-12) 
+      endif    
+! rkumar_end 
+
 !     check if the algorithm resulted in negative concentrations
 !     report the corrections at the warning file
 !
@@ -601,6 +607,7 @@
 !
       do i=1, meqn1
           if (y(i) .lt. 0.0) y(i) = 1.e-20
+!          if (y(i) .gt. 100.0) y(i) = 100.
       enddo
 !
       return

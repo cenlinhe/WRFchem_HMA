@@ -586,9 +586,9 @@ include 'netcdf.inc'
           !----------------------------------------------------------      
        end if
 
-!      if ( tropo_lev(i,j) == NOTFOUND ) then
-!         write (*,*) 'tropopause_twmo: NOTFOUND at id, i, j = ', id, i, j
-!      end if
+      if ( tropo_lev(i,j) == NOTFOUND ) then
+         write (*,*) 'tropopause_twmo: NOTFOUND at id, i, j = ', id, i, j
+      end if
 
     end do
     end do
